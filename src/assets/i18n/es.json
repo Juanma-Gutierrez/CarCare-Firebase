@@ -1,0 +1,108 @@
+{
+    "toolbar": {
+        "user-item": {
+            "closeSession": "Cerrar sesión"
+        },
+        "home": "Inicio",
+        "vehicles": "Vehículos",
+        "providers": "Proveedores",
+        "aboutMe": "Sobre mí"
+    },
+    "home": {
+        "vehicles": "Vehículos",
+        "availables": "Disponibles",
+        "all": "Todos",
+        "spents": "Gastos",
+        "totalAmount": "Total gastado",
+        "numSpents": "Nº de gastos",
+        "newVehicle": "Nuevo vehículo",
+        "vehicleForm": {
+            "newVehicle": "Nuevo vehículo",
+            "editVehicle": "Editar vehículo",
+            "plate": "Matrícula",
+            "brand": "Marca",
+            "model": "Modelo",
+            "categoryTitle": "Categoría",
+            "category": {
+                "selectCategory": "Selecciona categoría",
+                "car": "Coche",
+                "motorcycle": "Motocicleta",
+                "van": "Furgoneta",
+                "truck": "Camión"
+            },
+            "available": "Vehículo disponible",
+            "registrationDate": "Fecha de matriculación"
+        },
+        "spentForm": {
+            "newSpent": "Nuevo gasto",
+            "editSpent": "Editar gasto",
+            "providerTitle": "Selecciona proveedor",
+            "provider": {
+                "selectProvider": "Selecciona proveedor"
+            },
+            "amount": "Importe",
+            "observations": "Observaciones",
+            "spentDate": "Fecha del gasto"
+        }
+    },
+    "vehicles": {
+        "vehiclesList": "Listado de vehículos",
+        "vehicleItem": {
+            "available": "Vehículo disponible",
+            "notAvailable": "Vehículo no disponible",
+            "registrationDate": "Fecha de registro"
+        }
+    },
+    "providers": {
+        "providersList": "Listado de proveedores",
+        "providerForm": {
+            "newProvider": "Nuevo proveedor",
+            "editProvider": "Editar proveedor",
+            "name": "Nombre",
+            "phone": "Teléfono",
+            "categoryTitle": "Categoría",
+            "category": {
+                "selectProvider": "Selecciona proveedor",
+                "workshop": "Taller",
+                "gasStation": "Gasolinera",
+                "insuranceCompany": "Aseguradora",
+                "ITV": "ITV",
+                "towTruck": "Grúa",
+                "other": "Otros"
+            }
+        }
+    },
+    "aboutMe": {
+        "author": "Autor: Juan Manuel Gutiérrez Mellado",
+        "position": "Frontend Developer Jr.",
+        "info": "Desarrollador de aplicaciones multiplataforma y de aplicaciones web. Estudios de HTML, CSS,        JavasCript, Java, MySQL. Conocimientos C, Python, PHP, Kotlin y de las plataformas AWS y Docker.",
+        "backButton": "Volver"
+    },
+    "ui": {
+        "create": "Crear",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "backButton": "Volver",
+        "intro": "Entrar",
+        "register": "Entrar"
+    },
+    "welcome": {
+        "loading": "Repostando combustible"
+    },
+    "login": {
+        "login":"Login",
+        "notRegistered": "No estoy registrado",
+        "userName": "Nombre de usuario / Email",
+        "password": "Contraseña"
+    },
+    "register": {
+        "register":"Registro",
+        "initSession": "Iniciar sesión",
+        "name": "Nombre",
+        "surname": "Apellidos",
+        "userName": "Nombre de usuario",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "confirm": "Repita la contraseña"
+    }
+}

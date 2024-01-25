@@ -1,0 +1,31 @@
+img {
+    width: 10vw;
+    min-width: 100px;
+}
+
+ion-card {
+    background-color: rgb(210, 210, 231);
+    width: 30vw;
+    min-width: 300px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fully {
+    height: 100vh;
+}
+
+.fullx {
+    width: 100vw;
+}
+
+@media (max-width: 767px) {
+    .fully {
+        height: 70vh;
+    }
+
+}

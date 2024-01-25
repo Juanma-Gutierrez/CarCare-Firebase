@@ -1,0 +1,47 @@
+@media (max-width: 767px) {
+    ion-input {
+        margin: 5px;
+    }
+}
+
+
+
+ion-input,
+div {
+    margin: 10px;
+}
+
+.date-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.ion-padding {
+    height: 100%;
+}
+
+.form-component {
+    margin-inline: 10px;
+    height: 60vh;
+}
+
+.button-bottom {
+    --height: 50px !important;
+}
+
+@media (max-width: 767px) {
+    .form-component {
+        height: 80vh;
+    }
+
+    .ion-padding {
+        height: 100%;
+    }
+
+    .button-bottom {
+        --height: 50px !important;
+    }
+}
+

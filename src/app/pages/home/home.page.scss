@@ -1,0 +1,57 @@
+img {
+    width: 75px;
+}
+
+.scrollable {
+    overflow: scroll;
+}
+
+app-spent-item {
+    width: 100%;
+}
+
+.vehicleasdFab {
+    position: fixed;
+    top: 100px;
+    z-index: 100;
+}
+
+.spentFab {
+    position: fixed;
+    top: 25px;
+    z-index: 100;
+    right: 35px;
+}
+
+.mobile-mode {
+    display: none;
+}
+
+.computer-mode {
+    display: block;
+}
+
+@media (max-width:757px) {
+    ion-card-title {
+        font-size: 1.1rem;
+    }
+
+    .mobile-mode {
+        display: block;
+    }
+
+    .computer-mode {
+        display: none;
+    }
+
+    .padding {
+        padding: 0px 30px;
+    }
+
+    .spentFab {
+        position: fixed;
+        top: 500px;
+        z-index: 100;
+        right: 20px;
+    }
+}

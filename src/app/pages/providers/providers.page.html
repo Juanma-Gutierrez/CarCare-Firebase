@@ -1,0 +1,15 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>{{"providers.providersList" | translate}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list div class="card-list">
+            <app-provider-item *ngFor="let provider of (providersSvc.providers$ | async)?.data" [provider]="provider"
+                (onEditProviderClicked)="onEditProviderClicked(provider)">
+            </app-provider-item>
+        </ion-list>
+    </ion-card-content>
+</ion-card>
+<ion-fab-button class="providerFab" aria-label="New provider" (click)="onNewProvider()">
+    <ion-icon name="add-outline"></ion-icon>
+</ion-fab-button>

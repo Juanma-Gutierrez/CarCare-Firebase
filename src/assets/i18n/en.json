@@ -1,0 +1,108 @@
+{
+    "toolbar": {
+        "user-item": {
+            "closeSession": "Close session"
+        },
+        "home": "Home",
+        "vehicles": "Vehicles",
+        "providers": "Providers",
+        "aboutMe": "About me"
+    },
+    "home": {
+        "vehicles": "Vehicles",
+        "availables": "Availables",
+        "all": "All",
+        "spents": "Spents",
+        "totalAmount": "Total spents",
+        "numSpents": "Nº spents",
+        "newVehicle": "New vehicle",
+        "vehicleForm": {
+            "newVehicle": "New vehicle",
+            "editVehicle": "Edit vehicle",
+            "plate": "Plate",
+            "brand": "Brand",
+            "model": "Model",
+            "categoryTitle": "Category",
+            "category": {
+                "selectCategory": "Select category",
+                "car": "Car",
+                "motorcycle": "Motorcycle",
+                "van": "Van",
+                "truck": "Truck"
+            },
+            "available": "Vehicle available",
+            "registrationDate": "Registration date"
+        },
+        "spentForm": {
+            "newSpent": "New spent",
+            "editSpent": "Edit spent",
+            "providerTitle": "Select provider",
+            "provider": {
+                "selectProvider": "Select provider",
+                "cancel": "Cancel"
+            },
+            "amount": "Amount",
+            "observations": "Observations",
+            "spentDate": "Spent date"
+        }
+    },
+    "vehicles": {
+        "vehiclesList": "Vehicles list",
+        "vehicleItem": {
+            "available": "Vehicle available",
+            "notAvailable": "Vehicle not available",
+            "registrationDate": "Registration date"
+        }
+    },
+    "providers": {
+        "providersList": "Providers list",
+        "providerForm": {
+            "newProvider": "New provider",
+            "editProvider": "Edit provider",
+            "name": "Name",
+            "phone": "Phone",
+            "categoryTitle": "Category",
+            "category": {
+                "selectProvider": "Select provider",
+                "workshop": "Workshop",
+                "gasStation": "Gas station",
+                "insuranceCompany": "Insurance company",
+                "ITV": "ITV",
+                "towTruck": "Tow truck",
+                "other": "Others"
+            }
+        }
+    },
+    "aboutMe": {
+        "author": "Author: Juan Manuel Gutiérrez Mellado",
+        "position": "Frontend Developer Jr.",
+        "info": "Multi-platform application and web application developer. Studies of HTML, CSS, Javascript, Java, MySQL. Knowledge of C, Python, PHP, Kotlin and AWS and Docker platforms."
+    },
+    "ui": {
+        "create": "Create",
+        "save": "Save",
+        "cancel": "Cancel",
+        "backButton": "Back",
+        "intro": "Enter",
+        "register": "Login"
+    },
+    "welcome": {
+        "loading": "Loading fuel"
+    },
+    "login": {
+        "login":"Login",
+        "notRegistered": "I'm not registered",
+        "userName": "Username / Email",
+        "password": "Password"
+    },
+    "register": {
+        "register":"Register",
+        "initSession": "Login",
+        "name": "Name",
+        "surname": "Surname",
+        "userName": "Username",
+        "email": "Email",
+        "password": "Password",
+        "confirm": "Confirm password"
+    }
+}

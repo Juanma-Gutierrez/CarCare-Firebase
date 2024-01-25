@@ -1,0 +1,68 @@
+<div class="form-component">
+
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-button color="primary" fill="clear" (click)="onCancel()">
+                    <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title *ngIf="mode==='New'">
+                {{"home.vehicleForm.newVehicle" | translate}}
+            </ion-title>
+            <ion-title *ngIf="mode=== 'Edit'">
+                {{"home.vehicleForm.editVehicle" | translate}}
+            </ion-title>
+            <ion-buttons slot="end">
+                <ion-button *ngIf="mode==='Edit'" color="primary" fill="clear" (click)="onDelete()">
+                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding" size="small">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+            <ion-list>
+                <ion-input label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="brand" type="text"></ion-input>
+                <ion-input label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="model" type="text"></ion-input>
+                <ion-input label="{{'home.vehicleForm.plate' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="plate" type="text"></ion-input>
+                <div>
+                    <ion-select label="{{'home.vehicleForm.categoryTitle' | translate}}" formControlName="category"
+                        placeholder="S{{'home.vehicleForm.category.selectCategory' | translate}}">
+                        <ion-select-option value="car">{{"home.vehicleForm.category.car" |
+                            translate}}</ion-select-option>
+                        <ion-select-option value="motorcycle">{{"home.vehicleForm.category.motorcycle" |
+                            translate}}</ion-select-option>
+                        <ion-select-option value="van">{{"home.vehicleForm.category.van" |
+                            translate}}</ion-select-option>
+                        <ion-select-option value="truck">{{"home.vehicleForm.category.truck" |
+                            translate}}</ion-select-option>
+                    </ion-select>
+                </div>
+                <div>
+                    <ion-checkbox labelPlacement="end" formControlName="available"
+                        checked="true">{{'home.vehicleForm.available' | translate}}</ion-checkbox>
+                </div>
+                <div class="date-block">
+                    <div>
+                        {{'home.vehicleForm.registrationDate' | translate}}
+                        <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="vehicle?.registrationDate"
+                            formControlName="registrationDate"></ion-datetime>
+                    </div>
+                </div>
+            </ion-list>
+        </form>
+    </ion-content>
+    <div>
+        <ion-button *ngIf="mode==='New'" buttonDirective class="button-bottom" type="submit"
+            [disabled]="!form.dirty || form.invalid" class="ion-padding" expand="full"
+            (click)="onSubmit()">{{'ui.create' | translate}}</ion-button>
+        <ion-button *ngIf="mode==='Edit'" buttonDirective class="button-bottom" type="submit"
+            [disabled]="!form.dirty || form.invalid" class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.save'
+            | translate}}</ion-button>
+    </div>
+</div>

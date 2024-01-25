@@ -1,0 +1,16 @@
+<ion-card appSelectableCard [ngClass]="{'retired': vehicle?.available===false}" button
+    (click)="onVehicleItemClick($event)">
+    <ion-row class="ion-align-items-center vehiclesItem">
+        <ion-col>
+            <ion-card-header>
+                <ion-card-title>{{vehicle?.brand | upperCamelCase}} {{vehicle?.model | upperCamelCase}}</ion-card-title>
+                <ion-card-subtitle>{{ vehicle?.plate | uppercase}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-col>
+        <ion-col class="ion-text-end">
+            <ion-button fill="clear" id="editVehicle" (click)="onEditVehicleClick($event)">
+                <ion-icon name="create-outline" size="large"></ion-icon>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-card>

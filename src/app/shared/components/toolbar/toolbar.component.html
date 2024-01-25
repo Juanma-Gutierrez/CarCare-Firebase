@@ -1,0 +1,65 @@
+<div class="mobile-mode">
+    <ion-menu contentId="main-content">
+        <ion-header>
+            <ion-toolbar>
+                <div class="in-line">
+                    <img class="logo" src="/assets/images/logo_carcare_transparent.png">
+                    <h4>Car Care app</h4>
+                </div>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+            <ion-content class="ion-padding">
+                <ion-row>
+                    <ion-segment value="es" (ionChange)="onLanguageChanged($event)">
+                        <ion-segment-button value="es">
+                            <ion-img class="flags" src="/assets/images/es_flag.png" />
+                        </ion-segment-button>
+                        <ion-segment-button value="en">
+                            <ion-img class="flags" src="/assets/images/en_flag.png" />
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-row>
+                <div *ngIf="(auth.isLogged$ | async)">
+                    <ion-menu-toggle class="button">
+                        <ion-item (click)="navToHome()" [ngClass]="{'active': selectedPage==='home'}">
+                            <ion-icon slot="start" name="home-outline"></ion-icon>
+                            {{"toolbar.home" | translate}}
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle class="button">
+                        <ion-item (click)="navToVehicles()" [ngClass]="{'active': selectedPage==='vehicles'}">
+                            <ion-icon slot="start" name="car-outline"></ion-icon>
+                            {{"toolbar.vehicles" | translate}}
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle class="button">
+                        <ion-item (click)="navToProviders()" [ngClass]="{'active': selectedPage==='providers'}">
+                            <ion-icon slot="start" name="build-outline"></ion-icon>
+                            {{"toolbar.providers" | translate}}
+                        </ion-item>
+                    </ion-menu-toggle>
+                </div>
+                <ion-menu-toggle class="button">
+                    <ion-item (click)="navToAbout()" [ngClass]="{'active': selectedPage==='aboutMe'}">
+                        <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+                        {{"toolbar.aboutMe" | translate}}
+                    </ion-item>
+                </ion-menu-toggle>
+                <ion-col class="ion-text-end" *ngIf="(auth.isLogged$ | async) && (auth.user$ | async)">
+                    <app-user-item (onLanguageChanged)="onLanguageChanged($event)" (logoutClicked)="logoutClicked()"
+                        [user]="user"></app-user-item>
+                </ion-col>
+            </ion-content>
+        </ion-content>
+    </ion-menu>
+    <div class="ion-page" id="main-content">
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+    </div>
+</div>

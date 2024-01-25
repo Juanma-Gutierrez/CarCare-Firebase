@@ -1,0 +1,139 @@
+<ion-content [fullscreen]="true" class="computer-mode">
+    <ion-grid [fixed]="true">
+        <ion-row>
+            <ion-col>
+                <div class="ion-text-center">
+                    <h2>{{"home.vehicles" | translate}}</h2>
+                </div>
+                <div>
+                    <ion-row>
+                        <ion-col size="2">
+                            <ion-fab-button class="vehicleFab" aria-label="New Vewhicle" (click)="onNewVehicle()">
+                                <ion-icon name="add-outline"></ion-icon>
+                            </ion-fab-button>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-segment value="available" color="primary" (ionChange)="selectionChanged($event)">
+                                <ion-segment-button value="available">
+                                    <ion-label>{{"home.availables" | translate}}</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button value="all">
+                                    <ion-label>{{"home.all" | translate}}</ion-label>
+                                </ion-segment-button>
+                            </ion-segment>
+                        </ion-col>
+                    </ion-row>
+                </div>
+                <div *ngFor="let vehicle of (vehiclesSvc.vehicles$ | async)?.data">
+                    <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailableVehicle"
+                        (onVehicleItemClicked)="onVehicleItemClicked(vehicle)"
+                        (onEditVehicleClicked)="onEditVehicleClicked(vehicle)">
+                    </app-vehicle>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="ion-text-center">
+                    <h2>{{"home.spents" | translate}}</h2>
+                </div>
+                <div>
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-row>
+                                <ion-col>
+                                    <ion-card-title>{{selectedVehicle?.brand | upperCamelCase}}
+                                        {{selectedVehicle?.model | upperCamelCase}}</ion-card-title>
+                                    <ion-card-title>{{"home.totalAmount" | translate}}: {{(spentsSvc.totalSpentsAmount$ |
+                                        async)
+                                        |numberFormat
+                                        }}</ion-card-title>
+                                    <ion-card-subtitle>{{"home.numSpents" | translate}}: {{spentsSvc.totalSpentsNumber$ |
+                                        async}}</ion-card-subtitle>
+                                </ion-col>
+                                <ion-col>
+                                    <div *ngIf="selectedVehicle?.id!==null">
+                                        <ion-fab-button class="spentFab" aria-label="New spent"
+                                            (click)="onNewSpent(selectedVehicle!!.id)">
+                                            <ion-icon name="add-outline"></ion-icon>
+                                        </ion-fab-button>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-list *ngFor="let spent of (spentsSvc.spents$ | async)?.data">
+                                <ion-item>
+                                    <app-spent-item [spent]="spent" (onEditSpentClicked)="onEditSpentClicked(spent)">
+                                    </app-spent-item>
+                                </ion-item>
+                            </ion-list>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+
+<ion-content [fullscreen]="true" class="mobile-mode">
+    <ion-row>
+        <div class="padding">
+            <ion-row>
+                <ion-col size="6">
+                    <h2>{{'home.vehicles'|translate}}</h2>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button aria-label="New vehicle" (click)="onNewVehicle()">{{"home.newVehicle" |
+                        translate}}</ion-button>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-row>
+    <div>
+        <ion-row>
+            <ion-segment value="available" color="primary" (ionChange)="selectionChanged($event)">
+                <ion-segment-button value="available">
+                    <ion-label>{{"home.availables" | translate}}</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="all">
+                    <ion-label>{{"home.all" | translate}}</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-row>
+    </div>
+    <div *ngFor="let vehicle of (vehiclesSvc.vehicles$ | async)?.data">
+        <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailableVehicle"
+            (onVehicleItemClicked)="onVehicleItemClicked(vehicle)"
+            (onEditVehicleClicked)="onEditVehicleClicked(vehicle)">
+        </app-vehicle>
+    </div>
+    <div class="padding">
+        <ion-row>
+            <ion-card-title>{{selectedVehicle?.brand | upperCamelCase}}
+                {{selectedVehicle?.model | upperCamelCase}}</ion-card-title>
+        </ion-row>
+        <ion-row>
+            <ion-card-title>{{"home.totalAmount" | translate}} {{(spentsSvc.totalSpentsAmount$ | async)
+                | numberFormat
+                }}</ion-card-title>
+        </ion-row>
+        <ion-row>
+            <ion-card-subtitle>{{"home.numSpents" | translate}} {{spentsSvc.totalSpentsNumber$ |
+                async}}</ion-card-subtitle>
+        </ion-row>
+    </div>
+
+    <ion-card-content>
+        <ion-list *ngFor="let spent of (spentsSvc.spents$ | async)?.data">
+            <ion-item>
+                <app-spent-item [spent]="spent" (onEditSpentClicked)="onEditSpentClicked(spent)">
+                </app-spent-item>
+            </ion-item>
+        </ion-list>
+    </ion-card-content>
+    <div *ngIf="selectedVehicle?.id!==null" class="spentFab">
+        <ion-fab-button aria-label="New spent" (click)="onNewSpent(selectedVehicle!!.id)">
+            <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+    </div>
+</ion-content>

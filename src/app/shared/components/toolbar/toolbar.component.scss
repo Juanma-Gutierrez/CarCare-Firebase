@@ -1,0 +1,30 @@
+.active {
+    --background: var(--ion-color-tertiary);
+    --color: white;
+}
+
+.center-v {
+    align-items: center;
+}
+
+.end-h {
+    justify-content: end;
+}
+
+img {
+    width: 60px;
+}
+
+.in-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flags {
+    width: 25px;
+}
+
+.button {
+    cursor: pointer;
+}

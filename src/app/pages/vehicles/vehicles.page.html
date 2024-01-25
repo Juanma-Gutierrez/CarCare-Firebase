@@ -1,0 +1,11 @@
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{"vehicles.vehiclesList" | translate}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="container">
+            <app-vehicle-item-list *ngFor="let vehicle of (vehiclesSvc.vehicles$ | async)?.data"
+                [vehicle]="vehicle"></app-vehicle-item-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

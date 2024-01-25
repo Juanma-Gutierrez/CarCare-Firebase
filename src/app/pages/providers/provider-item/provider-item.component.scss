@@ -1,0 +1,27 @@
+ion-card {
+    width: 300px;
+}
+
+.computer-mode {
+    display: block;
+}
+
+.mobile-mode {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .computer-mode {
+        display: none;
+    }
+
+    .mobile-mode {
+        display: block;
+    }
+
+    .edit-button {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+}

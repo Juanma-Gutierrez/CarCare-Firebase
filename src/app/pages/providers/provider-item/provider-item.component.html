@@ -1,0 +1,25 @@
+<ion-item itemDirective class="computer-mode">
+    <ion-label>{{provider?.name | upperCamelCase}}</ion-label>
+    <ion-label>{{categoryFormatted | upperCamelCase}}</ion-label>
+    <ion-label>{{provider?.phone}}</ion-label>
+    <ion-button fill="clear" id="editProvider" (click)="onEditProviderClick($event)">
+        <ion-icon name="create-outline" size="large"></ion-icon>
+    </ion-button>
+</ion-item>
+
+<ion-item itemDirective class="mobile-mode">
+    <ion-grid>
+        <ion-row>
+            <ion-label>{{provider?.name | upperCamelCase}}</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-label>{{categoryFormatted | upperCamelCase}}</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-label>{{provider?.phone}}</ion-label>
+        </ion-row>
+    </ion-grid>
+    <ion-button class="edit-button" fill="clear" id="editProvider" (click)="onEditProviderClick($event)">
+        <ion-icon name="create-outline" size="large"></ion-icon>
+    </ion-button>
+</ion-item>

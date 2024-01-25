@@ -1,0 +1,19 @@
+<ion-content [fullscreen]="true">
+    <div class="container fullx fully">
+        <ion-card>
+            <ion-card-header>
+                <div class="ion-text-center">
+                    <ion-text color="dark">
+                        <h1>{{'register.register' | translate}}</h1>
+                        <ion-text [routerLink]="['/login']" buttonDirective>
+                            {{'register.initSession' | translate}}
+                        </ion-text>
+                    </ion-text>
+                </div>
+            </ion-card-header>
+            <ion-card-content>
+                <app-register-form (onsubmit)="onRegisterFormSubmit($event)"></app-register-form>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

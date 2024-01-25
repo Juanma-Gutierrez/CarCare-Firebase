@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" fill="clear" (click)="onCancel()">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="mode==='New'">{{'providers.providerForm.newProvider' | translate}}</ion-title>
+        <ion-title *ngIf="mode==='Edit'">{{'providers.providerForm.editProvider' | translate}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button *ngIf="mode==='Edit'" color="primary" fill="clear" (click)="onDelete()">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" size="small">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+        <ion-list>
+            <ion-input label="{{'providers.providerForm.name' | translate}}" labelPlacement="floating" fill="outline"
+                formControlName="name" type="text" class="input">
+            </ion-input>
+            <ion-input label="{{'providers.providerForm.phone' | translate}}" labelPlacement="floating" fill="outline"
+                formControlName="phone" type="text" class="input">
+            </ion-input>
+            <ion-select cancelText="{{'ui.cancel' | translate}}"
+                label="{{'providers.providerForm.categoryTitle' | translate}}" formControlName="category" placeholder="{{'providers.providerForm.category.selectProvider' |
+                translate}}" class="input">
+                <ion-select-option value="workshop">{{'providers.providerForm.category.workshop' |
+                    translate}}</ion-select-option>
+                <ion-select-option value="gasStation">{{'providers.providerForm.category.gasStation' |
+                    translate}}</ion-select-option>
+                <ion-select-option value="insuranceCompany">{{'providers.providerForm.category.insuranceCompany' |
+                    translate}}</ion-select-option>
+                <ion-select-option value="ITV">{{'providers.providerForm.category.ITV' | translate}}</ion-select-option>
+                <ion-select-option value="towTruck">{{'providers.providerForm.category.towTruck' |
+                    translate}}</ion-select-option>
+                <ion-select-option value="other">{{'providers.providerForm.category.other' |
+                    translate}}</ion-select-option>
+            </ion-select>
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-button buttonDirective type="submit" [disabled]="!form.dirty" class="ion-padding" expand="full"
+        (click)="onSubmit()">{{(mode==='New'?'Crear':'Guardar')}}</ion-button>
+</ion-footer>

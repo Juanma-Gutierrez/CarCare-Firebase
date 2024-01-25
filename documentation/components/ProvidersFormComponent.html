@@ -1,0 +1,940 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>CarCare documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">CarCare documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ProvidersFormComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/providers/providers-form/providers-form.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-providers-form</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./providers-form.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./providers-form.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                <a href="#mode" >mode</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onCancel" >onCancel</a>
+                            </li>
+                            <li>
+                                <a href="#onDelete" >onDelete</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#provider" >provider</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#provider" >provider</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_modal: ModalController, formBuilder: FormBuilder, apiSvc: <a href="../injectables/ApiService.html" target="_self">ApiService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor del componente.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_modal</td>
+                                                  
+                                                        <td>
+                                                                    <code>ModalController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Controlador del modal para gestionar el estado del modal.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Instancia de FormBuilder para construir el formulario.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>apiSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ApiService.html" target="_self" >ApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Servicio para realizar operaciones generales de la API.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="provider"></a>
+                        <b>provider</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Provider.html" target="_self" >Provider | null</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:16</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCancel"></a>
+                    <span class="name">
+                        <span ><b>onCancel</b></span>
+                        <a href="#onCancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCancel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el evento de cancelación. Cierra el modal sin realizar cambios.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDelete"></a>
+                    <span class="name">
+                        <span ><b>onDelete</b></span>
+                        <a href="#onDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDelete()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento &#39;ok&#39;.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento &#39;ok&#39;.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mode"></a>
+                    <span class="name">
+                        <span ><b>mode</b></span>
+                        <a href="#mode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;New&quot; | &quot;Edit&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;New&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="provider"></a>
+                        <span class="name"><b>provider</b><a href="#provider"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>provider(_provider: <a href="../interfaces/Provider.html" target="_self">Provider | null</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/providers/providers-form/providers-form.component.ts:16</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>_provider</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="../interfaces/Provider.html" target="_self" >Provider | null</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiService } from &#x27;src/app/core/services/api/api.service&#x27;;
+import { Component, Input, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { ModalController } from &#x27;@ionic/angular&#x27;;
+import { Provider } from &#x27;src/app/core/interfaces/Provider&#x27;;
+
+@Component({
+    selector: &#x27;app-providers-form&#x27;,
+    templateUrl: &#x27;./providers-form.component.html&#x27;,
+    styleUrls: [&#x27;./providers-form.component.scss&#x27;],
+})
+export class ProvidersFormComponent implements OnInit {
+
+    form: FormGroup;
+    mode: &#x27;New&#x27; | &#x27;Edit&#x27; &#x3D; &#x27;New&#x27;;
+    @Input() set provider(_provider: Provider | null) {
+        if (_provider) {
+            this.mode &#x3D; &#x27;Edit&#x27;;
+            this.form.controls[&#x27;id&#x27;].setValue(_provider.id);
+            this.form.controls[&#x27;name&#x27;].setValue(_provider.name);
+            this.form.controls[&#x27;category&#x27;].setValue(_provider.category);
+            this.form.controls[&#x27;phone&#x27;].setValue(_provider.phone);
+            this.form.controls[&#x27;users_permissions_user&#x27;].setValue(_provider.users_permissions_user)
+        }
+    }
+
+    /**
+     * Constructor del componente.
+     * @constructor
+     * @param {ModalController} _modal - Controlador del modal para gestionar el estado del modal.
+     * @param {FormBuilder} formBuilder - Instancia de FormBuilder para construir el formulario.
+     * @param {ApiService} apiSvc - Servicio para realizar operaciones generales de la API.
+     */
+    constructor(
+        private _modal: ModalController,
+        private formBuilder: FormBuilder,
+        private apiSvc: ApiService,
+    ) {
+        var user &#x3D; apiSvc.getUser()
+        var userId &#x3D; user?.id
+        this.form &#x3D; this.formBuilder.group({
+            id: [null],
+            name: [&#x27;&#x27;, Validators.required],
+            category: [&#x27;&#x27;, Validators.required],
+            phone: [&#x27;&#x27;],
+            users_permissions_user: [userId]
+        })
+    }
+
+    ngOnInit() { }
+
+    /**
+     * Maneja el evento de cancelación. Cierra el modal sin realizar cambios.
+     * @method onCancel
+     * @return {void}
+     */
+    onCancel() {
+        this._modal.dismiss(null, &#x27;cancel&#x27;);
+    }
+
+    /**
+     * Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento &#x27;ok&#x27;.
+     * @method onSubmit
+     * @return {void}
+     */
+    onSubmit() {
+        this._modal.dismiss(this.form.value, &#x27;ok&#x27;);
+    }
+
+    /**
+     * Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento &#x27;ok&#x27;.
+     * @method onSubmit
+     * @return {void}
+     */
+    onDelete() {
+        this._modal.dismiss(this.form.value, &#x27;delete&#x27;);
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ion-header&gt;
+    &lt;ion-toolbar&gt;
+        &lt;ion-buttons slot&#x3D;&quot;start&quot;&gt;
+            &lt;ion-button color&#x3D;&quot;primary&quot; fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;onCancel()&quot;&gt;
+                &lt;ion-icon slot&#x3D;&quot;icon-only&quot; name&#x3D;&quot;arrow-back-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+        &lt;ion-title *ngIf&#x3D;&quot;mode&#x3D;&#x3D;&#x3D;&#x27;New&#x27;&quot;&gt;{{&#x27;providers.providerForm.newProvider&#x27; | translate}}&lt;/ion-title&gt;
+        &lt;ion-title *ngIf&#x3D;&quot;mode&#x3D;&#x3D;&#x3D;&#x27;Edit&#x27;&quot;&gt;{{&#x27;providers.providerForm.editProvider&#x27; | translate}}&lt;/ion-title&gt;
+        &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+            &lt;ion-button *ngIf&#x3D;&quot;mode&#x3D;&#x3D;&#x3D;&#x27;Edit&#x27;&quot; color&#x3D;&quot;primary&quot; fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;onDelete()&quot;&gt;
+                &lt;ion-icon slot&#x3D;&quot;icon-only&quot; name&#x3D;&quot;trash-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+    &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+&lt;ion-content class&#x3D;&quot;ion-padding&quot; size&#x3D;&quot;small&quot;&gt;
+    &lt;form [formGroup]&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot; (keyup.enter)&#x3D;&quot;onSubmit()&quot;&gt;
+        &lt;ion-list&gt;
+            &lt;ion-input label&#x3D;&quot;{{&#x27;providers.providerForm.name&#x27; | translate}}&quot; labelPlacement&#x3D;&quot;floating&quot; fill&#x3D;&quot;outline&quot;
+                formControlName&#x3D;&quot;name&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;input&quot;&gt;
+            &lt;/ion-input&gt;
+            &lt;ion-input label&#x3D;&quot;{{&#x27;providers.providerForm.phone&#x27; | translate}}&quot; labelPlacement&#x3D;&quot;floating&quot; fill&#x3D;&quot;outline&quot;
+                formControlName&#x3D;&quot;phone&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;input&quot;&gt;
+            &lt;/ion-input&gt;
+            &lt;ion-select cancelText&#x3D;&quot;{{&#x27;ui.cancel&#x27; | translate}}&quot;
+                label&#x3D;&quot;{{&#x27;providers.providerForm.categoryTitle&#x27; | translate}}&quot; formControlName&#x3D;&quot;category&quot; placeholder&#x3D;&quot;{{&#x27;providers.providerForm.category.selectProvider&#x27; |
+                translate}}&quot; class&#x3D;&quot;input&quot;&gt;
+                &lt;ion-select-option value&#x3D;&quot;workshop&quot;&gt;{{&#x27;providers.providerForm.category.workshop&#x27; |
+                    translate}}&lt;/ion-select-option&gt;
+                &lt;ion-select-option value&#x3D;&quot;gasStation&quot;&gt;{{&#x27;providers.providerForm.category.gasStation&#x27; |
+                    translate}}&lt;/ion-select-option&gt;
+                &lt;ion-select-option value&#x3D;&quot;insuranceCompany&quot;&gt;{{&#x27;providers.providerForm.category.insuranceCompany&#x27; |
+                    translate}}&lt;/ion-select-option&gt;
+                &lt;ion-select-option value&#x3D;&quot;ITV&quot;&gt;{{&#x27;providers.providerForm.category.ITV&#x27; | translate}}&lt;/ion-select-option&gt;
+                &lt;ion-select-option value&#x3D;&quot;towTruck&quot;&gt;{{&#x27;providers.providerForm.category.towTruck&#x27; |
+                    translate}}&lt;/ion-select-option&gt;
+                &lt;ion-select-option value&#x3D;&quot;other&quot;&gt;{{&#x27;providers.providerForm.category.other&#x27; |
+                    translate}}&lt;/ion-select-option&gt;
+            &lt;/ion-select&gt;
+        &lt;/ion-list&gt;
+    &lt;/form&gt;
+&lt;/ion-content&gt;
+&lt;ion-footer&gt;
+    &lt;ion-button buttonDirective type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;!form.dirty&quot; class&#x3D;&quot;ion-padding&quot; expand&#x3D;&quot;full&quot;
+        (click)&#x3D;&quot;onSubmit()&quot;&gt;{{(mode&#x3D;&#x3D;&#x3D;&#x27;New&#x27;?&#x27;Crear&#x27;:&#x27;Guardar&#x27;)}}&lt;/ion-button&gt;
+&lt;/ion-footer&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./providers-form.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.input{
+    margin: 10px 0px;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-header>    <ion-toolbar>        <ion-buttons slot="start">            <ion-button color="primary" fill="clear" (click)="onCancel()">                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>            </ion-button>        </ion-buttons>        <ion-title *ngIf="mode===\'New\'">{{\'providers.providerForm.newProvider\' | translate}}</ion-title>        <ion-title *ngIf="mode===\'Edit\'">{{\'providers.providerForm.editProvider\' | translate}}</ion-title>        <ion-buttons slot="end">            <ion-button *ngIf="mode===\'Edit\'" color="primary" fill="clear" (click)="onDelete()">                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>            </ion-button>        </ion-buttons>    </ion-toolbar></ion-header><ion-content class="ion-padding" size="small">    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">        <ion-list>            <ion-input label="{{\'providers.providerForm.name\' | translate}}" labelPlacement="floating" fill="outline"                formControlName="name" type="text" class="input">            </ion-input>            <ion-input label="{{\'providers.providerForm.phone\' | translate}}" labelPlacement="floating" fill="outline"                formControlName="phone" type="text" class="input">            </ion-input>            <ion-select cancelText="{{\'ui.cancel\' | translate}}"                label="{{\'providers.providerForm.categoryTitle\' | translate}}" formControlName="category" placeholder="{{\'providers.providerForm.category.selectProvider\' |                translate}}" class="input">                <ion-select-option value="workshop">{{\'providers.providerForm.category.workshop\' |                    translate}}</ion-select-option>                <ion-select-option value="gasStation">{{\'providers.providerForm.category.gasStation\' |                    translate}}</ion-select-option>                <ion-select-option value="insuranceCompany">{{\'providers.providerForm.category.insuranceCompany\' |                    translate}}</ion-select-option>                <ion-select-option value="ITV">{{\'providers.providerForm.category.ITV\' | translate}}</ion-select-option>                <ion-select-option value="towTruck">{{\'providers.providerForm.category.towTruck\' |                    translate}}</ion-select-option>                <ion-select-option value="other">{{\'providers.providerForm.category.other\' |                    translate}}</ion-select-option>            </ion-select>        </ion-list>    </form></ion-content><ion-footer>    <ion-button buttonDirective type="submit" [disabled]="!form.dirty" class="ion-padding" expand="full"        (click)="onSubmit()">{{(mode===\'New\'?\'Crear\':\'Guardar\')}}</ion-button></ion-footer></div>'
+    var COMPONENTS = [{'name': 'AboutMePage', 'selector': 'app-about-me'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CardAboutComponent', 'selector': 'app-card-about'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'ProviderItemComponent', 'selector': 'app-provider-item'},{'name': 'ProviderItemSelectableComponent', 'selector': 'app-provider-item-selectable'},{'name': 'ProviderSelectableComponent', 'selector': 'app-provider-selectable'},{'name': 'ProvidersFormComponent', 'selector': 'app-providers-form'},{'name': 'ProvidersPage', 'selector': 'app-providers'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'SpentFormComponent', 'selector': 'app-spent-form'},{'name': 'SpentItemComponent', 'selector': 'app-spent-item'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'UserItemComponent', 'selector': 'app-user-item'},{'name': 'VehicleFormComponent', 'selector': 'app-vehicle-form'},{'name': 'VehicleItemComponent', 'selector': 'app-vehicle'},{'name': 'VehicleItemListComponent', 'selector': 'app-vehicle-item-list'},{'name': 'VehiclesPage', 'selector': 'app-vehicles'},{'name': 'WelcomePage', 'selector': 'app-welcome'}];
+    var DIRECTIVES = [{'name': 'ButtonDirective', 'selector': '[buttonDirective]'},{'name': 'ItemDirective', 'selector': '[itemDirective]'},{'name': 'SelectedCardDirective', 'selector': '[appSelectableCard]'}];
+    var ACTUAL_COMPONENT = {'name': 'ProvidersFormComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProvidersFormComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

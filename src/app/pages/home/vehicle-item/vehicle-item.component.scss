@@ -1,0 +1,37 @@
+ion-card {
+    --background: var(--ion-color-light);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vehiclesItem {
+    padding-inline: 10px;
+}
+
+.retired {
+    --background: var(--ion-color-danger);
+    --color: var(--ion-color-light);
+
+    ion-card-title,
+    ion-card-subtitle {
+        color: var(--ion-color-light);
+    }
+
+    ion-icon {
+        color: var(--ion-color-light);
+    }
+}
+
+@media (max-width: 767px) {
+    ion-card-title {
+        font-size: 1rem;
+    }
+
+    .vehiclesItem {
+        padding-inline: 3px;
+    }
+}
