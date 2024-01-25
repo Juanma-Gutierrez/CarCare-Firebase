@@ -18,6 +18,7 @@ import { StrapiDataService } from './core/services/api/strapi/strapi-data.servic
 import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from './core/services/custom-translate.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Proveedor de fábrica para el servicio de HTTP.
@@ -91,6 +92,10 @@ export function DataServiceFactory(
         }),
     ],
     providers: [
+        {
+            provide: 'firebase-config',
+            useValue: environment.firebaseConfig
+    },
         {
             provide: RouteReuseStrategy,
             useClass: IonicRouteStrategy
