@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
+    BASE_URL: "http://localhost:1337",
     firebaseConfig: {
         apiKey: "AIzaSyASMafZkLJ63lLV94Hl9t5lnkgcXxs4gAw",
         authDomain: "proyecto-carcare.firebaseapp.com",

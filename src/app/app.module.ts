@@ -19,6 +19,8 @@ import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from './core/services/custom-translate.service';
 import { environment } from 'src/environments/environment';
+import { FirebaseService } from './core/services/api/firebase/firebase.service';
+import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 
 /**
  * Proveedor de fábrica para el servicio de HTTP.
@@ -52,10 +54,19 @@ export function MappingServiceFactory(
  * @returns {AuthStrapiService} - Instancia del servicio de autenticación de Strapi.
  */
 export function AuthServiceFactory(
+    backend: string,
     jwt: JwtService,
     api: ApiService,
+    firebase: FirebaseService
 ) {
-    return new AuthStrapiService(jwt, api);
+    switch (backend) {
+        case 'Strapi':
+            return new AuthStrapiService(jwt, api);
+        case 'Firebase':
+            return new FirebaseAuthService(firebase);
+        default:
+            throw new Error("Not implemented");
+    }
 }
 
 /**
@@ -78,10 +89,10 @@ export function DataServiceFactory(
 @NgModule({
     declarations: [AppComponent],
     imports: [
-        IonicModule.forRoot(),
         AppRoutingModule,
         BrowserModule,
         HttpClientModule,
+        IonicModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot({
             loader: {
@@ -95,7 +106,11 @@ export function DataServiceFactory(
         {
             provide: 'firebase-config',
             useValue: environment.firebaseConfig
-    },
+        },
+                {
+            provide: 'backend',
+            useValue: 'Firebase'
+        },
         {
             provide: RouteReuseStrategy,
             useClass: IonicRouteStrategy
@@ -107,7 +122,7 @@ export function DataServiceFactory(
         },
         {
             provide: AuthService,
-            deps: [JwtService, ApiService],
+            deps: ['backend',JwtService, ApiService,FirebaseService],
             useFactory: AuthServiceFactory,
         },
         {
@@ -119,10 +134,6 @@ export function DataServiceFactory(
             provide: MappingService,
             deps: ['backend'],
             useFactory: MappingServiceFactory
-        },
-        {
-            provide: 'backend',
-            useValue: 'Strapi'
         },
     ],
     bootstrap: [AppComponent],

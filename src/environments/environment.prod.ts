@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
+    BASE_URL: "https://car-care-service.onrender.com",
     firebaseConfig: {
         apiKey: "AIzaSyASMafZkLJ63lLV94Hl9t5lnkgcXxs4gAw",
         authDomain: "proyecto-carcare.firebaseapp.com",

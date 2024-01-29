@@ -14,6 +14,8 @@ export interface User {
  * Interfaz que representa la información para registrar a un usuario.
  */
 export interface UserRegisterInfo {
+    uuid: string,
+    users_permission_user: string,
     username: string,
     name: string,
     surname: string,
