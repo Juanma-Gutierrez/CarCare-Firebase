@@ -3,11 +3,12 @@
  */
 export interface User {
     id?: number,
-    users_permissions_user: number,
-    username: string,
-    email: string,
+    users_permissions_user?: number,
+    username?: string,
+    email?: string,
     name: string,
     surname: string,
+    uuid?: string
 }
 
 /**

@@ -29,7 +29,7 @@ export class FirebaseAuthService extends AuthService {
                         name: _info.name,
                         surname: _info.surname
                     };
-                    this.postRegister(_info).subscribe(data => {
+                    this.postRegister(_info).subscribe(_ => {
                         this._user.next(user);
                         this._logged.next(true);
                         subscr.next(_info);
@@ -58,12 +58,18 @@ export class FirebaseAuthService extends AuthService {
             observer.complete();
         });
     }
-    public override me(): Observable<any> {
-        console.log("me");
-        return new Observable(observer => {
-            observer.next();
-            observer.complete();
-        });
+    public me(): Observable<User> { // observable <User>
+        if (this.firebaseSvc.user?.uid)
+            return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
+                return {
+                    name: data.data['name'],
+                    surname: data.data['surname'],
+                    nickname: data.data['nickname'],
+                    uuid: data.id
+                }
+            }));
+        else
+            throw new Error('User is not connected');
     }
 
     constructor(
