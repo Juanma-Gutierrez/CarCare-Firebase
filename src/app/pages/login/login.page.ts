@@ -32,6 +32,7 @@ export class LoginPage implements OnInit {
     * @param {UserCredentials} credentials - Las credenciales del usuario.
     */
     onLogin(credentials: UserCredentials) {
+        console.log("onLogin")
         this.auth.login(credentials).subscribe({
             next: data => {
                 this.router.navigate(['home'])

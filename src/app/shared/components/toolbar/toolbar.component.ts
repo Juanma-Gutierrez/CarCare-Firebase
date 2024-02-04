@@ -26,14 +26,15 @@ export class ToolbarComponent implements OnInit {
     constructor(
         private router: Router,
         public auth: AuthService,
-        public api: ApiService,
+        public apiSvc: ApiService,
         public translateScv: CustomTranslateService,
     ) { }
 
 
     ngOnInit(): void {
-        this.api.user$.subscribe(user => {
-            this.user = user;
+        this.apiSvc.user$.subscribe(user => {
+            console.log(`usuario: ${user}`)
+            this.user = user; // user
             this.selectedPage = "home";
         })
     }

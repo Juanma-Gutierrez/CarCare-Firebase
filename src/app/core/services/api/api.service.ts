@@ -107,6 +107,8 @@ export class ApiService {
      * @param content_type Tipo de contenido de la solicitud.
      * @returns Observable que emite la respuesta de la solicitud POST.
      */
+
+
     post(path: string, body: Object = {}, content_type = null): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
         return this.http.post(url, body, this.getHeader(url));

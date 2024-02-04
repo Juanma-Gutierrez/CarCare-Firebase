@@ -5,14 +5,53 @@ import { FBUser } from './interfaces/FBUser';
 import { User } from 'src/app/core/interfaces/User';
 
 export class FirebaseAuthService extends AuthService {
-    public override login(credentials: Object): Observable<any> {
-        console.log("login");
+
+    constructor(
+        private firebaseSvc: FirebaseService,
+    ) {
+        super();
+        this.firebaseSvc.isLogged$.subscribe(logged => {
+            if (logged) {
+                console.log("Está logueado");
+                this.me().subscribe({
+                    next: data => {
+                        console.log("dentro de la función authservice: " + data.name)
+                        this._user.next(data);
+                        this._logged.next(true);
+                    },
+                    error: err => {
+                        console.log(err);
+                    }
+                });
+            }
+            else {
+                console.log("No está logueado");
+                this._logged.next(false);
+                this._user.next(null);
+            }
+        })
+    }
+
+    public override login(credentials: any): Observable<any> {
+        console.log(`login ${credentials.username} ${credentials.password}`);
         return new Observable(observer => {
-            observer.next();
-            observer.complete();
+            this.firebaseSvc.connectUserWithEmailAndPassword(credentials.username, credentials.password).then((credentials: FirebaseUserCredential | null) => {
+                if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid) {
+                    observer.error('Cannot login');
+                }
+                if (credentials) {
+                    this.me().subscribe(data => {
+                        this._user.next(data);
+                        this._logged.next(true);
+                        observer.next(data);
+                        observer.complete();
+                    });
+                }
+            });
         });
     }
-    public override register(info: FBUser): Observable<any> {
+
+    public override register(info: FBUser): Observable<any> {  // <User>
         console.log("Register de usuario");
         return new Observable<any>(subscr => {
             this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials: FirebaseUserCredential | null) => {
@@ -40,12 +79,12 @@ export class FirebaseAuthService extends AuthService {
         });
     }
 
-    private postRegister(info: FBUser): Observable<any> {
+    private postRegister(info: any): Observable<any> {
         if (info.uuid)
             return from(this.firebaseSvc.createDocumentWithId('users', {
                 name: info.name,
                 surname: info.surname,
-                nickname: info.nickname,
+                nickname: info.username,
             }, info.uuid))
         throw new Error('Error inesperado');
     }
@@ -58,9 +97,10 @@ export class FirebaseAuthService extends AuthService {
             observer.complete();
         });
     }
-    public me(): Observable<User> { // observable <User>
+    public me(): Observable<User> {
         if (this.firebaseSvc.user?.uid)
             return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
+                console.log(`dentro del me: ${data.data} ${this.firebaseSvc.isLogged$}`);
                 return {
                     name: data.data['name'],
                     surname: data.data['surname'],
@@ -72,26 +112,4 @@ export class FirebaseAuthService extends AuthService {
             throw new Error('User is not connected');
     }
 
-    constructor(
-        private firebaseSvc: FirebaseService,
-    ) {
-        super();
-        this.firebaseSvc.isLogged$.subscribe(logged => {
-            if (logged) {
-                this.me().subscribe({
-                    next: data => {
-                        this._user.next(data);
-                        this._logged.next(true);
-                    },
-                    error: err => {
-                        console.log(err);
-                    }
-                });
-            }
-            else {
-                this._logged.next(false);
-                this._user.next(null);
-            }
-        })
-    }
 }

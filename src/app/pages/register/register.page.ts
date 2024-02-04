@@ -36,7 +36,9 @@ export class RegisterPage implements OnInit {
             value: JSON.stringify(_data.email)
         })
         this.authSvc.register(_data).subscribe({
-            next: (data) => { },
+            next: (data) => {
+                console.log("En onRegisterFormSubmit" + data)
+             },
             error: (err) => { }
         });
     }

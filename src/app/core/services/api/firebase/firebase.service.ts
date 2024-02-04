@@ -107,7 +107,6 @@ export class FirebaseService {
         });
     }
 
-
     public getDocument(collectionName: string, document: string): Promise<FirebaseDocument> {
         return new Promise(async (resolve, reject) => {
             if (!this._db)

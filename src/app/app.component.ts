@@ -31,19 +31,6 @@ export class AppComponent {
         public translate: CustomTranslateService,
     ) {
         this.translate.use(this.lang);
-        // Se suscribe al observable isLogged$ del servicio AuthService.
-        this.authSvc.isLogged$.subscribe(logged => {
-            if (logged) {
-                // Si el usuario está autenticado, navega a home.
-                this.authSvc.me().subscribe(data => {
-                    apiSvc.updateUser(data);
-                    this.router.navigate(['/home']);
-                });
-            }
-            else
-                // Si el usuario no está autenticado, navega a welcome.
-                this.router.navigate(['/welcome']);
-        });
     }
 
     /**
@@ -53,7 +40,6 @@ export class AppComponent {
      */
     languageChanged(event: CustomEvent) {
         const lang = event.detail.value
-        console.log(lang)
         this.lang = lang;
         this.translate.use(this.lang);
     }
