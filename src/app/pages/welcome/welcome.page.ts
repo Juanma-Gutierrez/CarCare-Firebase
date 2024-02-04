@@ -34,7 +34,7 @@ export class WelcomePage implements OnInit {
         this.apiSvc.user$.subscribe();
         setTimeout(() => {
             this.router.navigate(['/home']);
-        }, 3000);
+        }, 100);
     }
 }
 
