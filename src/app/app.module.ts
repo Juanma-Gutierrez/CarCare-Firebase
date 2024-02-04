@@ -21,6 +21,8 @@ import { createTranslateLoader } from './core/services/custom-translate.service'
 import { environment } from 'src/environments/environment';
 import { FirebaseService } from './core/services/api/firebase/firebase.service';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
+import { FirebaseDataService } from './core/services/api/firebase/firebase-data.service';
+import { FirebaseMappingService } from './core/services/api/firebase/firebase-mapping.service';
 
 /**
  * Proveedor de fábrica para el servicio de HTTP.
@@ -40,8 +42,8 @@ export function httpProviderFactory(
 export function MappingServiceFactory(
     backend: string) {
     switch (backend) {
-        case 'Strapi':
-            return new StrapiMappingService();
+        case 'Firebase':
+            return new FirebaseMappingService();
         default:
             throw new Error("Not implemented");
     }
@@ -79,8 +81,8 @@ export function DataServiceFactory(
     backend: string,
     api: ApiService) {
     switch (backend) {
-        case 'Strapi':
-            return new StrapiDataService(api);
+        case 'Firebase':
+            return new FirebaseDataService(api);
         default:
             throw new Error("Not implemented");
     }
