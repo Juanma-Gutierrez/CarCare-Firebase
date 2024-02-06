@@ -14,6 +14,7 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { map } from 'rxjs';
+import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 
 
 type PaginatedSpents = Spent[]
@@ -36,6 +37,7 @@ export class HomePage implements OnInit {
         public vehiclesSvc: VehiclesService,
         public spentsSvc: SpentsService,
         public providersSvc: ProvidersService,
+        private firebaseSvc: FirebaseService
     ) { }
 
     /**
@@ -123,13 +125,23 @@ export class HomePage implements OnInit {
      * @return {void}
      */
     onNewVehicle() {
-        var onDismiss = (info: any) => {
+        var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    this.vehiclesSvc.addVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Vehículo creado correctamente", "success", "bottom")
-                        this.reloadVehicles(this.user);
-                    })
+                    console.log(info.data)
+                    var vehicle = info.data
+                    var id = await this.firebaseSvc.createDocumentWithId(
+                        "vehicles",
+                        {
+                            "vehicles": [{
+                                plate: vehicle.plate,
+                                brand: vehicle.brand,
+                                model: vehicle.model,
+                                registrationDate: vehicle.registrationDate,
+                                category: vehicle.category,
+                                available: vehicle.available
+                            }]
+                        }, this.firebaseSvc.user!!.uid)
                     break;
                 }
                 default: {

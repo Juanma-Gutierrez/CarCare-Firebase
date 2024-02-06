@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc } from "firebase/firestore";
+import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
 export interface FirebaseStorageFile {
@@ -88,6 +88,19 @@ export class FirebaseService {
             }
         });
     }
+
+    public createDocument(collectionName: string, data: any): Promise<string> {
+        return new Promise((resolve, reject) => {
+            if (!this._db)
+                reject({
+                    msg: "Database is not connected"
+                });
+            const collectionRef = collection(this._db!, collectionName);
+            addDoc(collectionRef, data).then(docRef => resolve(docRef.id)
+            ).catch(err => reject(err));
+        });
+    }
+
 
     public createDocumentWithId(
         collectionName: string,
