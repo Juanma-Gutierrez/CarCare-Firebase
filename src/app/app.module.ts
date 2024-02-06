@@ -109,7 +109,7 @@ export function DataServiceFactory(
             provide: 'firebase-config',
             useValue: environment.firebaseConfig
         },
-                {
+        {
             provide: 'backend',
             useValue: 'Firebase'
         },
@@ -124,7 +124,7 @@ export function DataServiceFactory(
         },
         {
             provide: AuthService,
-            deps: ['backend',JwtService, ApiService,FirebaseService],
+            deps: ['backend', JwtService, ApiService, FirebaseService],
             useFactory: AuthServiceFactory,
         },
         {

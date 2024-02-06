@@ -19,13 +19,13 @@ export class ToolbarComponent implements OnInit {
      * Constructor del componente de barra de herramientas.
      * @constructor
      * @param {Router} router - Servicio de enrutamiento para navegar a otras páginas.
-     * @param {AuthService} auth - Servicio de autenticación para gestionar la autenticación del usuario.
+     * @param {AuthService} authSvc - Servicio de autenticación para gestionar la autenticación del usuario.
      * @param {ApiService} api - Servicio de API para interactuar con la información del usuario.
      * @param {CustomTranslateService} translateScv - Servicio de traducción personalizado para gestionar los idiomas.
      */
     constructor(
         private router: Router,
-        public auth: AuthService,
+        public authSvc: AuthService,
         public apiSvc: ApiService,
         public translateScv: CustomTranslateService,
     ) { }
@@ -34,6 +34,12 @@ export class ToolbarComponent implements OnInit {
     ngOnInit(): void {
         this.apiSvc.user$.subscribe(user => {
             console.log(`usuario: ${user}`)
+            this.user = user; // user
+            this.selectedPage = "home";
+        })
+
+        this.authSvc.user$.subscribe(user => {
+            console.log(`usuario: ${user?.nickname}`)
             this.user = user; // user
             this.selectedPage = "home";
         })
@@ -86,7 +92,7 @@ export class ToolbarComponent implements OnInit {
      * @return {void}
      */
     logoutClicked() {
-        this.auth.logout().subscribe(_ => {
+        this.authSvc.logout().subscribe(_ => {
             this.router.navigate(['/login']);
         });
     }

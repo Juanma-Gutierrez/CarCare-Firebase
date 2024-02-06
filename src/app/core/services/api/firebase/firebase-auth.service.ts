@@ -52,22 +52,25 @@ export class FirebaseAuthService extends AuthService {
     }
 
     public override register(info: FBUser): Observable<any> {  // <User>
-        console.log("Register de usuario");
-        return new Observable<any>(subscr => {
+        return new Observable<any>(subscr => { // FBUser -> User
             this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials: FirebaseUserCredential | null) => {
                 if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
                     subscr.error('Cannot register');
                 if (credentials) {
-                    var _info: FBUser = { ...info };
+                    var _info: any = { ...info };
                     _info.uuid = this.firebaseSvc.user?.uid;
                     var user: User = {
                         id: 0,
                         users_permissions_user: 0,
-                        username: _info.nickname,
+                        username: _info.username,
                         email: _info.email,
                         name: _info.name,
-                        surname: _info.surname
+                        surname: _info.surname,
+                        uuid: _info.uuid
                     };
+                    console.log(info)
+                    console.log(_info)
+                    console.log(user)
                     this.postRegister(_info).subscribe(_ => {
                         this._user.next(user);
                         this._logged.next(true);
@@ -79,12 +82,16 @@ export class FirebaseAuthService extends AuthService {
         });
     }
 
-    private postRegister(info: any): Observable<any> {
+    private postRegister(info: any): Observable<any> {  // User
+        // Registra al usuario con los datos capturados del formulario
+        // de registro dentro de la colección users
         if (info.uuid)
             return from(this.firebaseSvc.createDocumentWithId('users', {
                 name: info.name,
                 surname: info.surname,
                 nickname: info.username,
+                uuid: info.uuid,
+                email: info.email,
             }, info.uuid))
         throw new Error('Error inesperado');
     }
@@ -100,7 +107,6 @@ export class FirebaseAuthService extends AuthService {
     public me(): Observable<User> {
         if (this.firebaseSvc.user?.uid)
             return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
-                console.log(`dentro del me: ${data.data} ${this.firebaseSvc.isLogged$}`);
                 return {
                     name: data.data['name'],
                     surname: data.data['surname'],

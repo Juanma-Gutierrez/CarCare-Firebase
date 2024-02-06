@@ -20,7 +20,7 @@
                         </ion-segment-button>
                     </ion-segment>
                 </ion-row>
-                <div *ngIf="(auth.isLogged$ | async)">
+                <div *ngIf="(authSvc.isLogged$ | async)">
                     <ion-menu-toggle class="button">
                         <ion-item (click)="navToHome()" [ngClass]="{'active': selectedPage==='home'}">
                             <ion-icon slot="start" name="home-outline"></ion-icon>
@@ -46,7 +46,7 @@
                         {{"toolbar.aboutMe" | translate}}
                     </ion-item>
                 </ion-menu-toggle>
-                <ion-col class="ion-text-end" *ngIf="(auth.isLogged$ | async) && (auth.user$ | async)">
+                <ion-col class="ion-text-end" *ngIf="(authSvc.isLogged$ | async) && (authSvc.user$ | async)">
                     <app-user-item (onLanguageChanged)="onLanguageChanged($event)" (logoutClicked)="logoutClicked()"
                         [user]="user"></app-user-item>
                 </ion-col>

@@ -14,7 +14,7 @@ import { User } from '../../interfaces/User';
 export abstract class AuthService {
     protected _logged = new BehaviorSubject<boolean>(false);
     public isLogged$ = this._logged.asObservable();
-    protected _user = new BehaviorSubject<User | null>(null);
+    protected _user = new BehaviorSubject<any | null>(null); // User
     public user$ = this._user.asObservable();
 
     /**

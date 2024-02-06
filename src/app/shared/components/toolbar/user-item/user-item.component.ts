@@ -10,7 +10,7 @@ import { User } from 'src/app/core/interfaces/User';
 })
 export class UserItemComponent implements OnInit {
     @Output() logoutClicked: EventEmitter<void> = new EventEmitter<void>()
-    @Input() user: User | null = null
+    @Input() user: any | null = null // User
 
     @Input() languages: string[] = ["es", "en"];
     @Input() languageSelected: string = "es";
