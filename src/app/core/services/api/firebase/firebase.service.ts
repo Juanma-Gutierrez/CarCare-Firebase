@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc } from "firebase/firestore";
+import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
 export interface FirebaseStorageFile {
@@ -134,6 +134,18 @@ export class FirebaseService {
                 // doc.data() will be undefined in this case
                 reject('document does not exists');
             }
+        });
+    }
+
+    public updateDocument(collectionName: string, document: string, data: any): Promise<void> {
+        return new Promise(async (resolve, reject) => {
+            if (!this._db)
+                reject({
+                    msg: "Database is not connected"
+                });
+            const collectionRef = collection(this._db!, collectionName);
+            updateDoc(doc(collectionRef, document), data).then(docRef => resolve()
+            ).catch(err => reject(err));
         });
     }
 }

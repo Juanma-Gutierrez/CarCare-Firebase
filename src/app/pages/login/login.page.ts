@@ -35,6 +35,7 @@ export class LoginPage implements OnInit {
         console.log("onLogin")
         this.auth.login(credentials).subscribe({
             next: data => {
+                
                 this.router.navigate(['home'])
             },
             error: err => {

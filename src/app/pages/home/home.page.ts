@@ -15,6 +15,7 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { map } from 'rxjs';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 
 type PaginatedSpents = Spent[]
@@ -37,7 +38,8 @@ export class HomePage implements OnInit {
         public vehiclesSvc: VehiclesService,
         public spentsSvc: SpentsService,
         public providersSvc: ProvidersService,
-        private firebaseSvc: FirebaseService
+        private firebaseSvc: FirebaseService,
+        private utilsSvc: UtilsService
     ) { }
 
     /**
@@ -130,10 +132,11 @@ export class HomePage implements OnInit {
                 case 'ok': {
                     console.log(info.data)
                     var vehicle = info.data
-                    var id = await this.firebaseSvc.createDocumentWithId(
-                        "vehicles",
+                    var id = await this.firebaseSvc.updateDocument(
+                        "vehicles", this.firebaseSvc.user!!.uid,
                         {
-                            "vehicles": [{
+                            "vehicles": [/*array pusheado,  */{
+                                id: this.utilsSvc.generateId,
                                 plate: vehicle.plate,
                                 brand: vehicle.brand,
                                 model: vehicle.model,
@@ -141,7 +144,7 @@ export class HomePage implements OnInit {
                                 category: vehicle.category,
                                 available: vehicle.available
                             }]
-                        }, this.firebaseSvc.user!!.uid)
+                        } as { [field: string]: any[] }) // Vehicle[]
                     break;
                 }
                 default: {
