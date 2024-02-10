@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut,
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtToken } from '../../jwt.service';
 import { Preferences } from '@capacitor/preferences';
+import { UtilsService } from '../../utils.service';
 
 export interface Uuid {
     uuid: String
@@ -37,7 +38,9 @@ export class FirebaseService {
     public isLogged$: Observable<boolean> = this._isLogged.asObservable();
 
     constructor(
-        @Inject('firebase-config') config: any
+        @Inject('firebase-config') config: any,
+        private utilSvc: UtilsService
+
     ) {
         this.init(config);
     }
@@ -58,8 +61,6 @@ export class FirebaseService {
         });
     }
 
-
-
     public get user(): User | null {
         return this._user;
     }
@@ -74,24 +75,25 @@ export class FirebaseService {
 
     public async createUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise(async (resolve, reject) => {
-            
             if (!this._auth)
                 resolve(null);
             try {
                 resolve({ user: await createUserWithEmailAndPassword(this._auth!, email, password) });
+                // TODO Control de los mensajes en diferentes idiomas
+                this.utilSvc.showToast(`Registro realizado con éxito`, "success", "bottom")
             } catch (error: any) {
                 switch (error.code) {
                     case 'auth/email-already-in-use':
-                        console.log(`Email address ${email} already in use.`);
+                        this.utilSvc.showToast(`Email address ${email} already in use.`, "danger", "bottom")
                         break;
                     case 'auth/invalid-email':
-                        console.log(`Email address ${email} is invalid.`);
+                        this.utilSvc.showToast(`Email address ${email} is invalid.`, "danger", "bottom")
                         break;
                     case 'auth/operation-not-allowed':
-                        console.log(`Error during sign up.`);
+                        this.utilSvc.showToast(`Error during sign up.`, "danger", "bottom")
                         break;
                     case 'auth/weak-password':
-                        console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
+                        this.utilSvc.showToast(`Password is not strong enough. Add additional characters including special characters and numbers.`, "danger", "bottom")
                         break;
                     default:
                         console.log(error.message);
@@ -113,7 +115,6 @@ export class FirebaseService {
             ).catch(err => reject(err));
         });
     }
-
 
     public createDocumentWithId(
         collectionName: string,
@@ -167,8 +168,8 @@ export class FirebaseService {
             if (this._auth)
                 try {
                     await this._auth.signOut();
-              //      if (signInAnon)
-              //          await this.connectAnonymously();
+                    //      if (signInAnon)
+                    //          await this.connectAnonymously();
                     resolve();
                 } catch (error) {
                     reject(error);

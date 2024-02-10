@@ -3,11 +3,13 @@ import { AuthService } from '../auth.service';
 import { FirebaseService, FirebaseUserCredential } from './firebase.service';
 import { FBUser } from './interfaces/FBUser';
 import { User } from 'src/app/core/interfaces/User';
+import { UtilsService } from '../../utils.service';
 
 export class FirebaseAuthService extends AuthService {
 
     constructor(
         private firebaseSvc: FirebaseService,
+        private utilSvc: UtilsService
     ) {
         super();
         this.firebaseSvc.isLogged$.subscribe(logged => {
@@ -30,7 +32,6 @@ export class FirebaseAuthService extends AuthService {
     }
 
     public override login(credentials: any): Observable<any> {
-        console.log(`login ${credentials.username} ${credentials.password}`);
         return new Observable(observer => {
             this.firebaseSvc.connectUserWithEmailAndPassword(credentials.username, credentials.password).then((credentials: FirebaseUserCredential | null) => {
                 if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid) {
@@ -38,6 +39,7 @@ export class FirebaseAuthService extends AuthService {
                 }
                 if (credentials) {
                     this.me().subscribe(data => {
+                        this.utilSvc.showToast("Arrancando el motor", "primary","bottom")
                         this._user.next(data);
                         this._logged.next(true);
                         observer.next(data);
@@ -65,9 +67,6 @@ export class FirebaseAuthService extends AuthService {
                         uuid: _info.uuid,
                         vehicles: []
                     };
-                    console.log(info)
-                    console.log(_info)
-                    console.log(user)
                     this.postRegister(_info).subscribe(_ => {
                         this._user.next(user);
                         this._logged.next(true);

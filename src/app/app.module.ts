@@ -14,8 +14,6 @@ import { MappingService } from './core/services/api/mapping.service';
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
-import { StrapiDataService } from './core/services/api/strapi/strapi-data.service';
-import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from './core/services/custom-translate.service';
 import { environment } from 'src/environments/environment';

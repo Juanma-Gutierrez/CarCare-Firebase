@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 
 @Component({
     selector: 'app-login',
@@ -32,10 +33,8 @@ export class LoginPage implements OnInit {
     * @param {UserCredentials} credentials - Las credenciales del usuario.
     */
     onLogin(credentials: UserCredentials) {
-        console.log("onLogin")
         this.auth.login(credentials).subscribe({
             next: data => {
-
                 this.router.navigate(['home'])
             },
             error: err => {

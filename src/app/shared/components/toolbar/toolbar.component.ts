@@ -4,6 +4,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/interfaces/User';
+import { FBUser } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 
 @Component({
     selector: 'app-toolbar',
@@ -28,6 +30,7 @@ export class ToolbarComponent implements OnInit {
         public authSvc: AuthService,
         public apiSvc: ApiService,
         public translateScv: CustomTranslateService,
+        public localDataSvc: LocalDataService
     ) { }
 
 
@@ -39,6 +42,7 @@ export class ToolbarComponent implements OnInit {
         })
 
         this.authSvc.user$.subscribe(user => {
+            this.createLocalUser(user)
             console.log(`usuario: ${user?.nickname}`)
             this.user = user; // user
             this.selectedPage = "home";
@@ -110,5 +114,22 @@ export class ToolbarComponent implements OnInit {
     onLanguageChanged(event: Event) {
         this.languageChanged.emit(event);
     }
-}
 
+
+    createLocalUser(user: any) {
+        if (user) {
+            console.log(JSON.stringify(user))
+            var newUser: FBUser = {
+                nickname: user.nickname,
+                name: user.name,
+                surname: user.surname,
+                email: user.email,
+                password: user.password,
+                vehicles: []
+            }
+            this.localDataSvc.user = newUser
+            console.log(JSON.stringify(this.localDataSvc.user))
+        }
+    }
+
+}

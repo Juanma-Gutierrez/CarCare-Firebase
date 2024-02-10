@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
+import { FBUser } from './firebase/interfaces/FBUser';
+import { FBVehicle } from './firebase/interfaces/FBVehicle';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LocalDataService {
-    private userLocal: any
+    public user?: FBUser
+    public vehicles?: FBVehicle
 
     constructor() { }
-
-    public getUserLocal(): any {
-        return this.userLocal
-    }
-
-    public setUserLocal(user: any) {
-        this.userLocal = user
-    }
 }
