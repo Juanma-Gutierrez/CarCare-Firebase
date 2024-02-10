@@ -6,7 +6,9 @@ import { ToastController, ToastOptions } from '@ionic/angular';
 })
 export class UtilsService {
 
-    constructor(private toast: ToastController) { }
+    constructor(
+        private toast: ToastController
+    ) { }
 
     public generateId(): string {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -18,7 +20,8 @@ export class UtilsService {
     * @param color Color del toast.
     * @param position Posición del toast en la pantalla ("top" o "bottom").
     */
-    async showToast(messageToShow: string, color: string, position: "top" | "bottom") {
+    public async showToast(messageToShow: string, color: string, position: "top" | "bottom") {
+        console.log("Show toast: " + messageToShow)
         if (messageToShow != null) {
             const options: ToastOptions = {
                 message: messageToShow,

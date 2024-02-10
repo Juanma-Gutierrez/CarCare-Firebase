@@ -23,6 +23,7 @@ import { FirebaseService } from './core/services/api/firebase/firebase.service';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 import { FirebaseDataService } from './core/services/api/firebase/firebase-data.service';
 import { FirebaseMappingService } from './core/services/api/firebase/firebase-mapping.service';
+import { UtilsService } from './core/services/utils.service';
 
 /**
  * Proveedor de fábrica para el servicio de HTTP.
@@ -59,13 +60,14 @@ export function AuthServiceFactory(
     backend: string,
     jwt: JwtService,
     api: ApiService,
-    firebase: FirebaseService
+    firebaseSvc: FirebaseService,
+    utilSvc:UtilsService
 ) {
     switch (backend) {
         case 'Strapi':
             return new AuthStrapiService(jwt, api);
         case 'Firebase':
-            return new FirebaseAuthService(firebase);
+            return new FirebaseAuthService(firebaseSvc, utilSvc);
         default:
             throw new Error("Not implemented");
     }
