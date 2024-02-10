@@ -1,12 +1,12 @@
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, OnInit } from '@angular/core';
-import { InternalUIService } from 'src/app/core/services/internalUI.service';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 import { User } from 'src/app/core/interfaces/User';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-providers',
@@ -21,13 +21,13 @@ export class ProvidersPage implements OnInit {
      * @constructor
      * @param {ApiService} apiSvc - Servicio para realizar operaciones generales de la API.
      * @param {ProvidersService} providersSvc - Servicio para gestionar operaciones relacionadas con proveedores.
-     * @param {InternalUIService} uiSvc - Servicio interno para manejar la interfaz de usuario y mostrar mensajes.
+     * @param {UtilsService} utilsSvc - Servicio interno para manejar la interfaz de usuario y mostrar mensajes.
      * @param {ModalController} modal - Controlador del modal para gestionar el estado del modal.
      */
     constructor(
         private apiSvc: ApiService,
         public providersSvc: ProvidersService,
-        private uiSvc: InternalUIService,
+        private utilsSvc: UtilsService,
         private modal: ModalController,
     ) { }
 
@@ -65,14 +65,14 @@ export class ProvidersPage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.providersSvc.updateProvider(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Proveedor actualizado", "success", "bottom")
+                        this.utilsSvc.showToast("Proveedor actualizado", "success", "bottom")
                         this.reloadProviders(this.user);
                     })
                 }
                     break;
                 case 'delete': {
                     this.providersSvc.deleteProvider(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Proveedor eliminado", "success", "bottom")
+                        this.utilsSvc.showToast("Proveedor eliminado", "success", "bottom")
                         this.reloadProviders(this.user);
                     })
                 }
@@ -100,7 +100,7 @@ export class ProvidersPage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.providersSvc.addProvider(info.data).subscribe(async provider => {
-                        this.uiSvc.showToast("Proveedor creado correctamente", "success", "bottom")
+                        this.utilsSvc.showToast("Proveedor creado correctamente", "success", "bottom")
                         this.reloadProviders(this.user);
                     })
                     break;

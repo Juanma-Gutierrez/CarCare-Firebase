@@ -3,6 +3,13 @@ import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
 import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
+import { JwtToken } from '../../jwt.service';
+import { Preferences } from '@capacitor/preferences';
+
+export interface Uuid {
+    uuid: String
+}
+
 export interface FirebaseStorageFile {
     path: string,
     file: string
@@ -12,13 +19,16 @@ export interface FirebaseDocument {
     id: string;
     data: DocumentData;
 }
+
 export interface FirebaseUserCredential {
     user: UserCredential
 }
+
 @Injectable({
     providedIn: 'root'
 })
 export class FirebaseService {
+    private userUuid!: Uuid;
     private _app!: FirebaseApp;
     private _db!: Firestore;
     private _auth!: Auth;
@@ -48,6 +58,8 @@ export class FirebaseService {
         });
     }
 
+
+
     public get user(): User | null {
         return this._user;
     }
@@ -62,6 +74,7 @@ export class FirebaseService {
 
     public async createUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise(async (resolve, reject) => {
+            
             if (!this._auth)
                 resolve(null);
             try {
@@ -146,6 +159,20 @@ export class FirebaseService {
             const collectionRef = collection(this._db!, collectionName);
             updateDoc(doc(collectionRef, document), data).then(docRef => resolve()
             ).catch(err => reject(err));
+        });
+    }
+
+    public async signOut(signInAnon: boolean = false): Promise<void> {
+        new Promise<void>(async (resolve, reject) => {
+            if (this._auth)
+                try {
+                    await this._auth.signOut();
+              //      if (signInAnon)
+              //          await this.connectAnonymously();
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
         });
     }
 }

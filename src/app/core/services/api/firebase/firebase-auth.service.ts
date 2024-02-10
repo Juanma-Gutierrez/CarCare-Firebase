@@ -12,10 +12,8 @@ export class FirebaseAuthService extends AuthService {
         super();
         this.firebaseSvc.isLogged$.subscribe(logged => {
             if (logged) {
-                console.log("Está logueado");
                 this.me().subscribe({
                     next: data => {
-                        console.log("dentro de la función authservice: " + data.name)
                         this._user.next(data);
                         this._logged.next(true);
                     },
@@ -25,7 +23,6 @@ export class FirebaseAuthService extends AuthService {
                 });
             }
             else {
-                console.log("No está logueado");
                 this._logged.next(false);
                 this._user.next(null);
             }
@@ -51,22 +48,22 @@ export class FirebaseAuthService extends AuthService {
         });
     }
 
-    public override register(info: FBUser): Observable<any> {  // <User>
-        return new Observable<any>(subscr => { // FBUser -> User
+    public override register(info: FBUser): Observable<any> {
+        return new Observable<FBUser>(subscr => { // FBUser -> User
             this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials: FirebaseUserCredential | null) => {
                 if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
                     subscr.error('Cannot register');
                 if (credentials) {
                     var _info: any = { ...info };
                     _info.uuid = this.firebaseSvc.user?.uid;
-                    var user: User = {
-                        id: 0,
-                        users_permissions_user: 0,
-                        username: _info.username,
-                        email: _info.email,
+                    var user: FBUser = {
+                        nickname: _info.username,
                         name: _info.name,
                         surname: _info.surname,
-                        uuid: _info.uuid
+                        email: _info.email,
+                        password: _info.password,
+                        uuid: _info.uuid,
+                        vehicles: []
                     };
                     console.log(info)
                     console.log(_info)
@@ -99,11 +96,9 @@ export class FirebaseAuthService extends AuthService {
 
     public override logout(): Observable<void> {
         console.log("logout");
-        return new Observable(observer => {
-            observer.next();
-            observer.complete();
-        });
+        return from(this.firebaseSvc.signOut(false));
     }
+
     public me(): Observable<User> {
         if (this.firebaseSvc.user?.uid)
             return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {

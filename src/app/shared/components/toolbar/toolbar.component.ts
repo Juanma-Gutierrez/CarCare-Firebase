@@ -92,9 +92,12 @@ export class ToolbarComponent implements OnInit {
      * @return {void}
      */
     logoutClicked() {
+        this.authSvc.logout();
+        /*
         this.authSvc.logout().subscribe(_ => {
             this.router.navigate(['/login']);
         });
+        */
     }
 
     /**

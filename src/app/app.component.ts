@@ -31,6 +31,12 @@ export class AppComponent {
         public translate: CustomTranslateService,
     ) {
         this.translate.use(this.lang);
+        this.authSvc.isLogged$.subscribe(logged => {
+            if (logged)
+                this.router.navigate(["/home"])
+            else
+                this.router.navigate(["/login"])
+        })
     }
 
     /**

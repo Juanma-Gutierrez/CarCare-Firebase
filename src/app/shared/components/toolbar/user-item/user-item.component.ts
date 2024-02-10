@@ -2,6 +2,7 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { User } from 'src/app/core/interfaces/User';
+import { AuthService } from 'src/app/core/services/api/auth.service';
 
 @Component({
     selector: 'app-user-item',
@@ -23,7 +24,8 @@ export class UserItemComponent implements OnInit {
      */
     constructor(
         private popoverController: PopoverController,
-        public apiSvc: ApiService
+        public apiSvc: ApiService,
+        private authSvc:AuthService
     ) { }
 
     ngOnInit(): void { }

@@ -1,6 +1,5 @@
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, OnInit } from '@angular/core';
-import { InternalUIService } from 'src/app/core/services/internalUI.service';
 import { ModalController } from '@ionic/angular';
 import { PaginatedProviders, StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 import { Provider } from 'src/app/core/interfaces/Provider';
@@ -33,13 +32,12 @@ export class HomePage implements OnInit {
 
     constructor(
         private modal: ModalController,
-        private uiSvc: InternalUIService,
+        private utilSvc: UtilsService,
         public apiSvc: ApiService,
         public vehiclesSvc: VehiclesService,
         public spentsSvc: SpentsService,
         public providersSvc: ProvidersService,
         private firebaseSvc: FirebaseService,
-        private utilsSvc: UtilsService
     ) { }
 
     /**
@@ -132,19 +130,25 @@ export class HomePage implements OnInit {
                 case 'ok': {
                     console.log(info.data)
                     var vehicle = info.data
-                    var id = await this.firebaseSvc.updateDocument(
-                        "vehicles", this.firebaseSvc.user!!.uid,
-                        {
-                            "vehicles": [/*array pusheado,  */{
-                                id: this.utilsSvc.generateId,
-                                plate: vehicle.plate,
-                                brand: vehicle.brand,
-                                model: vehicle.model,
-                                registrationDate: vehicle.registrationDate,
-                                category: vehicle.category,
-                                available: vehicle.available
-                            }]
-                        } as { [field: string]: any[] }) // Vehicle[]
+                    var newVehicle = {
+                        plate: vehicle.plate,
+                        brand: vehicle.brand,
+                        model: vehicle.model,
+                        registrationDate: vehicle.registrationDate,
+                        category: vehicle.category,
+                        available: vehicle.available
+                    }
+                    var id = await this.firebaseSvc.createDocument(
+                        "vehicle", newVehicle)
+                    // Capturar array de vehículos del usuario
+                    var user = await this.firebaseSvc.getDocument("users",
+                        this.firebaseSvc.user!!.uid)
+                    // var vehiclesList = user.data.vehicles
+                        // update del user para añadir el vehiculo al usuario
+                        await this.firebaseSvc.updateDocument(
+                            "users", this.firebaseSvc.user!!.uid,
+                            newVehicle
+                        )
                     break;
                 }
                 default: {
@@ -167,14 +171,14 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Vehículo actualizado", "success", "bottom")
+                        this.utilSvc.showToast("Vehículo actualizado", "success", "bottom")
                         this.reloadVehicles(this.user);
                     })
                 }
                     break;
                 case 'delete': {
                     this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Vehículo eliminado", "success", "bottom")
+                        this.utilSvc.showToast("Vehículo eliminado", "success", "bottom")
                         this.reloadVehicles(this.user);
                     })
                 }
@@ -249,7 +253,7 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.spentsSvc.addSpent(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Gasto creado correctamente", "success", "bottom")
+                        this.utilSvc.showToast("Gasto creado correctamente", "success", "bottom")
                         if (this.user)
                             this.reloadSpents(this.user);
                     })
@@ -275,14 +279,14 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.spentsSvc.updateSpent(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Gasto actualizado", "success", "bottom")
+                        this.utilSvc.showToast("Gasto actualizado", "success", "bottom")
                         this.reloadSpents(this.user!);
                     })
                 }
                     break;
                 case 'delete': {
                     this.spentsSvc.deleteSpent(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Gasto eliminado", "success", "bottom")
+                        this.utilSvc.showToast("Gasto eliminado", "success", "bottom")
                         this.reloadSpents(this.user!);
                     })
                 }
