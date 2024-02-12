@@ -1,11 +1,16 @@
 import { Observable, from, map } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { FirebaseService, FirebaseUserCredential } from './firebase.service';
-import { FBUser } from './interfaces/FBUser';
+import { FirebaseDocument, FirebaseService, FirebaseUserCredential } from './firebase.service';
+import { FBUser, FBUserCredential } from './interfaces/FBUser';
 import { User } from 'src/app/core/interfaces/User';
 import { UtilsService } from '../../utils.service';
+import { LocalDataService } from '../local-data.service';
+import { inject } from '@angular/core';
+import { UserCredential } from 'firebase/auth';
+import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 
 export class FirebaseAuthService extends AuthService {
+    localDataSvc: LocalDataService = inject(LocalDataService);
 
     constructor(
         private firebaseSvc: FirebaseService,
@@ -39,7 +44,8 @@ export class FirebaseAuthService extends AuthService {
                 }
                 if (credentials) {
                     this.me().subscribe(data => {
-                        this.utilSvc.showToast("Arrancando el motor", "primary","bottom")
+                        // this.utilSvc.showToast("Arrancando el motor", "danger", "bottom")
+                        console.log('Datos: ' + JSON.stringify(data));
                         this._user.next(data);
                         this._logged.next(true);
                         observer.next(data);
@@ -50,7 +56,7 @@ export class FirebaseAuthService extends AuthService {
         });
     }
 
-    public override register(info: FBUser): Observable<any> {
+    public override register(info: FBUserCredential): Observable<any> {
         return new Observable<FBUser>(subscr => { // FBUser -> User
             this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials: FirebaseUserCredential | null) => {
                 if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
@@ -63,7 +69,6 @@ export class FirebaseAuthService extends AuthService {
                         name: _info.name,
                         surname: _info.surname,
                         email: _info.email,
-                        password: _info.password,
                         uuid: _info.uuid,
                         vehicles: []
                     };
@@ -94,22 +99,32 @@ export class FirebaseAuthService extends AuthService {
 
 
     public override logout(): Observable<void> {
-        console.log("logout");
         return from(this.firebaseSvc.signOut(false));
     }
 
-    public me(): Observable<User> {
+    public me(): Observable<FBUser> {
         if (this.firebaseSvc.user?.uid)
             return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
-                return {
-                    name: data.data['name'],
-                    surname: data.data['surname'],
-                    nickname: data.data['nickname'],
-                    uuid: data.id
-                }
+                console.log("dataa: ", data)
+                const newUser: FBUser = this.convertToUser(data)
+                this.saveLocalUser(newUser)
+                return newUser
             }));
         else
             throw new Error('User is not connected');
     }
-
+    saveLocalUser(newUser: FBUser) {
+        this.localDataSvc.user = newUser;
+        console.log('localdatasvc: ', this.localDataSvc.user);
+    }
+    convertToUser(data: FirebaseDocument): FBUser {
+        return {
+            nickname: data.data['nickname'],
+            name: data.data['name'],
+            surname: data.data['surname'],
+            email: data.data['email'],
+            uuid: data.id,
+            vehicles: data.data['vehicles']
+        }
+    }
 }

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc } from "firebase/firestore";
+import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtToken } from '../../jwt.service';
@@ -141,6 +141,18 @@ export class FirebaseService {
                     msg: "Database is not connected"
                 });
             const docRef = doc(this._db!, collectionName, document);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                resolve({ id: docSnap.id, data: docSnap.data() });
+            } else {
+                // doc.data() will be undefined in this case
+                reject('document does not exists');
+            }
+        });
+    }
+
+    public getDocumentByRef(docRef: DocumentReference): Promise<FirebaseDocument> {
+        return new Promise(async (resolve, reject) => {
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 resolve({ id: docSnap.id, data: docSnap.data() });

@@ -128,7 +128,6 @@ export class HomePage implements OnInit {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    console.log(info.data)
                     var vehicle = info.data
                     var newVehicle = {
                         plate: vehicle.plate,

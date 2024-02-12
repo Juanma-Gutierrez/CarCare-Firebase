@@ -36,14 +36,12 @@ export class ToolbarComponent implements OnInit {
 
     ngOnInit(): void {
         this.apiSvc.user$.subscribe(user => {
-            console.log(`usuario: ${user}`)
             this.user = user; // user
             this.selectedPage = "home";
         })
 
         this.authSvc.user$.subscribe(user => {
             this.createLocalUser(user)
-            console.log(`usuario: ${user?.nickname}`)
             this.user = user; // user
             this.selectedPage = "home";
         })
@@ -118,18 +116,14 @@ export class ToolbarComponent implements OnInit {
 
     createLocalUser(user: any) {
         if (user) {
-            console.log(JSON.stringify(user))
             var newUser: FBUser = {
                 nickname: user.nickname,
                 name: user.name,
                 surname: user.surname,
                 email: user.email,
-                password: user.password,
                 vehicles: []
             }
             this.localDataSvc.user = newUser
-            console.log(JSON.stringify(this.localDataSvc.user))
         }
     }
-
 }

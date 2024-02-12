@@ -5,7 +5,11 @@ export interface FBUser {
     name: string,
     surname: string,
     email: string,
-    password: string,
     uuid?: string,
     vehicles: FBVehicle[]
+}
+
+export interface FBUserCredential {
+    email: string,
+    password:string,
 }

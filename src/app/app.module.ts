@@ -22,6 +22,7 @@ import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.
 import { FirebaseDataService } from './core/services/api/firebase/firebase-data.service';
 import { FirebaseMappingService } from './core/services/api/firebase/firebase-mapping.service';
 import { UtilsService } from './core/services/utils.service';
+import { LocalDataService } from './core/services/api/local-data.service';
 
 /**
  * Proveedor de fábrica para el servicio de HTTP.
@@ -59,7 +60,7 @@ export function AuthServiceFactory(
     jwt: JwtService,
     api: ApiService,
     firebaseSvc: FirebaseService,
-    utilSvc:UtilsService
+    utilSvc: UtilsService
 ) {
     switch (backend) {
         case 'Strapi':
@@ -124,7 +125,7 @@ export function DataServiceFactory(
         },
         {
             provide: AuthService,
-            deps: ['backend', JwtService, ApiService, FirebaseService],
+            deps: ['backend', JwtService, ApiService, FirebaseService,UtilsService],
             useFactory: AuthServiceFactory,
         },
         {
