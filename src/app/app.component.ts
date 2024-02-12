@@ -27,13 +27,13 @@ export class AppComponent {
     constructor(
         public authSvc: AuthService,
         private router: Router,
-        private apiSvc: ApiService,
+        // private apiSvc: ApiService,
         public translate: CustomTranslateService,
     ) {
         this.translate.use(this.lang);
         this.authSvc.isLogged$.subscribe(logged => {
             if (logged)
-                this.router.navigate(["/home"])
+                this.router.navigate(["/welcome"])
             else
                 this.router.navigate(["/login"])
         })

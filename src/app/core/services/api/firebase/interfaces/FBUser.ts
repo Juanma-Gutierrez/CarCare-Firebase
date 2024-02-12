@@ -1,15 +1,15 @@
-import { FBVehicle } from "./FBVehicle"
+import { FBVehicle, FBVehiclePreview } from "./FBVehicle"
 
 export interface FBUser {
-    nickname: string
+    nickname: string,
     name: string,
     surname: string,
     email: string,
     uuid?: string,
-    vehicles: FBVehicle[]
+    vehicles: FBVehiclePreview[]
 }
 
 export interface FBUserCredential {
     email: string,
-    password:string,
+    password: string,
 }

@@ -36,14 +36,14 @@ export class ToolbarComponent implements OnInit {
 
     ngOnInit(): void {
         this.apiSvc.user$.subscribe(user => {
-            this.user = user; // user
-            this.selectedPage = "home";
+            this.user = user;
+            this.selectedPage = "welcome";
         })
 
         this.authSvc.user$.subscribe(user => {
             this.createLocalUser(user)
-            this.user = user; // user
-            this.selectedPage = "home";
+            this.user = user;
+            this.selectedPage = "welcome";
         })
     }
 
@@ -123,7 +123,7 @@ export class ToolbarComponent implements OnInit {
                 email: user.email,
                 vehicles: []
             }
-            this.localDataSvc.user = newUser
+            this.localDataSvc.updateUser(user);
         }
     }
 }

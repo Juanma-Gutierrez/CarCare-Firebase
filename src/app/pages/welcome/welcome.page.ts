@@ -30,6 +30,7 @@ export class WelcomePage implements OnInit {
      * @return {void}
      */
     ngOnInit() {
+        console.log("entra en welcome")
         this.user = this.apiSvc.getUser();
         this.apiSvc.user$.subscribe();
         setTimeout(() => {

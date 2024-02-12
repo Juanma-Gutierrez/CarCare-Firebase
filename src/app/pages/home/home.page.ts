@@ -9,12 +9,13 @@ import { SpentFormComponent } from './spent-form/spent-form.component';
 import { SpentsService } from 'src/app/core/services/api/spents.service';
 import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-spents';
 import { User } from 'src/app/core/interfaces/User';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
-import { map } from 'rxjs';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { FBUser } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
+import { FBVehicle, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 
 
 type PaginatedSpents = Spent[]
@@ -26,8 +27,8 @@ type PaginatedSpents = Spent[]
 export class HomePage implements OnInit {
 
     public filterAvailableVehicle = true;
-    private user: User | null = null;
-    public selectedVehicle: Vehicle | undefined;
+    private user: FBUser | null = null;
+    public selectedVehicle: FBVehicle | undefined;
     public providers: Provider[] = [];
 
     constructor(
@@ -38,6 +39,7 @@ export class HomePage implements OnInit {
         public spentsSvc: SpentsService,
         public providersSvc: ProvidersService,
         private firebaseSvc: FirebaseService,
+        public localDataSvc: LocalDataService,
     ) { }
 
     /**
@@ -46,18 +48,29 @@ export class HomePage implements OnInit {
      * @returns {void}
      */
     ngOnInit(): void {
-        this.user = this.apiSvc.getUser();
-        this.apiSvc.user$.subscribe(u => {
-            this.user = u;
-            this.reloadVehicles(this.user);
+        // Carga datos del usuario
+        this.localDataSvc.user$.subscribe(data => {
+            console.log("Datos en la suscripción: ", data)
+            //var newVehicles = data?.vehicles
+            //this.localDataSvc.updateVehicles(newVehicles!!)
         })
-        // Carga los proveedores
-        if (this.user?.id) {
-            this.providersSvc.getAll(this.user.id).pipe(
-                map((paginatedProviders: PaginatedProviders) => paginatedProviders.data)).subscribe((provider: StrapiProvider[]) => {
-                    this.providers = this.mapToStrapiProviderToProvider(provider);
+
+        /*         this.user = this.apiSvc.getUser();
+                this.apiSvc.user$.subscribe(u => {
+                    this.user = u;
+                    this.reloadVehicles(this.user);
                 })
-        }
+         */
+
+
+        // Carga los proveedores
+        /*         if (this.user?.id) {
+                    this.providersSvc.getAll(this.user.id).pipe(
+                        map((paginatedProviders: PaginatedProviders) => paginatedProviders.data)).subscribe((provider: StrapiProvider[]) => {
+                            this.providers = this.mapToStrapiProviderToProvider(provider);
+                        })
+                }
+         */
     }
 
     // ***************************** VEHICLES *****************************
@@ -105,8 +118,8 @@ export class HomePage implements OnInit {
      * @param {Vehicle} vehicle - Objeto de vehículo seleccionado.
      * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
      */
-    public async onVehicleItemClicked(vehicle: Vehicle) {
-        this.selectedVehicle = vehicle;
+    public async onVehicleItemClicked(vehicle: FBVehiclePreview) {
+/*         this.selectedVehicle = vehicle;
         if (this.user) {
             this.getSpents();
             this.spentsSvc.totalSpentsAmount$.subscribe();
@@ -116,7 +129,7 @@ export class HomePage implements OnInit {
                 this.spentsSvc.calculateNumberOfSpents();
             });
         }
-    }
+ */    }
 
     /**
      * Maneja la creación de un nuevo vehículo.
@@ -143,11 +156,11 @@ export class HomePage implements OnInit {
                     var user = await this.firebaseSvc.getDocument("users",
                         this.firebaseSvc.user!!.uid)
                     // var vehiclesList = user.data.vehicles
-                        // update del user para añadir el vehiculo al usuario
-                        await this.firebaseSvc.updateDocument(
-                            "users", this.firebaseSvc.user!!.uid,
-                            newVehicle
-                        )
+                    // update del user para añadir el vehiculo al usuario
+                    await this.firebaseSvc.updateDocument(
+                        "users", this.firebaseSvc.user!!.uid,
+                        newVehicle
+                    )
                     break;
                 }
                 default: {
@@ -165,7 +178,7 @@ export class HomePage implements OnInit {
      * @param {Vehicle} vehicle - Objeto de vehículo a editar.
      * @return {void}
      */
-    public async onEditVehicleClicked(vehicle: Vehicle) {
+    public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
@@ -198,7 +211,7 @@ export class HomePage implements OnInit {
      * @param {(result: any) => void} onDismiss - Función que se llama cuando se cierra el formulario, proporcionando el resultado.
      * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
      */
-    async presentFormVehicles(data: Vehicle | null, onDismiss: (result: any) => void) {
+    async presentFormVehicles(data: FBVehiclePreview | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: VehicleFormComponent,
             componentProps: {
@@ -223,7 +236,7 @@ export class HomePage implements OnInit {
      * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
      */
     async getSpents() {
-        if (this.selectedVehicle?.id) {
+    /*     if (this.selectedVehicle?.id) {
             this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
                 for (var i = 0; i < s.data.length; i++) {
                     var temp = s.data[i];
@@ -237,7 +250,7 @@ export class HomePage implements OnInit {
                     this.spentsSvc.updateSpent(newSpent)
                 }
             });
-        }
+        } */
     }
 
     /**
@@ -313,12 +326,12 @@ export class HomePage implements OnInit {
      * @param {User} user - Objeto de usuario.
      * @return {void}
      */
-    reloadSpents(user: User) {
+    reloadSpents(user: User) {/* 
         if (user?.id) {
             this.vehiclesSvc.getAll(user.id).subscribe();
             if (this.selectedVehicle)
                 this.spentsSvc.getAll(this.selectedVehicle.id).subscribe();
-        }
+        } */
     }
 
     /**

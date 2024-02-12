@@ -105,18 +105,18 @@ export class FirebaseAuthService extends AuthService {
     public me(): Observable<FBUser> {
         if (this.firebaseSvc.user?.uid)
             return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
-                console.log("dataa: ", data)
                 const newUser: FBUser = this.convertToUser(data)
                 this.saveLocalUser(newUser)
-                return newUser
+                 return newUser
             }));
         else
             throw new Error('User is not connected');
     }
+
     saveLocalUser(newUser: FBUser) {
-        this.localDataSvc.user = newUser;
-        console.log('localdatasvc: ', this.localDataSvc.user);
+        this.localDataSvc.updateUser(newUser);
     }
+
     convertToUser(data: FirebaseDocument): FBUser {
         return {
             nickname: data.data['nickname'],
