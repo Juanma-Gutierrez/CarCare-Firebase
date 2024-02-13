@@ -42,15 +42,17 @@
                                 <ion-col>
                                     <ion-card-title>{{selectedVehicle?.brand | upperCamelCase}}
                                         {{selectedVehicle?.model | upperCamelCase}}</ion-card-title>
-                                    <ion-card-title>{{"home.totalAmount" | translate}}: {{(spentsSvc.totalSpentsAmount$ |
+                                    <ion-card-title>{{"home.totalAmount" | translate}}: {{(spentsSvc.totalSpentsAmount$
+                                        |
                                         async)
                                         |numberFormat
                                         }}</ion-card-title>
-                                    <ion-card-subtitle>{{"home.numSpents" | translate}}: {{spentsSvc.totalSpentsNumber$ |
+                                    <ion-card-subtitle>{{"home.numSpents" | translate}}: {{spentsSvc.totalSpentsNumber$
+                                        |
                                         async}}</ion-card-subtitle>
                                 </ion-col>
                                 <ion-col>
-<!--                                     <div *ngIf="selectedVehicle?.id!==null">
+                                    <!--                                     <div *ngIf="selectedVehicle?.id!==null">
                                         <ion-fab-button class="spentFab" aria-label="New spent"
                                             (click)="onNewSpent(selectedVehicle!!.id)">
                                             <ion-icon name="add-outline"></ion-icon>

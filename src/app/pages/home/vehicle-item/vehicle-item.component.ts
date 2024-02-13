@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { FBVehicle, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
+import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 
 @Component({
     selector: 'app-vehicle',

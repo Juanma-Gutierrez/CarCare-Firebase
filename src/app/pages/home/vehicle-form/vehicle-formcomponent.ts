@@ -40,14 +40,13 @@ export class VehicleFormComponent implements OnInit {
         var owner = apiSvc.getUser()
         var ownerId = owner?.id
         this.form = this.formBuilder.group({
-            id: [null],
-            plate: ['', Validators.required],
-            brand: ['', Validators.required],
-            model: ['', Validators.required],
-            registrationDate: [new Date().toISOString()],
-            category: ['car', Validators.required],
             available: [true],
-            owner: ownerId
+            brand: ['', Validators.required],
+            category: ['car', Validators.required],
+            model: ['', Validators.required],
+            plate: ['', Validators.required],
+            registrationDate: [new Date().toISOString()],
+            spents:[]
         })
     }
 

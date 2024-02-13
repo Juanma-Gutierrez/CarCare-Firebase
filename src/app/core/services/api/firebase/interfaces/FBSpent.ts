@@ -1,7 +1,7 @@
 export interface FBSpent{
-    date: Date,
     amount: number,
+    date: Date,
     observations?: string,
-    provider: number,
+    provider: string, // referencia del proveedor
     providerName?:string,
 }

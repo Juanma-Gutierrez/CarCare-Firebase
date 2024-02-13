@@ -13,9 +13,9 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { FBUser } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { FBVehicle, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
+import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 
 
 type PaginatedSpents = Spent[]
@@ -115,10 +115,13 @@ export class HomePage implements OnInit {
      * Actualiza la lista de gastos y estadísticas relacionadas con el vehículo seleccionado.
      * @async
      * @method onVehicleItemClicked
-     * @param {Vehicle} vehicle - Objeto de vehículo seleccionado.
+     * @param {FBVehicle} vehicle - Objeto de vehículo seleccionado.
      * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
      */
     public async onVehicleItemClicked(vehicle: FBVehiclePreview) {
+        console.log("Click vehicle", vehicle);
+        // Get uuid del vehículo
+        // this.selectedVehicle = this.firebaseSvc.getDocument("vehicles",vehicle.brand)
 /*         this.selectedVehicle = vehicle;
         if (this.user) {
             this.getSpents();
@@ -142,7 +145,7 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     var vehicle = info.data
-                    var newVehicle = {
+                    var newVehicle: FBVehicle = {
                         plate: vehicle.plate,
                         brand: vehicle.brand,
                         model: vehicle.model,
@@ -175,7 +178,7 @@ export class HomePage implements OnInit {
      * Maneja el evento de clic en "Editar" para un vehículo.
      * Abre un formulario prellenado con los detalles del vehículo y realiza las operaciones correspondientes.
      * @method onEditVehicleClicked
-     * @param {Vehicle} vehicle - Objeto de vehículo a editar.
+     * @param {FBVehicle} vehicle - Objeto de vehículo a editar.
      * @return {void}
      */
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
@@ -207,7 +210,7 @@ export class HomePage implements OnInit {
      * Presenta un formulario para la gestión de vehículos.
      * @async
      * @method presentFormVehicles
-     * @param {Vehicle | null} data - Datos del vehículo para prellenar el formulario (puede ser nulo para un nuevo vehículo).
+     * @param {FBVehiclePreview | null} data - Datos del vehículo para prellenar el formulario (puede ser nulo para un nuevo vehículo).
      * @param {(result: any) => void} onDismiss - Función que se llama cuando se cierra el formulario, proporcionando el resultado.
      * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
      */
@@ -236,21 +239,22 @@ export class HomePage implements OnInit {
      * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
      */
     async getSpents() {
-    /*     if (this.selectedVehicle?.id) {
-            this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
-                for (var i = 0; i < s.data.length; i++) {
-                    var temp = s.data[i];
-                    var newSpent: Spent = {
-                        id: temp.id,
-                        date: temp.date,
-                        amount: temp.amount,
-                        provider: temp.provider.data.id,
-                        vehicle: temp.vehicle.data.id
+        console.log("Entra en getSpents");
+        /*     if (this.selectedVehicle?.id) {
+                this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
+                    for (var i = 0; i < s.data.length; i++) {
+                        var temp = s.data[i];
+                        var newSpent: Spent = {
+                            id: temp.id,
+                            date: temp.date,
+                            amount: temp.amount,
+                            provider: temp.provider.data.id,
+                            vehicle: temp.vehicle.data.id
+                        }
+                        this.spentsSvc.updateSpent(newSpent)
                     }
-                    this.spentsSvc.updateSpent(newSpent)
-                }
-            });
-        } */
+                });
+            } */
     }
 
     /**
