@@ -46,7 +46,7 @@
                         {{"toolbar.aboutMe" | translate}}
                     </ion-item>
                 </ion-menu-toggle>
-                <ion-col class="ion-text-end" *ngIf="(authSvc.isLogged$ | async) && (authSvc.user$ | async)">
+                <ion-col class="ion-text-end" *ngIf="(authSvc.isLogged$ | async) && (localDataSvc.user$ | async)">
                     <app-user-item (onLanguageChanged)="onLanguageChanged($event)" (logoutClicked)="logoutClicked()"
                         [user]="user"></app-user-item>
                 </ion-col>

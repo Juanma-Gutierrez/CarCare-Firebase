@@ -1,3 +1,5 @@
+import { DocumentReference } from "firebase/firestore"
+
 export interface FBUser {
     nickname: string,
     name: string,
@@ -12,7 +14,7 @@ export interface FBVehiclePreview {
     brand: string,
     model: string,
     plate: string,
-    ref: string,
+    ref: DocumentReference,
     uuid: string
 }
 

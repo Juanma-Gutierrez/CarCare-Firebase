@@ -1,11 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference } from "firebase/firestore";
+import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtToken } from '../../jwt.service';
 import { Preferences } from '@capacitor/preferences';
 import { UtilsService } from '../../utils.service';
+import { FBUser } from './interfaces/FBUser';
+import { LocalDataService } from '../local-data.service';
 
 export interface Uuid {
     uuid: String
@@ -33,14 +35,14 @@ export class FirebaseService {
     private _app!: FirebaseApp;
     private _db!: Firestore;
     private _auth!: Auth;
-    private _user: User | null = null;
+    //private _user: User | null = null;
     private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isLogged$: Observable<boolean> = this._isLogged.asObservable();
 
     constructor(
         @Inject('firebase-config') config: any,
-        private utilSvc: UtilsService
-
+        private utilSvc: UtilsService,
+        private localDataSvc: LocalDataService
     ) {
         this.init(config);
     }
@@ -50,20 +52,17 @@ export class FirebaseService {
         this._db = getFirestore(this._app);
         this._auth = initializeAuth(getApp(), { persistence: indexedDBLocalPersistence });
         this._auth.onAuthStateChanged(async user => {
-            this._user = user;
-            if (user) {
-                if (user.uid && user.email) {
-                    this._isLogged.next(true);
-                }
+
+            if (user?.uid && user?.email) {
+                this.subscribeToDocument("users", user.uid, this.localDataSvc._user);
+                this._isLogged.next(true);
             } else {
+                this.localDataSvc.updateUser(null);
                 this._isLogged.next(false);
             }
         });
     }
 
-    public get user(): User | null {
-        return this._user;
-    }
 
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise<FirebaseUserCredential | null>(async (resolve, reject) => {
@@ -188,4 +187,25 @@ export class FirebaseService {
                 }
         });
     }
+
+    public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction: (el: DocumentData) => any): Unsubscribe | null {
+        if (!this._db)
+            return null;
+        return onSnapshot(collection(this._db, collectionName), (snapshot) => {
+            subject.next(snapshot.docs.map<any>(doc => mapFunction(doc)));
+        }, error => { throw new Error(error.message) });
+    }
+
+    public subscribeToDocument(collectionName: string, documentId: string, subject: BehaviorSubject<any>, mapFunction: (el: DocumentData) => any = res => res): Unsubscribe | null {
+        if (!this._db)
+            return null;
+        const docRef = doc(this._db, collectionName, documentId);
+        return onSnapshot(docRef, (snapshot) => {
+            if (snapshot.exists())
+                subject.next(mapFunction(snapshot.data() as DocumentData));
+            else
+                throw new Error('Error: The document does not exist.')
+        }, error => { throw new Error(error.message) });
+    }
+
 }

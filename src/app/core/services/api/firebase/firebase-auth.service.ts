@@ -17,23 +17,7 @@ export class FirebaseAuthService extends AuthService {
         private utilSvc: UtilsService
     ) {
         super();
-        this.firebaseSvc.isLogged$.subscribe(logged => {
-            if (logged) {
-                this.me().subscribe({
-                    next: data => {
-                        this._user.next(data);
-                        this._logged.next(true);
-                    },
-                    error: err => {
-                        console.log(err);
-                    }
-                });
-            }
-            else {
-                this._logged.next(false);
-                this._user.next(null);
-            }
-        })
+        this.firebaseSvc.isLogged$.subscribe(logged => this._logged.next(logged));
     }
 
     public override login(credentials: any): Observable<any> {
@@ -43,14 +27,14 @@ export class FirebaseAuthService extends AuthService {
                     observer.error('Cannot login');
                 }
                 if (credentials) {
-                    this.me().subscribe(data => {
+                     /* this.me().subscribe(data => {
                         // this.utilSvc.showToast("Arrancando el motor", "danger", "bottom")
                         console.log('Datos: ' + JSON.stringify(data));
                         this._user.next(data);
                         this._logged.next(true);
                         observer.next(data);
                         observer.complete();
-                    });
+                    }); */
                 }
             });
         });
@@ -63,7 +47,7 @@ export class FirebaseAuthService extends AuthService {
                     subscr.error('Cannot register');
                 if (credentials) {
                     var _info: any = { ...info };
-                    _info.uuid = this.firebaseSvc.user?.uid;
+                    _info.uuid = this.localDataSvc.user?.uuid;
                     var user: FBUser = {
                         nickname: _info.username,
                         name: _info.name,
@@ -103,11 +87,11 @@ export class FirebaseAuthService extends AuthService {
     }
 
     public me(): Observable<FBUser> {
-        if (this.firebaseSvc.user?.uid)
-            return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
+        if (this.localDataSvc.user?.uuid)
+            return from(this.firebaseSvc.getDocument('users', this.localDataSvc.user.uuid)).pipe(map(data => {
                 const newUser: FBUser = this.convertToUser(data)
                 this.saveLocalUser(newUser)
-                 return newUser
+                return newUser
             }));
         else
             throw new Error('User is not connected');

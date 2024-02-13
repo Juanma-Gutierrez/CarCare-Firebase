@@ -51,29 +51,30 @@ export class HomePage implements OnInit {
      */
     ngOnInit(): void {
         // Carga datos del usuario
-        this.localDataSvc.user$.subscribe(data => {
-            console.log("Datos en la suscripción: ", data)
-            //var newVehicles = data?.vehicles
-            //this.localDataSvc.updateVehicles(newVehicles!!)
-        })
-
-        /*         this.user = this.apiSvc.getUser();
-                this.apiSvc.user$.subscribe(u => {
-                    this.user = u;
-                    this.reloadVehicles(this.user);
+        /*         this.localDataSvc.user$.subscribe(data => {
+                    console.log("Datos en la suscripción: ", data)
                 })
          */
 
-
-        // Carga los proveedores
-        /*         if (this.user?.id) {
-                    this.providersSvc.getAll(this.user.id).pipe(
-                        map((paginatedProviders: PaginatedProviders) => paginatedProviders.data)).subscribe((provider: StrapiProvider[]) => {
-                            this.providers = this.mapToStrapiProviderToProvider(provider);
-                        })
-                }
-         */
     }
+
+    /*         this.user = this.apiSvc.getUser();
+            this.apiSvc.user$.subscribe(u => {
+                this.user = u;
+                this.reloadVehicles(this.user);
+            })
+     */
+
+
+    // Carga los proveedores
+    /*         if (this.user?.id) {
+                this.providersSvc.getAll(this.user.id).pipe(
+                    map((paginatedProviders: PaginatedProviders) => paginatedProviders.data)).subscribe((provider: StrapiProvider[]) => {
+                        this.providers = this.mapToStrapiProviderToProvider(provider);
+                    })
+            }
+     */
+
 
     // ***************************** VEHICLES *****************************
 
@@ -122,9 +123,7 @@ export class HomePage implements OnInit {
      * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
      */
     public async onVehicleItemClicked(vehiclePreview: FBVehiclePreview) {
-        console.log("Click vehicle", vehiclePreview);
-        // Get uuid del vehículo
-        var vehicle = await this.firebaseSvc.getDocument("vehicles", vehiclePreview.uuid)
+        var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
         console.log(vehicle.data)
         // mapear el vehículo seleccionado con el data
         this.selectedVehicle = this.firebaseMappingSvc.mapFBVehicle(vehicle.data)
@@ -166,15 +165,17 @@ export class HomePage implements OnInit {
                     }
                     var id = await this.firebaseSvc.createDocument(
                         "vehicle", newVehicle)
-                    // Capturar array de vehículos del usuario
-                    var user = await this.firebaseSvc.getDocument("users",
-                        this.firebaseSvc.user!!.uid)
-                    // var vehiclesList = user.data.vehicles
-                    // update del user para añadir el vehiculo al usuario
-                    await this.firebaseSvc.updateDocument(
-                        "users", this.firebaseSvc.user!!.uid,
-                        newVehicle
-                    )
+                    if (this.localDataSvc.user?.uuid) {
+                        // Capturar array de vehículos del usuario
+                        var user = await this.firebaseSvc.getDocument("users",
+                            this.localDataSvc.user.uuid)
+                        // var vehiclesList = user.data.vehicles
+                        // update del user para añadir el vehiculo al usuario
+                        await this.firebaseSvc.updateDocument(
+                            "users", this.localDataSvc.user.uuid,
+                            newVehicle
+                        )
+                    }
                     break;
                 }
                 default: {

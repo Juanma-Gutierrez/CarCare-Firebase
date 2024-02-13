@@ -35,15 +35,9 @@ export class ToolbarComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.apiSvc.user$.subscribe(user => {
+        this.localDataSvc.user$.subscribe(user => {
             this.user = user;
-            this.selectedPage = "welcome";
-        })
-
-        this.authSvc.user$.subscribe(user => {
-            this.createLocalUser(user)
-            this.user = user;
-            this.selectedPage = "welcome";
+            this.selectedPage = "home";
         })
     }
 
@@ -111,12 +105,5 @@ export class ToolbarComponent implements OnInit {
      */
     onLanguageChanged(event: Event) {
         this.languageChanged.emit(event);
-    }
-
-
-    createLocalUser(user: any) {
-        if (user) {
-            this.localDataSvc.updateUser(user);
-        }
     }
 }

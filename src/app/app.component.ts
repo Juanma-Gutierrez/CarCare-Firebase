@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { CustomTranslateService } from './core/services/custom-translate.service';
 import { Router } from '@angular/router';
 import { User } from './core/interfaces/User';
+import { LocalDataService } from './core/services/api/local-data.service';
 
 @Component({
     selector: 'app-root',
@@ -25,14 +26,14 @@ export class AppComponent {
      * @param {CustomTranslateService} translate - Servicio de traducción personalizado.
      */
     constructor(
-        public authSvc: AuthService,
+        private localDataSvc:LocalDataService,
         private router: Router,
         // private apiSvc: ApiService,
         public translate: CustomTranslateService,
     ) {
         this.translate.use(this.lang);
-        this.authSvc.isLogged$.subscribe(logged => {
-            if (logged)
+        this.localDataSvc.user$.subscribe(user => {
+            if (user)
                 this.router.navigate(["/welcome"])
             else
                 this.router.navigate(["/login"])
