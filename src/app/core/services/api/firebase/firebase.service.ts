@@ -188,13 +188,13 @@ export class FirebaseService {
         });
     }
 
-    public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction: (el: DocumentData) => any): Unsubscribe | null {
+/*     public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction: (el: DocumentData) => any): Unsubscribe | null {
         if (!this._db)
             return null;
         return onSnapshot(collection(this._db, collectionName), (snapshot) => {
             subject.next(snapshot.docs.map<any>(doc => mapFunction(doc)));
         }, error => { throw new Error(error.message) });
-    }
+    } */
 
     public subscribeToDocument(collectionName: string, documentId: string, subject: BehaviorSubject<any>, mapFunction: (el: DocumentData) => any = res => res): Unsubscribe | null {
         if (!this._db)

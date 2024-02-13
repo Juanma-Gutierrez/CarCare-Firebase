@@ -49,51 +49,13 @@ export class HomePage implements OnInit {
      * @method ngOnInit
      * @returns {void}
      */
-    ngOnInit(): void {
-        // Carga datos del usuario
-        /*         this.localDataSvc.user$.subscribe(data => {
-                    console.log("Datos en la suscripción: ", data)
-                })
-         */
-
-    }
-
-    /*         this.user = this.apiSvc.getUser();
-            this.apiSvc.user$.subscribe(u => {
-                this.user = u;
-                this.reloadVehicles(this.user);
-            })
-     */
-
-
-    // Carga los proveedores
-    /*         if (this.user?.id) {
-                this.providersSvc.getAll(this.user.id).pipe(
-                    map((paginatedProviders: PaginatedProviders) => paginatedProviders.data)).subscribe((provider: StrapiProvider[]) => {
-                        this.providers = this.mapToStrapiProviderToProvider(provider);
-                    })
-            }
-     */
-
-
-    // ***************************** VEHICLES *****************************
+    ngOnInit(): void { }
 
     /**
-     * Obtiene y carga los vehículos del propietario con el identificador proporcionado.
-     * @async
-     * @param {number} ownerId - Identificador del propietario.
-     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
-     */
-    async getVehicles(ownerId: number) {
-        console.log("getVehicles");
-        this.vehiclesSvc.getAll(ownerId).subscribe();
-    }
-
-    /**
-     * Maneja el cambio en la selección de filtros de vehículos.
-     * @param {CustomEvent} event - Evento de cambio en la selección.
-     * @return {void}
-     */
+ * Maneja el cambio en la selección de filtros de vehículos.
+ * @param {CustomEvent} event - Evento de cambio en la selección.
+ * @return {void}
+ */
     selectionChanged(event: CustomEvent) {
         switch (event.detail.value) {
             case "available": this.filterAvailableVehicle = true;
@@ -103,31 +65,57 @@ export class HomePage implements OnInit {
         }
     }
 
+    // ***************************** VEHICLES *****************************
+    /**
+     * Obtiene y carga los vehículos del propietario con el identificador proporcionado.
+     * @async
+     * @param {number} ownerId - Identificador del propietario.
+     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
+     */
+    /*     async getVehicles(ownerId: number) {
+            console.log("getVehicles");
+            this.vehiclesSvc.getAll(ownerId).subscribe();
+        } */
     /**
      * Recarga la lista de vehículos del usuario proporcionado.
      * @method reloadVehicles
      * @param {User | null} user - Objeto de usuario o nulo.
      * @return {void}
      */
-    reloadVehicles(user: User | null) {
-        if (user?.id)
-            this.vehiclesSvc.getAll(user.id).subscribe();
-    }
+    /*     reloadVehicles(user: User | null) {
+            if (user?.id)
+                this.vehiclesSvc.getAll(user.id).subscribe();
+        } */
 
     /**
      * Maneja el evento de clic en un elemento de vehículo.
      * Actualiza la lista de gastos y estadísticas relacionadas con el vehículo seleccionado.
      * @async
      * @method onVehicleItemClicked
-     * @param {FBVehicle} vehicle - Objeto de vehículo seleccionado.
-     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
+     * @param {FBVehiclePreview} vehiclePreview - Objeto de vehículo seleccionado.
      */
     public async onVehicleItemClicked(vehiclePreview: FBVehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
-        console.log(vehicle.data)
-        // mapear el vehículo seleccionado con el data
-        this.selectedVehicle = this.firebaseMappingSvc.mapFBVehicle(vehicle.data)
-        console.log("Vehículo seleccionado: ", this.selectedVehicle)
+        /*         this.selectedVehicle = this.firebaseMappingSvc.mapFBVehicle(vehicle.data)
+                console.log(this.selectedVehicle)
+                var spents = this.selectedVehicle.spents
+                console.log(spents)
+         */
+
+        // TODO PENSAR EN CREAR UN OBSERVABLE ÚNICAMENTE CON LOS GASTOS DEL VEHÍCULO, QUE SEA AL QUE NOS
+        //SUSCRIBIMOS
+        console.log(vehicle.id)
+        if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc._vehicles);
+        this.localDataSvc.vehicles$.subscribe(vehicle => {
+            console.log(vehicle);
+            this.selectedVehicle = this.firebaseMappingSvc.mapFBVehicle(vehicle)
+            // CALCULAR GASTOS this.spentsSvc.calculateTotalSpents();
+            // CALCULAR NÚMERO DE GASOTS this.spentsSvc.calculateNumberOfSpents();
+            // VER POSIBILIDAD DE METERLE GRÁFICAS O ALGO SIMILAR
+        })
+
+
+
 
 /*         updateProvider(provider: Provider): Observable<Provider> {
             return this.dataSvc.put<any>(this.mapping.updateProviderUrl(provider.id!), provider).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
@@ -194,28 +182,28 @@ export class HomePage implements OnInit {
      * @return {void}
      */
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
-        var onDismiss = (info: any) => {
-            switch (info.role) {
-                case 'ok': {
-                    this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
-                        this.utilSvc.showToast("Vehículo actualizado", "success", "bottom")
-                        this.reloadVehicles(this.user);
-                    })
+        /*         var onDismiss = (info: any) => {
+                    switch (info.role) {
+                        case 'ok': {
+                            this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
+                                this.utilSvc.showToast("Vehículo actualizado", "success", "bottom")
+                                this.reloadVehicles(this.user);
+                            })
+                        }
+                            break;
+                        case 'delete': {
+                            this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
+                                this.utilSvc.showToast("Vehículo eliminado", "success", "bottom")
+                                this.reloadVehicles(this.user);
+                            })
+                        }
+                            break;
+                        default: {
+                            console.error("No debería entrar");
+                        }
+                    }
                 }
-                    break;
-                case 'delete': {
-                    this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
-                        this.utilSvc.showToast("Vehículo eliminado", "success", "bottom")
-                        this.reloadVehicles(this.user);
-                    })
-                }
-                    break;
-                default: {
-                    console.error("No debería entrar");
-                }
-            }
-        }
-        this.presentFormVehicles(vehicle, onDismiss);
+                this.presentFormVehicles(vehicle, onDismiss); */
     }
 
     /**
@@ -302,38 +290,39 @@ export class HomePage implements OnInit {
      * @param {StrapiSpent} spent - Objeto de gasto a editar.
      * @return {void}
      */
-    public async onEditSpentClicked(spent: StrapiSpent) {
-        var onDismiss = (info: any) => {
-            switch (info.role) {
-                case 'ok': {
-                    this.spentsSvc.updateSpent(info.data).subscribe(async user => {
-                        this.utilSvc.showToast("Gasto actualizado", "success", "bottom")
-                        this.reloadSpents(this.user!);
-                    })
-                }
-                    break;
-                case 'delete': {
-                    this.spentsSvc.deleteSpent(info.data).subscribe(async user => {
-                        this.utilSvc.showToast("Gasto eliminado", "success", "bottom")
-                        this.reloadSpents(this.user!);
-                    })
-                }
-                    break;
-                default: {
-                    console.error("No debería entrar");
-                }
-            }
-        }
-        var _spent: Spent = {
-            id: spent.id,
-            date: spent.date,
-            amount: spent.amount,
-            provider: spent.provider.data.id,
-            providerName: spent.provider.data.attributes.name,
-            vehicle: spent.vehicle.data.id,
-            observations: spent.observations
-        };
-        this.presentFormSpents(_spent, _spent.vehicle, onDismiss);
+    public async onEditSpentClicked(spent: any) { // StrapiSpent
+        console.log(spent)
+        /*    var onDismiss = (info: any) => {
+               switch (info.role) {
+                   case 'ok': {
+                       this.spentsSvc.updateSpent(info.data).subscribe(async user => {
+                           this.utilSvc.showToast("Gasto actualizado", "success", "bottom")
+                           this.reloadSpents(this.user!);
+                       })
+                   }
+                       break;
+                   case 'delete': {
+                       this.spentsSvc.deleteSpent(info.data).subscribe(async user => {
+                           this.utilSvc.showToast("Gasto eliminado", "success", "bottom")
+                           this.reloadSpents(this.user!);
+                       })
+                   }
+                       break;
+                   default: {
+                       console.error("No debería entrar");
+                   }
+               }
+           }
+           var _spent: Spent = {
+               id: spent.id,
+               date: spent.date,
+               amount: spent.amount,
+               provider: spent.provider.data.id,
+               providerName: spent.provider.data.attributes.name,
+               vehicle: spent.vehicle.data.id,
+               observations: spent.observations
+           };
+           this.presentFormSpents(_spent, _spent.vehicle, onDismiss); */
     }
 
     /**

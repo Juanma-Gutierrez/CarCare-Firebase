@@ -8,7 +8,7 @@ import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-
     styleUrls: ['./spent-item.component.scss'],
 })
 export class SpentItemComponent implements OnInit {
-    @Input() spent?: StrapiSpent;
+    @Input() spent?: any; //StrapiSpent
     @Output() onEditSpentClicked: EventEmitter<void> = new EventEmitter<void>();
 
     /**
