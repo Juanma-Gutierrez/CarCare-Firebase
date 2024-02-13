@@ -21,36 +21,26 @@ export class AppComponent {
     /**
      * Constructor del componente.
      * @constructor
-     * @param {AuthService} authSvc - Servicio de autenticación.
+     * @param {LocalDataService} localDataSvc - Servicio de autenticación local.
      * @param {Router} router - Router de Angular.
-     * @param {ApiService} apiSvc - Servicio de API.
      * @param {CustomTranslateService} translate - Servicio de traducción personalizado.
      */
     constructor(
         private localDataSvc: LocalDataService,
         private router: Router,
-        // private apiSvc: ApiService,
         public translate: CustomTranslateService,
     ) {
         this.translate.use(this.lang);
-/*         this.localDataSvc.user$.subscribe(user => {
+        this.localDataSvc.user$.subscribe(user => {
             if (user)
                 this.router.navigate(["/welcome"])
-            else
+            else if (!this.isFirstTime) {
                 this.router.navigate(["/login"])
-        }) */
-
-
-     this.localDataSvc.user$.subscribe(user => {
-                if (user)
-                    this.router.navigate(["/welcome"])
-                else if (!this.isFirstTime) {
-                    this.router.navigate(["/login"])
-                } else {
-                    this.isFirstTime = false;
-                    this.router.navigate(["/welcome"])
-                }
-            }) 
+            } else {
+                this.isFirstTime = false;
+                this.router.navigate(["/welcome"])
+            }
+        })
     }
 
     /**
@@ -63,5 +53,4 @@ export class AppComponent {
         this.lang = lang;
         this.translate.use(this.lang);
     }
-
 }
