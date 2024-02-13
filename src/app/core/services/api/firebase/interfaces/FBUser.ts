@@ -12,7 +12,8 @@ export interface FBVehiclePreview {
     brand: string,
     model: string,
     plate: string,
-
+    ref: string,
+    uuid: string
 }
 
 export interface FBUserCredential {

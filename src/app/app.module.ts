@@ -22,6 +22,7 @@ import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.
 import { FirebaseDataService } from './core/services/api/firebase/firebase-data.service';
 import { FirebaseMappingService } from './core/services/api/firebase/firebase-mapping.service';
 import { UtilsService } from './core/services/utils.service';
+import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.service';
 
 /**
  * Proveedor de fábrica para el servicio de HTTP.
@@ -36,11 +37,12 @@ export function httpProviderFactory(
 /**
  * Proveedor de fábrica para el servicio de mapeo.
  * @param {string} backend - Backend seleccionado.
- * @returns {StrapiMappingService} - Instancia del servicio de mapeo de Strapi.
+ * @returns {FirebaseMappingService} - Instancia del servicio de mapeo de Strapi.
  */
-export function MappingServiceFactory(
-    backend: string) {
+export function MappingServiceFactory(backend: string) {
     switch (backend) {
+        case 'Strapi':
+            return new StrapiMappingService();
         case 'Firebase':
             return new FirebaseMappingService();
         default:
@@ -124,7 +126,7 @@ export function DataServiceFactory(
         },
         {
             provide: AuthService,
-            deps: ['backend', JwtService, ApiService, FirebaseService,UtilsService],
+            deps: ['backend', JwtService, ApiService, FirebaseService, UtilsService],
             useFactory: AuthServiceFactory,
         },
         {

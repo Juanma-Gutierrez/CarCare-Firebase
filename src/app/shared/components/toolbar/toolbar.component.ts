@@ -116,13 +116,6 @@ export class ToolbarComponent implements OnInit {
 
     createLocalUser(user: any) {
         if (user) {
-            var newUser: FBUser = {
-                nickname: user.nickname,
-                name: user.name,
-                surname: user.surname,
-                email: user.email,
-                vehicles: []
-            }
             this.localDataSvc.updateUser(user);
         }
     }

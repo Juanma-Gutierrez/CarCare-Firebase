@@ -103,7 +103,7 @@
             </ion-segment>
         </ion-row>
     </div>
-    <div *ngFor="let vehicle of (vehiclesSvc.vehicles$ | async)?.data">
+    <div *ngFor="let vehicle of (localDataSvc.user$ | async)?.vehicles">
         <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailableVehicle"
             (onVehicleItemClicked)="onVehicleItemClicked(vehicle)"
             (onEditVehicleClicked)="onEditVehicleClicked(vehicle)">

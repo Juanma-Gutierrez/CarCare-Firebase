@@ -1,7 +1,7 @@
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PaginatedProviders, StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
+import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { Spent } from 'src/app/core/interfaces/Spent';
@@ -16,6 +16,7 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
+import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 
 
 type PaginatedSpents = Spent[]
@@ -39,6 +40,7 @@ export class HomePage implements OnInit {
         public spentsSvc: SpentsService,
         public providersSvc: ProvidersService,
         private firebaseSvc: FirebaseService,
+        private firebaseMappingSvc: FirebaseMappingService,
         public localDataSvc: LocalDataService,
     ) { }
 
@@ -82,6 +84,7 @@ export class HomePage implements OnInit {
      * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
      */
     async getVehicles(ownerId: number) {
+        console.log("getVehicles");
         this.vehiclesSvc.getAll(ownerId).subscribe();
     }
 
@@ -118,11 +121,19 @@ export class HomePage implements OnInit {
      * @param {FBVehicle} vehicle - Objeto de vehículo seleccionado.
      * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
      */
-    public async onVehicleItemClicked(vehicle: FBVehiclePreview) {
-        console.log("Click vehicle", vehicle);
+    public async onVehicleItemClicked(vehiclePreview: FBVehiclePreview) {
+        console.log("Click vehicle", vehiclePreview);
         // Get uuid del vehículo
-        // this.selectedVehicle = this.firebaseSvc.getDocument("vehicles",vehicle.brand)
-/*         this.selectedVehicle = vehicle;
+        var vehicle = await this.firebaseSvc.getDocument("vehicles", vehiclePreview.uuid)
+        console.log(vehicle.data)
+        // mapear el vehículo seleccionado con el data
+        this.selectedVehicle = this.firebaseMappingSvc.mapFBVehicle(vehicle.data)
+        console.log("Vehículo seleccionado: ", this.selectedVehicle)
+
+/*         updateProvider(provider: Provider): Observable<Provider> {
+            return this.dataSvc.put<any>(this.mapping.updateProviderUrl(provider.id!), provider).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
+        } */
+/*
         if (this.user) {
             this.getSpents();
             this.spentsSvc.totalSpentsAmount$.subscribe();
