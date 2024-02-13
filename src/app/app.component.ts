@@ -13,6 +13,7 @@ import { LocalDataService } from './core/services/api/local-data.service';
     styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+    private isFirstTime = true;
     protected _user = new BehaviorSubject<User | undefined>(undefined);
     public user$ = this._user.asObservable();
     lang: string = "es";
@@ -26,18 +27,30 @@ export class AppComponent {
      * @param {CustomTranslateService} translate - Servicio de traducción personalizado.
      */
     constructor(
-        private localDataSvc:LocalDataService,
+        private localDataSvc: LocalDataService,
         private router: Router,
         // private apiSvc: ApiService,
         public translate: CustomTranslateService,
     ) {
         this.translate.use(this.lang);
-        this.localDataSvc.user$.subscribe(user => {
+/*         this.localDataSvc.user$.subscribe(user => {
             if (user)
                 this.router.navigate(["/welcome"])
             else
                 this.router.navigate(["/login"])
-        })
+        }) */
+
+
+     this.localDataSvc.user$.subscribe(user => {
+                if (user)
+                    this.router.navigate(["/welcome"])
+                else if (!this.isFirstTime) {
+                    this.router.navigate(["/login"])
+                } else {
+                    this.isFirstTime = false;
+                    this.router.navigate(["/welcome"])
+                }
+            }) 
     }
 
     /**

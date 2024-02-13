@@ -2,6 +2,7 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/interfaces/User';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 
 @Component({
     selector: 'app-welcome',
@@ -19,7 +20,7 @@ export class WelcomePage implements OnInit {
      * @param {Router} router - Enrutador de Angular para la navegación.
      */
     constructor(
-        private apiSvc: ApiService,
+        private localDataSvc: LocalDataService,
         private router: Router,
     ) { }
 
@@ -30,12 +31,10 @@ export class WelcomePage implements OnInit {
      * @return {void}
      */
     ngOnInit() {
-        console.log("entra en welcome")
-        this.user = this.apiSvc.getUser();
-        this.apiSvc.user$.subscribe();
-        setTimeout(() => {
-            this.router.navigate(['/home']);
-        }, 1000);
+        this.localDataSvc.user$.subscribe(user => {
+            if (user)
+                this.router.navigate(['/home']);
+        });
     }
 }
 
