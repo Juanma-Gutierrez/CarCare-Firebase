@@ -96,20 +96,10 @@ export class HomePage implements OnInit {
      */
     public async onVehicleItemClicked(vehiclePreview: FBVehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
-        /*         this.selectedVehicle = this.firebaseMappingSvc.mapFBVehicle(vehicle.data)
-                console.log(this.selectedVehicle)
-                var spents = this.selectedVehicle.spents
-                console.log(spents)
-         */
-
-        // TODO PENSAR EN CREAR UN OBSERVABLE ÚNICAMENTE CON LOS GASTOS DEL VEHÍCULO, QUE SEA AL QUE NOS
-        //SUSCRIBIMOS
         if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicles());
         this.localDataSvc.vehicles$.subscribe(vehicle => {
+            this.localDataSvc.setSpents(vehicle?.spents!)
             console.log(vehicle?.spents)
-            var spents = vehicle?.spents;
-            if (spents)
-                this.localDataSvc.setSpents(spents)
 
 
             // CALCULAR GASTOS this.spentsSvc.calculateTotalSpents();
@@ -268,22 +258,22 @@ export class HomePage implements OnInit {
      * @return {void}
      */
     onNewSpent(vehicleId: number) {
-/*         var onDismiss = (info: any) => {
-            switch (info.role) {
-                case 'ok': {
-                    this.spentsSvc.addSpent(info.data).subscribe(async user => {
-                        this.utilSvc.showToast("Gasto creado correctamente", "success", "bottom")
-                        if (this.user)
-                            this.reloadSpents(this.user);
-                    })
-                    break;
+        /*         var onDismiss = (info: any) => {
+                    switch (info.role) {
+                        case 'ok': {
+                            this.spentsSvc.addSpent(info.data).subscribe(async user => {
+                                this.utilSvc.showToast("Gasto creado correctamente", "success", "bottom")
+                                if (this.user)
+                                    this.reloadSpents(this.user);
+                            })
+                            break;
+                        }
+                        default: {
+                            console.error("No debería entrar");
+                        }
+                    }
                 }
-                default: {
-                    console.error("No debería entrar");
-                }
-            }
-        }
-        this.presentFormSpents(null, vehicleId, onDismiss); */
+                this.presentFormSpents(null, vehicleId, onDismiss); */
     }
 
     /**
