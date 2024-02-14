@@ -5,7 +5,7 @@ export interface FBUser {
     name: string,
     surname: string,
     email: string,
-    uuid?: string,
+    id?: string,
     vehicles: FBVehiclePreview[]
 }
 

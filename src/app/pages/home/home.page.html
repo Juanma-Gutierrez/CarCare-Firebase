@@ -53,8 +53,7 @@
                                 </ion-col>
                                 <ion-col>
                                     <div *ngIf="selectedVehicle!==null">
-                                        <ion-fab-button class="spentFab" aria-label="New spent"
-                                            (click)="onNewSpent(1)">
+                                        <ion-fab-button class="spentFab" aria-label="New spent" (click)="onNewSpent(1)">
                                             <ion-icon name="add-outline"></ion-icon>
                                         </ion-fab-button>
                                     </div>
@@ -62,7 +61,7 @@
                             </ion-row>
                         </ion-card-header>
                         <ion-card-content>
-                            <ion-list *ngFor="let spent of (localDataSvc.vehicles$ | async)">
+                            <ion-list *ngFor="let spent of (localDataSvc.spents$ | async)">
                                 <ion-item>
                                     <app-spent-item [spent]="spent" (onEditSpentClicked)="onEditSpentClicked(spent)">
                                     </app-spent-item>

@@ -26,16 +26,6 @@ export class FirebaseAuthService extends AuthService {
                 if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid) {
                     observer.error('Cannot login');
                 }
-                if (credentials) {
-                     /* this.me().subscribe(data => {
-                        // this.utilSvc.showToast("Arrancando el motor", "danger", "bottom")
-                        console.log('Datos: ' + JSON.stringify(data));
-                        this._user.next(data);
-                        this._logged.next(true);
-                        observer.next(data);
-                        observer.complete();
-                    }); */
-                }
             });
         });
     }
@@ -47,13 +37,13 @@ export class FirebaseAuthService extends AuthService {
                     subscr.error('Cannot register');
                 if (credentials) {
                     var _info: any = { ...info };
-                    _info.uuid = this.localDataSvc.user?.uuid;
+                    _info.uuid = this.localDataSvc.user?.id;
                     var user: FBUser = {
                         nickname: _info.username,
                         name: _info.name,
                         surname: _info.surname,
                         email: _info.email,
-                        uuid: _info.uuid,
+                        id: _info.uuid,
                         vehicles: []
                     };
                     this.postRegister(_info).subscribe(_ => {
@@ -87,8 +77,8 @@ export class FirebaseAuthService extends AuthService {
     }
 
     public me(): Observable<FBUser> {
-        if (this.localDataSvc.user?.uuid)
-            return from(this.firebaseSvc.getDocument('users', this.localDataSvc.user.uuid)).pipe(map(data => {
+        if (this.localDataSvc.user?.id)
+            return from(this.firebaseSvc.getDocument('users', this.localDataSvc.user.id)).pipe(map(data => {
                 const newUser: FBUser = this.convertToUser(data)
                 this.saveLocalUser(newUser)
                 return newUser
@@ -98,7 +88,7 @@ export class FirebaseAuthService extends AuthService {
     }
 
     saveLocalUser(newUser: FBUser) {
-        this.localDataSvc.updateUser(newUser);
+        this.localDataSvc.setUser(newUser);
     }
 
     convertToUser(data: FirebaseDocument): FBUser {
@@ -107,7 +97,7 @@ export class FirebaseAuthService extends AuthService {
             name: data.data['name'],
             surname: data.data['surname'],
             email: data.data['email'],
-            uuid: data.id,
+            id: data.id,
             vehicles: data.data['vehicles']
         }
     }

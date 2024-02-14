@@ -54,10 +54,10 @@ export class FirebaseService {
         this._auth.onAuthStateChanged(async user => {
 
             if (user?.uid && user?.email) {
-                this.subscribeToDocument("users", user.uid, this.localDataSvc._user);
+                this.subscribeToDocument("users", user.uid, this.localDataSvc.getUser());
                 this._isLogged.next(true);
             } else {
-                this.localDataSvc.updateUser(null);
+                this.localDataSvc.setUser(null);
                 this._isLogged.next(false);
             }
         });

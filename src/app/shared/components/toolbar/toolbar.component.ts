@@ -14,7 +14,7 @@ import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 })
 export class ToolbarComponent implements OnInit {
     public selectedPage = "home";
-    public user: User | null = null;
+    public user: FBUser | null = null;
     @Output() languageChanged = new EventEmitter();
 
     /**

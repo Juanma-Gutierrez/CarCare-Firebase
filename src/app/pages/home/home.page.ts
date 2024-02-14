@@ -104,11 +104,14 @@ export class HomePage implements OnInit {
 
         // TODO PENSAR EN CREAR UN OBSERVABLE ÚNICAMENTE CON LOS GASTOS DEL VEHÍCULO, QUE SEA AL QUE NOS
         //SUSCRIBIMOS
-        console.log(vehicle.id)
-        if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc._vehicles);
+        if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicles());
         this.localDataSvc.vehicles$.subscribe(vehicle => {
-            console.log(vehicle);
-            this.selectedVehicle = this.firebaseMappingSvc.mapFBVehicle(vehicle)
+            console.log(vehicle?.spents)
+            var spents = vehicle?.spents;
+            if (spents)
+                this.localDataSvc.setSpents(spents)
+
+
             // CALCULAR GASTOS this.spentsSvc.calculateTotalSpents();
             // CALCULAR NÚMERO DE GASOTS this.spentsSvc.calculateNumberOfSpents();
             // VER POSIBILIDAD DE METERLE GRÁFICAS O ALGO SIMILAR
@@ -153,14 +156,14 @@ export class HomePage implements OnInit {
                     }
                     var id = await this.firebaseSvc.createDocument(
                         "vehicle", newVehicle)
-                    if (this.localDataSvc.user?.uuid) {
+                    if (this.localDataSvc.user?.id) {
                         // Capturar array de vehículos del usuario
                         var user = await this.firebaseSvc.getDocument("users",
-                            this.localDataSvc.user.uuid)
+                            this.localDataSvc.user.id)
                         // var vehiclesList = user.data.vehicles
                         // update del user para añadir el vehiculo al usuario
                         await this.firebaseSvc.updateDocument(
-                            "users", this.localDataSvc.user.uuid,
+                            "users", this.localDataSvc.user.id,
                             newVehicle
                         )
                     }
@@ -265,7 +268,7 @@ export class HomePage implements OnInit {
      * @return {void}
      */
     onNewSpent(vehicleId: number) {
-        var onDismiss = (info: any) => {
+/*         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
                     this.spentsSvc.addSpent(info.data).subscribe(async user => {
@@ -280,7 +283,7 @@ export class HomePage implements OnInit {
                 }
             }
         }
-        this.presentFormSpents(null, vehicleId, onDismiss);
+        this.presentFormSpents(null, vehicleId, onDismiss); */
     }
 
     /**
