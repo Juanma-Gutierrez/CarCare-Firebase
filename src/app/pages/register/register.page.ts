@@ -1,6 +1,9 @@
 import { AuthService } from 'src/app/core/services/api/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FBUser } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 
 @Component({
     selector: 'app-register',
@@ -15,7 +18,7 @@ export class RegisterPage implements OnInit {
      * @param {AuthService} authSvc - Servicio de autenticación para realizar operaciones de registro.
      */
     constructor(
-        private authSvc: AuthService,
+        private authSvc: AuthService
     ) { }
 
     ngOnInit() {
@@ -37,11 +40,11 @@ export class RegisterPage implements OnInit {
         })
         this.authSvc.register(_data).subscribe({
             next: (data) => {
-                console.log(JSON.stringify(`onregister ${data}`));
+                console.log("Data en registro: ", data);
             },
             error: (err) => {
-                console.log("Error on register")
-             }
+                console.log("Error on register", err)
+            }
         });
     }
 }

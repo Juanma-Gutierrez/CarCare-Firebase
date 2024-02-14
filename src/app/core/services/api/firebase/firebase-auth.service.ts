@@ -37,16 +37,17 @@ export class FirebaseAuthService extends AuthService {
                     subscr.error('Cannot register');
                 if (credentials) {
                     var _info: any = { ...info };
-                    _info.uuid = this.localDataSvc.user?.id;
+                    _info.uuid = credentials.user.user.uid;
                     var user: FBUser = {
                         nickname: _info.username,
                         name: _info.name,
                         surname: _info.surname,
                         email: _info.email,
-                        id: _info.uuid,
+                        id: credentials.user.user.uid,
                         vehicles: []
                     };
                     this.postRegister(_info).subscribe(_ => {
+                        console.log("User: ", user)
                         this._user.next(user);
                         this._logged.next(true);
                         subscr.next(_info);
@@ -62,11 +63,11 @@ export class FirebaseAuthService extends AuthService {
         // de registro dentro de la colección users
         if (info.uuid)
             return from(this.firebaseSvc.createDocumentWithId('users', {
-                name: info.name,
-                surname: info.surname,
-                nickname: info.username,
-                uuid: info.uuid,
                 email: info.email,
+                id: info.uuid,
+                name: info.name,
+                nickname: info.username,
+                surname: info.surname,
             }, info.uuid))
         throw new Error('Error inesperado');
     }

@@ -40,8 +40,8 @@
                         <ion-card-header>
                             <ion-row>
                                 <ion-col>
-                                    <ion-card-title>{{selectedVehicle?.brand | upperCamelCase}}
-                                        {{selectedVehicle?.model | upperCamelCase}}</ion-card-title>
+                                    <ion-card-title>{{(localDataSvc.vehicles$|async)?.brand | upperCamelCase}}
+                                        {{(localDataSvc.vehicles$|async)?.model | upperCamelCase}}</ion-card-title>
                                     <ion-card-title>{{"home.totalAmount" | translate}}: {{(spentsSvc.totalSpentsAmount$
                                         |
                                         async)
@@ -108,33 +108,4 @@
             (onEditVehicleClicked)="onEditVehicleClicked(vehicle)">
         </app-vehicle>
     </div>
-    <div class="padding">
-        <ion-row>
-            <ion-card-title>{{selectedVehicle?.brand | upperCamelCase}}
-                {{selectedVehicle?.model | upperCamelCase}}</ion-card-title>
-        </ion-row>
-        <ion-row>
-            <ion-card-title>{{"home.totalAmount" | translate}} {{(spentsSvc.totalSpentsAmount$ | async)
-                | numberFormat
-                }}</ion-card-title>
-        </ion-row>
-        <ion-row>
-            <ion-card-subtitle>{{"home.numSpents" | translate}} {{spentsSvc.totalSpentsNumber$ |
-                async}}</ion-card-subtitle>
-        </ion-row>
-    </div>
-
-    <ion-card-content>
-        <ion-list *ngFor="let spent of (spentsSvc.spents$ | async)?.data">
-            <ion-item>
-                <app-spent-item [spent]="spent" (onEditSpentClicked)="onEditSpentClicked(spent)">
-                </app-spent-item>
-            </ion-item>
-        </ion-list>
-    </ion-card-content>
-    <!--     <div *ngIf="selectedVehicle?.id!==null" class="spentFab">
-        <ion-fab-button aria-label="New spent" (click)="onNewSpent(selectedVehicle!!.id)">
-            <ion-icon name="add-outline"></ion-icon>
-        </ion-fab-button>
-    </div> -->
 </ion-content>

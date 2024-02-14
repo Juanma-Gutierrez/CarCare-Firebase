@@ -17,7 +17,11 @@ export class LocalDataService {
     public user: FBUser | null = null;
 
     setUser(newUser: FBUser | null) {
-        this._user.next(newUser);
+        if (newUser) {
+            this._user.next(newUser);
+        } else {
+            this.resetAll();
+        }
     }
 
     getUser() {
@@ -38,5 +42,12 @@ export class LocalDataService {
 
     getSpents() {
         return this._spents;
+    }
+
+    resetAll() {
+        this.user = null;
+        this._user.next(null);
+        this._vehicles.next(null);
+        this._spents.next(null);
     }
 }

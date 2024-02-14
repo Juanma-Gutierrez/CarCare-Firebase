@@ -179,8 +179,6 @@ export class FirebaseService {
             if (this._auth)
                 try {
                     await this._auth.signOut();
-                    //      if (signInAnon)
-                    //          await this.connectAnonymously();
                     resolve();
                 } catch (error) {
                     reject(error);
