@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { MappingService } from './mapping.service';
 import { PaginatedSpents } from './strapi/interfaces/strapi-spents';
 import { Spent } from '../../interfaces/Spent';
+import { FBSpent } from './firebase/interfaces/FBSpent';
 
 /**
  * Interfaz que define las operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
@@ -26,12 +27,10 @@ interface CrudSpents {
 export class SpentsService implements CrudSpents {
     private _spents: BehaviorSubject<PaginatedSpents> = new BehaviorSubject<PaginatedSpents>({ data: [], pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } });
     public spents$: Observable<PaginatedSpents> = this._spents.asObservable();
-
     private _totalSpentsAmount = new BehaviorSubject<number>(0);
-    totalSpentsAmount$: Observable<number> = this._totalSpentsAmount.asObservable();
-
+    public totalSpentsAmount$: Observable<number> = this._totalSpentsAmount.asObservable();
     private _totalSpentsNumber = new BehaviorSubject<number>(0);
-    totalSpentsNumber$: Observable<number> = this._totalSpentsNumber.asObservable();
+    public totalSpentsNumber$: Observable<number> = this._totalSpentsNumber.asObservable();
 
     /**
      * Constructor de la clase SpentsService.
@@ -61,28 +60,20 @@ export class SpentsService implements CrudSpents {
      * Calcula el monto total gastado sumando los montos de todas las transacciones.
      * Utiliza el flujo de datos de gastos (spents$) y emite el resultado a través de un BehaviorSubject (_totalSpentsAmount).
      */
-    calculateTotalSpents() {
-        this.spents$.pipe(
-            take(1),
-            tap(spents => {
-                let totalAmount = 0;
-                for (const spent of spents.data) {
-                    totalAmount += spent.amount;
-                }
-                this._totalSpentsAmount.next(totalAmount);
-            })
-        ).subscribe();
+    calculateTotalSpents(spents: FBSpent[]) {
+        var totalAmount = 0
+        for (const spent of spents) {
+            totalAmount += spent.amount;
+        }
+        this._totalSpentsAmount.next(totalAmount);
     }
 
     /**
      * Calcula el número total de transacciones.
      * Utiliza el flujo de datos de gastos (spents$) y emite el resultado a través de un BehaviorSubject (_totalSpentsNumber).
      */
-    calculateNumberOfSpents() {
-        this.spents$.pipe(take(1)).subscribe(spents => {
-            const numberOfSpents = spents.data.length;
-            this._totalSpentsNumber.next(numberOfSpents);
-        });
+    calculateNumberOfSpents(spents: FBSpent[]) {
+        this._totalSpentsNumber.next(spents.length);
     }
 
     /**

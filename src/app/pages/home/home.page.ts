@@ -99,12 +99,9 @@ export class HomePage implements OnInit {
         if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicles());
         this.localDataSvc.vehicles$.subscribe(vehicle => {
             this.localDataSvc.setSpents(vehicle?.spents!)
-            console.log(vehicle?.spents)
-
-
-            // CALCULAR GASTOS this.spentsSvc.calculateTotalSpents();
-            // CALCULAR NÚMERO DE GASOTS this.spentsSvc.calculateNumberOfSpents();
-            // VER POSIBILIDAD DE METERLE GRÁFICAS O ALGO SIMILAR
+            this.spentsSvc.calculateNumberOfSpents(vehicle?.spents!)
+            this.spentsSvc.calculateTotalSpents(vehicle?.spents!)
+            // TODO VER POSIBILIDAD DE METERLE GRÁFICAS O ALGO SIMILAR
         })
 
 
