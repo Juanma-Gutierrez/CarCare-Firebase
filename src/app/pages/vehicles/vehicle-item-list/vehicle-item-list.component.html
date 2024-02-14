@@ -12,7 +12,19 @@
             translate}}</ion-card-subtitle>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle>{{'vehicles.vehicleItem.registrationDate' | translate}}: {{ vehicle?.registrationDate |
-            date:'dd MMM yyyy' }}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="vehicle?.category === 'car'"> {{'vehicles.vehicleItem.car' | translate}}
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="vehicle?.category === 'motorbike'"> {{'vehicles.vehicleItem.motorbike' | translate}}
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="vehicle?.category === 'van'"> {{'vehicles.vehicleItem.van' | translate}}
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="vehicle?.category === 'truck'"> {{'vehicles.vehicleItem.truck' | translate}}
+        </ion-card-subtitle>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-card-subtitle>
+            {{ 'vehicles.vehicleItem.registrationDate' | translate }}:
+            {{ vehicle!.registrationDate.toDate() | date:'dd MMM yyyy' }}
+        </ion-card-subtitle>
     </ion-row>
 </ion-card>

@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 
 @Component({
@@ -12,12 +15,10 @@ export class VehiclesPage implements OnInit {
     /**
      * Constructor de la página de vehículos.
      * @constructor
-     * @param {VehiclesService} vehiclesSvc - Servicio de vehículos para realizar operaciones de obtención.
      * @param {ApiService} apiSvc - Servicio de API para obtener información del usuario.
      */
     constructor(
-        public vehiclesSvc: VehiclesService,
-        public apiSvc: ApiService,
+        public localDataSvc: LocalDataService,
     ) { }
 
     /**
@@ -27,20 +28,7 @@ export class VehiclesPage implements OnInit {
      * @return {void}
      */
     ngOnInit() {
-        this.apiSvc.user$.subscribe(user => {
-            if (user?.id)
-                this.getVehicles(user.id);
-        })
-    }
-
-
-    /**
-     * Método para obtener la lista de vehículos para un usuario específico.
-     * @method getVehicles
-     * @param {number} userId - ID del usuario para el cual se obtienen los vehículos.
-     * @return {void}
-     */
-    async getVehicles(userId: number) {
-        this.vehiclesSvc.getAll(userId).subscribe();
+        this.localDataSvc.user$.subscribe(user =>
+            console.log(user))
     }
 }

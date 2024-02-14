@@ -51,7 +51,11 @@
         "vehicleItem": {
             "available": "Vehicle available",
             "notAvailable": "Vehicle not available",
-            "registrationDate": "Registration date"
+            "registrationDate": "Registration date",
+            "car": "Car",
+            "motorbike": "Motorbike",
+            "van": "Van",
+            "truck": "Truck"
         }
     },
     "providers": {
@@ -90,13 +94,13 @@
         "loading": "Loading fuel"
     },
     "login": {
-        "login":"Login",
+        "login": "Login",
         "notRegistered": "I'm not registered",
         "userName": "Username / Email",
         "password": "Password"
     },
     "register": {
-        "register":"Register",
+        "register": "Register",
         "initSession": "Login",
         "name": "Name",
         "surname": "Surname",

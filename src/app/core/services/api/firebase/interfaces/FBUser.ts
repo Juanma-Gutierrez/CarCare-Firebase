@@ -1,11 +1,11 @@
-import { DocumentReference } from "firebase/firestore"
+import { DocumentReference, Timestamp } from "firebase/firestore"
 
 export interface FBUser {
-    nickname: string,
-    name: string,
-    surname: string,
     email: string,
     id?: string,
+    name: string,
+    nickname: string,
+    surname: string,
     uuid?:string,
     vehicles: FBVehiclePreview[]
 }
@@ -13,10 +13,12 @@ export interface FBUser {
 export interface FBVehiclePreview {
     available: boolean,
     brand: string,
+    category:string,
+    id:string,
     model: string,
     plate: string,
     ref: DocumentReference,
-    uuid: string
+    registrationDate:Timestamp,
 }
 
 export interface FBUserCredential {

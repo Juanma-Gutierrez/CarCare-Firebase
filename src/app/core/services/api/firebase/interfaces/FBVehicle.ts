@@ -11,13 +11,3 @@ export interface FBVehicle {
     registrationDate: Date,
     spents?: FBSpent[]
 }
-
-
-/*
-export enum VehicleCategory {
-    car = 'car',
-    motorcycle = 'motorcycle',
-    van = 'van',
-    truck = 'truck'
-}
-*/

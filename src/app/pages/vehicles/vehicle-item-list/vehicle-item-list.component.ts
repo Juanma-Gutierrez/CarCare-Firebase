@@ -1,15 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 
 @Component({
     selector: 'app-vehicle-item-list',
     templateUrl: './vehicle-item-list.component.html',
     styleUrls: ['./vehicle-item-list.component.scss'],
 })
-export class VehicleItemListComponent implements OnInit {
-    @Input() vehicle?: Vehicle
+export class VehicleItemListComponent implements OnInit{
+    @Input() vehicle?: FBVehiclePreview
+    public category: string = ""
 
-    constructor() { }
+    constructor(
+    ) { }
+    ngOnInit(): void {
+        this.category
+    }
 
-    ngOnInit(): void { }
 }

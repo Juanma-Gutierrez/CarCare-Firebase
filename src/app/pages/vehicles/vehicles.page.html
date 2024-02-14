@@ -4,7 +4,7 @@
             <ion-card-title>{{"vehicles.vehiclesList" | translate}}</ion-card-title>
         </ion-card-header>
         <ion-card-content class="container">
-            <app-vehicle-item-list *ngFor="let vehicle of (vehiclesSvc.vehicles$ | async)?.data"
+            <app-vehicle-item-list *ngFor="let vehicle of (localDataSvc.user$ | async)?.vehicles"
                 [vehicle]="vehicle"></app-vehicle-item-list>
         </ion-card-content>
     </ion-card>
