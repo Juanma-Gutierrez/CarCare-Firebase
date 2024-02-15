@@ -5,6 +5,7 @@ import { PaginatedData } from "src/app/core/interfaces/data";
 import { MappingService } from "../mapping.service";
 import { FBVehicle } from "./interfaces/FBVehicle";
 import { Injectable } from "@angular/core";
+import { FBVehiclePreview } from "./interfaces/FBUser";
 
 @Injectable({
     providedIn: 'root'

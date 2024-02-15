@@ -54,7 +54,7 @@ export class FirebaseService {
         this._auth.onAuthStateChanged(async user => {
 
             if (user?.uid && user?.email) {
-                this.subscribeToDocument("users", user.uid, this.localDataSvc.getUser());
+                this.subscribeToDocument("user", user.uid, this.localDataSvc.getUser());
                 this._isLogged.next(true);
             } else {
                 this.localDataSvc.setUser(null);
@@ -103,14 +103,14 @@ export class FirebaseService {
         });
     }
 
-    public createDocument(collectionName: string, data: any): Promise<string> {
+    public createDocument(collectionName: string, data: any): Promise<DocumentReference> {
         return new Promise((resolve, reject) => {
             if (!this._db)
                 reject({
                     msg: "Database is not connected"
                 });
             const collectionRef = collection(this._db!, collectionName);
-            addDoc(collectionRef, data).then(docRef => resolve(docRef.id)
+            addDoc(collectionRef, data).then(docRef => resolve(docRef)
             ).catch(err => reject(err));
         });
     }

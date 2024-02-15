@@ -44,10 +44,10 @@ export class FirebaseAuthService extends AuthService {
                         surname: _info.surname,
                         email: _info.email,
                         id: credentials.user.user.uid,
-                        vehicles: []
+                        vehicles: [],
+                        uuid: _info.uuid
                     };
                     this.postRegister(_info).subscribe(_ => {
-                        console.log("User: ", user)
                         this._user.next(user);
                         this._logged.next(true);
                         subscr.next(_info);
@@ -62,12 +62,14 @@ export class FirebaseAuthService extends AuthService {
         // Registra al usuario con los datos capturados del formulario
         // de registro dentro de la colección users
         if (info.uuid)
-            return from(this.firebaseSvc.createDocumentWithId('users', {
+            return from(this.firebaseSvc.createDocumentWithId('user', {
                 email: info.email,
                 id: info.uuid,
                 name: info.name,
                 nickname: info.username,
                 surname: info.surname,
+                vehicles: [],
+                uuid: info.uuid
             }, info.uuid))
         throw new Error('Error inesperado');
     }
@@ -79,7 +81,7 @@ export class FirebaseAuthService extends AuthService {
 
     public me(): Observable<FBUser> {
         if (this.localDataSvc.user?.id)
-            return from(this.firebaseSvc.getDocument('users', this.localDataSvc.user.id)).pipe(map(data => {
+            return from(this.firebaseSvc.getDocument('user', this.localDataSvc.user.id)).pipe(map(data => {
                 const newUser: FBUser = this.convertToUser(data)
                 this.saveLocalUser(newUser)
                 return newUser
@@ -94,12 +96,13 @@ export class FirebaseAuthService extends AuthService {
 
     convertToUser(data: FirebaseDocument): FBUser {
         return {
-            nickname: data.data['nickname'],
-            name: data.data['name'],
-            surname: data.data['surname'],
             email: data.data['email'],
             id: data.id,
-            vehicles: data.data['vehicles']
+            name: data.data['name'],
+            nickname: data.data['nickname'],
+            surname: data.data['surname'],
+            vehicles: data.data['vehicles'],
+            uuid: data.id
         }
     }
 }

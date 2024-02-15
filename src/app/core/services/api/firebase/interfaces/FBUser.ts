@@ -6,19 +6,19 @@ export interface FBUser {
     name: string,
     nickname: string,
     surname: string,
-    uuid?:string,
-    vehicles: FBVehiclePreview[]
+    vehicles: FBVehiclePreview[],
+    uuid: string,
 }
 
 export interface FBVehiclePreview {
     available: boolean,
     brand: string,
-    category:string,
-    id:string,
+    category: string,
+    id: string,
     model: string,
     plate: string,
     ref: DocumentReference,
-    registrationDate:Timestamp,
+    registrationDate: Timestamp,
 }
 
 export interface FBUserCredential {

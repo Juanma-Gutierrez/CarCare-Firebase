@@ -17,6 +17,7 @@ import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/int
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
+import { DocumentReference } from 'firebase/firestore';
 
 
 type PaginatedSpents = Spent[]
@@ -130,30 +131,12 @@ export class HomePage implements OnInit {
      */
     onNewVehicle() {
         var onDismiss = async (info: any) => {
+            console.log(info)
             switch (info.role) {
                 case 'ok': {
-                    var vehicle = info.data
-                    var newVehicle: FBVehicle = {
-                        plate: vehicle.plate,
-                        brand: vehicle.brand,
-                        model: vehicle.model,
-                        registrationDate: vehicle.registrationDate,
-                        category: vehicle.category,
-                        available: vehicle.available
-                    }
-                    var id = await this.firebaseSvc.createDocument(
-                        "vehicle", newVehicle)
-                    if (this.localDataSvc.user?.id) {
-                        // Capturar array de vehículos del usuario
-                        var user = await this.firebaseSvc.getDocument("users",
-                            this.localDataSvc.user.id)
-                        // var vehiclesList = user.data.vehicles
-                        // update del user para añadir el vehiculo al usuario
-                        await this.firebaseSvc.updateDocument(
-                            "users", this.localDataSvc.user.id,
-                            newVehicle
-                        )
-                    }
+                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data)
+                    var ref = await this.firebaseSvc.createDocument("vehicle", vehicle)
+                    this.updateUser(info, ref)
                     break;
                 }
                 default: {
@@ -163,6 +146,28 @@ export class HomePage implements OnInit {
         }
         this.presentFormVehicles(null, onDismiss);
     }
+
+
+    async updateUser(info: any, ref: DocumentReference) {
+        var vehiclePreview: FBVehiclePreview = {
+            available: info.data.available,
+            brand: info.data.brand,
+            category: info.data.category,
+            id: ref.id,
+            model: info.data.model,
+            plate: info.data.plate,
+            ref: ref,
+            registrationDate: info.data.registrationDate,
+        }
+        var user = this.localDataSvc.getUser().value!! // Carga el usuario
+        var vehiclesList = user.vehicles; // Carga la lista de vehículos
+        vehiclesList.push(vehiclePreview); // Añade el nuevo vehículo preview
+        await this.firebaseSvc.updateDocument("user", user.id!!, user)
+    }
+
+
+
+
 
     /**
      * Maneja el evento de clic en "Editar" para un vehículo.
@@ -371,6 +376,9 @@ export class HomePage implements OnInit {
             }
         });
     }
+
+
 }
+
 
 
