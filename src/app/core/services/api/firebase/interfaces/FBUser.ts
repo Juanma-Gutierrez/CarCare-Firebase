@@ -2,7 +2,7 @@ import { DocumentReference, Timestamp } from "firebase/firestore"
 
 export interface FBUser {
     email: string,
-    id?: string,
+    id: string,
     name: string,
     nickname: string,
     surname: string,

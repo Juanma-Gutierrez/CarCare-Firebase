@@ -97,31 +97,14 @@ export class HomePage implements OnInit {
      */
     public async onVehicleItemClicked(vehiclePreview: FBVehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
-        if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicles());
-        this.localDataSvc.vehicles$.subscribe(vehicle => {
+        if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicle());
+        this.localDataSvc.vehicle$.subscribe(vehicle => {
             this.localDataSvc.setSpents(vehicle?.spents!)
             this.spentsSvc.calculateNumberOfSpents(vehicle?.spents!)
             this.spentsSvc.calculateTotalSpents(vehicle?.spents!)
             // TODO VER POSIBILIDAD DE METERLE GRÁFICAS O ALGO SIMILAR
         })
-
-
-
-
-/*         updateProvider(provider: Provider): Observable<Provider> {
-            return this.dataSvc.put<any>(this.mapping.updateProviderUrl(provider.id!), provider).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
-        } */
-/*
-        if (this.user) {
-            this.getSpents();
-            this.spentsSvc.totalSpentsAmount$.subscribe();
-            this.spentsSvc.totalSpentsNumber$.subscribe();
-            this.spentsSvc.spents$.subscribe(c => {
-                this.spentsSvc.calculateTotalSpents();
-                this.spentsSvc.calculateNumberOfSpents();
-            });
-        }
- */    }
+    }
 
     /**
      * Maneja la creación de un nuevo vehículo.
@@ -260,6 +243,22 @@ export class HomePage implements OnInit {
      * @return {void}
      */
     onNewSpent(vehicleId: number) {
+        var onDismiss = async (info: any) => {
+            console.log(info)
+            console.log(vehicleId)
+            /*    switch (info.role) {
+                   case 'ok': {
+                       var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data)
+                       var ref = await this.firebaseSvc.createDocument("vehicle", vehicle)
+                       this.updateUser(info, ref)
+                       break;
+                   }
+                   default: {
+                       console.error("No debería entrar");
+                   }
+               } */
+        }
+        this.presentFormSpents(null, vehicleId, onDismiss);
         /*         var onDismiss = (info: any) => {
                     switch (info.role) {
                         case 'ok': {

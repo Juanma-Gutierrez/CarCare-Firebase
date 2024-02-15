@@ -40,8 +40,8 @@
                         <ion-card-header>
                             <ion-row>
                                 <ion-col>
-                                    <ion-card-title>{{(localDataSvc.vehicles$|async)?.brand | upperCamelCase}}
-                                        {{(localDataSvc.vehicles$|async)?.model | upperCamelCase}}</ion-card-title>
+                                    <ion-card-title>{{(localDataSvc.vehicle$|async)?.brand | upperCamelCase}}
+                                        {{(localDataSvc.vehicle$|async)?.model | upperCamelCase}}</ion-card-title>
                                     <ion-card-title>{{"home.totalAmount" | translate}}: {{(spentsSvc.totalSpentsAmount$
                                         | async) |numberFormat }}</ion-card-title>
                                     <ion-card-subtitle>{{"home.numSpents" | translate}}: {{spentsSvc.totalSpentsNumber$

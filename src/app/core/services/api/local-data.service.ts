@@ -3,6 +3,7 @@ import { FBUser } from './firebase/interfaces/FBUser';
 import { FBVehicle } from './firebase/interfaces/FBVehicle';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FBSpent } from './firebase/interfaces/FBSpent';
+import { FBProvider } from './firebase/interfaces/FBProvider';
 
 @Injectable({
     providedIn: 'root'
@@ -10,10 +11,15 @@ import { FBSpent } from './firebase/interfaces/FBSpent';
 export class LocalDataService {
     private _user: BehaviorSubject<FBUser | null> = new BehaviorSubject<FBUser | null>(null);
     public user$: Observable<FBUser | null> = this._user.asObservable();
-    private _vehicles: BehaviorSubject<FBVehicle | null> = new BehaviorSubject<FBVehicle | null>(null)
-    public vehicles$: Observable<FBVehicle | null> = this._vehicles.asObservable();
+
+    private _vehicle: BehaviorSubject<FBVehicle | null> = new BehaviorSubject<FBVehicle | null>(null)
+    public vehicle$: Observable<FBVehicle | null> = this._vehicle.asObservable();
+
     private _spents: BehaviorSubject<FBSpent[] | null> = new BehaviorSubject<FBSpent[] | null>(null);
     public spents$: Observable<FBSpent[] | null> = this._spents.asObservable();
+
+    private _providers: BehaviorSubject<FBProvider[] | null> = new BehaviorSubject<FBProvider[] | null>(null);
+    public providers$: Observable<FBProvider[] | null> = this._providers.asObservable();
     public user: FBUser | null = null;
 
     setUser(newUser: FBUser | null) {
@@ -28,26 +34,35 @@ export class LocalDataService {
         return this._user;
     }
 
-    setVehicles(newVehicle: FBVehicle) {
-        this._vehicles.next(newVehicle);
+    setVehicle(vehicle: FBVehicle) {
+        this._vehicle.next(vehicle);
     }
 
-    getVehicles() {
-        return this._vehicles;
+    getVehicle() {
+        return this._vehicle;
     }
 
-    setSpents(nweSpents: FBSpent[]) {
-        this._spents.next(nweSpents);
+    setSpents(spents: FBSpent[]) {
+        this._spents.next(spents);
     }
 
     getSpents() {
         return this._spents;
     }
 
+    setProviders(providers: FBProvider[]) {
+        this._providers.next(providers)
+    }
+
+    getProviders() {
+        return this._providers
+    }
+
     resetAll() {
         this.user = null;
         this._user.next(null);
-        this._vehicles.next(null);
+        this._vehicle.next(null);
         this._spents.next(null);
+        this._providers.next(null);
     }
 }

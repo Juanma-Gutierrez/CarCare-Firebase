@@ -6,6 +6,7 @@ import { MappingService } from "../mapping.service";
 import { FBVehicle } from "./interfaces/FBVehicle";
 import { Injectable } from "@angular/core";
 import { FBVehiclePreview } from "./interfaces/FBUser";
+import { FBProvider } from "./interfaces/FBProvider";
 
 @Injectable({
     providedIn: 'root'
@@ -56,7 +57,14 @@ export class FirebaseMappingService extends MappingService {
             model: data.model,
             plate: data.plate,
             registrationDate: data.registrationDate,
-            spents: data.spents
+            spents: []
+        }
+    }
+    public mapFBProvider(data: any): FBProvider {
+        return {
+            category: data.category,
+            name: data.name,
+            phone: data.phone,
         }
     }
 

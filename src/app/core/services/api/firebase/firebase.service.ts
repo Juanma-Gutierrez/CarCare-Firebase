@@ -3,10 +3,7 @@ import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
 import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
-import { JwtToken } from '../../jwt.service';
-import { Preferences } from '@capacitor/preferences';
 import { UtilsService } from '../../utils.service';
-import { FBUser } from './interfaces/FBUser';
 import { LocalDataService } from '../local-data.service';
 
 export interface Uuid {
@@ -186,13 +183,13 @@ export class FirebaseService {
         });
     }
 
-/*     public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction: (el: DocumentData) => any): Unsubscribe | null {
-        if (!this._db)
-            return null;
-        return onSnapshot(collection(this._db, collectionName), (snapshot) => {
-            subject.next(snapshot.docs.map<any>(doc => mapFunction(doc)));
-        }, error => { throw new Error(error.message) });
-    } */
+    /*     public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction: (el: DocumentData) => any): Unsubscribe | null {
+            if (!this._db)
+                return null;
+            return onSnapshot(collection(this._db, collectionName), (snapshot) => {
+                subject.next(snapshot.docs.map<any>(doc => mapFunction(doc)));
+            }, error => { throw new Error(error.message) });
+        } */
 
     public subscribeToDocument(collectionName: string, documentId: string, subject: BehaviorSubject<any>, mapFunction: (el: DocumentData) => any = res => res): Unsubscribe | null {
         if (!this._db)
