@@ -50,6 +50,7 @@ export class FirebaseAuthService extends AuthService {
                         subscr.next(_info);
                         subscr.complete();
                     });
+                    this.createEmptyProviders(credentials.user.user.uid)
                 }
             })
         });
@@ -101,5 +102,13 @@ export class FirebaseAuthService extends AuthService {
             vehicles: data.data['vehicles'],
             uuid: data.id
         }
+    }
+
+    createEmptyProviders(uid: string) {
+        var providers = {
+            providers: []
+        }
+        console.log("Creando proveedores vacíos", providers)
+        this.firebaseSvc.createDocumentWithId("providers", providers, uid)
     }
 }

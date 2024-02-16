@@ -10,6 +10,8 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
+import { DocumentReference } from 'firebase/firestore';
+import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
 
 
 @Injectable({
@@ -47,12 +49,7 @@ export class ProvidersPage implements OnInit {
      * @return {void}
      */
     ngOnInit() {
-        /*         this.user = this.apiSvc.getUser();
-                this.apiSvc.user$.subscribe(user => {
-                    if (user?.id)
-                        this.getProviders(user.id);
-                }) */
-        var user = this.localDataSvc.getUser().value
+        var user = this.localDataSvc.getUser().value;
         this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders());
     }
 
@@ -114,26 +111,35 @@ export class ProvidersPage implements OnInit {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    var user = this.localDataSvc.getUser().value!!
-                    var providers = this.localDataSvc.getProviders().value
-                    console.log(providers)
-                    if (!providers)
-                        providers = []
+                    var userId = this.localDataSvc.getUser().value!!.id
+                    var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!
+                    console.log("inicial: ", providersList)
+                    if (providersList == null) {
+                        providersList = []
+                        console.log("en el if: ", providersList)
+                    }else{
+                        console.log("no es vacío")
+                    }
+                    console.log("proveedores: ", providersList)
                     var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                     console.log("PROVIDER: ", provider)
+
+
+
                     // TODO está fallando aquí, da error el .push, dice que no es una función de providers
-                    providers.push(provider)
-                    var providersToSave = { "providers": providers }
+                    providersList.push(provider)
+                    console.log(providersList)
+                    var providersToSave = { "providers": providersList }
                     try {
-                        const providersSnaphot = await this.firebaseSvc.getDocument("providers", user.id!!)
+                        const providersSnaphot = await this.firebaseSvc.getDocument("providers", userId)
                         if (providersSnaphot) {
                             console.log("update document")
-                            await this.firebaseSvc.updateDocument("providers", user.id!!, providersToSave)
+                            await this.firebaseSvc.updateDocument("providers", userId, providersToSave)
                         }
                     }
                     catch {
                         console.log("create document")
-                        await this.firebaseSvc.createDocumentWithId("providers", providersToSave, user.id!!)
+                        await this.firebaseSvc.createDocumentWithId("providers", providersToSave, userId)
                     }
                     break;
                 }
@@ -141,53 +147,37 @@ export class ProvidersPage implements OnInit {
                     console.error("No debería entrar");
                 }
             }
-
-            /*
-                    var user = this.localDataSvc.getUser().value!! // Carga el usuario
-        var vehiclesList = user.vehicles; // Carga la lista de vehículos
-        vehiclesList.push(vehiclePreview); // Añade el nuevo vehículo preview
-        await this.firebaseSvc.updateDocument("user", user.id!!, user)
-            */
         }
         this.presentForm(null, onDismiss);
-        /*     onNewVehicle() {
-                var onDismiss = async (info: any) => {
-                    console.log(info)
-                    switch (info.role) {
-                        case 'ok': {
-                            var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data)
-                            var ref = await this.firebaseSvc.createDocument("vehicle", vehicle)
-                            this.updateUser(info, ref)
-                            break;
-                        }
-                        default: {
-                            console.error("No debería entrar");
-                        }
-                    }
-                }
-                this.presentFormVehicles(null, onDismiss);
-            }
-        
-        
-            async updateUser(info: any, ref: DocumentReference) {
-                var vehiclePreview: FBVehiclePreview = {
-                    available: info.data.available,
-                    brand: info.data.brand,
-                    category: info.data.category,
-                    id: ref.id,
-                    model: info.data.model,
-                    plate: info.data.plate,
-                    ref: ref,
-                    registrationDate: info.data.registrationDate,
-                }
-                var user = this.localDataSvc.getUser().value!! // Carga el usuario
-                var vehiclesList = user.vehicles; // Carga la lista de vehículos
-                vehiclesList.push(vehiclePreview); // Añade el nuevo vehículo preview
-                await this.firebaseSvc.updateDocument("user", user.id!!, user)
-            } */
-
-
     }
+
+
+
+
+    async updateProvider(info: any, ref: DocumentReference) {
+        var provider: FBProvider = {
+            category: info.data.category,
+            name: info.data.name,
+            phone: info.data.phone
+        }
+        var user = this.localDataSvc.getUser().value!! // Carga el usuario
+        var providers = this.localDataSvc.getProviders().value!!
+        var providersList = providers
+        console.log(providersList)
+        // providersList.push(provider);
+        await this.firebaseSvc.updateDocument("user", user.id!!, user)
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Muestra un formulario modal para la creación o edición de proveedores.

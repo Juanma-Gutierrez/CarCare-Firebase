@@ -20,6 +20,7 @@ export class LocalDataService {
 
     private _providers: BehaviorSubject<FBProvider[] | null> = new BehaviorSubject<FBProvider[] | null>(null);
     public providers$: Observable<FBProvider[] | null> = this._providers.asObservable();
+
     public user: FBUser | null = null;
 
     setUser(newUser: FBUser | null) {
