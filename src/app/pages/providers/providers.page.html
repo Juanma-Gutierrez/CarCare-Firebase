@@ -4,7 +4,7 @@
     </ion-card-header>
     <ion-card-content>
         <ion-list div class="card-list">
-            <app-provider-item *ngFor="let provider of (providersSvc.providers$ | async)?.data" [provider]="provider"
+            <app-provider-item *ngFor="let provider of (localDataSvc.providers$ | async)" [provider]="provider"
                 (onEditProviderClicked)="onEditProviderClicked(provider)">
             </app-provider-item>
         </ion-list>

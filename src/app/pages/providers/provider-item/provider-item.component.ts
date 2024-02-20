@@ -11,7 +11,9 @@ import { leadingComment } from '@angular/compiler';
     styleUrls: ['./provider-item.component.scss'],
 })
 export class ProviderItemComponent implements OnInit {
-    @Input() provider?: Provider
+    @Input() provider: any= null
+    public providerFormatted: Provider | null = null
+    // @Input() provider?: Provider
     @Output() onEditProviderClicked: EventEmitter<void> = new EventEmitter<void>();
     public categoryFormatted: string = '';
 
@@ -22,7 +24,7 @@ export class ProviderItemComponent implements OnInit {
      * @param {ApiService} apiSvc - Servicio para realizar operaciones generales de la API.
      */
     constructor(
-        public providerSvc: ProvidersService,
+        //public providerSvc: ProvidersService,
         public apiSvc: ApiService,
         public translate: CustomTranslateService,
     ) { }
@@ -31,7 +33,6 @@ export class ProviderItemComponent implements OnInit {
         var lang = '';
         this.translate.language$.subscribe(l => {
             lang = l;
-            console.log(lang)
             this.translateCategory(lang);
         });
     }
@@ -42,11 +43,11 @@ export class ProviderItemComponent implements OnInit {
                 case ("workshop"):
                     this.categoryFormatted = "Workshop";
                     break;
-                    case ("towTruck"):
-                        this.categoryFormatted = "Tow truck";
+                case ("towTruck"):
+                    this.categoryFormatted = "Tow truck";
                     break;
-                    case ("other"):
-                        this.categoryFormatted = "Others";
+                case ("other"):
+                    this.categoryFormatted = "Others";
                     break;
                 case ("ITV"):
                     this.categoryFormatted = "ITV";
@@ -54,9 +55,9 @@ export class ProviderItemComponent implements OnInit {
                 case ("insuranceCompany"):
                     this.categoryFormatted = "Insurance Company";
                     break;
-                    case ("gasStation"):
-                        this.categoryFormatted = "Gas station";
-                        break;
+                case ("gasStation"):
+                    this.categoryFormatted = "Gas station";
+                    break;
                 default: {
                     console.error("No debería entrar");
                     break;

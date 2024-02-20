@@ -4,10 +4,9 @@ import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
-import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 import { User } from 'src/app/core/interfaces/User';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { DocumentReference } from 'firebase/firestore';
@@ -40,7 +39,7 @@ export class ProvidersPage implements OnInit {
         private modal: ModalController,
         private firebaseSvc: FirebaseService,
         private firebaseMappingSvc: FirebaseMappingService,
-        private localDataSvc: LocalDataService
+        public localDataSvc: LocalDataService
     ) { }
 
     /**
@@ -48,14 +47,14 @@ export class ProvidersPage implements OnInit {
      * @method ngOnInit
      * @return {void}
      */
-    ngOnInit() {
+    async ngOnInit() {
         var user = this.localDataSvc.getUser().value;
-        this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders());
-        console.log(this.localDataSvc.getProviders())
+        this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders(), (data) => {
+            return data['providers']
+        })
+        //var providers: any = await this.firebaseSvc.getDocument("providers", user!.id)
+        //this.localDataSvc.setProviders(providers.data.providers)
     }
-
-
-
 
     /**
      * Obtiene la lista de proveedores para un usuario específico.
@@ -113,10 +112,10 @@ export class ProvidersPage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     var userId = this.localDataSvc.getUser().value!!.id
-                    var providersList: any = this.localDataSvc.getProviders().value!!;
+                    var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!;
                     var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
-                    providersList.providers.push(provider)
-                    await this.firebaseSvc.updateDocument("providers", userId, providersList)
+                    providersList.push(provider)
+                    await this.firebaseSvc.updateDocument("providers", userId, { "providers": providersList })
                     this.localDataSvc.setProviders(providersList)
                 }
             }
