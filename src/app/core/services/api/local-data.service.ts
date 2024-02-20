@@ -15,8 +15,8 @@ export class LocalDataService {
     private _vehicle: BehaviorSubject<FBVehicle | null> = new BehaviorSubject<FBVehicle | null>(null)
     public vehicle$: Observable<FBVehicle | null> = this._vehicle.asObservable();
 
-    private _spents: BehaviorSubject<FBSpent[] | null> = new BehaviorSubject<FBSpent[] | null>(null);
-    public spents$: Observable<FBSpent[] | null> = this._spents.asObservable();
+    private _spents: BehaviorSubject<FBSpent[]> = new BehaviorSubject<FBSpent[]>([]);
+    public spents$: Observable<FBSpent[]> = this._spents.asObservable();
 
     private _providers: BehaviorSubject<FBProvider[] | null> = new BehaviorSubject<FBProvider[] | null>(null);
     public providers$: Observable<FBProvider[] | null> = this._providers.asObservable();
@@ -51,7 +51,7 @@ export class LocalDataService {
         return this._spents;
     }
 
-    setProviders(providers: FBProvider[]) {
+    setProviders(providers: FBProvider[] | null) {
         this._providers.next(providers)
     }
 
@@ -63,7 +63,7 @@ export class LocalDataService {
         this.user = null;
         this._user.next(null);
         this._vehicle.next(null);
-        this._spents.next(null);
+        this._spents.next([]);
         this._providers.next(null);
     }
 }

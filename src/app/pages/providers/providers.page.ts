@@ -7,7 +7,7 @@ import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 import { User } from 'src/app/core/interfaces/User';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { DocumentReference } from 'firebase/firestore';
@@ -51,6 +51,7 @@ export class ProvidersPage implements OnInit {
     ngOnInit() {
         var user = this.localDataSvc.getUser().value;
         this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders());
+        console.log(this.localDataSvc.getProviders())
     }
 
 
@@ -63,7 +64,7 @@ export class ProvidersPage implements OnInit {
      * @return {void}
      */
     async getProviders(userId: number) {
-        this.providersSvc.getAll(userId).subscribe();
+        //  this.providersSvc.getAll(userId).subscribe();
     }
 
     /**
@@ -73,33 +74,33 @@ export class ProvidersPage implements OnInit {
      * @return {void}
      */
     onEditProviderClicked(provider: Provider) {
-        var onDismiss = (info: any) => {
-            switch (info.role) {
-                case 'ok': {
-                    this.providersSvc.updateProvider(info.data).subscribe(async user => {
-                        this.utilsSvc.showToast("Proveedor actualizado", "success", "bottom")
-                        // this.reloadProviders(this.user);
-                    })
-                }
-                    break;
-                case 'delete': {
-                    this.providersSvc.deleteProvider(info.data).subscribe(async user => {
-                        this.utilsSvc.showToast("Proveedor eliminado", "success", "bottom")
-                        // this.reloadProviders(this.user);
-                    })
-                }
-                    break;
-                default: {
-                    console.error("No debería entrar");
-                }
-            }
-        }
-        var newProvider: StrapiProvider = {
-            name: provider.name,
-            phone: provider.phone,
-            category: provider.category
-        }
-        this.presentForm(provider, onDismiss);
+        /*   var onDismiss = (info: any) => {
+              switch (info.role) {
+                  case 'ok': {
+                      this.providersSvc.updateProvider(info.data).subscribe(async user => {
+                          this.utilsSvc.showToast("Proveedor actualizado", "success", "bottom")
+                          // this.reloadProviders(this.user);
+                      })
+                  }
+                      break;
+                  case 'delete': {
+                      this.providersSvc.deleteProvider(info.data).subscribe(async user => {
+                          this.utilsSvc.showToast("Proveedor eliminado", "success", "bottom")
+                          // this.reloadProviders(this.user);
+                      })
+                  }
+                      break;
+                  default: {
+                      console.error("No debería entrar");
+                  }
+              }
+          }
+          var newProvider: StrapiProvider = {
+              name: provider.name,
+              phone: provider.phone,
+              category: provider.category
+          }
+          this.presentForm(provider, onDismiss); */
     }
 
     /**
@@ -112,39 +113,11 @@ export class ProvidersPage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     var userId = this.localDataSvc.getUser().value!!.id
-                    var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!
-                    console.log("inicial: ", providersList)
-                    if (providersList == null) {
-                        providersList = []
-                        console.log("en el if: ", providersList)
-                    }else{
-                        console.log("no es vacío")
-                    }
-                    console.log("proveedores: ", providersList)
+                    var providersList: any = this.localDataSvc.getProviders().value!!;
                     var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
-                    console.log("PROVIDER: ", provider)
-
-
-
-                    // TODO está fallando aquí, da error el .push, dice que no es una función de providers
-                    providersList.push(provider)
-                    console.log(providersList)
-                    var providersToSave = { "providers": providersList }
-                    try {
-                        const providersSnaphot = await this.firebaseSvc.getDocument("providers", userId)
-                        if (providersSnaphot) {
-                            console.log("update document")
-                            await this.firebaseSvc.updateDocument("providers", userId, providersToSave)
-                        }
-                    }
-                    catch {
-                        console.log("create document")
-                        await this.firebaseSvc.createDocumentWithId("providers", providersToSave, userId)
-                    }
-                    break;
-                }
-                default: {
-                    console.error("No debería entrar");
+                    providersList.providers.push(provider)
+                    await this.firebaseSvc.updateDocument("providers", userId, providersList)
+                    this.localDataSvc.setProviders(providersList)
                 }
             }
         }

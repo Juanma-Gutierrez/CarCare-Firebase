@@ -67,7 +67,7 @@
             "phone": "Phone",
             "categoryTitle": "Category",
             "category": {
-                "selectProvider": "Select provider",
+                "selectCategory": "Select category",
                 "workshop": "Workshop",
                 "gasStation": "Gas station",
                 "insuranceCompany": "Insurance company",
