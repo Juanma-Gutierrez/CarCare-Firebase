@@ -59,6 +59,7 @@ export class SpentFormComponent implements OnInit {
      * Método del ciclo de vida llamado al inicializar el componente.
      */
     ngOnInit() {
+        console.log("dentro del ngoninit de spentformcomponent ", this.providers)
         this.providerName = this.spent?.providerName;
     }
 

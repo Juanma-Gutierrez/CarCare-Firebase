@@ -18,6 +18,7 @@ import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { DocumentReference } from 'firebase/firestore';
+import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
 
 
 type PaginatedSpents = Spent[]
@@ -359,12 +360,16 @@ export class HomePage implements OnInit {
      * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
      */
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
+        var providers: FBProvider[] = []
+        // TODO ESTA PARTE ESTÁ MAL, NO CARGA CORRECTAMENTE LOS PROVEEDORES PARA MOSTRAR EN EL SELECTABLE
+        this.firebaseSvc.getDocument("providers", _vehicleId.toString()).then((result) =>
+            providers = result.data['providers'])
         const modal = await this.modal.create({
             component: SpentFormComponent,
             componentProps: {
                 spent: data,
                 vehicleId: _vehicleId,
-                providers: this.providers,
+                providers: providers,
             },
             cssClass: "modal-w50"
         });
