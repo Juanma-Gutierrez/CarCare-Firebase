@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SpentsService } from 'src/app/core/services/api/spents.service';
-import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-spents';
 
 @Component({
     selector: 'app-spent-item',
@@ -22,7 +21,9 @@ export class SpentItemComponent implements OnInit {
     /**
      * Método del ciclo de vida llamado al inicializar el componente.
      */
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(this.spent)
+    }
 
     /**
      * Maneja el evento de clic en editar gasto.

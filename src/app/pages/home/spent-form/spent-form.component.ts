@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
+import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 
 @Component({
     selector: 'app-spent-form',
@@ -39,6 +41,7 @@ export class SpentFormComponent implements OnInit {
 
     @Input() providers: Provider[] = [];
     public providerName?: String;
+    
 
     constructor(
         private _modal: ModalController,
@@ -47,7 +50,7 @@ export class SpentFormComponent implements OnInit {
         this.form = this.formBuilder.group({
             id: [null],
             date: [this.today.toISOString(), Validators.required],
-            amount: ['', Validators.required],
+            amount: [0, Validators.required],
             provider: [0, Validators.required],
             providerName: ['', Validators.required],
             vehicle: [this._vehicle],
@@ -59,7 +62,6 @@ export class SpentFormComponent implements OnInit {
      * Método del ciclo de vida llamado al inicializar el componente.
      */
     ngOnInit() {
-        console.log("dentro del ngoninit de spentformcomponent ", this.providers)
         this.providerName = this.spent?.providerName;
     }
 
@@ -95,6 +97,7 @@ export class SpentFormComponent implements OnInit {
      * Envía los datos del formulario al cerrarse correctamente.
      */
     onSubmit() {
+        console.log(this.form.value)
         this._modal.dismiss(this.form.value, 'ok');
     }
 

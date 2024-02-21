@@ -12,6 +12,10 @@ import { FBProvider } from "./interfaces/FBProvider";
     providedIn: 'root'
 })
 export class FirebaseMappingService extends MappingService {
+
+    constructor() {
+        super();
+    }
     public override queryVehiclesUrl(): string {
         throw new Error("Method not implemented.");
     }
@@ -68,7 +72,14 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    constructor() {
-        super();
+    mapFBSpent(data: any) {
+        console.log(data)
+        return {
+            provider:data.providerName,
+            amount:data.amount,
+            observations:data.observations,
+            date:data.date
+        }
     }
+
 }

@@ -11,3 +11,4 @@ export interface FBVehicle {
     registrationDate: Date,
     spents?: FBSpent[]
 }
+

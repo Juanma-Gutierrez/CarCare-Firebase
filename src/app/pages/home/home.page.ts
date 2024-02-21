@@ -7,18 +7,18 @@ import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentFormComponent } from './spent-form/spent-form.component';
 import { SpentsService } from 'src/app/core/services/api/spents.service';
-import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-spents';
 import { User } from 'src/app/core/interfaces/User';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
-import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
-import { DocumentReference } from 'firebase/firestore';
+import { DocumentData, DocumentReference } from 'firebase/firestore';
 import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
+import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
+import { FBSpent } from 'src/app/core/services/api/firebase/interfaces/FBSpent';
 
 
 type PaginatedSpents = Spent[]
@@ -31,7 +31,7 @@ export class HomePage implements OnInit {
 
     public filterAvailableVehicle = true;
     private user: FBUser | null = null;
-    public selectedVehicle: FBVehicle | undefined;
+    public selectedVehicle: FirebaseDocument | null = null;
     public providers: Provider[] = [];
 
     constructor(
@@ -75,36 +75,16 @@ export class HomePage implements OnInit {
 
     // ***************************** VEHICLES *****************************
     /**
-     * Obtiene y carga los vehículos del propietario con el identificador proporcionado.
-     * @async
-     * @param {number} ownerId - Identificador del propietario.
-     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
-     */
-    /*     async getVehicles(ownerId: number) {
-            console.log("getVehicles");
-            this.vehiclesSvc.getAll(ownerId).subscribe();
-        } */
-    /**
-     * Recarga la lista de vehículos del usuario proporcionado.
-     * @method reloadVehicles
-     * @param {User | null} user - Objeto de usuario o nulo.
-     * @return {void}
-     */
-    /*     reloadVehicles(user: User | null) {
-            if (user?.id)
-                this.vehiclesSvc.getAll(user.id).subscribe();
-        } */
-
-    /**
-     * Maneja el evento de clic en un elemento de vehículo.
-     * Actualiza la lista de gastos y estadísticas relacionadas con el vehículo seleccionado.
-     * @async
-     * @method onVehicleItemClicked
-     * @param {FBVehiclePreview} vehiclePreview - Objeto de vehículo seleccionado.
-     */
+    * Maneja el evento de clic en un elemento de vehículo.
+    * Actualiza la lista de gastos y estadísticas relacionadas con el vehículo seleccionado.
+    * @async
+    * @method onVehicleItemClicked
+    * @param {FBVehiclePreview} vehiclePreview - Objeto de vehículo seleccionado.
+    */
     public async onVehicleItemClicked(vehiclePreview: FBVehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
         if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicle());
+        this.selectedVehicle = vehicle
         this.localDataSvc.vehicle$.subscribe(vehicle => {
             this.localDataSvc.setSpents(vehicle?.spents!)
             this.spentsSvc.calculateNumberOfSpents(vehicle?.spents!)
@@ -113,12 +93,6 @@ export class HomePage implements OnInit {
         })
     }
 
-    /**
-     * Maneja la creación de un nuevo vehículo.
-     * Abre un formulario para introducir los detalles del nuevo vehículo y realiza las operaciones correspondientes.
-     * @method onNewVehicle
-     * @return {void}
-     */
     onNewVehicle() {
         var onDismiss = async (info: any) => {
             console.log(info)
@@ -211,32 +185,6 @@ export class HomePage implements OnInit {
     }
 
     // ***************************** SPENTS *****************************
-
-    /**
-     * Obtiene y actualiza la lista de gastos asociados al vehículo seleccionado.
-     * @async
-     * @method getSpents
-     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
-     */
-    async getSpents() {
-        console.log("Entra en getSpents");
-        /*     if (this.selectedVehicle?.id) {
-                this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
-                    for (var i = 0; i < s.data.length; i++) {
-                        var temp = s.data[i];
-                        var newSpent: Spent = {
-                            id: temp.id,
-                            date: temp.date,
-                            amount: temp.amount,
-                            provider: temp.provider.data.id,
-                            vehicle: temp.vehicle.data.id
-                        }
-                        this.spentsSvc.updateSpent(newSpent)
-                    }
-                });
-            } */
-    }
-
     /**
      * Maneja la creación de un nuevo gasto asociado a un vehículo.
      * Abre un formulario para introducir los detalles del nuevo gasto y realiza las operaciones correspondientes.
@@ -244,23 +192,29 @@ export class HomePage implements OnInit {
      * @param {number} vehicleId - Identificador del vehículo asociado al gasto.
      * @return {void}
      */
-    onNewSpent(vehicleId: number) {
+    onNewSpent(vehicleSelected: DocumentData) {
+        console.log("***********", vehicleSelected)
+        console.log("***********", vehicleSelected['id'])
+        // Vehículo seleccionado: vehicleSelected['id']
         var onDismiss = async (info: any) => {
             console.log(info)
-            console.log(vehicleId)
-            /*    switch (info.role) {
-                   case 'ok': {
-                       var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data)
-                       var ref = await this.firebaseSvc.createDocument("vehicles", vehicle)
-                       this.updateUser(info, ref)
-                       break;
-                   }
-                   default: {
-                       console.error("No debería entrar");
-                   }
-               } */
+            console.log(info.role)
+            switch (info.role) {
+                case 'ok': {
+                    var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
+                    console.log(spent)
+                    // TODO añadir el gasto al array de localdatasvc para añadirlo al vehículo
+                    this.addSpentToSpentsArray(vehicleSelected, spent)
+                    var ref = await this.firebaseSvc.createDocument("vehicles", spent)
+                    break;
+                }
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
         }
-        this.presentFormSpents(null, vehicleId, onDismiss);
+        this.presentFormSpents(null, vehicleSelected['id'], onDismiss);
+
         /*         var onDismiss = (info: any) => {
                     switch (info.role) {
                         case 'ok': {
@@ -278,6 +232,22 @@ export class HomePage implements OnInit {
                 }
                 this.presentFormSpents(null, vehicleId, onDismiss); */
     }
+
+    async addSpentToSpentsArray(vehicle: DocumentData, spent: FBSpent) {
+        var data = vehicle['data']
+        var vehicleWithSpents = {
+            available: data['available'],
+            brand: data['brand'],
+            category: data['category'],
+            model: data['model'],
+            plate: data['plate'],
+            registrationDate: data['registrationDate'],
+            spents: data['spents']
+        }
+        data['spents'].push(spent); // Añade el nuevo vehículo preview
+        await this.firebaseSvc.updateDocument("vehicles", vehicle['id']!!, vehicleWithSpents)
+    }
+
 
     /**
      * Maneja el evento de clic en "Editar" para un gasto.
@@ -361,12 +331,10 @@ export class HomePage implements OnInit {
      * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
      */
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
-        // TODO ESTA PARTE ESTÁ MAL, NO CARGA CORRECTAMENTE LOS PROVEEDORES PARA MOSTRAR EN EL SELECTABLE
-        var providers: FBProvider[]|null = []
+        var providers: FBProvider[] | null = []
         this.localDataSvc.providers$.subscribe(providerList => {
             providers = providerList
         })
-        console.log("providers: ", providers)
         const modal = await this.modal.create({
             component: SpentFormComponent,
             componentProps: {
@@ -383,9 +351,8 @@ export class HomePage implements OnInit {
             }
         });
     }
-
-
 }
+
 
 
 
