@@ -52,7 +52,7 @@ export class ProvidersPage implements OnInit {
         this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
         })
-        //var providers: any = await this.firebaseSvc.getDocument("providers", user!.id)
+        //var providers: any = await this.firebaseSvc.getDocument("provider", user!.id)
         //this.localDataSvc.setProviders(providers.data.providers)
     }
 

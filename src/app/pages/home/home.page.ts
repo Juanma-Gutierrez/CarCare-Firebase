@@ -51,7 +51,13 @@ export class HomePage implements OnInit {
      * @method ngOnInit
      * @returns {void}
      */
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        // Carga los proveedores del usuario al inicio
+        var user = this.localDataSvc.getUser().value;
+        this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders(), (data) => {
+            return data['providers']
+        })
+    }
 
     /**
  * Maneja el cambio en la selección de filtros de vehículos.
@@ -119,7 +125,7 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data)
-                    var ref = await this.firebaseSvc.createDocument("vehicle", vehicle)
+                    var ref = await this.firebaseSvc.createDocument("vehicles", vehicle)
                     this.updateUser(info, ref)
                     break;
                 }
@@ -130,7 +136,6 @@ export class HomePage implements OnInit {
         }
         this.presentFormVehicles(null, onDismiss);
     }
-
 
     async updateUser(info: any, ref: DocumentReference) {
         var vehiclePreview: FBVehiclePreview = {
@@ -148,10 +153,6 @@ export class HomePage implements OnInit {
         vehiclesList.push(vehiclePreview); // Añade el nuevo vehículo preview
         await this.firebaseSvc.updateDocument("user", user.id!!, user)
     }
-
-
-
-
 
     /**
      * Maneja el evento de clic en "Editar" para un vehículo.
@@ -250,7 +251,7 @@ export class HomePage implements OnInit {
             /*    switch (info.role) {
                    case 'ok': {
                        var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data)
-                       var ref = await this.firebaseSvc.createDocument("vehicle", vehicle)
+                       var ref = await this.firebaseSvc.createDocument("vehicles", vehicle)
                        this.updateUser(info, ref)
                        break;
                    }
@@ -360,10 +361,12 @@ export class HomePage implements OnInit {
      * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
      */
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
-        var providers: FBProvider[] = []
         // TODO ESTA PARTE ESTÁ MAL, NO CARGA CORRECTAMENTE LOS PROVEEDORES PARA MOSTRAR EN EL SELECTABLE
-        this.firebaseSvc.getDocument("providers", _vehicleId.toString()).then((result) =>
-            providers = result.data['providers'])
+        var providers: FBProvider[]|null = []
+        this.localDataSvc.providers$.subscribe(providerList => {
+            providers = providerList
+        })
+        console.log("providers: ", providers)
         const modal = await this.modal.create({
             component: SpentFormComponent,
             componentProps: {
