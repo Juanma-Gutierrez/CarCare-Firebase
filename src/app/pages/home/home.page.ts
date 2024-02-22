@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
 import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
 import { FBSpent } from 'src/app/core/services/api/firebase/interfaces/FBSpent';
-import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
@@ -15,6 +15,7 @@ import { SpentFormComponent } from './spent-form/spent-form.component';
 import { SpentsService } from 'src/app/core/services/api/spents.service';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 
 type PaginatedSpents = Spent[]
@@ -26,7 +27,6 @@ type PaginatedSpents = Spent[]
 export class HomePage implements OnInit {
 
     public filterAvailableVehicle = true;
-    private user: FBUser | null = null;
     public selectedVehicle: FirebaseDocument | null = null;
     public providers: Provider[] = [];
 
@@ -39,6 +39,7 @@ export class HomePage implements OnInit {
         private firebaseSvc: FirebaseService,
         private firebaseMappingSvc: FirebaseMappingService,
         public localDataSvc: LocalDataService,
+        private utilsSvc: UtilsService
     ) { }
 
     ngOnInit(): void {
@@ -107,28 +108,41 @@ export class HomePage implements OnInit {
     }
 
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
-        /*         var onDismiss = (info: any) => {
-                    switch (info.role) {
-                        case 'ok': {
-                            this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
-                                this.utilSvc.showToast("Vehículo actualizado", "success", "bottom")
-                                this.reloadVehicles(this.user);
-                            })
-                        }
-                            break;
-                        case 'delete': {
-                            this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
-                                this.utilSvc.showToast("Vehículo eliminado", "success", "bottom")
-                                this.reloadVehicles(this.user);
-                            })
-                        }
-                            break;
-                        default: {
-                            console.error("No debería entrar");
-                        }
+        console.log("vehículo", vehicle)
+        console.log("vehículo", vehicle.id)
+        var onDismiss = (info: any) => {
+            switch (info.role) {
+                case 'ok': {
+                    this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
+                        this.utilsSvc.showToast("Vehículo actualizado", "success", "bottom")
+                    })
+                }
+                    break;
+                case 'delete': {
+                    try {
+                        // eliminar el documento del vehículo
+                        this.firebaseSvc.deleteDocument("vehicles", vehicle.id)
+                        // Eliminar el vehículo del array del usuario
+                        this.deleteVehiclePreview(vehicle.id)
+                        this.utilsSvc.showToast("Vehículo eliminado", "success", "bottom")
+                    } catch (e) {
+                        console.log(e)
                     }
                 }
-                this.presentFormVehicles(vehicle, onDismiss); */
+                    break;
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
+        }
+        this.presentFormVehicles(vehicle, onDismiss);
+    }
+
+    async deleteVehiclePreview(id: String) {
+        var user = this.localDataSvc.getUser().value!! // Carga el usuario
+        var vehiclesList = user.vehicles; // Carga la lista de vehículos
+        user.vehicles = vehiclesList.filter(vehicle => vehicle.id != id)
+        await this.firebaseSvc.updateDocument("user", user.id!!, user)
     }
 
     async presentFormVehicles(data: FBVehiclePreview | null, onDismiss: (result: any) => void) {
@@ -153,8 +167,8 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
-                    this.addSpentToSpentsArray(vehicleSelected, spent)
-                    var ref = await this.firebaseSvc.createDocument("vehicles", spent)
+                    var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
+                    await this.firebaseSvc.updateDocument("vehicles", vehicleSelected['id']!!, vehicleWithSpents)
                     break;
                 }
                 default: {
@@ -165,7 +179,7 @@ export class HomePage implements OnInit {
         this.presentFormSpents(null, vehicleSelected['id'], onDismiss);
     }
 
-    async addSpentToSpentsArray(vehicle: DocumentData, spent: FBSpent) {
+    async addSpentToSpentsArray(vehicle: DocumentData, spent: FBSpent): Promise<any> {
         var data = vehicle['data']
         var vehicleWithSpents = {
             available: data['available'],
@@ -177,7 +191,7 @@ export class HomePage implements OnInit {
             spents: data['spents']
         }
         data['spents'].push(spent);
-        await this.firebaseSvc.updateDocument("vehicles", vehicle['id']!!, vehicleWithSpents)
+        return vehicleWithSpents
     }
 
     public async onEditSpentClicked(spent: any) { // StrapiSpent

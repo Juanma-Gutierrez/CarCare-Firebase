@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot } from "firebase/firestore";
+import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UtilsService } from '../../utils.service';
@@ -203,4 +203,13 @@ export class FirebaseService {
         }, error => { throw new Error(error.message) });
     }
 
+    public deleteDocument(collectionName: string, docId: string): Promise<void> {
+        return new Promise(async (resolve, reject) => {
+            if (!this._db)
+                reject({
+                    msg: "Database is not connected"
+                });
+            resolve(await deleteDoc(doc(this._db!, collectionName, docId)));
+        });
+    }
 }

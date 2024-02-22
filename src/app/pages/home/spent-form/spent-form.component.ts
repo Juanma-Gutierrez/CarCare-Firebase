@@ -41,7 +41,6 @@ export class SpentFormComponent implements OnInit {
 
     @Input() providers: Provider[] = [];
     public providerName?: String;
-    
 
     constructor(
         private _modal: ModalController,
@@ -51,7 +50,7 @@ export class SpentFormComponent implements OnInit {
             id: [null],
             date: [this.today.toISOString(), Validators.required],
             amount: [0, Validators.required],
-            provider: [0, Validators.required],
+            provider: [''],
             providerName: ['', Validators.required],
             vehicle: [this._vehicle],
             observations: ['']
@@ -78,6 +77,7 @@ export class SpentFormComponent implements OnInit {
      * @param {any} event - Evento de selección.
      */
     onSelection(event: any) {
+        console.log(event.detail.value)
         const provider = event.detail.value;
         this.selectedProvider = provider;
         console.log(this.selectedProvider)
@@ -107,5 +107,4 @@ export class SpentFormComponent implements OnInit {
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }
-
 }

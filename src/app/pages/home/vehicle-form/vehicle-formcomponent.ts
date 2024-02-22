@@ -16,7 +16,7 @@ export class VehicleFormComponent implements OnInit {
     @Input() set vehicle(_vehicle: Vehicle | null) {
         if (_vehicle) {
             this.mode = 'Edit';
-            this.form.controls['id'].setValue(_vehicle.id);
+            // this.form.controls['id'].setValue(_vehicle.id);
             this.form.controls['plate'].setValue(_vehicle.plate);
             this.form.controls['model'].setValue(_vehicle.model);
             this.form.controls['brand'].setValue(_vehicle.brand);
@@ -30,15 +30,12 @@ export class VehicleFormComponent implements OnInit {
      * Constructor del componente.
      * @param {ModalController} _modal - Controlador de modal de Ionic.
      * @param {FormBuilder} formBuilder - Constructor de formularios reactivos.
-     * @param {ApiService} apiSvc - Servicio de API para obtener información del usuario.
      */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
         private apiSvc: ApiService,
     ) {
-        var owner = apiSvc.getUser()
-        var ownerId = owner?.id
         this.form = this.formBuilder.group({
             available: [true],
             brand: ['', Validators.required],

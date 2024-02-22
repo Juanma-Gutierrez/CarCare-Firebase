@@ -46,7 +46,7 @@
     </form>
 </ion-content>
 <ion-footer>
-    <ion-button *ngIf="mode==='New'" buttonDirective type="submit" [disabled]="!form.dirty"
+    <ion-button *ngIf="mode==='New'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"
         class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.create' | translate}}</ion-button>
     <ion-button *ngIf="mode==='Edit'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"
         class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.save' | translate}}</ion-button>
