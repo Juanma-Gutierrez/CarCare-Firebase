@@ -16,7 +16,7 @@
         </ion-col>
     </ion-row>
     <ion-row *ngIf="spent?.observations!==''">
-        <p>{{spent?.observations}}</p>
+        <h3>{{spent?.observations | capitalize}}</h3>
     </ion-row>
 </ion-grid>
 
@@ -31,7 +31,7 @@
         <h3 class="amount">{{spent?.amount!! | numberFormat}}</h3>
     </ion-row>
     <ion-row *ngIf="spent?.observations!==''">
-        <p>{{spent?.observations}}</p>
+        <h3>{{spent?.observations | uppercase}}</h3>
     </ion-row>
     <ion-button class="edit-button" fill="clear" id="editSpent" (click)="onEditSpentClick($event)">
         <ion-icon name="create-outline" size="large"></ion-icon>

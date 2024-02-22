@@ -1,24 +1,20 @@
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, OnInit } from '@angular/core';
+import { DocumentData, DocumentReference } from 'firebase/firestore';
+import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
+import { FBSpent } from 'src/app/core/services/api/firebase/interfaces/FBSpent';
+import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
-import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentFormComponent } from './spent-form/spent-form.component';
 import { SpentsService } from 'src/app/core/services/api/spents.service';
-import { User } from 'src/app/core/interfaces/User';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
-import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
-import { UtilsService } from 'src/app/core/services/utils.service';
-import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
-import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
-import { DocumentData, DocumentReference } from 'firebase/firestore';
-import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
-import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
-import { FBSpent } from 'src/app/core/services/api/firebase/interfaces/FBSpent';
 
 
 type PaginatedSpents = Spent[]
@@ -36,7 +32,6 @@ export class HomePage implements OnInit {
 
     constructor(
         private modal: ModalController,
-        private utilSvc: UtilsService,
         public apiSvc: ApiService,
         public vehiclesSvc: VehiclesService,
         public spentsSvc: SpentsService,
@@ -46,11 +41,6 @@ export class HomePage implements OnInit {
         public localDataSvc: LocalDataService,
     ) { }
 
-    /**
-     * Método del ciclo de vida llamado al inicializar la página de inicio.
-     * @method ngOnInit
-     * @returns {void}
-     */
     ngOnInit(): void {
         // Carga los proveedores del usuario al inicio
         var user = this.localDataSvc.getUser().value;
@@ -59,11 +49,6 @@ export class HomePage implements OnInit {
         })
     }
 
-    /**
- * Maneja el cambio en la selección de filtros de vehículos.
- * @param {CustomEvent} event - Evento de cambio en la selección.
- * @return {void}
- */
     selectionChanged(event: CustomEvent) {
         switch (event.detail.value) {
             case "available": this.filterAvailableVehicle = true;
@@ -74,13 +59,6 @@ export class HomePage implements OnInit {
     }
 
     // ***************************** VEHICLES *****************************
-    /**
-    * Maneja el evento de clic en un elemento de vehículo.
-    * Actualiza la lista de gastos y estadísticas relacionadas con el vehículo seleccionado.
-    * @async
-    * @method onVehicleItemClicked
-    * @param {FBVehiclePreview} vehiclePreview - Objeto de vehículo seleccionado.
-    */
     public async onVehicleItemClicked(vehiclePreview: FBVehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
         if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicle());
@@ -128,13 +106,6 @@ export class HomePage implements OnInit {
         await this.firebaseSvc.updateDocument("user", user.id!!, user)
     }
 
-    /**
-     * Maneja el evento de clic en "Editar" para un vehículo.
-     * Abre un formulario prellenado con los detalles del vehículo y realiza las operaciones correspondientes.
-     * @method onEditVehicleClicked
-     * @param {FBVehicle} vehicle - Objeto de vehículo a editar.
-     * @return {void}
-     */
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
         /*         var onDismiss = (info: any) => {
                     switch (info.role) {
@@ -160,14 +131,6 @@ export class HomePage implements OnInit {
                 this.presentFormVehicles(vehicle, onDismiss); */
     }
 
-    /**
-     * Presenta un formulario para la gestión de vehículos.
-     * @async
-     * @method presentFormVehicles
-     * @param {FBVehiclePreview | null} data - Datos del vehículo para prellenar el formulario (puede ser nulo para un nuevo vehículo).
-     * @param {(result: any) => void} onDismiss - Función que se llama cuando se cierra el formulario, proporcionando el resultado.
-     * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
-     */
     async presentFormVehicles(data: FBVehiclePreview | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: VehicleFormComponent,
@@ -185,25 +148,11 @@ export class HomePage implements OnInit {
     }
 
     // ***************************** SPENTS *****************************
-    /**
-     * Maneja la creación de un nuevo gasto asociado a un vehículo.
-     * Abre un formulario para introducir los detalles del nuevo gasto y realiza las operaciones correspondientes.
-     * @method onNewSpent
-     * @param {number} vehicleId - Identificador del vehículo asociado al gasto.
-     * @return {void}
-     */
     onNewSpent(vehicleSelected: DocumentData) {
-        console.log("***********", vehicleSelected)
-        console.log("***********", vehicleSelected['id'])
-        // Vehículo seleccionado: vehicleSelected['id']
         var onDismiss = async (info: any) => {
-            console.log(info)
-            console.log(info.role)
             switch (info.role) {
                 case 'ok': {
                     var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
-                    console.log(spent)
-                    // TODO añadir el gasto al array de localdatasvc para añadirlo al vehículo
                     this.addSpentToSpentsArray(vehicleSelected, spent)
                     var ref = await this.firebaseSvc.createDocument("vehicles", spent)
                     break;
@@ -214,23 +163,6 @@ export class HomePage implements OnInit {
             }
         }
         this.presentFormSpents(null, vehicleSelected['id'], onDismiss);
-
-        /*         var onDismiss = (info: any) => {
-                    switch (info.role) {
-                        case 'ok': {
-                            this.spentsSvc.addSpent(info.data).subscribe(async user => {
-                                this.utilSvc.showToast("Gasto creado correctamente", "success", "bottom")
-                                if (this.user)
-                                    this.reloadSpents(this.user);
-                            })
-                            break;
-                        }
-                        default: {
-                            console.error("No debería entrar");
-                        }
-                    }
-                }
-                this.presentFormSpents(null, vehicleId, onDismiss); */
     }
 
     async addSpentToSpentsArray(vehicle: DocumentData, spent: FBSpent) {
@@ -244,18 +176,10 @@ export class HomePage implements OnInit {
             registrationDate: data['registrationDate'],
             spents: data['spents']
         }
-        data['spents'].push(spent); // Añade el nuevo vehículo preview
+        data['spents'].push(spent);
         await this.firebaseSvc.updateDocument("vehicles", vehicle['id']!!, vehicleWithSpents)
     }
 
-
-    /**
-     * Maneja el evento de clic en "Editar" para un gasto.
-     * Abre un formulario prellenado con los detalles del gasto y realiza las operaciones correspondientes.
-     * @method onEditSpentClicked
-     * @param {StrapiSpent} spent - Objeto de gasto a editar.
-     * @return {void}
-     */
     public async onEditSpentClicked(spent: any) { // StrapiSpent
         console.log(spent)
         /*    var onDismiss = (info: any) => {
@@ -291,45 +215,6 @@ export class HomePage implements OnInit {
            this.presentFormSpents(_spent, _spent.vehicle, onDismiss); */
     }
 
-    /**
-     * Recarga la lista de vehículos y gastos del usuario proporcionado.
-     * @method reloadSpents
-     * @param {User} user - Objeto de usuario.
-     * @return {void}
-     */
-    reloadSpents(user: User) {/* 
-        if (user?.id) {
-            this.vehiclesSvc.getAll(user.id).subscribe();
-            if (this.selectedVehicle)
-                this.spentsSvc.getAll(this.selectedVehicle.id).subscribe();
-        } */
-    }
-
-    /**
-     * Convierte un array de proveedores de Strapi a un array de proveedores genéricos.
-     * @method mapToStrapiProviderToProvider
-     * @param {StrapiProvider[]} strapiProviders - Array de proveedores de Strapi.
-     * @returns {Provider[]} - Array de proveedores genéricos.
-     */
-    private mapToStrapiProviderToProvider(strapiProviders: StrapiProvider[]): Provider[] {
-        return strapiProviders.map((strapiProvider: StrapiProvider) => ({
-            id: strapiProvider.id,
-            name: strapiProvider.name,
-            category: strapiProvider.category,
-            phone: strapiProvider.phone,
-            users_permissions_user: strapiProvider.users_permissions_user
-        }));
-    }
-
-    /**
-     * Presenta un formulario para la gestión de gastos.
-     * @async
-     * @method presentFormSpents
-     * @param {Spent | null} data - Datos del gasto para prellenar el formulario (puede ser nulo para un nuevo gasto).
-     * @param {number} _vehicleId - Identificador del vehículo asociado al gasto.
-     * @param {(result: any) => void} onDismiss - Función que se llama cuando se cierra el formulario, proporcionando el resultado.
-     * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
-     */
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
         var providers: FBProvider[] | null = []
         this.localDataSvc.providers$.subscribe(providerList => {

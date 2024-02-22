@@ -1,4 +1,5 @@
 import { ButtonDirective } from './directives/button-directive.directive';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -25,6 +26,7 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
         SelectedCardDirective,
         UpperCamelCasePipe,
         // Pipes
+        CapitalizePipe,
         NumberFormatPipe,
         UpperCamelCasePipe,
     ],
@@ -61,6 +63,7 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
         RouterModule,
         TranslateModule,
         //Pipes
+        CapitalizePipe,
         NumberFormatPipe,
         UpperCamelCasePipe,
     ]
