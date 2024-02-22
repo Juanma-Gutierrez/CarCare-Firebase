@@ -35,7 +35,7 @@ export class LocalDataService {
         return this._user;
     }
 
-    setVehicle(vehicle: FBVehicle) {
+    setVehicle(vehicle: FBVehicle | null) {
         this._vehicle.next(vehicle);
     }
 

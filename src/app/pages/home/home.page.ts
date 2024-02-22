@@ -108,25 +108,26 @@ export class HomePage implements OnInit {
     }
 
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
-        console.log("vehículo", vehicle)
-        console.log("vehículo", vehicle.id)
+        console.log("vehículo", vehicle);
+        console.log("vehículo", vehicle.id);
         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
-                        this.utilsSvc.showToast("Vehículo actualizado", "success", "bottom")
+                        this.utilsSvc.showToast("Vehículo actualizado", "success", "bottom");
                     })
                 }
                     break;
                 case 'delete': {
                     try {
                         // eliminar el documento del vehículo
-                        this.firebaseSvc.deleteDocument("vehicles", vehicle.id)
+                        this.firebaseSvc.deleteDocument("vehicles", vehicle.id);
                         // Eliminar el vehículo del array del usuario
-                        this.deleteVehiclePreview(vehicle.id)
-                        this.utilsSvc.showToast("Vehículo eliminado", "success", "bottom")
+                        this.deleteVehiclePreview(vehicle.id);
+                        this.cleanSpentsData();
+                        this.utilsSvc.showToast("Vehículo eliminado", "success", "bottom");
                     } catch (e) {
-                        console.log(e)
+                        console.log(e);
                     }
                 }
                     break;
@@ -136,6 +137,13 @@ export class HomePage implements OnInit {
             }
         }
         this.presentFormVehicles(vehicle, onDismiss);
+    }
+    cleanSpentsData() {
+        this.localDataSvc.setSpents([]);
+        this.spentsSvc.updateTotalSpentsAmount(0);
+        this.spentsSvc.updateTotalSpentsNumber(0);
+        this.localDataSvc.setVehicle(null);
+        this.selectedVehicle = null;
     }
 
     async deleteVehiclePreview(id: String) {
