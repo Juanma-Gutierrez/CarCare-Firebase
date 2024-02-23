@@ -24,7 +24,7 @@
     <ion-row class="ion-justify-content-center">
         <ion-card-subtitle>
             {{ 'vehicles.vehicleItem.registrationDate' | translate }}:
-            {{ vehicle!.registrationDate.toDate() | date:'dd MMM yyyy' }}
+            {{ vehicle?.registrationDate?.toString() | date:"dd/MM/yy" }}
         </ion-card-subtitle>
     </ion-row>
 </ion-card>

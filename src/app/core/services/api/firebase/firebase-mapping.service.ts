@@ -7,6 +7,7 @@ import { FBVehicle } from "./interfaces/FBVehicle";
 import { Injectable } from "@angular/core";
 import { FBVehiclePreview } from "./interfaces/FBUser";
 import { FBProvider } from "./interfaces/FBProvider";
+import { FBSpent } from "./interfaces/FBSpent";
 
 @Injectable({
     providedIn: 'root'
@@ -72,7 +73,7 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    mapFBSpent(data: any) {
+    mapFBSpent(data: any):FBSpent {
         console.log(data)
         return {
             provider:data.providerName,

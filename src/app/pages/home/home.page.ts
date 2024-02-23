@@ -16,6 +16,7 @@ import { SpentsService } from 'src/app/core/services/api/spents.service';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 
 
 type PaginatedSpents = Spent[]
@@ -189,7 +190,7 @@ export class HomePage implements OnInit {
 
     async addSpentToSpentsArray(vehicle: DocumentData, spent: FBSpent): Promise<any> {
         var data = vehicle['data']
-        var vehicleWithSpents = {
+        var vehicleWithSpents: FBVehicle = {
             available: data['available'],
             brand: data['brand'],
             category: data['category'],

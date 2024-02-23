@@ -1,8 +1,7 @@
-import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -13,7 +12,7 @@ export class VehicleFormComponent implements OnInit {
 
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-    @Input() set vehicle(_vehicle: Vehicle | null) {
+    @Input() set vehicle(_vehicle: FBVehicle | null) {
         if (_vehicle) {
             this.mode = 'Edit';
             // this.form.controls['id'].setValue(_vehicle.id);
@@ -26,15 +25,9 @@ export class VehicleFormComponent implements OnInit {
         }
     }
 
-    /**
-     * Constructor del componente.
-     * @param {ModalController} _modal - Controlador de modal de Ionic.
-     * @param {FormBuilder} formBuilder - Constructor de formularios reactivos.
-     */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
-        private apiSvc: ApiService,
     ) {
         this.form = this.formBuilder.group({
             available: [true],
@@ -47,28 +40,18 @@ export class VehicleFormComponent implements OnInit {
         })
     }
 
-    /**
-     * Método del ciclo de vida llamado al inicializar el componente.
-     */
     ngOnInit() { }
 
-    /**
-     * Cierra el formulario sin realizar cambios.
-     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
-    /**
-     * Envía los datos del formulario al cerrarse correctamente.
-     */
+
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
-    /**
-     * Maneja la eliminación de un vehículo.
-     */
+
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

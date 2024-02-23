@@ -6,14 +6,11 @@ import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/
     templateUrl: './vehicle-item-list.component.html',
     styleUrls: ['./vehicle-item-list.component.scss'],
 })
-export class VehicleItemListComponent implements OnInit{
-    @Input() vehicle?: FBVehiclePreview
-    public category: string = ""
+export class VehicleItemListComponent implements OnInit {
+    @Input() vehicle: FBVehiclePreview | null = null
 
     constructor(
     ) { }
-    ngOnInit(): void {
-        this.category
-    }
+    ngOnInit(): void { }
 
 }
