@@ -10,5 +10,7 @@ export interface FBVehicle {
     plate: string,
     registrationDate: Timestamp,
     spents?: FBSpent[]
+    vehicleId: string,
+    userId:string,
 }
 

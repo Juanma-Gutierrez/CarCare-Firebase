@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
 import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
 import { FBSpent } from 'src/app/core/services/api/firebase/interfaces/FBSpent';
-import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { FBUser, FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
@@ -75,12 +75,15 @@ export class HomePage implements OnInit {
 
     onNewVehicle() {
         var onDismiss = async (info: any) => {
-            console.log(info)
             switch (info.role) {
                 case 'ok': {
-                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data)
-                    var ref = await this.firebaseSvc.createDocument("vehicles", vehicle)
-                    this.updateUser(info, ref)
+                    var userId = this.localDataSvc.getUser().value?.id!
+                    // Genera un id para el vehículo
+                    var vehicleId = this.utilsSvc.generateId();
+                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, userId)
+                    // Genera el documento del vehículo y recibe un documentReference para actualizar al user
+                    var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId)
+                    this.updateUser(info.data, ref)
                     break;
                 }
                 default: {
@@ -91,16 +94,16 @@ export class HomePage implements OnInit {
         this.presentFormVehicles(null, onDismiss);
     }
 
-    async updateUser(info: any, ref: DocumentReference) {
+    async updateUser(data: any, ref: DocumentReference) {
         var vehiclePreview: FBVehiclePreview = {
-            available: info.data.available,
-            brand: info.data.brand,
-            category: info.data.category,
+            available: data.available,
+            brand: data.brand,
+            category: data.category,
             id: ref.id,
-            model: info.data.model,
-            plate: info.data.plate,
+            model: data.model,
+            plate: data.plate,
             ref: ref,
-            registrationDate: info.data.registrationDate,
+            registrationDate: data.registrationDate,
         }
         var user = this.localDataSvc.getUser().value!! // Carga el usuario
         var vehiclesList = user.vehicles; // Carga la lista de vehículos
@@ -114,10 +117,16 @@ export class HomePage implements OnInit {
         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
+                    var user: FBUser = this.localDataSvc.getUser().value!
+                    console.log(user.id)
+                    console.log(info.data)
+                    // mapeamos al usuario con los datos del nuevo vehículo
+                    var data = this.firebaseMappingSvc.mapUpdateUserVehiclePreview(user, info.data)
+                    //actualizar el vehículo en usuario
+/*                     this.firebaseSvc.updateDocument("user", user.id, info.data).then(() => {
                         this.utilsSvc.showToast("Vehículo actualizado", "success", "bottom");
                     })
-                }
+ */                }
                     break;
                 case 'delete': {
                     try {
@@ -197,7 +206,9 @@ export class HomePage implements OnInit {
             model: data['model'],
             plate: data['plate'],
             registrationDate: data['registrationDate'],
-            spents: data['spents']
+            spents: data['spents'],
+            userId: data['userId'],
+            vehicleId: data['vehicleId']
         }
         data['spents'].push(spent);
         return vehicleWithSpents

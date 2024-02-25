@@ -116,7 +116,7 @@ export class FirebaseService {
         collectionName: string,
         data: any,
         docId: string
-    ): Promise<void> {
+    ): Promise<DocumentReference> {
         return new Promise((resolve, reject) => {
             if (!this._db) {
                 reject({
@@ -125,7 +125,7 @@ export class FirebaseService {
             }
             const docRef = doc(this._db!, collectionName, docId);
             setDoc(docRef, data)
-                .then(() => resolve())
+                .then(() => resolve(docRef))
                 .catch((err) => reject(err));
         });
     }

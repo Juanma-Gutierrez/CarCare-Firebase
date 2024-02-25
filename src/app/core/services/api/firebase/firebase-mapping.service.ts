@@ -5,7 +5,7 @@ import { PaginatedData } from "src/app/core/interfaces/data";
 import { MappingService } from "../mapping.service";
 import { FBVehicle } from "./interfaces/FBVehicle";
 import { Injectable } from "@angular/core";
-import { FBVehiclePreview } from "./interfaces/FBUser";
+import { FBUser, FBVehiclePreview } from "./interfaces/FBUser";
 import { FBProvider } from "./interfaces/FBProvider";
 import { FBSpent } from "./interfaces/FBSpent";
 
@@ -54,7 +54,7 @@ export class FirebaseMappingService extends MappingService {
         throw new Error("Method not implemented.");
     }
 
-    public mapFBVehicle(data: any): FBVehicle {
+    public mapFBVehicle(data: any, vehicleId: string, userId: string): FBVehicle {
         return {
             available: data.available,
             brand: data.brand,
@@ -62,9 +62,22 @@ export class FirebaseMappingService extends MappingService {
             model: data.model,
             plate: data.plate,
             registrationDate: data.registrationDate,
-            spents: []
+            spents: [],
+            vehicleId: vehicleId,
+            userId: userId,
         }
     }
+
+
+    public mapUpdateUserVehiclePreview(user: FBUser, data: any): FBUser | null { // no devuelve null
+        console.log("USER: ", user)
+        console.log("DATA:", data)
+        return null
+    }
+
+
+
+
     public mapFBProvider(data: any): FBProvider {
         return {
             category: data.category,
@@ -73,13 +86,13 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    mapFBSpent(data: any):FBSpent {
+    mapFBSpent(data: any): FBSpent {
         console.log(data)
         return {
-            provider:data.providerName,
-            amount:data.amount,
-            observations:data.observations,
-            date:data.date
+            provider: data.providerName,
+            amount: data.amount,
+            observations: data.observations,
+            date: data.date
         }
     }
 
