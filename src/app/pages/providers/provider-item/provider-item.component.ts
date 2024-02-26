@@ -11,7 +11,7 @@ import { leadingComment } from '@angular/compiler';
     styleUrls: ['./provider-item.component.scss'],
 })
 export class ProviderItemComponent implements OnInit {
-    @Input() provider: any= null
+    @Input() provider: any = null
     public providerFormatted: Provider | null = null
     // @Input() provider?: Provider
     @Output() onEditProviderClicked: EventEmitter<void> = new EventEmitter<void>();

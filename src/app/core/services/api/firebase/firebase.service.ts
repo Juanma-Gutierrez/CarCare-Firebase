@@ -80,16 +80,16 @@ export class FirebaseService {
             } catch (error: any) {
                 switch (error.code) {
                     case 'auth/email-already-in-use':
-                        this.utilSvc.showToast(`Email address ${email} already in use.`, "danger", "bottom")
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("emailAlreadyInUse", email), "danger", "top");
                         break;
                     case 'auth/invalid-email':
-                        this.utilSvc.showToast(`Email address ${email} is invalid.`, "danger", "bottom")
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("emailAlreadyInUse", email), "danger", "top");
                         break;
                     case 'auth/operation-not-allowed':
-                        this.utilSvc.showToast(`Error during sign up.`, "danger", "bottom")
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("signUpError"), "danger", "top");
                         break;
                     case 'auth/weak-password':
-                        this.utilSvc.showToast(`Password is not strong enough. Add additional characters including special characters and numbers.`, "danger", "bottom")
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("passwordWeak"), "danger", "top");
                         break;
                     default:
                         console.error(error.message);
