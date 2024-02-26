@@ -49,7 +49,7 @@ export class ProvidersPage implements OnInit {
      */
     async ngOnInit() {
         var user = this.localDataSvc.getUser().value;
-        this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders(), (data) => {
+        this.firebaseSvc.subscribeToDocument("providers", user!.userId, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
         })
         //var providers: any = await this.firebaseSvc.getDocument("provider", user!.id)
@@ -111,7 +111,7 @@ export class ProvidersPage implements OnInit {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    var userId = this.localDataSvc.getUser().value!!.id
+                    var userId = this.localDataSvc.getUser().value!!.userId
                     var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!;
                     var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                     providersList.push(provider)
@@ -137,7 +137,7 @@ export class ProvidersPage implements OnInit {
         var providersList = providers
         console.log(providersList)
         // providersList.push(provider);
-        await this.firebaseSvc.updateDocument("user", user.id!!, user)
+        await this.firebaseSvc.updateDocument("user", user.userId!!, user)
     }
 
 
@@ -181,6 +181,7 @@ export class ProvidersPage implements OnInit {
      * @return {void}
      */
     reloadProviders(user: User | null) {
+        console.log(user)
         if (user?.id)
             this.providersSvc.getAll(user.id).subscribe();
     }

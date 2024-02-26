@@ -18,8 +18,6 @@ import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 
-
-type PaginatedSpents = Spent[]
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -46,7 +44,8 @@ export class HomePage implements OnInit {
     ngOnInit(): void {
         // Carga los proveedores del usuario al inicio
         var user = this.localDataSvc.getUser().value;
-        this.firebaseSvc.subscribeToDocument("providers", user!.id, this.localDataSvc.getProviders(), (data) => {
+        console.log(user)
+        this.firebaseSvc.subscribeToDocument("providers", user!.uuid, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
         })
     }
@@ -77,10 +76,11 @@ export class HomePage implements OnInit {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    var userId = this.localDataSvc.getUser().value?.id!
+                    var user = this.localDataSvc.getUser().value
+                    console.log(user)
                     // Genera un id para el vehículo
                     var vehicleId = this.utilsSvc.generateId();
-                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, userId)
+                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.uuid!)
                     // Genera el documento del vehículo y recibe un documentReference para actualizar al user
                     var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId)
                     this.updateUser(info.data, ref)
@@ -99,41 +99,54 @@ export class HomePage implements OnInit {
             available: data.available,
             brand: data.brand,
             category: data.category,
-            id: ref.id,
             model: data.model,
             plate: data.plate,
             ref: ref,
             registrationDate: data.registrationDate,
+            vehicleId: ref.id,
         }
+        console.log(vehiclePreview)
         var user = this.localDataSvc.getUser().value!! // Carga el usuario
         var vehiclesList = user.vehicles; // Carga la lista de vehículos
         vehiclesList.push(vehiclePreview); // Añade el nuevo vehículo preview
-        await this.firebaseSvc.updateDocument("user", user.id!!, user)
+        await this.firebaseSvc.updateDocument("user", user.uuid, user)
     }
 
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
         console.log("vehículo", vehicle);
-        console.log("vehículo", vehicle.id);
+        console.log("vehículo", vehicle.vehicleId);
         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
                     var user: FBUser = this.localDataSvc.getUser().value!
-                    console.log(user.id)
-                    console.log(info.data)
-                    // mapeamos al usuario con los datos del nuevo vehículo
-                    var data = this.firebaseMappingSvc.mapUpdateUserVehiclePreview(user, info.data)
-                    //actualizar el vehículo en usuario
-/*                     this.firebaseSvc.updateDocument("user", user.id, info.data).then(() => {
-                        this.utilsSvc.showToast("Vehículo actualizado", "success", "bottom");
-                    })
- */                }
+                    console.log(user.userId)
+                    console.log("********", info.data)
+                    try {
+                        // Actualiza la lista de vehiculos preview
+                        var vehiclesListUpdated: FBVehiclePreview[] = this.updateVehicleInUserCol(info.data, vehicle.vehicleId);
+                        console.log(vehiclesListUpdated);
+                        var userUpdated: FBUser = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
+                        console.log("usuario actualizado", userUpdated)
+                        // Actualiza el documento del usuario
+                        this.firebaseSvc.updateDocument("user", user.userId, userUpdated)
+                        // Actualiza el documento del vehículo
+                        console.log(info.data['vehicleId'])
+                        this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data)
+                        /*                     this.firebaseSvc.updateDocument("user", user.id, info.data).then(() => {
+                            this.utilsSvc.showToast("Vehículo actualizado", "success", "bottom");
+                        })
+                    */
+                    } catch (e) {
+                        console.log(e)
+                    }
                     break;
+                }
                 case 'delete': {
                     try {
                         // eliminar el documento del vehículo
-                        this.firebaseSvc.deleteDocument("vehicles", vehicle.id);
+                        this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
                         // Eliminar el vehículo del array del usuario
-                        this.deleteVehiclePreview(vehicle.id);
+                        this.deleteVehiclePreview(vehicle.vehicleId);
                         this.cleanSpentsData();
                         this.utilsSvc.showToast("Vehículo eliminado", "success", "bottom");
                     } catch (e) {
@@ -148,6 +161,19 @@ export class HomePage implements OnInit {
         }
         this.presentFormVehicles(vehicle, onDismiss);
     }
+    updateVehicleInUserCol(vehicleUpdated: any, vehicleId: string): FBVehiclePreview[] {
+        // Capturamos la lista de vehículos en un array
+        var vehiclesList = this.localDataSvc.getUser().value?.vehicles!
+        var vehiclesFiltered: FBVehiclePreview[] = []
+        vehiclesList?.map(vehicle => {
+            if (vehicle.vehicleId == vehicleId) {
+                vehiclesFiltered.push(vehicleUpdated)
+            } else {
+                vehiclesFiltered.push(vehicle)
+            }
+        })
+        return vehiclesFiltered
+    }
     cleanSpentsData() {
         this.localDataSvc.setSpents([]);
         this.spentsSvc.updateTotalSpentsAmount(0);
@@ -159,8 +185,8 @@ export class HomePage implements OnInit {
     async deleteVehiclePreview(id: String) {
         var user = this.localDataSvc.getUser().value!! // Carga el usuario
         var vehiclesList = user.vehicles; // Carga la lista de vehículos
-        user.vehicles = vehiclesList.filter(vehicle => vehicle.id != id)
-        await this.firebaseSvc.updateDocument("user", user.id!!, user)
+        user.vehicles = vehiclesList.filter(vehicle => vehicle.vehicleId != id)
+        await this.firebaseSvc.updateDocument("user", user.userId!!, user)
     }
 
     async presentFormVehicles(data: FBVehiclePreview | null, onDismiss: (result: any) => void) {

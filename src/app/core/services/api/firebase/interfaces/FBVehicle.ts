@@ -9,7 +9,7 @@ export interface FBVehicle {
     model: string,
     plate: string,
     registrationDate: Timestamp,
-    spents?: FBSpent[]
+    spents?: FBSpent[],
     vehicleId: string,
     userId:string,
 }

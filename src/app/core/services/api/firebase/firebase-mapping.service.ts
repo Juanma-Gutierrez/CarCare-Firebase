@@ -68,16 +68,6 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-
-    public mapUpdateUserVehiclePreview(user: FBUser, data: any): FBUser | null { // no devuelve null
-        console.log("USER: ", user)
-        console.log("DATA:", data)
-        return null
-    }
-
-
-
-
     public mapFBProvider(data: any): FBProvider {
         return {
             category: data.category,
@@ -96,4 +86,15 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
+    mapUserWithVehicles(user: FBUser, vehiclesListUpdated: FBVehiclePreview[]): FBUser {
+        return {
+            email: user.email,
+            userId: user.userId,
+            name: user.name,
+            nickname: user.nickname,
+            surname: user.surname,
+            vehicles: vehiclesListUpdated,
+            uuid: user.userId
+        }
+    }
 }

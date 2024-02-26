@@ -40,7 +40,7 @@ export class FirebaseAuthService extends AuthService {
                         name: _info.name,
                         surname: _info.surname,
                         email: _info.email,
-                        id: credentials.user.user.uid,
+                        userId: credentials.user.user.uid,
                         vehicles: [],
                         uuid: _info.uuid
                     };
@@ -78,8 +78,8 @@ export class FirebaseAuthService extends AuthService {
     }
 
     public me(): Observable<FBUser> {
-        if (this.localDataSvc.user?.id)
-            return from(this.firebaseSvc.getDocument('user', this.localDataSvc.user.id)).pipe(map(data => {
+        if (this.localDataSvc.user?.userId)
+            return from(this.firebaseSvc.getDocument('user', this.localDataSvc.user.userId)).pipe(map(data => {
                 const newUser: FBUser = this.convertToUser(data)
                 this.saveLocalUser(newUser)
                 return newUser
@@ -95,7 +95,7 @@ export class FirebaseAuthService extends AuthService {
     convertToUser(data: FirebaseDocument): FBUser {
         return {
             email: data.data['email'],
-            id: data.id,
+            userId: data.id,
             name: data.data['name'],
             nickname: data.data['nickname'],
             surname: data.data['surname'],
@@ -108,7 +108,6 @@ export class FirebaseAuthService extends AuthService {
         var providers = {
             providers: []
         }
-        console.log("Creando proveedores vacíos", providers)
         this.firebaseSvc.createDocumentWithId("providers", providers, uid)
     }
 }

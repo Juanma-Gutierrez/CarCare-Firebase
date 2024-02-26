@@ -13,6 +13,7 @@ export class VehicleFormComponent implements OnInit {
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set vehicle(_vehicle: FBVehicle | null) {
+        console.log("---------",_vehicle)
         if (_vehicle) {
             this.mode = 'Edit';
             // this.form.controls['id'].setValue(_vehicle.id);
@@ -22,6 +23,7 @@ export class VehicleFormComponent implements OnInit {
             this.form.controls['registrationDate'].setValue(_vehicle.registrationDate);
             this.form.controls['category'].setValue(_vehicle.category);
             this.form.controls['available'].setValue(_vehicle.available);
+            this.form.controls['vehicleId'].setValue(_vehicle.vehicleId);
         }
     }
 
@@ -36,7 +38,8 @@ export class VehicleFormComponent implements OnInit {
             model: ['', Validators.required],
             plate: ['', Validators.required],
             registrationDate: [new Date().toISOString()],
-            spents:[]
+            spents:[],
+            vehicleId:['']
         })
     }
 
@@ -45,7 +48,6 @@ export class VehicleFormComponent implements OnInit {
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
-
 
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
