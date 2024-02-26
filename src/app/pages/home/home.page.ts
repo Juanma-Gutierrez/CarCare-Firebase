@@ -80,8 +80,13 @@ export class HomePage implements OnInit {
                     var vehicleId = this.utilsSvc.generateId();
                     var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.uuid!)
                     // Genera el documento del vehículo y recibe un documentReference para actualizar al user
-                    var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId)
-                    this.updateUser(info.data, ref)
+                    try {
+                        var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId)
+                        this.utilsSvc.showToast("Vehículo creado correctamente", "success", "bottom")
+                        this.updateUser(info.data, ref)
+                    } catch (e) {
+                        console.error(e)
+                    }
                     break;
                 }
                 default: {
@@ -111,7 +116,6 @@ export class HomePage implements OnInit {
 
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
         var onDismiss = (info: any) => {
-            console.log(info)
             switch (info.role) {
                 case 'ok': {
                     var user: FBUser = this.localDataSvc.getUser().value!
@@ -122,7 +126,6 @@ export class HomePage implements OnInit {
                         // Actualiza el documento del usuario
                         this.firebaseSvc.updateDocument("user", user.uuid, userUpdated)
                         // Actualiza el documento del vehículo
-                        console.log(info.data)
                         this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data)
                         this.utilsSvc.showToast("Vehículo actualizado correctamente", "success", "bottom");
                     } catch (e) {
@@ -138,7 +141,7 @@ export class HomePage implements OnInit {
                         this.deleteVehiclePreview(vehicle.vehicleId);
                         // Limpia la pantalla de gastos
                         this.cleanSpentsData();
-                        this.utilsSvc.showToast("Vehículo eliminado", "success", "bottom");
+                        this.utilsSvc.showToast("Vehículo eliminado correctamente", "danger", "bottom");
                     } catch (e) {
                         console.error(e);
                     }
