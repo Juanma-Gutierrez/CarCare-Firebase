@@ -221,9 +221,15 @@ export class HomePage implements OnInit {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
-                    var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
-                    await this.firebaseSvc.updateDocument("vehicles", vehicleSelected['id']!!, vehicleWithSpents)
+                    try {
+                        var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
+                        var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
+                        await this.firebaseSvc.updateDocument("vehicles", vehicleSelected['id']!!, vehicleWithSpents)
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), "success", "bottom");
+                    } catch (e) {
+                        console.log(e);
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentError"), "danger", "top");
+                    }
                     break;
                 }
                 default: {

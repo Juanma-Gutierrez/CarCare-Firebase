@@ -102,29 +102,33 @@ export class ProvidersPage implements OnInit {
           this.presentForm(provider, onDismiss); */
     }
 
-    /**
-     * Maneja el evento de clic en el botón de nuevo proveedor.
-     * @method onNewProvider
-     * @return {void}
-     */
+
+/**
+ * The function `onNewProvider` adds a new provider to a list, updates it in
+ * Firebase, and displays a toast message based on the result.
+ */
     onNewProvider() {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
-                    var userId = this.localDataSvc.getUser().value!!.userId
-                    var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!;
-                    var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
-                    providersList.push(provider)
-                    await this.firebaseSvc.updateDocument("providers", userId, { "providers": providersList })
-                    this.localDataSvc.setProviders(providersList)
+                    try {
+
+                        var userId = this.localDataSvc.getUser().value!!.userId
+                        var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!;
+                        var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
+                        providersList.push(provider)
+                        await this.firebaseSvc.updateDocument("providers", userId, { "providers": providersList })
+                        this.localDataSvc.setProviders(providersList)
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderOk"), "success", "bottom");
+                    } catch (e) {
+                        console.log(e);
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderError"), "danger", "top");
+                    }
                 }
             }
         }
         this.presentForm(null, onDismiss);
     }
-
-
-
 
     async updateProvider(info: any, ref: DocumentReference) {
         var provider: FBProvider = {
@@ -133,21 +137,11 @@ export class ProvidersPage implements OnInit {
             phone: info.data.phone
         }
         var user = this.localDataSvc.getUser().value!! // Carga el usuario
-        var providers = this.localDataSvc.getProviders().value!!
-        var providersList = providers
+        var providers = this.localDataSvc.getProviders().value!!;
+        var providersList = providers;
         // providersList.push(provider);
-        await this.firebaseSvc.updateDocument("user", user.uuid!!, user)
+        await this.firebaseSvc.updateDocument("user", user.uuid!!, user);
     }
-
-
-
-
-
-
-
-
-
-
 
 
     /**

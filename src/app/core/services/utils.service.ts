@@ -7,7 +7,6 @@ import { CustomTranslateService } from './custom-translate.service';
     providedIn: 'root'
 })
 export class UtilsService {
-
     constructor(
         private toast: ToastController,
         private translateSvc: CustomTranslateService,
@@ -54,7 +53,6 @@ export class UtilsService {
                     break;
                 case ("passwordWeak"): message = `La contraseña no es lo suficientemente fuerte. Añade caracteres adicionales incluyendo caracteres especiales y números`;
                     break;
-
                 // Vehicles
                 case ("newVehicleOk"): message = "Nuevo vehículo creado correctamente";
                     break;
@@ -67,6 +65,32 @@ export class UtilsService {
                 case ("deleteVehicleOk"): message = "Vehículo eliminado correctamente";
                     break;
                 case ("deleteVehicleError"): message = "Error en la eliminación del vehículo";
+                    break;
+                // Spents
+                case ("newSpentOk"): message = "Nuevo gasto creado correctamente";
+                    break;
+                case ("newSpentError"): message = "Error en la creación del gasto";
+                    break;
+                case ("editSpentOk"): message = "Gasto editado correctamente";
+                    break;
+                case ("editSpentError"): message = "Error en la edición del gasto";
+                    break;
+                case ("deleteSpentOk"): message = "Gasto eliminado correctamente";
+                    break;
+                case ("deleteSpentError"): message = "Error en la eliminación del gasto";
+                    break;
+                // Providers
+                case ("newProviderOk"): message = "Nuevo proveedor creado correctamente";
+                    break;
+                case ("newProviderError"): message = "Error en la creación del proveedor";
+                    break;
+                case ("editProviderOk"): message = "Proveedor editado correctamente";
+                    break;
+                case ("editProviderError"): message = "Error en la edición del proveedor";
+                    break;
+                case ("deleteProviderOk"): message = "Proveedor eliminado correctamente";
+                    break;
+                case ("deleteProviderError"): message = "Error en la eliminación del proveedor";
                     break;
             }
         } else if (lang == "en") {
@@ -81,7 +105,6 @@ export class UtilsService {
                     break;
                 case ("passwordWeak"): message = `Password is not strong enough. Add additional characters including special characters and numbers.`;
                     break;
-
                 // Vehicles
                 case ("newVehicleOk"): message = "New vehicle created succesfully";
                     break;
@@ -95,7 +118,32 @@ export class UtilsService {
                     break;
                 case ("deleteVehicleError"): message = "Error in vehicle deletion";
                     break;
-
+                // Spents
+                case ("newSpentOk"): message = "New spent created succesfully";
+                    break;
+                case ("newSpentError"): message = "Error in spent creation";
+                    break;
+                case ("editSpentOk"): message = "Spent edited succesfully";
+                    break;
+                case ("editSpentError"): message = "Error in spent edition";
+                    break;
+                case ("deleteSpentOk"): message = "Spent deleted succesfully";
+                    break;
+                case ("deleteSpentError"): message = "Error in spent deletion";
+                    break;
+                // Providers
+                case ("newProviderOk"): message = "New provider created succesfully";
+                    break;
+                case ("newProviderError"): message = "Error in provider creation";
+                    break;
+                case ("editProviderOk"): message = "Provider edited succesfully";
+                    break;
+                case ("editProviderError"): message = "Error in provider edition";
+                    break;
+                case ("deleteProviderOk"): message = "Provider deleted succesfully";
+                    break;
+                case ("deleteProviderError"): message = "Error in provider deletion";
+                    break;
             }
         } else {
             console.error("No debería entrar");
