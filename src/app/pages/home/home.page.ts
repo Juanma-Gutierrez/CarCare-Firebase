@@ -111,6 +111,7 @@ export class HomePage implements OnInit {
 
     public async onEditVehicleClicked(vehicle: FBVehiclePreview) {
         var onDismiss = (info: any) => {
+            console.log(info)
             switch (info.role) {
                 case 'ok': {
                     var user: FBUser = this.localDataSvc.getUser().value!
@@ -121,6 +122,7 @@ export class HomePage implements OnInit {
                         // Actualiza el documento del usuario
                         this.firebaseSvc.updateDocument("user", user.uuid, userUpdated)
                         // Actualiza el documento del vehículo
+                        console.log(info.data)
                         this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data)
                         this.utilsSvc.showToast("Vehículo actualizado correctamente", "success", "bottom");
                     } catch (e) {
@@ -156,8 +158,17 @@ export class HomePage implements OnInit {
         var vehiclesFiltered: FBVehiclePreview[] = []
         vehiclesList?.map(vehicle => {
             if (vehicle.vehicleId == vehicleId) {
-                vehicleUpdated.ref = vehicle.ref;
-                vehiclesFiltered.push(vehicleUpdated);
+                var vehiclePreview: FBVehiclePreview = {
+                    available: vehicleUpdated.available,
+                    brand: vehicleUpdated.brand,
+                    category: vehicleUpdated.category,
+                    model: vehicleUpdated.model,
+                    plate: vehicleUpdated.plate,
+                    ref: vehicle.ref,
+                    registrationDate: vehicleUpdated.registrationDate,
+                    vehicleId: vehicleUpdated.vehicleId,
+                }
+                vehiclesFiltered.push(vehiclePreview);
             } else {
                 vehiclesFiltered.push(vehicle)
             }
