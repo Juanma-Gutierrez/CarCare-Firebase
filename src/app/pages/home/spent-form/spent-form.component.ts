@@ -25,7 +25,6 @@ export class SpentFormComponent implements OnInit {
     };
     @Input() set spent(_spent: Spent | null) {
         if (_spent) {
-            console.log(_spent)
             this.mode = 'Edit';
             this.form.controls['id'].setValue(_spent.id);
             this.form.controls['date'].setValue(_spent.date);
@@ -35,7 +34,6 @@ export class SpentFormComponent implements OnInit {
             this.form.controls['vehicle'].setValue(_spent.vehicle);
             this.form.controls['observations'].setValue(_spent.observations);
             this.selectedProvider = _spent.providerName;
-            console.log(this.selectedProvider);
         }
     }
 
@@ -77,10 +75,8 @@ export class SpentFormComponent implements OnInit {
      * @param {any} event - Evento de selección.
      */
     onSelection(event: any) {
-        console.log(event.detail.value)
         const provider = event.detail.value;
         this.selectedProvider = provider;
-        console.log(this.selectedProvider)
         this.form.controls['providerName'].setValue(provider?.name);
         this.form.controls['provider'].setValue(provider?.id);
         this.form.markAsDirty();
@@ -97,7 +93,6 @@ export class SpentFormComponent implements OnInit {
      * Envía los datos del formulario al cerrarse correctamente.
      */
     onSubmit() {
-        console.log(this.form.value)
         this._modal.dismiss(this.form.value, 'ok');
     }
 

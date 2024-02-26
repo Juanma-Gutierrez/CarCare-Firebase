@@ -35,11 +35,9 @@ export class LoginPage implements OnInit {
     onLogin(credentials: UserCredentials) {
         this.auth.login(credentials).subscribe({
             next: data => {
-                console.log("DATA*** ", data)
                 this.router.navigate(['welcome'])
             },
             error: err => {
-                console.log("ERROR*** ", err)
                 this.utilSvc.showToast("Error en los datos introducidos", "danger", "top")
             }
         });

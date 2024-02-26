@@ -21,9 +21,7 @@ export class SpentItemComponent implements OnInit {
     /**
      * Método del ciclo de vida llamado al inicializar el componente.
      */
-    ngOnInit() {
-        console.log(this.spent)
-    }
+    ngOnInit() { }
 
     /**
      * Maneja el evento de clic en editar gasto.

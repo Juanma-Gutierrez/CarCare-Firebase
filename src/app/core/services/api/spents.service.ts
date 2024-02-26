@@ -62,18 +62,21 @@ export class SpentsService implements CrudSpents {
      */
     calculateTotalSpents(spents: FBSpent[]) {
         var totalAmount = 0
-        for (const spent of spents) {
-            totalAmount += spent.amount;
+        if (spents != undefined) {
+            for (const spent of spents) {
+                totalAmount += spent.amount;
+            }
+            this._totalSpentsAmount.next(totalAmount);
         }
-        this._totalSpentsAmount.next(totalAmount);
     }
 
     /**
      * Calcula el número total de transacciones.
      * Utiliza el flujo de datos de gastos (spents$) y emite el resultado a través de un BehaviorSubject (_totalSpentsNumber).
      */
-    calculateNumberOfSpents(spents: FBSpent[]) {
-        this._totalSpentsNumber.next(spents.length);
+    calculateNumberOfSpents(spents: FBSpent[] | undefined) {
+        if (spents != undefined)
+            this._totalSpentsNumber.next(spents.length);
     }
 
     /**

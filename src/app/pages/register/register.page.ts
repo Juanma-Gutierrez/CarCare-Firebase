@@ -40,10 +40,10 @@ export class RegisterPage implements OnInit {
         })
         this.authSvc.register(_data).subscribe({
             next: (data) => {
-                console.log("Data en registro: ", data);
+                console.info("Data en registro: ", data);
             },
             error: (err) => {
-                console.log("Error on register", err)
+                console.error("Error on register", err)
             }
         });
     }

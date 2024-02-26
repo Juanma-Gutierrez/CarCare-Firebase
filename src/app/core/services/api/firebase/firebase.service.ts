@@ -92,7 +92,7 @@ export class FirebaseService {
                         this.utilSvc.showToast(`Password is not strong enough. Add additional characters including special characters and numbers.`, "danger", "bottom")
                         break;
                     default:
-                        console.log(error.message);
+                        console.error(error.message);
                         break;
                 }
                 reject(error);

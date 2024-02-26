@@ -135,9 +135,8 @@ export class ProvidersPage implements OnInit {
         var user = this.localDataSvc.getUser().value!! // Carga el usuario
         var providers = this.localDataSvc.getProviders().value!!
         var providersList = providers
-        console.log(providersList)
         // providersList.push(provider);
-        await this.firebaseSvc.updateDocument("user", user.userId!!, user)
+        await this.firebaseSvc.updateDocument("user", user.uuid!!, user)
     }
 
 
@@ -181,7 +180,6 @@ export class ProvidersPage implements OnInit {
      * @return {void}
      */
     reloadProviders(user: User | null) {
-        console.log(user)
         if (user?.id)
             this.providersSvc.getAll(user.id).subscribe();
     }

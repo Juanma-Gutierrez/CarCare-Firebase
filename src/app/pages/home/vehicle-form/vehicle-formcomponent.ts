@@ -13,7 +13,6 @@ export class VehicleFormComponent implements OnInit {
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set vehicle(_vehicle: FBVehicle | null) {
-        console.log("---------",_vehicle)
         if (_vehicle) {
             this.mode = 'Edit';
             // this.form.controls['id'].setValue(_vehicle.id);

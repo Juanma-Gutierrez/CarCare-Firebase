@@ -27,8 +27,5 @@ export class VehiclesPage implements OnInit {
      * @method ngOnInit
      * @return {void}
      */
-    ngOnInit() {
-        this.localDataSvc.user$.subscribe(user =>
-            console.log(user))
-    }
+    ngOnInit() { this.localDataSvc.user$.subscribe() }
 }

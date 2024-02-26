@@ -77,7 +77,6 @@ export class FirebaseMappingService extends MappingService {
     }
 
     mapFBSpent(data: any): FBSpent {
-        console.log(data)
         return {
             provider: data.providerName,
             amount: data.amount,
@@ -89,12 +88,12 @@ export class FirebaseMappingService extends MappingService {
     mapUserWithVehicles(user: FBUser, vehiclesListUpdated: FBVehiclePreview[]): FBUser {
         return {
             email: user.email,
-            userId: user.userId,
+            userId: user.uuid,
             name: user.name,
             nickname: user.nickname,
             surname: user.surname,
             vehicles: vehiclesListUpdated,
-            uuid: user.userId
+            uuid: user.uuid
         }
     }
 }

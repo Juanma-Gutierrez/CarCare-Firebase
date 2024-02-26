@@ -21,7 +21,7 @@ export class UtilsService {
     * @param position Posición del toast en la pantalla ("top" o "bottom").
     */
     public async showToast(messageToShow: string, color: string, position: "top" | "bottom") {
-        console.log("Show toast: " + messageToShow)
+        console.info("Show toast: " + messageToShow)
         if (messageToShow != null) {
             const options: ToastOptions = {
                 message: messageToShow,
