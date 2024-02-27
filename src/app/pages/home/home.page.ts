@@ -49,7 +49,6 @@ export class HomePage implements OnInit {
         this.firebaseSvc.subscribeToDocument("providers", user!.uuid, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
         });
-        this.utilsSvc.showToast("Probando el toast", "secondary", "top");
     }
 
     selectionChanged(event: CustomEvent) {
@@ -263,14 +262,14 @@ export class HomePage implements OnInit {
                switch (info.role) {
                    case 'ok': {
                        this.spentsSvc.updateSpent(info.data).subscribe(async user => {
-                           this.utilSvc.showToast("Gasto actualizado", "success", "bottom")
+                           this.utilSvc.showToast("Gasto actualizado", "secondary", "bottom")
                            this.reloadSpents(this.user!);
                        })
                    }
                        break;
                    case 'delete': {
                        this.spentsSvc.deleteSpent(info.data).subscribe(async user => {
-                           this.utilSvc.showToast("Gasto eliminado", "success", "bottom")
+                           this.utilSvc.showToast("Gasto eliminado", "secondary", "bottom")
                            this.reloadSpents(this.user!);
                        })
                    }
