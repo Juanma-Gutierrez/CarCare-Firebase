@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
-import { Provider } from 'src/app/core/interfaces/Provider';
-import { Spent } from 'src/app/core/interfaces/Spent';
-import { User, VehiclePreview } from 'src/app/core/interfaces/User';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
+import { Provider } from 'src/app/core/interfaces/Provider';
+import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentFormComponent } from './spent-form/spent-form.component';
-import { SpentsService } from 'src/app/core/services/api/spents.service';
+import { SpentService } from 'src/app/core/services/spent.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
+import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
 
 @Component({
@@ -26,13 +26,11 @@ export class HomePage implements OnInit {
     public providers: Provider[] = [];
 
     constructor(
-        private firebaseMappingSvc: FirebaseMappingService,
         private firebaseSvc: FirebaseService,
         private modal: ModalController,
-        private utilsSvc: UtilsService,
         private vehicleSvc: VehicleService,
         public localDataSvc: LocalDataService,
-        public spentsSvc: SpentsService,
+        public spentsSvc: SpentService,
     ) { }
 
     ngOnInit(): void {
@@ -84,7 +82,6 @@ export class HomePage implements OnInit {
         this.presentFormVehicles(vehicle, onDismiss);
     }
 
-
     cleanSpentsData() {
         this.localDataSvc.setSpents([]);
         this.spentsSvc.updateTotalSpentsAmount(0);
@@ -92,8 +89,6 @@ export class HomePage implements OnInit {
         this.localDataSvc.setVehicle(null);
         this.selectedVehicle = null;
     }
-
-
 
     async presentFormVehicles(data: VehiclePreview | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
@@ -114,42 +109,9 @@ export class HomePage implements OnInit {
     // ***************************** SPENTS *****************************
     createSpent(vehicleSelected: DocumentData) {
         var onDismiss = async (info: any) => {
-            switch (info.role) {
-                case 'ok': {
-                    try {
-                        var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
-                        var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
-                        await this.firebaseSvc.updateDocument("vehicles", vehicleSelected['id']!!, vehicleWithSpents)
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), "secondary", "bottom");
-                    } catch (e) {
-                        console.error(e);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentError"), "danger", "top");
-                    }
-                    break;
-                }
-                default: {
-                    console.error("No debería entrar: createSpent");
-                }
-            }
+            this.spentsSvc.createSpent(info, vehicleSelected);
         }
         this.presentFormSpents(null, vehicleSelected['id'], onDismiss);
-    }
-
-    async addSpentToSpentsArray(vehicle: DocumentData, spent: Spent): Promise<any> {
-        var data = vehicle['data']
-        var vehicleWithSpents: Vehicle = {
-            available: data['available'],
-            brand: data['brand'],
-            category: data['category'],
-            model: data['model'],
-            plate: data['plate'],
-            registrationDate: data['registrationDate'],
-            spents: data['spents'],
-            userId: data['userId'],
-            vehicleId: data['vehicleId']
-        }
-        data['spents'].push(spent);
-        return vehicleWithSpents
     }
 
     public async onEditSpentClicked(spent: any) { // StrapiSpent
