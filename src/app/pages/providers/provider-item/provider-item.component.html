@@ -14,11 +14,8 @@
         </ion-row>
         <ion-row>
             <ion-label>{{categoryFormatted | upperCamelCase}}</ion-label>
-
-            <!-- TODO ver traducción desde el propio html en lugar de mediante código -->
             <ion-label *ngIf="provider!.category==='workshop'">{{'providers.providerForm.category.workshop |
                 translate'}}</ion-label>
-
         </ion-row>
         <ion-row>
             <ion-label>{{provider?.phone}}</ion-label>

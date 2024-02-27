@@ -1,9 +1,14 @@
 <ion-card>
     <ion-card-header>
-        <ion-card-title>{{"providers.providersList" | translate}}</ion-card-title>
+        <ion-card-title>{{"providers.providersPage.title" | translate}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
         <ion-list div class="card-list">
+            <ion-item class="header">
+                <ion-label>{{"providers.providersPage.listName" | translate}}</ion-label>
+                <ion-label>{{"providers.providersPage.listCategory" | translate}}</ion-label>
+                <ion-label>{{"providers.providersPage.listPhone" | translate}}</ion-label>
+            </ion-item>
             <app-provider-item *ngFor="let provider of (localDataSvc.providers$ | async)" [provider]="provider"
                 (onEditProviderClicked)="onEditProviderClicked(provider)">
             </app-provider-item>

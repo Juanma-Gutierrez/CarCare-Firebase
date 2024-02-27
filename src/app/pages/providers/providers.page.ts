@@ -66,53 +66,44 @@ export class ProvidersPage implements OnInit {
         //  this.providersSvc.getAll(userId).subscribe();
     }
 
-    /**
-     * Maneja el evento de clic en el botón de editar proveedor.
-     * @method onEditProviderClicked
-     * @param {Provider} provider - Proveedor que se va a editar.
-     * @return {void}
-     */
     onEditProviderClicked(provider: Provider) {
-        /*   var onDismiss = (info: any) => {
-              switch (info.role) {
-                  case 'ok': {
-                      this.providersSvc.updateProvider(info.data).subscribe(async user => {
-                          this.utilsSvc.showToast("Proveedor actualizado", "success", "bottom")
-                          // this.reloadProviders(this.user);
-                      })
-                  }
-                      break;
-                  case 'delete': {
-                      this.providersSvc.deleteProvider(info.data).subscribe(async user => {
-                          this.utilsSvc.showToast("Proveedor eliminado", "success", "bottom")
-                          // this.reloadProviders(this.user);
-                      })
-                  }
-                      break;
-                  default: {
-                      console.error("No debería entrar");
-                  }
-              }
-          }
-          var newProvider: StrapiProvider = {
-              name: provider.name,
-              phone: provider.phone,
-              category: provider.category
-          }
-          this.presentForm(provider, onDismiss); */
+        console.log(provider)
+        var onDismiss = (info: any) => {
+            switch (info.role) {
+                case 'ok': {
+                    console.log("edición del proveedor");
+                    /*this.providersSvc.updateProvider(info.data).subscribe(async user => {
+                        this.utilsSvc.showToast("Proveedor actualizado", "success", "bottom")
+                        // this.reloadProviders(this.user);
+                    })
+                    */
+                }
+                    break;
+                case 'delete': {
+                    // TODO Hacer que llegue correctamente el id del usuario con los proveedores que tiene registrados y eliminar el proveedor indicado
+                    console.log(info.data)
+                    var providerList = this.localDataSvc.getProviders()
+                    /*
+                    this.providersSvc.deleteProvider(info.data).subscribe(async user => {
+                        this.utilsSvc.showToast("Proveedor eliminado", "success", "bottom")
+                        // this.reloadProviders(this.user);
+                    })*/
+                }
+                    break;
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
+        }
+        this.presentForm(provider, onDismiss);
     }
 
 
-/**
- * The function `onNewProvider` adds a new provider to a list, updates it in
- * Firebase, and displays a toast message based on the result.
- */
     onNewProvider() {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
                     try {
-
                         var userId = this.localDataSvc.getUser().value!!.userId
                         var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!;
                         var provider = this.firebaseMappingSvc.mapFBProvider(info.data);

@@ -59,7 +59,12 @@
         }
     },
     "providers": {
-        "providersList": "Providers list",
+        "providersPage": {
+            "title": "Providers list",
+            "listName": "Name",
+            "listCategory": "Category",
+            "listPhone": "Phone"
+        },
         "providerForm": {
             "newProvider": "New provider",
             "editProvider": "Edit provider",

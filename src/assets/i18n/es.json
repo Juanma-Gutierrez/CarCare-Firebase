@@ -58,7 +58,12 @@
         }
     },
     "providers": {
-        "providersList": "Listado de proveedores",
+        "providersPage": {
+            "title": "Listado de proveedores",
+            "listName": "Nombre",
+            "listCategory": "Categoría",
+            "listPhone": "Teléfono"
+        },
         "providerForm": {
             "newProvider": "Nuevo proveedor",
             "editProvider": "Editar proveedor",

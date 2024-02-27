@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 
 @Component({
     selector: 'app-providers-form',
@@ -34,10 +35,10 @@ export class ProvidersFormComponent implements OnInit {
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
-        private apiSvc: ApiService,
+        private localDataSvc: LocalDataService,
     ) {
-        var user = apiSvc.getUser()
-        var userId = user?.id
+        var user = this.localDataSvc.getUser().value
+        var userId = user?.uuid
         this.form = this.formBuilder.group({
             id: [null],
             name: ['', Validators.required],
