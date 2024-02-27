@@ -1,7 +1,7 @@
 {
     "toolbar": {
         "user-item": {
-            "closeSession": "Close session"
+            "closeSession": "Logout"
         },
         "home": "Home",
         "vehicles": "Vehicles",

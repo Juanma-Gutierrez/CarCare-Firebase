@@ -67,15 +67,16 @@
     --width: 50vw;
     --min-width: 400px;
 }
+
 .modal-h {
     --height: 90vh;
 }
-
 
 @media (max-width: 767px) {
     .modal-w50 {
         --width: 90vw;
     }
+
     .modal-h {
         --height: 100vh;
         height: 100vh;

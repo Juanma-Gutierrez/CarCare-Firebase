@@ -70,6 +70,7 @@ export class FirebaseMappingService extends MappingService {
 
     public mapFBProvider(data: any): FBProvider {
         return {
+            providerId: data.providerId,
             category: data.category,
             name: data.name,
             phone: data.phone,

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
+import { UtilsService } from 'src/app/core/services/utils.service';
+import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
 
 @Component({
     selector: 'app-providers-form',
@@ -14,33 +16,26 @@ export class ProvidersFormComponent implements OnInit {
 
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-    @Input() set provider(_provider: Provider | null) {
+    @Input() set provider(_provider: FBProvider | null) {
         if (_provider) {
             this.mode = 'Edit';
-            this.form.controls['id'].setValue(_provider.id);
+            this.form.controls['providerId'].setValue(_provider.providerId);
             this.form.controls['name'].setValue(_provider.name);
             this.form.controls['category'].setValue(_provider.category);
             this.form.controls['phone'].setValue(_provider.phone);
-            this.form.controls['users_permissions_user'].setValue(_provider.users_permissions_user)
         }
     }
 
-    /**
-     * Constructor del componente.
-     * @constructor
-     * @param {ModalController} _modal - Controlador del modal para gestionar el estado del modal.
-     * @param {FormBuilder} formBuilder - Instancia de FormBuilder para construir el formulario.
-     * @param {ApiService} apiSvc - Servicio para realizar operaciones generales de la API.
-     */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
         private localDataSvc: LocalDataService,
+        private utilsSvc: UtilsService,
     ) {
         var user = this.localDataSvc.getUser().value
         var userId = user?.uuid
         this.form = this.formBuilder.group({
-            id: [null],
+            providerId: [this.utilsSvc.generateId()],
             name: ['', Validators.required],
             category: ['', Validators.required],
             phone: [''],

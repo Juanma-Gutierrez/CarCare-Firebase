@@ -48,7 +48,8 @@ export class HomePage implements OnInit {
         var user = this.localDataSvc.getUser().value;
         this.firebaseSvc.subscribeToDocument("providers", user!.uuid, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
-        })
+        });
+        this.utilsSvc.showToast("Probando el toast", "secondary", "top");
     }
 
     selectionChanged(event: CustomEvent) {
@@ -84,7 +85,7 @@ export class HomePage implements OnInit {
                     // Genera el documento del vehículo y recibe un documentReference para actualizar al user
                     try {
                         var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newVehicleOk"), "success", "bottom");
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newVehicleOk"), "secondary", "bottom");
                         this.updateUser(info.data, ref);
                     } catch (e) {
                         console.error(e);
@@ -131,7 +132,7 @@ export class HomePage implements OnInit {
                         this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
                         // Actualiza el documento del vehículo
                         this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editVehicleOk"), "success", "bottom");
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editVehicleOk"), "secondary", "bottom");
                     } catch (e) {
                         console.error(e);
                         this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editVehicleError"), "danger", "top");
@@ -146,7 +147,7 @@ export class HomePage implements OnInit {
                         this.deleteVehiclePreview(vehicle.vehicleId);
                         // Limpia la pantalla de gastos
                         this.cleanSpentsData();
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleOk"), "success", "bottom");
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleOk"), "secondary", "bottom");
                     } catch (e) {
                         console.error(e);
                         this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleError"), "danger", "top");
@@ -225,7 +226,7 @@ export class HomePage implements OnInit {
                         var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                         var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
                         await this.firebaseSvc.updateDocument("vehicles", vehicleSelected['id']!!, vehicleWithSpents)
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), "success", "bottom");
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), "secondary", "bottom");
                     } catch (e) {
                         console.log(e);
                         this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentError"), "danger", "top");

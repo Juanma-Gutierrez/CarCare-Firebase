@@ -10,6 +10,14 @@ ion-card {
     display: none;
 }
 
+.fieldTitle {
+    background-color: var(--ion-color-tertiary);
+    color: white;
+    padding: 0px 10px;
+    margin: 0px 10px;
+    min-width: 100px;
+}
+
 @media (max-width: 767px) {
     .computer-mode {
         display: none;

@@ -76,7 +76,7 @@ export class FirebaseService {
             try {
                 resolve({ user: await createUserWithEmailAndPassword(this._auth!, email, password) });
                 // TODO Control de los mensajes en diferentes idiomas
-                this.utilSvc.showToast(`Registro realizado con éxito`, "success", "bottom")
+                this.utilSvc.showToast(`Registro realizado con éxito`, "secondary", "bottom")
             } catch (error: any) {
                 switch (error.code) {
                     case 'auth/email-already-in-use':

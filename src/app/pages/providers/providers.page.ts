@@ -69,6 +69,8 @@ export class ProvidersPage implements OnInit {
     onEditProviderClicked(provider: Provider) {
         console.log(provider)
         var onDismiss = (info: any) => {
+            var user = this.localDataSvc.getUser().value;
+            console.log("userId:", user!.uuid)
             switch (info.role) {
                 case 'ok': {
                     console.log("edición del proveedor");
@@ -80,9 +82,19 @@ export class ProvidersPage implements OnInit {
                 }
                     break;
                 case 'delete': {
-                    // TODO Hacer que llegue correctamente el id del usuario con los proveedores que tiene registrados y eliminar el proveedor indicado
-                    console.log(info.data)
-                    var providerList = this.localDataSvc.getProviders()
+                    var providersList = this.localDataSvc.getProviders().value
+                    var providersFiltered = {
+                        providers: providersList?.filter(provider => {
+                            return provider.providerId != info.data.providerId;
+                        })
+                    }
+                    try {
+                        this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteProviderOk"), "secondary", "bottom");
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteProviderError"), "danger", "top");
+                    }
                     /*
                     this.providersSvc.deleteProvider(info.data).subscribe(async user => {
                         this.utilsSvc.showToast("Proveedor eliminado", "success", "bottom")
@@ -110,7 +122,7 @@ export class ProvidersPage implements OnInit {
                         providersList.push(provider)
                         await this.firebaseSvc.updateDocument("providers", userId, { "providers": providersList })
                         this.localDataSvc.setProviders(providersList)
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderOk"), "success", "bottom");
+                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderOk"), "secondary", "bottom");
                     } catch (e) {
                         console.log(e);
                         this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderError"), "danger", "top");
@@ -123,6 +135,7 @@ export class ProvidersPage implements OnInit {
 
     async updateProvider(info: any, ref: DocumentReference) {
         var provider: FBProvider = {
+            providerId: info.data.providerId,
             category: info.data.category,
             name: info.data.name,
             phone: info.data.phone

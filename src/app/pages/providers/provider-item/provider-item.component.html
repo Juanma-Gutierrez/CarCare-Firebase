@@ -10,15 +10,16 @@
 <ion-item itemDirective class="mobile-mode">
     <ion-grid>
         <ion-row>
-            <ion-label>{{provider?.name | upperCamelCase}}</ion-label>
+            <ion-col size="3" class="fieldTitle">{{"providers.providersPage.listName" | translate}}</ion-col>
+            <ion-col> <ion-label>{{provider?.name | upperCamelCase}}</ion-label> </ion-col>
         </ion-row>
         <ion-row>
-            <ion-label>{{categoryFormatted | upperCamelCase}}</ion-label>
-            <ion-label *ngIf="provider!.category==='workshop'">{{'providers.providerForm.category.workshop |
-                translate'}}</ion-label>
+            <ion-col size="3" class="fieldTitle"> {{"providers.providersPage.listCategory" | translate}} </ion-col>
+            <ion-col> {{categoryFormatted | upperCamelCase}} </ion-col>
         </ion-row>
         <ion-row>
-            <ion-label>{{provider?.phone}}</ion-label>
+            <ion-col size="3" class="fieldTitle"> {{"providers.providersPage.listPhone" | translate}} </ion-col>
+            <ion-col> {{provider?.phone}} </ion-col>
         </ion-row>
     </ion-grid>
     <ion-button class="edit-button" fill="clear" id="editProvider" (click)="onEditProviderClick($event)">

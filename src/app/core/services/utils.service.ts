@@ -27,7 +27,7 @@ export class UtilsService {
         if (messageToShow != null) {
             const options: ToastOptions = {
                 message: messageToShow,
-                duration: 1000,
+                duration: 3000,
                 position: position,
                 color: color,
             };
