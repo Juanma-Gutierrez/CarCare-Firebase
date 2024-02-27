@@ -1,9 +1,7 @@
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Provider } from 'src/app/core/interfaces/Provider';
-import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
-import { leadingComment } from '@angular/compiler';
+import { Provider } from 'src/app/core/interfaces/Provider';
 
 @Component({
     selector: 'app-provider-item',

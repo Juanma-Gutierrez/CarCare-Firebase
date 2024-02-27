@@ -1,22 +1,15 @@
-/**
- * Interfaz que representa un proveedor.
- */
 export interface Provider {
-    id?: number,
-    name: string,
+    providerId: string,
     category: ProviderCategory,
+    name: string,
     phone: string,
-    users_permissions_user?: number,
 }
 
-/**
- * Enumeración que representa las categorías de proveedores.
- */
 export enum ProviderCategory {
     workshop = 'workshop',
     insuranceCompany = 'insuranceCompany',
     gasStation = 'gasStation',
     towTruck = 'towTruck',
     other = "other",
-    ITV="ITV"
+    ITV = "ITV"
 }

@@ -1,4 +1,3 @@
-import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { HttpClient } from '@angular/common/http';
@@ -35,8 +34,6 @@ import { createTranslateLoader } from 'src/app/core/services/custom-translate.se
         ProviderSelectableComponent,
         ProviderItemSelectableComponent,
     ],
-    providers: [
-        AuthStrapiService,
-    ]
+    providers: []
 })
 export class HomePageModule { }

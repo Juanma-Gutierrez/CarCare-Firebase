@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { VehiclePreview } from 'src/app/core/interfaces/User';
 
 @Component({
     selector: 'app-vehicle',
@@ -7,7 +7,7 @@ import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/
     styleUrls: ['./vehicle-item.component.scss'],
 })
 export class VehicleItemComponent implements OnInit {
-    @Input() vehicle?: FBVehiclePreview;
+    @Input() vehicle?: VehiclePreview;
     @Output() onVehicleItemClicked: EventEmitter<void> = new EventEmitter<void>();
     @Output() onEditVehicleClicked: EventEmitter<void> = new EventEmitter<void>();
 

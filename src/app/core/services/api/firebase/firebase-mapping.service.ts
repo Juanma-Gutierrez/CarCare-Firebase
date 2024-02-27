@@ -1,13 +1,9 @@
-import { Provider } from "src/app/core/interfaces/Provider";
-import { Spent } from "src/app/core/interfaces/Spent";
-import { Vehicle } from "src/app/core/interfaces/Vehicle";
-import { PaginatedData } from "src/app/core/interfaces/data";
 import { MappingService } from "../mapping.service";
-import { FBVehicle } from "./interfaces/FBVehicle";
+import { Vehicle } from "../../../interfaces/Vehicle";
 import { Injectable } from "@angular/core";
-import { FBUser, FBVehiclePreview } from "./interfaces/FBUser";
-import { FBProvider } from "./interfaces/FBProvider";
-import { FBSpent } from "./interfaces/FBSpent";
+import { User, VehiclePreview } from "../../../interfaces/User";
+import { Provider } from "../../../interfaces/Provider";
+import { Spent } from "../../../interfaces/Spent";
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +28,7 @@ export class FirebaseMappingService extends MappingService {
     public override mapVehicle(data: any): Vehicle {
         throw new Error("Method not implemented.");
     }
-    public override mapVehicles(data: PaginatedData<any>): PaginatedData<Vehicle> {
+    public override mapVehicles(data: any): Vehicle[] {
         throw new Error("Method not implemented.");
     }
     public override updateProviderUrl(id: number): string {
@@ -54,7 +50,7 @@ export class FirebaseMappingService extends MappingService {
         throw new Error("Method not implemented.");
     }
 
-    public mapFBVehicle(data: any, vehicleId: string, userId: string): FBVehicle {
+    public mapFBVehicle(data: any, vehicleId: string, userId: string): Vehicle {
         return {
             available: data.available,
             brand: data.brand,
@@ -68,7 +64,7 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    public mapFBProvider(data: any): FBProvider {
+    public mapFBProvider(data: any): Provider {
         return {
             providerId: data.providerId,
             category: data.category,
@@ -77,8 +73,9 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    mapFBSpent(data: any): FBSpent {
+    mapFBSpent(data: any): Spent {
         return {
+            spentId: data.spentId,
             provider: data.providerName,
             amount: data.amount,
             observations: data.observations,
@@ -86,7 +83,7 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    mapUserWithVehicles(user: FBUser, vehiclesListUpdated: FBVehiclePreview[]): FBUser {
+    mapUserWithVehicles(user: User, vehiclesListUpdated: VehiclePreview[]): User {
         return {
             email: user.email,
             userId: user.uuid,

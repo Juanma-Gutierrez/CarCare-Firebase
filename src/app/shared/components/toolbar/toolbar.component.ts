@@ -4,7 +4,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/interfaces/User';
-import { FBUser } from 'src/app/core/services/api/firebase/interfaces/FBUser';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 })
 export class ToolbarComponent implements OnInit {
     public selectedPage = "home";
-    public user: FBUser | null = null;
+    public user: User | null = null;
     @Output() languageChanged = new EventEmitter();
 
     /**

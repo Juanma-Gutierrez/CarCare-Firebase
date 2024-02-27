@@ -1,9 +1,8 @@
 import { AuthService } from 'src/app/core/services/api/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 
 @Component({
     selector: 'app-login',

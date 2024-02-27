@@ -28,11 +28,9 @@ export interface FirebaseUserCredential {
     providedIn: 'root'
 })
 export class FirebaseService {
-    private userUuid!: Uuid;
     private _app!: FirebaseApp;
     private _db!: Firestore;
     private _auth!: Auth;
-    //private _user: User | null = null;
     private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isLogged$: Observable<boolean> = this._isLogged.asObservable();
 
@@ -49,7 +47,6 @@ export class FirebaseService {
         this._db = getFirestore(this._app);
         this._auth = initializeAuth(getApp(), { persistence: indexedDBLocalPersistence });
         this._auth.onAuthStateChanged(async user => {
-
             if (user?.uid && user?.email) {
                 this.subscribeToDocument("user", user.uid, this.localDataSvc.getUser());
                 this._isLogged.next(true);

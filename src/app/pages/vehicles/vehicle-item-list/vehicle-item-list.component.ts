@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { VehiclePreview } from 'src/app/core/interfaces/User';
 
 @Component({
     selector: 'app-vehicle-item-list',
@@ -7,7 +7,7 @@ import { FBVehiclePreview } from 'src/app/core/services/api/firebase/interfaces/
     styleUrls: ['./vehicle-item-list.component.scss'],
 })
 export class VehicleItemListComponent implements OnInit {
-    @Input() vehicle: FBVehiclePreview | null = null
+    @Input() vehicle: VehiclePreview | null = null
 
     constructor(
     ) { }

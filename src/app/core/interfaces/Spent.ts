@@ -1,12 +1,8 @@
-/**
- * Interfaz que representa un gasto.
- */
 export interface Spent {
-    id: number,
-    date: Date,
+    spentId: string,
     amount: number,
+    date: Date,
     observations?: string,
-    provider: number,
-    providerName?:string,
-    vehicle: number,
+    provider: string,
+    providerName?: string,
 }

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SpentsService } from 'src/app/core/services/api/spents.service';
 
 @Component({
     selector: 'app-spent-item',
@@ -10,12 +9,7 @@ export class SpentItemComponent implements OnInit {
     @Input() spent?: any; //StrapiSpent
     @Output() onEditSpentClicked: EventEmitter<void> = new EventEmitter<void>();
 
-    /**
-     * Constructor del componente.
-     * @param {SpentsService} spentsSvc - Servicio para gestionar los gastos.
-     */
     constructor(
-        public spentsSvc: SpentsService
     ) { }
 
     /**

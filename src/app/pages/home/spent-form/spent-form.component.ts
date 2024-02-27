@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
-import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
-import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 
 @Component({
     selector: 'app-spent-form',
@@ -26,12 +24,11 @@ export class SpentFormComponent implements OnInit {
     @Input() set spent(_spent: Spent | null) {
         if (_spent) {
             this.mode = 'Edit';
-            this.form.controls['id'].setValue(_spent.id);
+            this.form.controls['id'].setValue(_spent.spentId);
             this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount.toPrecision());
             this.form.controls['provider'].setValue(_spent.provider);
             this.form.controls['providerName'].setValue(_spent.providerName);
-            this.form.controls['vehicle'].setValue(_spent.vehicle);
             this.form.controls['observations'].setValue(_spent.observations);
             this.selectedProvider = _spent.providerName;
         }

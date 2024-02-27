@@ -1,7 +1,6 @@
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { User } from 'src/app/core/interfaces/User';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 
 @Component({

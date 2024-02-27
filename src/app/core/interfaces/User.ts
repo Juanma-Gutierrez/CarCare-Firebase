@@ -1,27 +1,27 @@
-/**
- * Interfaz que representa a un usuario.
- */
+import { DocumentReference, Timestamp } from "firebase/firestore"
+
 export interface User {
-    id?: number,
-    users_permissions_user?: number,
-    username?: string,
-    email?: string,
+    email: string,
     name: string,
+    nickname: string,
     surname: string,
-    uuid?: string
+    userId: string,
+    uuid: string,
+    vehicles: VehiclePreview[],
 }
 
-/**
- * Interfaz que representa la información para registrar a un usuario.
- */
-export interface UserRegisterInfo {
-    uuid: string,
-    users_permission_user: string,
-    username: string,
-    name: string,
-    surname: string,
+export interface VehiclePreview {
+    available: boolean,
+    brand: string,
+    category: string,
+    model: string,
+    plate: string,
+    ref: DocumentReference,
+    registrationDate: Timestamp,
+    vehicleId: string,
+}
+
+export interface UserCredential {
     email: string,
-    password: string
-    role: number
-    userId: number
+    password: string,
 }

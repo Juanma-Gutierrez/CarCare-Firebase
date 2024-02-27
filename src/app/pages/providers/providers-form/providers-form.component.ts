@@ -1,11 +1,9 @@
-import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { Provider } from 'src/app/core/interfaces/Provider';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
+import { Provider } from 'src/app/core/interfaces/Provider';
 
 @Component({
     selector: 'app-providers-form',
@@ -16,7 +14,7 @@ export class ProvidersFormComponent implements OnInit {
 
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-    @Input() set provider(_provider: FBProvider | null) {
+    @Input() set provider(_provider: Provider | null) {
         if (_provider) {
             this.mode = 'Edit';
             this.form.controls['providerId'].setValue(_provider.providerId);

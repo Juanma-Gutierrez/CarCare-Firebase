@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
-import { FBUser } from './firebase/interfaces/FBUser';
-import { FBVehicle } from './firebase/interfaces/FBVehicle';
+import { User } from '../../interfaces/User';
+import { Vehicle } from '../../interfaces/Vehicle';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FBSpent } from './firebase/interfaces/FBSpent';
-import { FBProvider } from './firebase/interfaces/FBProvider';
+import { Spent } from '../../interfaces/Spent';
+import { Provider } from '../../interfaces/Provider';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LocalDataService {
-    private _user: BehaviorSubject<FBUser | null> = new BehaviorSubject<FBUser | null>(null);
-    public user$: Observable<FBUser | null> = this._user.asObservable();
+    private _user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+    public user$: Observable<User | null> = this._user.asObservable();
 
-    private _vehicle: BehaviorSubject<FBVehicle | null> = new BehaviorSubject<FBVehicle | null>(null)
-    public vehicle$: Observable<FBVehicle | null> = this._vehicle.asObservable();
+    private _vehicle: BehaviorSubject<Vehicle | null> = new BehaviorSubject<Vehicle | null>(null)
+    public vehicle$: Observable<Vehicle | null> = this._vehicle.asObservable();
 
-    private _spents: BehaviorSubject<FBSpent[]> = new BehaviorSubject<FBSpent[]>([]);
-    public spents$: Observable<FBSpent[]> = this._spents.asObservable();
+    private _spents: BehaviorSubject<Spent[]> = new BehaviorSubject<Spent[]>([]);
+    public spents$: Observable<Spent[]> = this._spents.asObservable();
 
-    private _providers: BehaviorSubject<FBProvider[] | null> = new BehaviorSubject<FBProvider[] | null>(null);
-    public providers$: Observable<FBProvider[] | null> = this._providers.asObservable();
+    private _providers: BehaviorSubject<Provider[] | null> = new BehaviorSubject<Provider[] | null>(null);
+    public providers$: Observable<Provider[] | null> = this._providers.asObservable();
 
-    public user: FBUser | null = null;
+    public user: User | null = null;
 
-    setUser(newUser: FBUser | null) {
+    setUser(newUser: User | null) {
         if (newUser) {
             this._user.next(newUser);
         } else {
@@ -35,7 +35,7 @@ export class LocalDataService {
         return this._user;
     }
 
-    setVehicle(vehicle: FBVehicle | null) {
+    setVehicle(vehicle: Vehicle | null) {
         this._vehicle.next(vehicle);
     }
 
@@ -43,7 +43,7 @@ export class LocalDataService {
         return this._vehicle;
     }
 
-    setSpents(spents: FBSpent[]) {
+    setSpents(spents: Spent[]) {
         this._spents.next(spents);
     }
 
@@ -51,7 +51,7 @@ export class LocalDataService {
         return this._spents;
     }
 
-    setProviders(providers: FBProvider[] | null) {
+    setProviders(providers: Provider[] | null) {
         this._providers.next(providers)
     }
 

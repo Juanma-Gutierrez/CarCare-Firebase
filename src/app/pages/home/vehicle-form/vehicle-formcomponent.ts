@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
-import { FBSpent } from 'src/app/core/services/api/firebase/interfaces/FBSpent';
-import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
+import { Spent } from 'src/app/core/interfaces/Spent';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -13,9 +13,9 @@ import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehic
 export class VehicleFormComponent implements OnInit {
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-    @Input() set vehicle(_vehicle: FBVehicle | null) {
+    @Input() set vehicle(_vehicle: Vehicle | null) {
         if (_vehicle) {
-            var spentsList: FBSpent[] = []
+            var spentsList: Spent[] = []
             this.firebaseSvc.getDocument("vehicles", _vehicle!.vehicleId).then(vehicle => {
                 spentsList = vehicle.data['spents'];
                 this.mode = 'Edit';

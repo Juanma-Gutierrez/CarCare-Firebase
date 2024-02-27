@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidation } from 'src/app/core/validators/PasswordValidation';
-import { UserRegisterInfo } from 'src/app/core/interfaces/User';
 
 @Component({
     selector: 'app-register-form',
@@ -11,7 +10,7 @@ import { UserRegisterInfo } from 'src/app/core/interfaces/User';
 export class RegisterFormComponent implements OnInit {
     userPassword?: string;
     form: FormGroup | null = null;
-    @Output() onsubmit = new EventEmitter<UserRegisterInfo>();
+    @Output() onsubmit = new EventEmitter<any>();
 
     /**
      * Constructor del componente de formulario de registro.

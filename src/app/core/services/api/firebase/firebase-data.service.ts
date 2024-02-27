@@ -1,10 +1,9 @@
-import { Observable, map } from "rxjs";
-import { PaginatedData } from "src/app/core/interfaces/data";
 import { ApiService } from "../api.service";
 import { DataService } from "../data.service";
+import { Observable, map } from "rxjs";
 
 export class FirebaseDataService extends DataService {
-    public override query<T>(resource: string, params: any): Observable<PaginatedData<T>> {
+    public override query<T>(resource: string, params: any): Observable<any> {
         throw new Error("Method not implemented.");
     }
     public override get<T>(resource: string): Observable<T> {

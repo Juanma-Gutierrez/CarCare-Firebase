@@ -2,7 +2,7 @@ import { AuthService } from 'src/app/core/services/api/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
-import { FBUser } from 'src/app/core/services/api/firebase/interfaces/FBUser';
+import { User } from 'src/app/core/interfaces/User';
 import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 
 @Component({

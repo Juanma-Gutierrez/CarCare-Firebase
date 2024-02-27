@@ -1,18 +1,16 @@
-import { PaginatedData } from "./data";
+import { Spent } from "./Spent"
+import { Timestamp } from "firebase/firestore"
 
-/**
- * Interfaz que representa un vehículo.
- */
 export interface Vehicle {
-    id: number,
-    plate: string,
-    brand: string,
-    model: string,
-    registrationDate: Date,
-    category: VehicleCategory,
     available: boolean,
-    owner: string,
-    spents?: []
+    brand: string,
+    category: VehicleCategory,
+    model: string,
+    plate: string,
+    registrationDate: Timestamp,
+    spents?: Spent[],
+    vehicleId: string,
+    userId: string,
 }
 
 /**
@@ -24,10 +22,4 @@ export enum VehicleCategory {
     van = 'van',
     truck = 'truck'
 }
-
-/**
- * Tipo que representa un conjunto de datos paginado de vehículos.
- */
-export type PaginatedVehicles = PaginatedData<Vehicle>;
-
 

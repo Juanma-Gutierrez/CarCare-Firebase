@@ -1,6 +1,6 @@
+import { AuthGuard } from './core/guards/auth.guards';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guards';
 
 const routes: Routes = [
     {
@@ -24,11 +24,11 @@ const routes: Routes = [
         path: 'about-me',
         loadChildren: () => import('./pages/about-me/about-me.module').then(m => m.AboutMePageModule)
     },
+    /**
+     * AuthGuard used to protect access to this route.
+     * The user must be authenticated to access the main page.
+     */
     {
-        /**
-         * AuthGuard utilizado para proteger el acceso a esta ruta.
-         * El usuario debe estar autenticado para acceder a la página principal.
-        */
         path: 'home',
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
         canActivate: [AuthGuard]

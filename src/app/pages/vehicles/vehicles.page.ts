@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ApiService } from 'src/app/core/services/api/api.service';
-import { FBVehicle } from 'src/app/core/services/api/firebase/interfaces/FBVehicle';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 
 @Component({
     selector: 'app-vehicles',

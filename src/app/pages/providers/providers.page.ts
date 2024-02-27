@@ -1,12 +1,10 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { FBProvider } from 'src/app/core/services/api/firebase/interfaces/FBProvider';
+import { Provider } from 'src/app/core/interfaces/Provider';
 import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
-import { Provider } from 'src/app/core/interfaces/Provider';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
-import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Injectable({
@@ -19,7 +17,6 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 })
 export class ProvidersPage implements OnInit {
     constructor(
-        public providersSvc: ProvidersService,
         private utilsSvc: UtilsService,
         private modal: ModalController,
         private firebaseSvc: FirebaseService,
@@ -37,7 +34,7 @@ export class ProvidersPage implements OnInit {
         //this.localDataSvc.setProviders(providers.data.providers)
     }
 
-    onEditProviderClicked(provider: FBProvider) {
+    onEditProviderClicked(provider: Provider) {
         console.log(provider)
         var onDismiss = (info: any) => {
             var user = this.localDataSvc.getUser().value;
@@ -87,7 +84,7 @@ export class ProvidersPage implements OnInit {
                 case 'ok': {
                     try {
                         var userId = this.localDataSvc.getUser().value!!.userId
-                        var providersList: FBProvider[] = this.localDataSvc.getProviders().value!!;
+                        var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
                         var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                         providersList.push(provider)
                         await this.firebaseSvc.updateDocument("providers", userId, { "providers": providersList })

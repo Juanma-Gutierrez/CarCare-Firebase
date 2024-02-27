@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { PaginatedData } from '../../interfaces/data';
+import { Vehicle } from '../../interfaces/Vehicle';
 import { Provider } from '../../interfaces/Provider';
 import { Spent } from '../../interfaces/Spent';
-import { Vehicle } from '../../interfaces/Vehicle';
 
 /**
  * Clase abstracta `MappingService` que define la interfaz para un servicio de
@@ -54,7 +53,7 @@ export abstract class MappingService {
      * @param data Datos paginados de vehículos.
      * @returns Datos paginados de vehículos mapeados.
      */
-    public abstract mapVehicles(data: PaginatedData<any>): PaginatedData<Vehicle>
+    public abstract mapVehicles(data: any): Vehicle[]
 
     /**
      * Método abstracto para obtener la URL de actualización de un proveedor específico por ID.
