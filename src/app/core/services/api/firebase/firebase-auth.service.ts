@@ -29,7 +29,7 @@ export class FirebaseAuthService extends AuthService {
     }
 
     public override register(info: UserCredential): Observable<any> {
-        return new Observable<User>(subscr => { // FBUser -> User
+        return new Observable<User>(subscr => {
             this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials: FirebaseUserCredential | null) => {
                 if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
                     subscr.error('Cannot register');

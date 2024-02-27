@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
 import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-login-form',
@@ -15,13 +16,9 @@ export class LoginFormComponent implements OnInit {
     @Output() onsubmit = new EventEmitter<UserCredentials>();
     form: FormGroup | null = null;
 
-    /**
-     * Constructor del componente.
-     * @constructor
-     * @param {FormBuilder} formBuilder - Instancia de FormBuilder para construir el formulario.
-     */
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private utilsSvc: UtilsService,
     ) {
         this.form = this.formBuilder.group({
             username: ['', [Validators.required]],
@@ -29,31 +26,16 @@ export class LoginFormComponent implements OnInit {
         });
     }
 
-    /**
-     * Método invocado al inicializar el componente.
-     * Carga el nombre de usuario desde el almacenamiento local (localStorage) y lo asigna al formulario si está presente.
-     * @method ngOnInit
-     * @return {void}
-     */
     ngOnInit() {
-        Preferences.get({ key: 'userName' }).then((ret: any) => {
-            if (ret['value']) {
-                this.username = JSON.parse(ret.value);
-            }
-        }).catch();
+        this.utilsSvc.loadLocalStorageUser().then(_username => {
+            this.form?.controls['username'].setValue(_username)
+        });
     }
 
-    /**
-     * Método invocado al enviar el formulario. Emite los datos del formulario a través del evento onsubmit.
-     * Almacena el nombre de usuario en el almacenamiento local (localStorage).
-     * @method onSubmit
-     * @return {void}
-     */
+
     onSubmit() {
-        Preferences.set({
-            key: 'userName',
-            value: JSON.stringify(this.form?.value.username)
-        })
+        var userName = JSON.stringify(this.form!.value.username)
+        this.utilsSvc.saveLocalStorageUser(userName)
         this.onsubmit.emit(this.form?.value);
         this.form?.controls['password'].setValue('');
     }

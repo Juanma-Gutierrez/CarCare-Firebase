@@ -20,6 +20,7 @@ import { Vehicle } from '../interfaces/Vehicle';
 })
 export class SpentService {
 
+
     private _totalSpentsAmount = new BehaviorSubject<number>(0);
     public totalSpentsAmount$: Observable<number> = this._totalSpentsAmount.asObservable();
     private _totalSpentsNumber = new BehaviorSubject<number>(0);
@@ -32,13 +33,14 @@ export class SpentService {
         private localDataSvc: LocalDataService,
     ) { }
 
-    async createSpent(info: any, vehicleSelected: DocumentData) {
+    async createSpent(info: any, vehicleSelectsed: DocumentData) {
+        var vehicleSelected: Vehicle = this.localDataSvc.getVehicle().value!
         switch (info.role) {
             case 'ok': {
                 try {
                     var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                     var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
-                    await this.firebaseSvc.updateDocument("vehicles", vehicleSelected['id']!!, vehicleWithSpents)
+                    await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
                     this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), "secondary", "bottom");
                 } catch (e) {
                     console.error(e);
@@ -52,20 +54,52 @@ export class SpentService {
         }
     }
 
-    async addSpentToSpentsArray(vehicle: DocumentData, spent: Spent): Promise<any> {
-        var data = vehicle['data']
-        var vehicleWithSpents: Vehicle = {
-            available: data['available'],
-            brand: data['brand'],
-            category: data['category'],
-            model: data['model'],
-            plate: data['plate'],
-            registrationDate: data['registrationDate'],
-            spents: data['spents'],
-            userId: data['userId'],
-            vehicleId: data['vehicleId']
+    editSpent(info: any, spent: Spent, vehicle: Vehicle) {
+        switch (info.role) {
+            // TODO HACER LA EDICIÓN DE GASTOS
+            case 'ok': {
+                console.log("ok");
+                break;
+            }
+            /*                    case 'ok': {
+                                   this.spentsSvc.updateSpent(info.data).subscribe(async user => {
+                                       this.utilSvc.showToast("Gasto actualizado", "secondary", "bottom")
+                                       this.reloadSpents(this.user!);
+                                   })
+                               }
+                                   break; */
+            case 'delete': {
+                try {
+                    var spentsList = this.localDataSvc.getSpents().value.filter(_spent => {
+                        return spent.spentId != _spent.spentId;
+                    });
+                    var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
+                    this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
+                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleOk"), "secondary", "bottom");
+                } catch (e) {
+                    console.error(e);
+                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleError"), "danger", "top");
+                }
+            }
+                break;
+            default: {
+                console.error("No debería entrar: onEditSpentClicked");
+            }
         }
-        data['spents'].push(spent);
+    }
+    async addSpentToSpentsArray(vehicle: Vehicle, spent: Spent): Promise<any> {
+        var vehicleWithSpents: Vehicle = {
+            available: vehicle.available,
+            brand: vehicle.brand,
+            category: vehicle.category,
+            model: vehicle.model,
+            plate: vehicle.plate,
+            registrationDate: vehicle.registrationDate,
+            spents: vehicle.spents,
+            userId: vehicle.userId,
+            vehicleId: vehicle.vehicleId
+        }
+        vehicleWithSpents.spents!.push(spent);
         return vehicleWithSpents
     }
 

@@ -43,29 +43,14 @@ export class ProvidersFormComponent implements OnInit {
 
     ngOnInit() { }
 
-    /**
-     * Maneja el evento de cancelación. Cierra el modal sin realizar cambios.
-     * @method onCancel
-     * @return {void}
-     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
-    /**
-     * Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento 'ok'.
-     * @method onSubmit
-     * @return {void}
-     */
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
-    /**
-     * Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento 'ok'.
-     * @method onSubmit
-     * @return {void}
-     */
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { UtilsService } from 'src/app/core/services/utils.service';
@@ -15,7 +16,8 @@ export class SpentFormComponent implements OnInit {
     today: Date = new Date()
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-    selectedProvider?: string;
+    public selectedProvider: string | undefined = undefined;
+
 
     private _vehicle: number = -1;
     @Input() set vehicleId(vehiclePassed: number) {
@@ -23,15 +25,15 @@ export class SpentFormComponent implements OnInit {
         this.form.controls['vehicle'].setValue(this._vehicle);
     };
     @Input() set spent(_spent: Spent | null) {
+        this.selectedProvider = _spent?.providerName!
         if (_spent) {
             this.mode = 'Edit';
             this.form.controls['spentId'].setValue(_spent.spentId);
             this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount.toPrecision());
             this.form.controls['provider'].setValue(_spent.provider);
-            this.form.controls['providerName'].setValue(_spent.providerName);
+            this.form.controls['providerName'].setValue(_spent.provider);
             this.form.controls['observations'].setValue(_spent.observations);
-            this.selectedProvider = _spent.providerName;
         }
     }
 
@@ -75,9 +77,9 @@ export class SpentFormComponent implements OnInit {
      */
     onSelection(event: any) {
         const provider = event.detail.value;
-        this.selectedProvider = provider;
+        // this.selectedProvider = provider;
         this.form.controls['providerName'].setValue(provider?.name);
-        this.form.controls['provider'].setValue(provider?.id);
+        this.form.controls['provider'].setValue(provider?.name);
         this.form.markAsDirty();
     }
 

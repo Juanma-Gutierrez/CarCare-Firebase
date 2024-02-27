@@ -9,8 +9,8 @@ export interface Vehicle {
     plate: string,
     registrationDate: Timestamp,
     spents?: Spent[],
-    vehicleId: string,
     userId: string,
+    vehicleId: string,
 }
 
 /**
@@ -19,7 +19,7 @@ export interface Vehicle {
 export enum VehicleCategory {
     car = 'car',
     motorcycle = 'motorcycle',
-    van = 'van',
-    truck = 'truck'
+    truck = 'truck',
+    van = 'van'
 }
 

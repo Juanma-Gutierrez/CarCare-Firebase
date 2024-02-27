@@ -1,15 +1,15 @@
 export interface Provider {
-    providerId: string,
     category: ProviderCategory,
     name: string,
     phone: string,
+    providerId: string,
 }
 
 export enum ProviderCategory {
-    workshop = 'workshop',
-    insuranceCompany = 'insuranceCompany',
+    ITV = "ITV",
     gasStation = 'gasStation',
-    towTruck = 'towTruck',
+    insuranceCompany = 'insuranceCompany',
     other = "other",
-    ITV = "ITV"
+    towTruck = 'towTruck',
+    workshop = 'workshop',
 }

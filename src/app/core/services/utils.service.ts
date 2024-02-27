@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { CustomTranslateService } from './custom-translate.service';
+import { Preferences } from '@capacitor/preferences';
+import { FormGroup } from '@angular/forms';
 
 
 @Injectable({
@@ -36,6 +38,20 @@ export class UtilsService {
         }
     }
 
+    saveLocalStorageUser(user: string) {
+        console.info("Saved to localStorage: ", user)
+        Preferences.set({
+            key: 'userName',
+            value: user
+        })
+    }
+
+    loadLocalStorageUser(): Promise<string> {
+        return Preferences.get({ key: 'userName' }).then((ret: any) => {
+            return ret.value;
+        }).catch();
+    }
+    
     getTransMsg(originalMessage: string, param: string = ""): string {
         var lang = ""
         var message = ""
@@ -43,6 +59,8 @@ export class UtilsService {
         if (lang == "es") {
             switch (originalMessage) {
                 // Auth
+                case ("loginError"): message = `Error en los datos introducidos`;
+                    break;
                 case ("emailAlreadyInUse"): message = `El correo electrónico ${param} ya está en uso`;
                     break;
                 case ("emailInvalid"): message = `La dirección de correo electrónico ${param} no es válida`;
@@ -94,6 +112,8 @@ export class UtilsService {
         } else if (lang == "en") {
             switch (originalMessage) {
                 // Auth
+                case ("loginError"): message = `Error in the entered data`;
+                    break;
                 case ("emailAlreadyInUse"): message = `Email address ${param} already in use`;
                     break;
                 case ("emailInvalid"): message = `Email address ${param} is invalid`;

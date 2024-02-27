@@ -27,6 +27,7 @@ export class HomePage implements OnInit {
 
     constructor(
         private firebaseSvc: FirebaseService,
+        private firebaseMappingSvc: FirebaseMappingService,
         private modal: ModalController,
         private vehicleSvc: VehicleService,
         public localDataSvc: LocalDataService,
@@ -114,41 +115,17 @@ export class HomePage implements OnInit {
         this.presentFormSpents(null, vehicleSelected['id'], onDismiss);
     }
 
-    public async onEditSpentClicked(spent: any) { // StrapiSpent
-        /*    var onDismiss = (info: any) => {
-               switch (info.role) {
-                   case 'ok': {
-                       this.spentsSvc.updateSpent(info.data).subscribe(async user => {
-                           this.utilSvc.showToast("Gasto actualizado", "secondary", "bottom")
-                           this.reloadSpents(this.user!);
-                       })
-                   }
-                       break;
-                   case 'delete': {
-                       this.spentsSvc.deleteSpent(info.data).subscribe(async user => {
-                           this.utilSvc.showToast("Gasto eliminado", "secondary", "bottom")
-                           this.reloadSpents(this.user!);
-                       })
-                   }
-                       break;
-                   default: {
-                       console.error("No debería entrar");
-                   }
-               }
-           }
-           var _spent: Spent = {
-               id: spent.id,
-               date: spent.date,
-               amount: spent.amount,
-               provider: spent.provider.data.id,
-               providerName: spent.provider.data.attributes.name,
-               vehicle: spent.vehicle.data.id,
-               observations: spent.observations
-           };
-           this.presentFormSpents(_spent, _spent.vehicle, onDismiss); */
+    public async onEditSpentClicked(spent: Spent) {
+        var vehicle: Vehicle = this.localDataSvc.getVehicle().value!;
+        console.log(vehicle?.spents?.length);
+        var onDismiss = (info: any) => {
+            this.spentsSvc.editSpent(info, spent, vehicle);
+        }
+        console.log(spent)
+        this.presentFormSpents(spent, vehicle!.vehicleId, onDismiss);
     }
 
-    async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
+    async presentFormSpents(data: Spent | null, _vehicleId: string, onDismiss: (result: any) => void) {
         var providers: Provider[] | null = []
         this.localDataSvc.providers$.subscribe(providerList => {
             providers = providerList

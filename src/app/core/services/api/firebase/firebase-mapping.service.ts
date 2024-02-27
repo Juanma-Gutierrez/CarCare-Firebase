@@ -10,6 +10,7 @@ import { Spent } from "../../../interfaces/Spent";
 })
 export class FirebaseMappingService extends MappingService {
 
+
     constructor() {
         super();
     }
@@ -94,4 +95,19 @@ export class FirebaseMappingService extends MappingService {
             uuid: user.uuid
         }
     }
+
+    mapVehicleWithSpents(vehicle: Vehicle, spentsUpdated: Spent[]): Vehicle {
+        return {
+            available: vehicle.available,
+            brand: vehicle.brand,
+            category: vehicle.category,
+            model: vehicle.model,
+            plate: vehicle.plate,
+            registrationDate: vehicle.registrationDate,
+            spents: spentsUpdated,
+            userId: vehicle.userId,
+            vehicleId: vehicle.vehicleId,
+        }
+    }
+
 }
