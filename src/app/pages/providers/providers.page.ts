@@ -6,6 +6,7 @@ import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { ProviderService } from 'src/app/core/services/provider.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,11 +18,12 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 })
 export class ProvidersPage implements OnInit {
     constructor(
-        private utilsSvc: UtilsService,
-        private modal: ModalController,
-        private firebaseSvc: FirebaseService,
         private firebaseMappingSvc: FirebaseMappingService,
-        public localDataSvc: LocalDataService
+        private firebaseSvc: FirebaseService,
+        private modal: ModalController,
+        private providerSvc: ProviderService,
+        private utilsSvc: UtilsService,
+        public localDataSvc: LocalDataService,
     ) { }
 
 
@@ -30,72 +32,18 @@ export class ProvidersPage implements OnInit {
         this.firebaseSvc.subscribeToDocument("providers", user!.userId, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
         })
-        //var providers: any = await this.firebaseSvc.getDocument("provider", user!.id)
-        //this.localDataSvc.setProviders(providers.data.providers)
     }
 
     onEditProviderClicked(provider: Provider) {
-        console.log(provider)
         var onDismiss = (info: any) => {
-            var user = this.localDataSvc.getUser().value;
-            var providersList = this.localDataSvc.getProviders().value
-            switch (info.role) {
-                case 'ok': {
-                    var providersFiltered: any = {
-                        providers: providersList?.map(_provider => {
-                            return (_provider.providerId == provider.providerId) ? info.data : _provider
-                        })
-                    }
-                    try {
-                        this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editProviderOk"), "secondary", "bottom");
-                    } catch (e) {
-                        console.error(e);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editProviderError"), "danger", "top");
-                    }
-                }
-                    break;
-                case 'delete': {
-                    var providersFiltered: any = {
-                        providers: providersList?.filter(_provider => {
-                            return _provider.providerId != info.data.providerId;
-                        })
-                    }
-                    try {
-                        this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteProviderOk"), "secondary", "bottom");
-                    } catch (e) {
-                        console.error(e);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteProviderError"), "danger", "top");
-                    }
-                }
-                    break;
-                default: {
-                    console.error("No debería entrar");
-                }
-            }
+            this.providerSvc.editProvider(info, provider);
         }
         this.presentForm(provider, onDismiss);
     }
 
-    onNewProvider() {
+    onCreateProviderClicked() {
         var onDismiss = async (info: any) => {
-            switch (info.role) {
-                case 'ok': {
-                    try {
-                        var userId = this.localDataSvc.getUser().value!!.userId
-                        var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
-                        var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
-                        providersList.push(provider)
-                        await this.firebaseSvc.updateDocument("providers", userId, { "providers": providersList })
-                        this.localDataSvc.setProviders(providersList)
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderOk"), "secondary", "bottom");
-                    } catch (e) {
-                        console.log(e);
-                        this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderError"), "danger", "top");
-                    }
-                }
-            }
+            this.providerSvc.createProvider(info);
         }
         this.presentForm(null, onDismiss);
     }

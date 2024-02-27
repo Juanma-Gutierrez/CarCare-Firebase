@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-spent-form',
@@ -24,7 +25,7 @@ export class SpentFormComponent implements OnInit {
     @Input() set spent(_spent: Spent | null) {
         if (_spent) {
             this.mode = 'Edit';
-            this.form.controls['id'].setValue(_spent.spentId);
+            this.form.controls['spentId'].setValue(_spent.spentId);
             this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount.toPrecision());
             this.form.controls['provider'].setValue(_spent.provider);
@@ -40,9 +41,10 @@ export class SpentFormComponent implements OnInit {
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
+        private utilsSvc: UtilsService,
     ) {
         this.form = this.formBuilder.group({
-            id: [null],
+            spentId: [this.utilsSvc.generateId()],
             date: [this.today.toISOString(), Validators.required],
             amount: [0, Validators.required],
             provider: [''],

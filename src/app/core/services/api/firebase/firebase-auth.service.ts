@@ -16,7 +16,6 @@ export class FirebaseAuthService extends AuthService {
     ) {
         super();
         this.firebaseSvc.isLogged$.subscribe(logged => this._logged.next(logged));
-        console.log(this.firebaseSvc.isLogged$)
     }
 
     public override login(credentials: any): Observable<any> {

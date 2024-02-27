@@ -112,7 +112,7 @@ export class HomePage implements OnInit {
     }
 
     // ***************************** SPENTS *****************************
-    onNewSpent(vehicleSelected: DocumentData) {
+    createSpent(vehicleSelected: DocumentData) {
         var onDismiss = async (info: any) => {
             switch (info.role) {
                 case 'ok': {
@@ -122,13 +122,13 @@ export class HomePage implements OnInit {
                         await this.firebaseSvc.updateDocument("vehicles", vehicleSelected['id']!!, vehicleWithSpents)
                         this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), "secondary", "bottom");
                     } catch (e) {
-                        console.log(e);
+                        console.error(e);
                         this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentError"), "danger", "top");
                     }
                     break;
                 }
                 default: {
-                    console.error("No debería entrar");
+                    console.error("No debería entrar: createSpent");
                 }
             }
         }

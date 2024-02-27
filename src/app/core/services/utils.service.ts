@@ -40,9 +40,7 @@ export class UtilsService {
         var lang = ""
         var message = ""
         this.translateSvc.language$.subscribe(l => lang = l);
-        console.log(lang)
         if (lang == "es") {
-            console.log("español")
             switch (originalMessage) {
                 // Auth
                 case ("emailAlreadyInUse"): message = `El correo electrónico ${param} ya está en uso`;
@@ -94,7 +92,6 @@ export class UtilsService {
                     break;
             }
         } else if (lang == "en") {
-            console.log("inglés")
             switch (originalMessage) {
                 // Auth
                 case ("emailAlreadyInUse"): message = `Email address ${param} already in use`;
@@ -148,7 +145,6 @@ export class UtilsService {
         } else {
             console.error("No debería entrar");
         }
-        console.log(message)
         return message
     }
 }

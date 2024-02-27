@@ -57,7 +57,7 @@ export class ProviderItemComponent implements OnInit {
                     this.categoryFormatted = "Gas station";
                     break;
                 default: {
-                    console.error("No debería entrar");
+                    console.error("No debería entrar:translateCategoryEN");
                     break;
                 }
             }
@@ -83,7 +83,7 @@ export class ProviderItemComponent implements OnInit {
                         this.categoryFormatted = "Gasolinera";
                         break;
                     default: {
-                        console.error("No debería entrar");
+                        console.error("No debería entrar: translateCategoryES");
                         break;
                     }
                 }

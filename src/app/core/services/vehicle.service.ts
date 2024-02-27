@@ -23,7 +23,6 @@ export class VehicleService {
         switch (info.role) {
             case 'ok': {
                 var user = this.localDataSvc.getUser().value;
-                console.log(user)
                 // Genera un id para el vehículo
                 var vehicleId = this.utilsSvc.generateId();
                 var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.uuid!);
@@ -39,7 +38,7 @@ export class VehicleService {
                 break;
             }
             default: {
-                console.error("No debería entrar");
+                console.error("No debería entrar: createVehicle");
             }
         }
     }
@@ -94,7 +93,7 @@ export class VehicleService {
             }
                 break;
             default: {
-                console.error("No debería entrar");
+                console.error("No debería entrar: editVehicle");
             }
         }
     }
