@@ -42,7 +42,11 @@ const routes: Routes = [
         path: 'providers',
         loadChildren: () => import('./pages/providers/providers.module').then(m => m.ProvidersPageModule),
         canActivate: [AuthGuard]
-    },
+    },  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
+  },
+
 ];
 
 @NgModule({

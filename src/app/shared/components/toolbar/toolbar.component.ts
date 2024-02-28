@@ -80,6 +80,11 @@ export class ToolbarComponent implements OnInit {
         this.router.navigate(['/providers']);
     }
 
+    navToAdmin() {
+        this.selectedPage = "admin"
+        this.router.navigate(['/admin']);
+    }
+
     /**
      * Manejador de eventos para el clic en el botón de cierre de sesión.
      * Realiza el cierre de sesión y redirige al usuario a la página de inicio de sesión.

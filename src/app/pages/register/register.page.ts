@@ -1,9 +1,5 @@
 import { AuthService } from 'src/app/core/services/api/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Preferences } from '@capacitor/preferences';
-import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
-import { User } from 'src/app/core/interfaces/User';
-import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
@@ -36,6 +32,7 @@ export class RegisterPage implements OnInit {
     onRegisterFormSubmit(data: any) {
         let _data: any = { ...data };
         delete _data.confirm;
+        console.log("onRegisterFormSubmit:",data.email)
         this.utilsSvc.saveLocalStorageUser(data.email);
         this.authSvc.register(_data).subscribe({
             next: (data) => {

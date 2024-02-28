@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Preferences } from '@capacitor/preferences';
 import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 import { UtilsService } from 'src/app/core/services/utils.service';
 
@@ -27,14 +26,15 @@ export class LoginFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.utilsSvc.loadLocalStorageUser().then(_username => {
-            this.form?.controls['username'].setValue(_username)
+        this.utilsSvc.loadLocalStorageUser().then(username => {
+            this.form?.controls['username'].setValue(username)
         });
     }
 
 
     onSubmit() {
         var userName = JSON.stringify(this.form!.value.username)
+        console.log("username en onSubmit:", userName)
         this.utilsSvc.saveLocalStorageUser(userName)
         this.onsubmit.emit(this.form?.value);
         this.form?.controls['password'].setValue('');

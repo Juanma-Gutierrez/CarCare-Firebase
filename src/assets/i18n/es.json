@@ -6,7 +6,8 @@
         "home": "Inicio",
         "vehicles": "Vehículos",
         "providers": "Proveedores",
-        "aboutMe": "Sobre mí"
+        "aboutMe": "Sobre mí",
+        "admin": "Administración"
     },
     "home": {
         "vehicles": "Vehículos",

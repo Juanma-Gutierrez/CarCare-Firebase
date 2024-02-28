@@ -46,6 +46,12 @@
                         {{"toolbar.aboutMe" | translate}}
                     </ion-item>
                 </ion-menu-toggle>
+                <ion-menu-toggle class="button" *ngIf="user!.role === 'admin'">
+                    <ion-item (click)="navToAdmin()" [ngClass]="{'active': selectedPage==='admin'}">
+                        <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
+                        {{"toolbar.admin" | translate}}
+                    </ion-item>
+                </ion-menu-toggle>
                 <ion-col class="ion-text-end" *ngIf="(authSvc.isLogged$ | async) && (localDataSvc.user$ | async)">
                     <app-user-item (onLanguageChanged)="onLanguageChanged($event)" (logoutClicked)="logoutClicked()"
                         [user]="user"></app-user-item>

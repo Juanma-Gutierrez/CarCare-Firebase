@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { CustomTranslateService } from './custom-translate.service';
 import { Preferences } from '@capacitor/preferences';
-import { FormGroup } from '@angular/forms';
 
 
 @Injectable({
@@ -48,6 +47,7 @@ export class UtilsService {
 
     loadLocalStorageUser(): Promise<string> {
         return Preferences.get({ key: 'userName' }).then((ret: any) => {
+            console.log(ret.value)
             return ret.value;
         }).catch();
     }

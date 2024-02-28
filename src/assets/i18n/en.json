@@ -6,7 +6,8 @@
         "home": "Home",
         "vehicles": "Vehicles",
         "providers": "Providers",
-        "aboutMe": "About me"
+        "aboutMe": "About me",
+        "admin": "Administration"
     },
     "home": {
         "vehicles": "Vehicles",
