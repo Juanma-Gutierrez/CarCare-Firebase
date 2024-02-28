@@ -90,6 +90,7 @@ export class FirebaseMappingService extends MappingService {
             userId: user.uuid,
             name: user.name,
             nickname: user.nickname,
+            role: user.role,
             surname: user.surname,
             vehicles: vehiclesListUpdated,
             uuid: user.uuid

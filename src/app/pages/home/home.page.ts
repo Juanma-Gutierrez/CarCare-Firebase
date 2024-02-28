@@ -8,7 +8,6 @@ import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentFormComponent } from './spent-form/spent-form.component';
 import { SpentService } from 'src/app/core/services/spent.service';
-import { UtilsService } from 'src/app/core/services/utils.service';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
@@ -27,7 +26,6 @@ export class HomePage implements OnInit {
 
     constructor(
         private firebaseSvc: FirebaseService,
-        private firebaseMappingSvc: FirebaseMappingService,
         private modal: ModalController,
         private vehicleSvc: VehicleService,
         public localDataSvc: LocalDataService,

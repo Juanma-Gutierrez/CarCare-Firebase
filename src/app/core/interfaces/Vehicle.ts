@@ -13,9 +13,6 @@ export interface Vehicle {
     vehicleId: string,
 }
 
-/**
- * Enumeración que representa las categorías de vehículos.
- */
 export enum VehicleCategory {
     car = 'car',
     motorcycle = 'motorcycle',

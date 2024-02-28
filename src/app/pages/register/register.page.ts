@@ -37,6 +37,7 @@ export class RegisterPage implements OnInit {
         let _data: any = { ...data };
         delete _data.confirm;
         this.utilsSvc.saveLocalStorageUser(data.email);
+        console.log(data)
         this.authSvc.register(_data).subscribe({
             next: (data) => {
                 console.info("Data en registro: ", data);

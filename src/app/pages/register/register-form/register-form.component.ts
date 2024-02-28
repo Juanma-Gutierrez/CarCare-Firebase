@@ -12,51 +12,30 @@ export class RegisterFormComponent implements OnInit {
     form: FormGroup | null = null;
     @Output() onsubmit = new EventEmitter<any>();
 
-    /**
-     * Constructor del componente de formulario de registro.
-     * @constructor
-     * @param {FormBuilder} formBuilder - Constructor de formularios para crear instancias de FormGroup.
-     */
     constructor(
         private formBuilder: FormBuilder
     ) {
         this.form = this.formBuilder.group({
-            name: ['', [Validators.required]],
-            surname: ['', [Validators.required]],
-            username: ['', [Validators.required]],
+            confirm: ['', [Validators.required, PasswordValidation.passwordProto('confirm')]],
             email: ['', [Validators.required, Validators.email]],
+            name: ['', [Validators.required]],
             password: ['', [Validators.required, PasswordValidation.passwordProto('password')]],
-            confirm: ['', [Validators.required, PasswordValidation.passwordProto('confirm')]]
+            role: ['user'],
+            surname: ['', [Validators.required]],
+            username: ['', [Validators.required]]
         }, { validator: [PasswordValidation.passwordMatch('password', 'confirm')] });
     }
 
     ngOnInit() { }
 
-    /**
-     * Método invocado al enviar el formulario de registro. Emite los datos del formulario a través del evento `onsubmit`.
-     * @method onSubmit
-     * @return {void}
-     */
     onSubmit() {
         this.onsubmit.emit(this.form?.value);
     }
 
-    /**
-     * Verifica si un control del formulario tiene errores de validación.
-     * @method hasError
-     * @param {string} controlName - Nombre del control del formulario.
-     * @return {boolean | undefined} - Devuelve `true` si hay errores de validación, de lo contrario, `undefined`.
-     */
     hasError(controlName: string): boolean | undefined {
         return this.form?.get(controlName)?.invalid;
     }
 
-    /**
-     * Verifica si un control del formulario ha sido tocado.
-     * @method hasTouched
-     * @param {string} controlName - Nombre del control del formulario.
-     * @return {boolean | undefined} - Devuelve `true` si el control ha sido tocado, de lo contrario, `undefined`.
-     */
     hasTouched(controlName: string): boolean | undefined {
         return this.form?.get(controlName)?.touched;
     }

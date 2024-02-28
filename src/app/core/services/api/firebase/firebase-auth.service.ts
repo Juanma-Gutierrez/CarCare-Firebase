@@ -4,7 +4,7 @@ import { FirebaseDocument, FirebaseService, FirebaseUserCredential } from './fir
 import { User, UserCredential } from '../../../interfaces/User';
 import { UtilsService } from '../../utils.service';
 import { LocalDataService } from '../local-data.service';
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
 
 
 export class FirebaseAuthService extends AuthService {
@@ -41,6 +41,7 @@ export class FirebaseAuthService extends AuthService {
                         name: _info.name,
                         surname: _info.surname,
                         email: _info.email,
+                        role: "user",
                         userId: credentials.user.user.uid,
                         vehicles: [],
                         uuid: _info.uuid
@@ -58,14 +59,13 @@ export class FirebaseAuthService extends AuthService {
     }
 
     private postRegister(info: any): Observable<any> {  // User
-        // Registra al usuario con los datos capturados del formulario
-        // de registro dentro de la colección users
         if (info.uuid)
             return from(this.firebaseSvc.createDocumentWithId('user', {
                 email: info.email,
                 id: info.uuid,
                 name: info.name,
                 nickname: info.username,
+                role: info.role,
                 surname: info.surname,
                 vehicles: [],
                 uuid: info.uuid
@@ -99,6 +99,7 @@ export class FirebaseAuthService extends AuthService {
             userId: data.id,
             name: data.data['name'],
             nickname: data.data['nickname'],
+            role: data.data['user'],
             surname: data.data['surname'],
             vehicles: data.data['vehicles'],
             uuid: data.id

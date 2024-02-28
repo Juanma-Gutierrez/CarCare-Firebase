@@ -1,20 +1,13 @@
-import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
-import { DataService } from './api/data.service';
-import { Injectable } from '@angular/core';
-import { MappingService } from './api/mapping.service';
-import { Spent } from '../interfaces/Spent';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentData } from 'firebase/firestore';
-import { UtilsService } from './utils.service';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
 import { FirebaseService } from './api/firebase/firebase.service';
+import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
+import { Spent } from '../interfaces/Spent';
+import { UtilsService } from './utils.service';
 import { Vehicle } from '../interfaces/Vehicle';
 
-
-/**
- * Servicio que gestiona las operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
- * para los gastos (Spent).
- */
 @Injectable({
     providedIn: 'root'
 })
@@ -56,19 +49,14 @@ export class SpentService {
 
     editSpent(info: any, vehicle: Vehicle) {
         var spent = info.data;
-        console.log(info.data)
         var spentsList = this.localDataSvc.getVehicle().value?.spents;
         switch (info.role) {
-            // TODO HACER LA EDICIÓN DE GASTOS
             case 'ok': {
-                // modificar el array de gastos
-                var spentsListUpdated = spentsList?.map(_spent => {
+                var spentsListUpdated: Spent[] = spentsList?.map(_spent => {
                     return (spent.spentId == _spent.spentId) ? spent : _spent
-                })
-                console.log("Lista filtrada: ", spentsListUpdated);
-                // editar el vehículo para añadirle el nuevo array de gastos
-                vehicle.spents = spentsListUpdated
-                // actualizar el vehículo con los nuevos gastos
+                })!
+                this.sortSpentsByDate(spentsListUpdated);
+                vehicle.spents = spentsListUpdated;
                 this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle)
                 break;
             }
@@ -91,19 +79,16 @@ export class SpentService {
             }
         }
     }
+
+    sortSpentsByDate(list: Spent[]): Spent[] {
+        var listOrdered = list.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        return listOrdered;
+    }
+
     async addSpentToSpentsArray(vehicle: Vehicle, spent: Spent): Promise<any> {
-        var vehicleWithSpents: Vehicle = {
-            available: vehicle.available,
-            brand: vehicle.brand,
-            category: vehicle.category,
-            model: vehicle.model,
-            plate: vehicle.plate,
-            registrationDate: vehicle.registrationDate,
-            spents: vehicle.spents,
-            userId: vehicle.userId,
-            vehicleId: vehicle.vehicleId
-        }
+        var vehicleWithSpents: Vehicle = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle, vehicle.spents!)
         vehicleWithSpents.spents!.push(spent);
+        this.sortSpentsByDate(vehicleWithSpents.spents!);
         return vehicleWithSpents
     }
 
