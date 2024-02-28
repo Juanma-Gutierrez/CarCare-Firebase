@@ -23,12 +23,11 @@ export class ProviderService {
         switch (info.role) {
             case 'ok': {
                 try {
-                    var userId = this.localDataSvc.getUser().value!!.userId
+                    // var userId = this.localDataSvc.getUser().value!!.userId
                     var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
                     var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                     providersList.push(provider)
-                    await this.firebaseSvc.updateDocument("providers", userId, { "providers": providersList })
-                    this.localDataSvc.setProviders(providersList)
+                    await this.firebaseSvc.updateDocument("providers", info.data.userId, { "providers": providersList })
                     this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderOk"), "secondary", "bottom");
                 } catch (e) {
                     console.error(e);

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentData, DocumentReference } from 'firebase/firestore';
+import { DocumentData } from 'firebase/firestore';
 import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
-import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
+import { Router } from '@angular/router';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentFormComponent } from './spent-form/spent-form.component';
 import { SpentService } from 'src/app/core/services/spent.service';
+import { UtilsService } from 'src/app/core/services/utils.service';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
-import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-home',
@@ -27,6 +27,7 @@ export class HomePage implements OnInit {
 
     constructor(
         private firebaseSvc: FirebaseService,
+        private router:Router,
         private modal: ModalController,
         private utilsSvc: UtilsService,
         private vehicleSvc: VehicleService,
@@ -106,6 +107,7 @@ export class HomePage implements OnInit {
     createSpent(vehicleSelected: DocumentData) {
         if (this.localDataSvc.getProviders().value?.length == 0) {
             this.utilsSvc.showToast(this.utilsSvc.getTransMsg("noneProvider"), "danger", "top");
+            this.router.navigate(['/providers']);
         } else {
             var onDismiss = async (info: any) => {
                 this.spentsSvc.createSpent(info, vehicleSelected);

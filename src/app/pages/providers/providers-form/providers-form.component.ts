@@ -37,7 +37,7 @@ export class ProvidersFormComponent implements OnInit {
             name: ['', Validators.required],
             category: ['', Validators.required],
             phone: [''],
-            users_permissions_user: [userId]
+            userId: [userId],
         })
     }
 

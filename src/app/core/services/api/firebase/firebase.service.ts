@@ -57,7 +57,6 @@ export class FirebaseService {
         });
     }
 
-
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise<FirebaseUserCredential | null>(async (resolve, reject) => {
             if (!this._auth)
@@ -74,6 +73,7 @@ export class FirebaseService {
                 resolve({ user: await createUserWithEmailAndPassword(this._auth!, email, password) });
                 // TODO Control de los mensajes en diferentes idiomas
                 this.utilSvc.showToast(`Registro realizado con éxito`, "secondary", "bottom")
+                this.utilSvc.showToast(this.utilSvc.getTransMsg("signUpOk"), "secondary", "bottom");
             } catch (error: any) {
                 switch (error.code) {
                     case 'auth/email-already-in-use':

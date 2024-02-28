@@ -59,6 +59,8 @@ export class UtilsService {
         if (lang == "es") {
             switch (originalMessage) {
                 // Auth
+                case ("signUpOk"): message = `Registro realizado con éxito`;
+                    break;
                 case ("loginError"): message = `Error en los datos introducidos`;
                     break;
                 case ("emailAlreadyInUse"): message = `El correo electrónico ${param} ya está en uso`;
@@ -114,6 +116,8 @@ export class UtilsService {
         } else if (lang == "en") {
             switch (originalMessage) {
                 // Auth
+                case ("signUpOk"): message = `Registration successfully completed`;
+                    break;
                 case ("loginError"): message = `Error in the entered data`;
                     break;
                 case ("emailAlreadyInUse"): message = `Email address ${param} already in use`;
