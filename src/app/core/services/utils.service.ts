@@ -51,7 +51,7 @@ export class UtilsService {
             return ret.value;
         }).catch();
     }
-    
+
     getTransMsg(originalMessage: string, param: string = ""): string {
         var lang = ""
         var message = ""
@@ -83,6 +83,8 @@ export class UtilsService {
                 case ("deleteVehicleError"): message = "Error en la eliminación del vehículo";
                     break;
                 // Spents
+                case ("noneProvider"): message = "Primero debes crear un proveedor";
+                    break;
                 case ("newSpentOk"): message = "Nuevo gasto creado correctamente";
                     break;
                 case ("newSpentError"): message = "Error en la creación del gasto";
@@ -136,6 +138,8 @@ export class UtilsService {
                 case ("deleteVehicleError"): message = "Error in vehicle deletion";
                     break;
                 // Spents
+                case ("noneProvider"): message = "First you may create a provider";
+                    break;
                 case ("newSpentOk"): message = "New spent created succesfully";
                     break;
                 case ("newSpentError"): message = "Error in spent creation";

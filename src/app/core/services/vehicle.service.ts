@@ -99,20 +99,15 @@ export class VehicleService {
     }
 
     async deleteVehiclePreview(id: String) {
-        var user = this.localDataSvc.getUser().value!! // Carga el usuario
-        var vehiclesList = user.vehicles; // Carga la lista de vehículos
-        console.log(vehiclesList.length)
-        vehiclesList = vehiclesList.filter(vehicle => {
-            return vehicle.vehicleId != id
-        })
+        var user = this.localDataSvc.getUser().value!!
+        var vehiclesList = user.vehicles;
+        vehiclesList = vehiclesList.filter(vehicle => { return vehicle.vehicleId != id })
         user.vehicles = vehiclesList;
-        console.log(vehiclesList.length)
         await this.firebaseSvc.updateDocument("user", user.uuid!!, user)
     }
 
 
     updateVehicleInUserCollection(vehicleUpdated: any, vehicleId: string): VehiclePreview[] {
-        // Capturamos la lista de vehículos en un array
         var vehiclesList = this.localDataSvc.getUser().value?.vehicles!
         var vehiclesFiltered: VehiclePreview[] = []
         vehiclesList?.map(vehicle => {

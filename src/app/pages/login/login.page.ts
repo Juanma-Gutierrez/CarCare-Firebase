@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
                 this.router.navigate(['welcome'])
             },
             error: err => {
-                console.log("Login error")
+                console.error("Login error")
             }
         });
     }

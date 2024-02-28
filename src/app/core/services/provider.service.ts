@@ -31,7 +31,7 @@ export class ProviderService {
                     this.localDataSvc.setProviders(providersList)
                     this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderOk"), "secondary", "bottom");
                 } catch (e) {
-                    console.log(e);
+                    console.error(e);
                     this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderError"), "danger", "top");
                 }
             }

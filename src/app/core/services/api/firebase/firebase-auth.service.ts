@@ -1,15 +1,15 @@
-import { Observable, from, map } from 'rxjs'; UtilsService
 import { AuthService } from '../auth.service';
 import { FirebaseDocument, FirebaseService, FirebaseUserCredential } from './firebase.service';
+import { LocalDataService } from '../local-data.service';
+import { Observable, from, map } from 'rxjs'; UtilsService
 import { User, UserCredential } from '../../../interfaces/User';
 import { UtilsService } from '../../utils.service';
-import { LocalDataService } from '../local-data.service';
 import { inject } from '@angular/core';
 
 
 export class FirebaseAuthService extends AuthService {
-    localDataSvc: LocalDataService = inject(LocalDataService);
     firebaseSvc: FirebaseService = inject(FirebaseService);
+    localDataSvc: LocalDataService = inject(LocalDataService);
 
     constructor(
         private utilSvc: UtilsService
