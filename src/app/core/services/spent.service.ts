@@ -54,23 +54,27 @@ export class SpentService {
         }
     }
 
-    editSpent(info: any, spent: Spent, vehicle: Vehicle) {
+    editSpent(info: any, vehicle: Vehicle) {
+        var spent = info.data;
+        console.log(info.data)
+        var spentsList = this.localDataSvc.getVehicle().value?.spents;
         switch (info.role) {
             // TODO HACER LA EDICIÓN DE GASTOS
             case 'ok': {
-                console.log("ok");
+                // modificar el array de gastos
+                var spentsListUpdated = spentsList?.map(_spent => {
+                    return (spent.spentId == _spent.spentId) ? spent : _spent
+                })
+                console.log("Lista filtrada: ", spentsListUpdated);
+                // editar el vehículo para añadirle el nuevo array de gastos
+                vehicle.spents = spentsListUpdated
+                // actualizar el vehículo con los nuevos gastos
+                this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle)
                 break;
             }
-            /*                    case 'ok': {
-                                   this.spentsSvc.updateSpent(info.data).subscribe(async user => {
-                                       this.utilSvc.showToast("Gasto actualizado", "secondary", "bottom")
-                                       this.reloadSpents(this.user!);
-                                   })
-                               }
-                                   break; */
             case 'delete': {
                 try {
-                    var spentsList = this.localDataSvc.getSpents().value.filter(_spent => {
+                    spentsList = this.localDataSvc.getSpents().value.filter(_spent => {
                         return spent.spentId != _spent.spentId;
                     });
                     var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);

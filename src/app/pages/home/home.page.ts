@@ -117,11 +117,9 @@ export class HomePage implements OnInit {
 
     public async onEditSpentClicked(spent: Spent) {
         var vehicle: Vehicle = this.localDataSvc.getVehicle().value!;
-        console.log(vehicle?.spents?.length);
         var onDismiss = (info: any) => {
-            this.spentsSvc.editSpent(info, spent, vehicle);
+            this.spentsSvc.editSpent(info, vehicle);
         }
-        console.log(spent)
         this.presentFormSpents(spent, vehicle!.vehicleId, onDismiss);
     }
 
