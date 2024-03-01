@@ -5,7 +5,7 @@ import { FirebaseService } from './api/firebase/firebase.service';
 import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
 import { Spent } from '../interfaces/Spent';
-import { UtilsService } from './utils.service';
+import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from './utils.service';
 import { Vehicle } from '../interfaces/Vehicle';
 
 @Injectable({
@@ -34,10 +34,10 @@ export class SpentService {
                     var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                     var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
                     await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), "secondary", "bottom");
+                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentError"), "danger", "top");
+                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentError"), DANGER, TOP);
                 }
                 break;
             }
@@ -67,10 +67,10 @@ export class SpentService {
                     });
                     var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
                     this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleOk"), "secondary", "bottom");
+                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleError"), "danger", "top");
+                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleError"), DANGER, TOP);
                 }
             }
                 break;

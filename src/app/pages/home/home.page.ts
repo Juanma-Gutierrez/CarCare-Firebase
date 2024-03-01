@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentFormComponent } from './spent-form/spent-form.component';
 import { SpentService } from 'src/app/core/services/spent.service';
-import { UtilsService } from 'src/app/core/services/utils.service';
+import { DANGER, TOP, UtilsService } from 'src/app/core/services/utils.service';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
@@ -106,7 +106,7 @@ export class HomePage implements OnInit {
 
     createSpent(vehicleSelected: DocumentData) {
         if (this.localDataSvc.getProviders().value?.length == 0) {
-            this.utilsSvc.showToast(this.utilsSvc.getTransMsg("noneProvider"), "danger", "top");
+            this.utilsSvc.showToast(this.utilsSvc.getTransMsg("noneProvider"), DANGER, TOP);
             this.router.navigate(['/providers']);
         } else {
             var onDismiss = async (info: any) => {

@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ToastController, ToastOptions } from '@ionic/angular';
 import { CustomTranslateService } from './custom-translate.service';
+import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
-import { environment } from 'src/environments/environment';
+import { ToastController, ToastOptions } from '@ionic/angular';
 
+export const TOP: "top" = "top";
+export const BOTTOM: "bottom" = "bottom";
+export const SUCCESS: string = "secondary";
+export const DANGER: string = "danger";
 
 @Injectable({
     providedIn: 'root'
@@ -24,12 +27,12 @@ export class UtilsService {
     * @param color Color del toast.
     * @param position Posición del toast en la pantalla ("top" o "bottom").
     */
-    public async showToast(messageToShow: string, color: string, position: "top" | "bottom") {
+    public async showToast(messageToShow: string, color: string, position: "top" | "bottom", duration:number = 2000) {
         console.info("Show toast: " + messageToShow)
         if (messageToShow != null) {
             const options: ToastOptions = {
                 message: messageToShow,
-                duration: 3000,
+                duration: duration,
                 position: position,
                 color: color,
             };
@@ -48,7 +51,7 @@ export class UtilsService {
 
     loadLocalStorageUser(): Promise<string> {
         return Preferences.get({ key: 'userName' }).then((ret: any) => {
-            console.log("cl:","loadlocalstorage:", ret.value)
+            console.log("cl:", "loadlocalstorage:", ret.value)
             return ret.value;
         }).catch();
     }

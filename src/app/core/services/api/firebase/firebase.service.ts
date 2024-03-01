@@ -3,7 +3,7 @@ import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
 import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UtilsService } from '../../utils.service';
+import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from '../../utils.service';
 import { LocalDataService } from '../local-data.service';
 
 export interface Uuid {
@@ -67,7 +67,9 @@ export class FirebaseService {
             } catch (e) {
                 if (e instanceof Error) {
                     console.error(e.message)
-                    this.utilSvc.showToast(this.utilSvc.getTransMsg("loginError"), "danger", "top");
+                    if (e.message == "Firebase: Error (auth/invalid-email).") {
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("loginError"), DANGER, TOP, 3000);
+                    }
                 }
             }
         });
@@ -80,21 +82,20 @@ export class FirebaseService {
             try {
                 resolve({ user: await createUserWithEmailAndPassword(this._auth!, email, password) });
                 // TODO Control de los mensajes en diferentes idiomas
-                this.utilSvc.showToast(`Registro realizado con éxito`, "secondary", "bottom")
-                this.utilSvc.showToast(this.utilSvc.getTransMsg("signUpOk"), "secondary", "bottom");
+                this.utilSvc.showToast(this.utilSvc.getTransMsg("signUpOk"), SUCCESS, BOTTOM);
             } catch (error: any) {
                 switch (error.code) {
                     case 'auth/email-already-in-use':
-                        this.utilSvc.showToast(this.utilSvc.getTransMsg("emailAlreadyInUse", email), "danger", "top");
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("emailAlreadyInUse", email), DANGER, TOP);
                         break;
                     case 'auth/invalid-email':
-                        this.utilSvc.showToast(this.utilSvc.getTransMsg("emailAlreadyInUse", email), "danger", "top");
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("emailAlreadyInUse", email), DANGER, TOP);
                         break;
                     case 'auth/operation-not-allowed':
-                        this.utilSvc.showToast(this.utilSvc.getTransMsg("signUpError"), "danger", "top");
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("signUpError"), DANGER, TOP);
                         break;
                     case 'auth/weak-password':
-                        this.utilSvc.showToast(this.utilSvc.getTransMsg("passwordWeak"), "danger", "top");
+                        this.utilSvc.showToast(this.utilSvc.getTransMsg("passwordWeak"), DANGER, TOP);
                         break;
                     default:
                         console.error(error.message);
