@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { CustomTranslateService } from './custom-translate.service';
 import { Preferences } from '@capacitor/preferences';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -38,16 +39,16 @@ export class UtilsService {
     }
 
     saveLocalStorageUser(user: string) {
-        console.info("Saved to localStorage: ", user)
+        console.info(`Saved to LocalStorage: ${user}`);
         Preferences.set({
             key: 'userName',
             value: user
-        })
+        });
     }
 
     loadLocalStorageUser(): Promise<string> {
         return Preferences.get({ key: 'userName' }).then((ret: any) => {
-            console.log(ret.value)
+            console.log("cl:","loadlocalstorage:", ret.value)
             return ret.value;
         }).catch();
     }

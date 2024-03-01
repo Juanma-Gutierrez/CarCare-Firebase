@@ -15,7 +15,6 @@ Link en producción: [https://carcare-project.netlify.app](https://carcare-proje
 - **Capacitor CLI:** Versión 5.5.1
 - **Strapi:** Versión 3.6.11
 
-
 # **Requisitos del proyecto**
 
 ## Tecnologías a usar
@@ -57,7 +56,7 @@ Strapi desplegado de forma pública en la red
 
 ### JwtService
 
-- Un servicio para manejar los tokens jwt necesarios para el acceso a métodos privados de strapi. Deberá almacenar el token en el almacenamiento interno del navegador.
+- Un servicio para manejar los tokens jwt necesarios para el acceso a métodos privados de strapi. Deberá almacenar el token en el almacenamiento interno del navegador. // Servicio anulado para el uso en Firestore y Authentication.
 
 ### LocalService
 
@@ -135,7 +134,6 @@ Link al video demostrativo del funcionamiento de la aplicación.
 
 https://www.youtube.com/watch?v=BkaSsS3durw
 
-
 La aplicación inicia con un control de acceso, ya que comprueba si tiene JWT almacenado en la caché. Si lo tiene, te redirige a la página principal de la aplicación. En caso contrario, te lleva a la página de login y registro.
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0c35df5a-3369-4784-940f-09b3a88a016f)
@@ -180,32 +178,12 @@ Modo responsive en móvil.
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/1f2d73f9-b4a0-4634-8848-dcf56cee2bd6)
 
-
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/ec5a1a9a-267e-4ced-8769-90fa60f8c84d)
-
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/71463a9a-8fe5-43a7-913b-b452fcff2fef)
 
-
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/d4e45744-d634-4936-8744-cc81ece4299e)
-
-
 
 Captura del SplashScreen con el que se inicia la aplicación.
 
-
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/766ae4b3-a325-486e-91d4-bd720950ea0c)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

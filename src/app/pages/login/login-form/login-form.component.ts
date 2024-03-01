@@ -33,9 +33,8 @@ export class LoginFormComponent implements OnInit {
 
 
     onSubmit() {
-        var userName = JSON.stringify(this.form!.value.username)
-        console.log("username en onSubmit:", userName)
-        this.utilsSvc.saveLocalStorageUser(userName)
+        var userName = JSON.stringify(this.form!.value.username, null, 0).replace(/"/g, '');
+        this.utilsSvc.saveLocalStorageUser(userName);
         this.onsubmit.emit(this.form?.value);
         this.form?.controls['password'].setValue('');
     }

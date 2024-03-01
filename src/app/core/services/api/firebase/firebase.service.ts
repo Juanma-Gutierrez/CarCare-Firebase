@@ -60,8 +60,16 @@ export class FirebaseService {
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise<FirebaseUserCredential | null>(async (resolve, reject) => {
             if (!this._auth)
-                resolve(null);
-            resolve({ user: await signInWithEmailAndPassword(this._auth!, email, password) });
+                console.log("error")
+            resolve(null);
+            try {
+                resolve({ user: await signInWithEmailAndPassword(this._auth!, email, password) });
+            } catch (e) {
+                if (e instanceof Error) {
+                    console.error(e.message)
+                    this.utilSvc.showToast(this.utilSvc.getTransMsg("loginError"), "danger", "top");
+                }
+            }
         });
     }
 

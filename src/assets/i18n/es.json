@@ -102,7 +102,7 @@
     "login": {
         "login": "Login",
         "notRegistered": "No estoy registrado",
-        "userName": "Nombre de usuario / Email",
+        "userName": "Email",
         "password": "Contraseña"
     },
     "register": {

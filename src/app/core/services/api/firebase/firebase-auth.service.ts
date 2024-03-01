@@ -82,7 +82,8 @@ export class FirebaseAuthService extends AuthService {
         if (this.localDataSvc.user?.userId)
             return from(this.firebaseSvc.getDocument('user', this.localDataSvc.user.userId)).pipe(map(data => {
                 const newUser: User = this.convertToUser(data)
-                this.saveLocalUser(newUser)
+                console.log("cl:"," me:", newUser)
+                this.saveLocalUser(newUser);
                 return newUser
             }));
         else
@@ -90,6 +91,7 @@ export class FirebaseAuthService extends AuthService {
     }
 
     saveLocalUser(newUser: User) {
+        console.info("User to save: ", newUser);
         this.localDataSvc.setUser(newUser);
     }
 

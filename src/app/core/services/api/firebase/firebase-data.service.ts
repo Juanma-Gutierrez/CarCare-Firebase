@@ -18,9 +18,7 @@ export class FirebaseDataService extends DataService {
     }
 
     public override post<T>(resource: string, data: any): Observable<T> {
-        return this.api.post(`/${resource}`, { data: data } as Object).pipe(map((response: any) => {
-            return { id: response.data.id, ...response.data.attributes };
-        }));
+        throw new Error("Method not implemented.");
     }
 
     public override put<T>(resource: string, data: any): Observable<T> {
