@@ -50,4 +50,13 @@ export class CustomTranslateService {
     get(key: string): Observable<string> {
         return this.translate.get(key);
     }
+
+    getValue(item: string): string {
+        var translation: string = "";
+        this.get(item).subscribe(t => {
+            console.log(t)
+            translation = t;
+        });
+        return translation;
+    }
 }

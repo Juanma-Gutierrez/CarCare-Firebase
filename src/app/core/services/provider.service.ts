@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
 import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from './utils.service';
 import { Provider } from '../interfaces/Provider';
+import { CustomTranslateService } from './custom-translate.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +18,7 @@ export class ProviderService {
         private firebaseMappingSvc: FirebaseMappingService,
         private firebaseSvc: FirebaseService,
         private localDataSvc: LocalDataService,
+        private translateSvc: CustomTranslateService,
     ) { }
 
     async createProvider(info: any) {
@@ -28,10 +30,10 @@ export class ProviderService {
                     var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                     providersList.push(provider)
                     await this.firebaseSvc.updateDocument("providers", info.data.userId, { "providers": providersList })
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.newProviderOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newProviderError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.newProviderError"), DANGER, TOP);
                 }
             }
         }
@@ -48,10 +50,10 @@ export class ProviderService {
                 }
                 try {
                     this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editProviderOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.editProviderOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editProviderError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.editProviderError"), DANGER, TOP);
                 }
             }
                 break;
@@ -63,10 +65,10 @@ export class ProviderService {
                 }
                 try {
                     this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteProviderOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.deleteProviderOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteProviderError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.deleteProviderError"), DANGER, TOP);
                 }
             }
                 break;

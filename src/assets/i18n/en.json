@@ -114,5 +114,40 @@
         "email": "Email",
         "password": "Password",
         "confirm": "Confirm password"
+    },
+    "message": {
+        "auth": {
+            "signUpOk": "Registration successfully completed",
+            "loginError": "Error in the entered data",
+            "emailAlreadyInUse": "Email address already in use",
+            "emailInvalid": "Email address is invalid",
+            "signUpError": "Error during sign up",
+            "passwordWeak": "Password is not strong enough.\nAdd additional characters including special characters and numbers"
+        },
+        "vehicles": {
+            "newVehicleOk": "New vehicle created succesfully",
+            "newVehicleError": "Error in vehicle creation",
+            "editVehicleOk": "Vehícle edited succesfully",
+            "editVehicleError": "Error in vehicle edition",
+            "deleteVehicleOk": "Vehicle deleted succesfully",
+            "deleteVehicleError": "Error in vehicle deletion"
+        },
+        "spents": {
+            "newSpentOk": "New spent created succesfully",
+            "newSpentError": "Error in spent creation",
+            "editSpentOk": "Spent edited succesfully",
+            "editSpentError": "Error in spent edition",
+            "deleteSpentOk": "Spent deleted succesfully",
+            "deleteSpentError": "Error in spent deletion"
+        },
+        "providers": {
+            "noneProvider": "First you may create a provider",
+            "newProviderOk": "New provider created succesfully",
+            "newProviderError": "Provider edited succesfully",
+            "editProviderOk": "Provider edited succesfully",
+            "editProviderError": "Error in provider edition",
+            "deleteProviderOk": "Provider deleted succesfully",
+            "deleteProviderError": "Error in provider deletion"
+        }
     }
 }

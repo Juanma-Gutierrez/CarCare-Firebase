@@ -114,5 +114,40 @@
         "email": "Correo electrónico",
         "password": "Contraseña",
         "confirm": "Repita la contraseña"
+    },
+    "message": {
+        "auth": {
+            "signUpOk": "Registro realizado con éxito",
+            "loginError": "Error en los datos introducidos",
+            "emailAlreadyInUse": "El correo electrónico ya está en uso",
+            "emailInvalid": "La dirección de correo electrónico no es válida",
+            "signUpError": "Error durante el proceso de registro",
+            "passwordWeak": "La contraseña no es lo suficientemente fuerte.\nAñade caracteres adicionales incluyendo caracteres especiales y números"
+        },
+        "vehicles": {
+            "newVehicleOk": "Nuevo vehículo creado correctamente",
+            "newVehicleError": "Error en la creación del vehículo",
+            "editVehicleOk": "Vehículo editado correctamente",
+            "editVehicleError": "Error en la edición del vehículo",
+            "deleteVehicleOk": "Vehículo eliminado correctamente",
+            "deleteVehicleError": "Error en la eliminación del vehículo"
+        },
+        "spents": {
+            "newSpentOk": "Nuevo gasto creado correctamente",
+            "newSpentError": "Error en la creación del gasto",
+            "editSpentOk": "Gasto editado correctamente",
+            "editSpentError": "Error en la edición del gasto",
+            "deleteSpentOk": "Gasto eliminado correctamente",
+            "deleteSpentError": "Error en la eliminación del gasto"
+        },
+        "providers": {
+            "noneProvider": "En primer lugar, debes crear un proveedor",
+            "newProviderOk": "Nuevo proveedor creado correctamente",
+            "newProviderError": "Error en la creación del proveedor",
+            "editProviderOk": "Proveedor editado correctamente",
+            "editProviderError": "Error en la edición del proveedor",
+            "deleteProviderOk": "Proveedor eliminado correctamente",
+            "deleteProviderError": "Error en la eliminación del proveedor"
+        }
     }
 }

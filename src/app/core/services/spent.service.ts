@@ -7,6 +7,7 @@ import { LocalDataService } from './api/local-data.service';
 import { Spent } from '../interfaces/Spent';
 import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from './utils.service';
 import { Vehicle } from '../interfaces/Vehicle';
+import { CustomTranslateService } from './custom-translate.service';
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,7 @@ export class SpentService {
         private firebaseMappingSvc: FirebaseMappingService,
         private firebaseSvc: FirebaseService,
         private localDataSvc: LocalDataService,
+        private translateSvc: CustomTranslateService,
     ) { }
 
     async createSpent(info: any, vehicleSelectsed: DocumentData) {
@@ -34,10 +36,10 @@ export class SpentService {
                     var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                     var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
                     await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.newSpentOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newSpentError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.newSpentError"), DANGER, TOP);
                 }
                 break;
             }
@@ -57,7 +59,13 @@ export class SpentService {
                 })!
                 this.sortSpentsByDate(spentsListUpdated);
                 vehicle.spents = spentsListUpdated;
-                this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle)
+                try {
+                    this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.editSpentOk"), SUCCESS, BOTTOM);
+                } catch (e) {
+                    console.error(e);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.editSpentError"), DANGER, TOP);
+                }
                 break;
             }
             case 'delete': {
@@ -67,10 +75,10 @@ export class SpentService {
                     });
                     var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
                     this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.deleteSpentOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.deleteSpentError"), DANGER, TOP);
                 }
             }
                 break;

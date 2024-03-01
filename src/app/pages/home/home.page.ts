@@ -13,6 +13,7 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
+import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 
 @Component({
     selector: 'app-home',
@@ -27,8 +28,9 @@ export class HomePage implements OnInit {
 
     constructor(
         private firebaseSvc: FirebaseService,
-        private router:Router,
         private modal: ModalController,
+        private router: Router,
+        private translateSvc: CustomTranslateService,
         private utilsSvc: UtilsService,
         private vehicleSvc: VehicleService,
         public localDataSvc: LocalDataService,
@@ -106,7 +108,7 @@ export class HomePage implements OnInit {
 
     createSpent(vehicleSelected: DocumentData) {
         if (this.localDataSvc.getProviders().value?.length == 0) {
-            this.utilsSvc.showToast(this.utilsSvc.getTransMsg("noneProvider"), DANGER, TOP);
+            this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.noneProvider"), DANGER, TOP);
             this.router.navigate(['/providers']);
         } else {
             var onDismiss = async (info: any) => {

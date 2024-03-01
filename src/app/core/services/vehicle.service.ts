@@ -5,6 +5,7 @@ import { FirebaseMappingService } from './api/firebase/firebase-mapping.service'
 import { FirebaseService } from './api/firebase/firebase.service';
 import { DocumentReference } from 'firebase/firestore';
 import { User, VehiclePreview } from '../interfaces/User';
+import { CustomTranslateService } from './custom-translate.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,7 @@ export class VehicleService {
         private firebaseMappingSvc: FirebaseMappingService,
         private firebaseSvc: FirebaseService,
         private localDataSvc: LocalDataService,
+        private translateSvc: CustomTranslateService,
     ) { }
 
     async createVehicle(info: any) {
@@ -30,10 +32,10 @@ export class VehicleService {
                 try {
                     var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
                     this.updateUser(info.data, ref);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newVehicleOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.newVehicleOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("newVehicleError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.newVehicleError"), DANGER, TOP);
                 }
                 break;
             }
@@ -72,10 +74,10 @@ export class VehicleService {
                     this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
                     // Actualiza el documento del vehículo
                     this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editVehicleOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.editVehicleOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("editVehicleError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.editVehicleError"), DANGER, TOP);
                 }
                 break;
             }
@@ -85,10 +87,10 @@ export class VehicleService {
                     this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
                     // Eliminar el vehículo del array del usuario
                     this.deleteVehiclePreview(vehicle.vehicleId);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.deleteVehicleOk"), SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.utilsSvc.getTransMsg("deleteVehicleError"), DANGER, TOP);
+                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.deleteVehicleError"), DANGER, TOP);
                 }
             }
                 break;
