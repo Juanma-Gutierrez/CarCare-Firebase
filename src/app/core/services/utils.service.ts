@@ -1,5 +1,6 @@
 import { CustomTranslateService } from './custom-translate.service';
 import { Injectable } from '@angular/core';
+import { Dialog } from '@capacitor/dialog';
 import { Preferences } from '@capacitor/preferences';
 import { ToastController, ToastOptions } from '@ionic/angular';
 
@@ -21,7 +22,7 @@ export class UtilsService {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
 
-    public async showToast(message: string, color: string, position: "top" | "bottom", duration:number = 2000) {
+    public async showToast(message: string, color: string, position: "top" | "bottom", duration: number = 2000) {
         var messageToShow = this.translateSvc.getValue(message);
         console.info("Show toast: " + messageToShow);
         if (messageToShow != null) {
@@ -49,6 +50,18 @@ export class UtilsService {
             console.log("cl:", "loadlocalstorage:", ret.value)
             return ret.value;
         }).catch();
+    }
+
+    async showConfirm(message: string): Promise<boolean> {
+        var messageToShow = this.translateSvc.getValue(message);
+        console.log(messageToShow);
+        const { value } = await Dialog.confirm({
+            title: this.translateSvc.getValue("message.confirm.title"),
+            message: messageToShow,
+            okButtonTitle:this.translateSvc.getValue("message.confirm.okButton"),
+            cancelButtonTitle:this.translateSvc.getValue("message.confirm.cancelButton")
+        });
+        return value;
     }
 }
 

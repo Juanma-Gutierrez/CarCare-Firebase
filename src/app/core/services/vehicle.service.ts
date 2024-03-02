@@ -61,33 +61,39 @@ export class VehicleService {
         await this.firebaseSvc.updateDocument("user", user.uuid, user);
     }
 
-    editVehicle(info: any, vehicle: VehiclePreview) {
+    async editVehicle(info: any, vehicle: VehiclePreview) {
         switch (info.role) {
             case 'ok': {
-                var user: User = this.localDataSvc.getUser().value!
-                try {
-                    var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
-                    var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
-                    this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
-                    this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
-                    this.utilsSvc.showToast("message.vehicles.editVehicleOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.vehicles.editVehicleError", DANGER, TOP);
+                const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmEdit");
+                if (confirm) {
+                    var user: User = this.localDataSvc.getUser().value!
+                    try {
+                        var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
+                        var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
+                        this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
+                        this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
+                        this.utilsSvc.showToast("message.vehicles.editVehicleOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.vehicles.editVehicleError", DANGER, TOP);
+                    }
                 }
                 break;
             }
             case 'delete': {
-                try {
-                    this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
-                    this.deleteVehiclePreview(vehicle.vehicleId);
-                    this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.vehicles.deleteVehicleError", DANGER, TOP);
+                const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmDelete");
+                if (confirm) {
+                    try {
+                        this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
+                        this.deleteVehiclePreview(vehicle.vehicleId);
+                        this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.vehicles.deleteVehicleError", DANGER, TOP);
+                    }
                 }
-            }
                 break;
+            }
             default: {
                 console.error("No debería entrar: editVehicle");
             }

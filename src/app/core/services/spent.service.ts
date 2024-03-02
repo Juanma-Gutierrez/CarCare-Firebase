@@ -49,39 +49,45 @@ export class SpentService {
         }
     }
 
-    editSpent(info: any, vehicle: Vehicle) {
+    async editSpent(info: any, vehicle: Vehicle) {
         var spent = info.data;
         var spentsList = this.localDataSvc.getVehicle().value?.spents;
         switch (info.role) {
             case 'ok': {
-                var spentsListUpdated: Spent[] = spentsList?.map(_spent => {
-                    return (spent.spentId == _spent.spentId) ? spent : _spent
-                })!
-                this.sortSpentsByDate(spentsListUpdated);
-                vehicle.spents = spentsListUpdated;
-                try {
-                    this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle);
-                    this.utilsSvc.showToast("message.spents.editSpentOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.spents.editSpentError", DANGER, TOP);
+                const confirm = await this.utilsSvc.showConfirm("message.spents.confirmEdit");
+                if (confirm) {
+                    var spentsListUpdated: Spent[] = spentsList?.map(_spent => {
+                        return (spent.spentId == _spent.spentId) ? spent : _spent
+                    })!
+                    this.sortSpentsByDate(spentsListUpdated);
+                    vehicle.spents = spentsListUpdated;
+                    try {
+                        this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle);
+                        this.utilsSvc.showToast("message.spents.editSpentOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.spents.editSpentError", DANGER, TOP);
+                    }
                 }
                 break;
             }
             case 'delete': {
-                try {
-                    spentsList = this.localDataSvc.getSpents().value.filter(_spent => {
-                        return spent.spentId != _spent.spentId;
-                    });
-                    var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
-                    this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
-                    this.utilsSvc.showToast("message.spents.deleteSpentOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.spents.deleteSpentError", DANGER, TOP);
+                const confirm = await this.utilsSvc.showConfirm("message.spents.confirmDelete");
+                if (confirm) {
+                    try {
+                        spentsList = this.localDataSvc.getSpents().value.filter(_spent => {
+                            return spent.spentId != _spent.spentId;
+                        });
+                        var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
+                        this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
+                        this.utilsSvc.showToast("message.spents.deleteSpentOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.spents.deleteSpentError", DANGER, TOP);
+                    }
                 }
-            }
                 break;
+            }
             default: {
                 console.error("No debería entrar: onEditSpentClicked");
             }

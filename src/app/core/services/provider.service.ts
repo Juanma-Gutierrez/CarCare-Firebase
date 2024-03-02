@@ -37,40 +37,46 @@ export class ProviderService {
             }
         }
     }
-    editProvider(info: any, provider: Provider) {
+    async editProvider(info: any, provider: Provider) {
         var user = this.localDataSvc.getUser().value;
         var providersList = this.localDataSvc.getProviders().value
         switch (info.role) {
             case 'ok': {
-                var providersFiltered: any = {
-                    providers: providersList?.map(_provider => {
-                        return (_provider.providerId == provider.providerId) ? info.data : _provider
-                    })
+                const confirm = await this.utilsSvc.showConfirm("message.providers.confirmEdit");
+                if (confirm) {
+                    var providersFiltered: any = {
+                        providers: providersList?.map(_provider => {
+                            return (_provider.providerId == provider.providerId) ? info.data : _provider
+                        })
+                    }
+                    try {
+                        this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
+                        this.utilsSvc.showToast("message.providers.editProviderOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.providers.editProviderError", DANGER, TOP);
+                    }
                 }
-                try {
-                    this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                    this.utilsSvc.showToast("message.providers.editProviderOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.providers.editProviderError", DANGER, TOP);
-                }
-            }
                 break;
+            }
             case 'delete': {
-                var providersFiltered: any = {
-                    providers: providersList?.filter(_provider => {
-                        return _provider.providerId != info.data.providerId;
-                    })
+                const confirm = await this.utilsSvc.showConfirm("message.providers.confirmDelete");
+                if (confirm) {
+                    var providersFiltered: any = {
+                        providers: providersList?.filter(_provider => {
+                            return _provider.providerId != info.data.providerId;
+                        })
+                    }
+                    try {
+                        this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
+                        this.utilsSvc.showToast("message.providers.deleteProviderOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.providers.deleteProviderError", DANGER, TOP);
+                    }
                 }
-                try {
-                    this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                    this.utilsSvc.showToast("message.providers.deleteProviderOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.providers.deleteProviderError", DANGER, TOP);
-                }
-            }
                 break;
+            }
             default: {
                 console.error("No debería entrar: editProvider");
             }
