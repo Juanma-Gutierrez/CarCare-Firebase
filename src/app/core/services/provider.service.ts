@@ -30,10 +30,10 @@ export class ProviderService {
                     var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                     providersList.push(provider)
                     await this.firebaseSvc.updateDocument("providers", info.data.userId, { "providers": providersList })
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.newProviderOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.providers.newProviderOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.newProviderError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.providers.newProviderError", DANGER, TOP);
                 }
             }
         }
@@ -50,10 +50,10 @@ export class ProviderService {
                 }
                 try {
                     this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.editProviderOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.providers.editProviderOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.editProviderError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.providers.editProviderError", DANGER, TOP);
                 }
             }
                 break;
@@ -65,10 +65,10 @@ export class ProviderService {
                 }
                 try {
                     this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.deleteProviderOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.providers.deleteProviderOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.deleteProviderError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.providers.deleteProviderError", DANGER, TOP);
                 }
             }
                 break;

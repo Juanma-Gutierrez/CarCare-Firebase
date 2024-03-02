@@ -21,8 +21,9 @@ export class UtilsService {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
 
-    public async showToast(messageToShow: string, color: string, position: "top" | "bottom", duration:number = 2000) {
-        console.info("Show toast: " + messageToShow)
+    public async showToast(message: string, color: string, position: "top" | "bottom", duration:number = 2000) {
+        var messageToShow = this.translateSvc.getValue(message);
+        console.info("Show toast: " + messageToShow);
         if (messageToShow != null) {
             const options: ToastOptions = {
                 message: messageToShow,

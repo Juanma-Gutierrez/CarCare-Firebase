@@ -36,10 +36,10 @@ export class SpentService {
                     var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                     var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
                     await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.newSpentOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.spents.newSpentOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.newSpentError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.spents.newSpentError", DANGER, TOP);
                 }
                 break;
             }
@@ -61,10 +61,10 @@ export class SpentService {
                 vehicle.spents = spentsListUpdated;
                 try {
                     this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.editSpentOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.spents.editSpentOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.editSpentError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.spents.editSpentError", DANGER, TOP);
                 }
                 break;
             }
@@ -75,10 +75,10 @@ export class SpentService {
                     });
                     var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
                     this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.deleteSpentOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.spents.deleteSpentOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.spents.deleteSpentError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.spents.deleteSpentError", DANGER, TOP);
                 }
             }
                 break;

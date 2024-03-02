@@ -1,12 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
-import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
-import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from '../../utils.service';
-import { LocalDataService } from '../local-data.service';
-import { TranslateService } from '@ngx-translate/core';
 import { CustomTranslateService } from '../../custom-translate.service';
+import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
+import { Inject, Injectable } from '@angular/core';
+import { LocalDataService } from '../local-data.service';
+import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from '../../utils.service';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth } from "firebase/auth";
+import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
 
 export interface Uuid {
     uuid: String
@@ -71,7 +70,7 @@ export class FirebaseService {
                 if (e instanceof Error) {
                     console.error(e.message)
                     if (e.message == "Firebase: Error (auth/invalid-email)." || e.message == "Firebase: Error (auth/invalid-credential).") {
-                        this.utilSvc.showToast(this.translateSvc.getValue("message.auth.loginError"), DANGER, TOP, 3000);
+                        this.utilSvc.showToast("message.auth.loginError", DANGER, TOP, 3000);
                     }
                 }
             }
@@ -85,20 +84,20 @@ export class FirebaseService {
             try {
                 resolve({ user: await createUserWithEmailAndPassword(this._auth!, email, password) });
                 // TODO Control de los mensajes en diferentes idiomas
-                this.utilSvc.showToast(this.translateSvc.getValue("message.auth.signUpOk"), SUCCESS, BOTTOM);
+                this.utilSvc.showToast("message.auth.signUpOk", SUCCESS, BOTTOM);
             } catch (error: any) {
                 switch (error.code) {
                     case 'auth/email-already-in-use':
-                        this.utilSvc.showToast(this.translateSvc.getValue("message.auth.emailAlreadyInUse"), DANGER, TOP);
+                        this.utilSvc.showToast("message.auth.emailAlreadyInUse", DANGER, TOP);
                         break;
                     case 'auth/invalid-email':
-                        this.utilSvc.showToast(this.translateSvc.getValue("message.auth.emailAlreadyInUse"), DANGER, TOP);
+                        this.utilSvc.showToast("message.auth.emailAlreadyInUse", DANGER, TOP);
                         break;
                     case 'auth/operation-not-allowed':
-                        this.utilSvc.showToast(this.translateSvc.getValue("message.auth.signUpError"), DANGER, TOP);
+                        this.utilSvc.showToast("message.auth.signUpError", DANGER, TOP);
                         break;
                     case 'auth/weak-password':
-                        this.utilSvc.showToast(this.translateSvc.getValue("message.auth.passwordWeak"), DANGER, TOP);
+                        this.utilSvc.showToast("message.auth.passwordWeak", DANGER, TOP);
                         break;
                     default:
                         console.error(error.message);

@@ -32,10 +32,10 @@ export class VehicleService {
                 try {
                     var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
                     this.updateUser(info.data, ref);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.newVehicleOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.vehicles.newVehicleOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.newVehicleError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.vehicles.newVehicleError", DANGER, TOP);
                 }
                 break;
             }
@@ -74,10 +74,10 @@ export class VehicleService {
                     this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
                     // Actualiza el documento del vehículo
                     this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.editVehicleOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.vehicles.editVehicleOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.editVehicleError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.vehicles.editVehicleError", DANGER, TOP);
                 }
                 break;
             }
@@ -87,10 +87,10 @@ export class VehicleService {
                     this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
                     // Eliminar el vehículo del array del usuario
                     this.deleteVehiclePreview(vehicle.vehicleId);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.deleteVehicleOk"), SUCCESS, BOTTOM);
+                    this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", SUCCESS, BOTTOM);
                 } catch (e) {
                     console.error(e);
-                    this.utilsSvc.showToast(this.translateSvc.getValue("message.vehicles.deleteVehicleError"), DANGER, TOP);
+                    this.utilsSvc.showToast("message.vehicles.deleteVehicleError", DANGER, TOP);
                 }
             }
                 break;

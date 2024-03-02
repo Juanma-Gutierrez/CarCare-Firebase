@@ -108,7 +108,7 @@ export class HomePage implements OnInit {
 
     createSpent(vehicleSelected: DocumentData) {
         if (this.localDataSvc.getProviders().value?.length == 0) {
-            this.utilsSvc.showToast(this.translateSvc.getValue("message.providers.noneProvider"), DANGER, TOP);
+            this.utilsSvc.showToast("message.providers.noneProvider", DANGER, TOP);
             this.router.navigate(['/providers']);
         } else {
             var onDismiss = async (info: any) => {
