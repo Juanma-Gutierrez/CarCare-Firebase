@@ -37,7 +37,6 @@ export function MappingServiceFactory(backend: string) {
     }
 }
 
-
 export function AuthServiceFactory(
     backend: string,
     firebaseSvc: FirebaseService,
@@ -50,7 +49,6 @@ export function AuthServiceFactory(
             throw new Error("Not implemented");
     }
 }
-
 
 export function DataServiceFactory(
     backend: string,
