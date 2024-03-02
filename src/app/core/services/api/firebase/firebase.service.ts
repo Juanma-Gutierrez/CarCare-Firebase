@@ -61,7 +61,7 @@ export class FirebaseService {
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise<FirebaseUserCredential | null>(async (resolve, reject) => {
             if (!this._auth)
-                console.log("error")
+                console.error("Error")
             resolve(null);
             try {
                 resolve({ user: await signInWithEmailAndPassword(this._auth!, email, password) });

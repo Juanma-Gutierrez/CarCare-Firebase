@@ -54,7 +54,6 @@ export class CustomTranslateService {
     getValue(item: string): string {
         var translation: string = "";
         this.get(item).subscribe(t => {
-            console.log(t)
             translation = t;
         });
         return translation;
