@@ -17,9 +17,7 @@ export class VehiclesPage implements OnInit {
     ngOnInit() { this.localDataSvc.user$.subscribe() }
 
     share() {
-        console.log("entra en share");
         const vehiclesList = this.localDataSvc.getUser().value?.vehicles;
-        console.log(vehiclesList);
         if (vehiclesList) {
             this.utilsSvc.shareVehicles(vehiclesList);
         }

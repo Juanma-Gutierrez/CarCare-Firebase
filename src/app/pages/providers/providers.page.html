@@ -1,20 +1,43 @@
-<ion-card>
-    <ion-card-header>
-        <ion-card-title>{{"providers.providersPage.title" | translate}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-        <ion-list div class="card-list">
-            <ion-row class="header">
-                <ion-col>{{"providers.providersPage.listName" | translate}}</ion-col>
-                <ion-col>{{"providers.providersPage.listCategory" | translate}}</ion-col>
-                <ion-col>{{"providers.providersPage.listPhone" | translate}}</ion-col>
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{"providers.providersPage.title" | translate}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list div class="card-list">
+                <ion-row class="header">
+                    <ion-col>{{"providers.providersPage.listName" | translate}}</ion-col>
+                    <ion-col>{{"providers.providersPage.listCategory" | translate}}</ion-col>
+                    <ion-col>{{"providers.providersPage.listPhone" | translate}}</ion-col>
+                </ion-row>
+                <app-provider-item *ngFor="let provider of (localDataSvc.providers$ | async)" [provider]="provider"
+                    (onEditProviderClicked)="onEditProviderClicked(provider)">
+                </app-provider-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-fab-button class="providerFab" aria-label="Create provider" (click)="onCreateProviderClicked()">
+        <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+</ion-content>
+<!-- 
+<ion-content>
+    <ion-card>
+        <ion-grid>
+            <ion-row class="ion-justify-content-between">
+                <ion-col>
+                    <ion-card-title>{{"vehicles.vehiclesList" | translate}}</ion-card-title>
+                </ion-col>
+                <ion-col class="ion-text-right">
+                    <ion-button (click)="share()">
+                        <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
             </ion-row>
-            <app-provider-item *ngFor="let provider of (localDataSvc.providers$ | async)" [provider]="provider"
-                (onEditProviderClicked)="onEditProviderClicked(provider)">
-            </app-provider-item>
-        </ion-list>
-    </ion-card-content>
-</ion-card>
-<ion-fab-button class="providerFab" aria-label="Create provider" (click)="onCreateProviderClicked()">
-    <ion-icon name="add-outline"></ion-icon>
-</ion-fab-button>
+            <ion-card-content class="container">
+                <app-vehicle-item-list *ngFor="let vehicle of (localDataSvc.user$ | async)?.vehicles"
+                    [vehicle]="vehicle"></app-vehicle-item-list>
+            </ion-card-content>
+        </ion-grid>
+    </ion-card>
+</ion-content> -->
