@@ -116,10 +116,11 @@
         "confirm": "Confirm password"
     },
     "message": {
-        "confirm":{
-            "title":"Confirmación",
-            "okButton":"Acept action",
-            "cancelButton":"Cancel action"
+        "confirm": {
+            "title": "Confirmación",
+            "okButton": "Acept",
+            "cancelButton": "Cancel",
+            "actionCancel": "Action cancelled"
         },
         "auth": {
             "signUpOk": "Registration successfully completed",
@@ -136,6 +137,7 @@
             "editVehicleError": "Error in vehicle edition",
             "deleteVehicleOk": "Vehicle deleted succesfully",
             "deleteVehicleError": "Error in vehicle deletion",
+            "confirmCreation": "Are you sure you want to create the vehicle?",
             "confirmEdit": "Are you sure you want to edit the vehicle?",
             "confirmDelete": "Are you sure you want to delete the vehicle?"
         },
@@ -146,6 +148,7 @@
             "editSpentError": "Error in spent edition",
             "deleteSpentOk": "Spent deleted succesfully",
             "deleteSpentError": "Error in spent deletion",
+            "confirmCreation": "Are you sure you want to create the spent?",
             "confirmEdit": "Are you sure you want to edit the spent?",
             "confirmDelete": "Are you sure you want to delete the spent?"
         },
@@ -157,6 +160,7 @@
             "editProviderError": "Error in provider edition",
             "deleteProviderOk": "Provider deleted succesfully",
             "deleteProviderError": "Error in provider deletion",
+            "confirmCreation": "Are you sure you want to create the provider?",
             "confirmEdit": "Are you sure you want to edit the provider?",
             "confirmDelete": "Are you sure you want to delete the provider?"
         }

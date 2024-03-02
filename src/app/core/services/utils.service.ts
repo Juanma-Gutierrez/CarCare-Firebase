@@ -47,19 +47,17 @@ export class UtilsService {
 
     loadLocalStorageUser(): Promise<string> {
         return Preferences.get({ key: 'userName' }).then((ret: any) => {
-            console.log("cl:", "loadlocalstorage:", ret.value)
             return ret.value;
         }).catch();
     }
 
     async showConfirm(message: string): Promise<boolean> {
         var messageToShow = this.translateSvc.getValue(message);
-        console.log(messageToShow);
         const { value } = await Dialog.confirm({
             title: this.translateSvc.getValue("message.confirm.title"),
             message: messageToShow,
-            okButtonTitle:this.translateSvc.getValue("message.confirm.okButton"),
-            cancelButtonTitle:this.translateSvc.getValue("message.confirm.cancelButton")
+            okButtonTitle: this.translateSvc.getValue("message.confirm.okButton"),
+            cancelButtonTitle: this.translateSvc.getValue("message.confirm.cancelButton")
         });
         return value;
     }

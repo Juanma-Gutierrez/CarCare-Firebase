@@ -116,10 +116,11 @@
         "confirm": "Repita la contraseña"
     },
     "message": {
-        "confirm":{
-            "title":"Confirmación",
-            "okButton":"Aceptar acción",
-            "cancelButton":"Cancelar acción"
+        "confirm": {
+            "title": "Confirmación",
+            "okButton": "Aceptar",
+            "cancelButton": "Cancelar",
+            "actionCancel": "Acción cancelada"
         },
         "auth": {
             "signUpOk": "Registro realizado con éxito",
@@ -136,6 +137,7 @@
             "editVehicleError": "Error en la edición del vehículo",
             "deleteVehicleOk": "Vehículo eliminado correctamente",
             "deleteVehicleError": "Error en la eliminación del vehículo",
+            "confirmCreation": "¿Estás seguro de que quieres crear el vehículo?",
             "confirmEdit": "¿Estás seguro de que quieres editar el vehículo?",
             "confirmDelete": "¿Estás seguro de que quieres eliminar el vehículo?"
         },
@@ -146,6 +148,7 @@
             "editSpentError": "Error en la edición del gasto",
             "deleteSpentOk": "Gasto eliminado correctamente",
             "deleteSpentError": "Error en la eliminación del gasto",
+            "confirmCreation": "¿Estás seguro de que quieres crear el gasto?",
             "confirmEdit": "¿Estás seguro de que quieres editar el gasto?",
             "confirmDelete": "¿Estás seguro de que quieres eliminar el gasto?"
         },
@@ -157,6 +160,7 @@
             "editProviderError": "Error en la edición del proveedor",
             "deleteProviderOk": "Proveedor eliminado correctamente",
             "deleteProviderError": "Error en la eliminación del proveedor",
+            "confirmCreation": "¿Estás seguro de que quieres crear el proveedor?",
             "confirmEdit": "¿Estás seguro de que quieres editar el proveedor?",
             "confirmDelete": "¿Estás seguro de que quieres eliminar el proveedor?"
         }

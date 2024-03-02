@@ -24,16 +24,21 @@ export class VehicleService {
         var localDataSvc = new LocalDataService();
         switch (info.role) {
             case 'ok': {
-                var user = this.localDataSvc.getUser().value;
-                var vehicleId = this.utilsSvc.generateId();
-                var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.uuid!);
-                try {
-                    var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
-                    this.updateUser(info.data, ref);
-                    this.utilsSvc.showToast("message.vehicles.newVehicleOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.vehicles.newVehicleError", DANGER, TOP);
+                const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmCreation");
+                if (confirm) {
+                    var user = this.localDataSvc.getUser().value;
+                    var vehicleId = this.utilsSvc.generateId();
+                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.uuid!);
+                    try {
+                        var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
+                        this.updateUser(info.data, ref);
+                        this.utilsSvc.showToast("message.vehicles.newVehicleOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.vehicles.newVehicleError", DANGER, TOP);
+                    }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }
@@ -77,6 +82,8 @@ export class VehicleService {
                         console.error(e);
                         this.utilsSvc.showToast("message.vehicles.editVehicleError", DANGER, TOP);
                     }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }
@@ -91,6 +98,8 @@ export class VehicleService {
                         console.error(e);
                         this.utilsSvc.showToast("message.vehicles.deleteVehicleError", DANGER, TOP);
                     }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }

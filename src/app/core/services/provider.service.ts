@@ -18,22 +18,30 @@ export class ProviderService {
         private firebaseMappingSvc: FirebaseMappingService,
         private firebaseSvc: FirebaseService,
         private localDataSvc: LocalDataService,
-        private translateSvc: CustomTranslateService,
     ) { }
 
     async createProvider(info: any) {
         switch (info.role) {
             case 'ok': {
-                try {
-                    var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
-                    var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
-                    providersList.push(provider)
-                    await this.firebaseSvc.updateDocument("providers", info.data.userId, { "providers": providersList })
-                    this.utilsSvc.showToast("message.providers.newProviderOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.providers.newProviderError", DANGER, TOP);
+                const confirm = await this.utilsSvc.showConfirm("message.providers.confirmCreation");
+                if (confirm) {
+                    try {
+                        var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
+                        var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
+                        providersList.push(provider)
+                        await this.firebaseSvc.updateDocument("providers", info.data.userId, { "providers": providersList })
+                        this.utilsSvc.showToast("message.providers.newProviderOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.providers.newProviderError", DANGER, TOP);
+                    }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
+                break;
+            }
+            default: {
+                console.error("No debería entrar: createProvider");
             }
         }
     }
@@ -56,6 +64,8 @@ export class ProviderService {
                         console.error(e);
                         this.utilsSvc.showToast("message.providers.editProviderError", DANGER, TOP);
                     }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }
@@ -74,6 +84,8 @@ export class ProviderService {
                         console.error(e);
                         this.utilsSvc.showToast("message.providers.deleteProviderError", DANGER, TOP);
                     }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }

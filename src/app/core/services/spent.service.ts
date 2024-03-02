@@ -32,14 +32,19 @@ export class SpentService {
         var vehicleSelected: Vehicle = this.localDataSvc.getVehicle().value!
         switch (info.role) {
             case 'ok': {
-                try {
-                    var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
-                    var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
-                    await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
-                    this.utilsSvc.showToast("message.spents.newSpentOk", SUCCESS, BOTTOM);
-                } catch (e) {
-                    console.error(e);
-                    this.utilsSvc.showToast("message.spents.newSpentError", DANGER, TOP);
+                const confirm = await this.utilsSvc.showConfirm("message.spents.confirmCreation");
+                if (confirm) {
+                    try {
+                        var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
+                        var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
+                        await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
+                        this.utilsSvc.showToast("message.spents.newSpentOk", SUCCESS, BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        this.utilsSvc.showToast("message.spents.newSpentError", DANGER, TOP);
+                    }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }
@@ -68,6 +73,8 @@ export class SpentService {
                         console.error(e);
                         this.utilsSvc.showToast("message.spents.editSpentError", DANGER, TOP);
                     }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }
@@ -85,6 +92,8 @@ export class SpentService {
                         console.error(e);
                         this.utilsSvc.showToast("message.spents.deleteSpentError", DANGER, TOP);
                     }
+                } else {
+                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
                 }
                 break;
             }
