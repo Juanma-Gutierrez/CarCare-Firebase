@@ -1,11 +1,20 @@
 <ion-content>
     <ion-card>
-        <ion-card-header>
-            <ion-card-title>{{"vehicles.vehiclesList" | translate}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content class="container">
-            <app-vehicle-item-list *ngFor="let vehicle of (localDataSvc.user$ | async)?.vehicles"
-                [vehicle]="vehicle"></app-vehicle-item-list>
-        </ion-card-content>
+        <ion-grid>
+            <ion-row class="ion-justify-content-between">
+                <ion-col>
+                    <ion-card-title>{{"vehicles.vehiclesList" | translate}}</ion-card-title>
+                </ion-col>
+                <ion-col class="ion-text-right">
+                    <ion-button (click)="share()">
+                        <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-card-content class="container">
+                <app-vehicle-item-list *ngFor="let vehicle of (localDataSvc.user$ | async)?.vehicles"
+                    [vehicle]="vehicle"></app-vehicle-item-list>
+            </ion-card-content>
+        </ion-grid>
     </ion-card>
 </ion-content>

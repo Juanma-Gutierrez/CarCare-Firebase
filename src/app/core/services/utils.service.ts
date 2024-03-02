@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Dialog } from '@capacitor/dialog';
 import { Preferences } from '@capacitor/preferences';
 import { ToastController, ToastOptions } from '@ionic/angular';
+import { VehiclePreview } from '../interfaces/User';
+import { Share } from '@capacitor/share';
 
 export const TOP: "top" = "top";
 export const BOTTOM: "bottom" = "bottom";
@@ -13,6 +15,7 @@ export const DANGER: string = "danger";
     providedIn: 'root'
 })
 export class UtilsService {
+
     constructor(
         private toast: ToastController,
         private translateSvc: CustomTranslateService,
@@ -60,6 +63,24 @@ export class UtilsService {
             cancelButtonTitle: this.translateSvc.getValue("message.confirm.cancelButton")
         });
         return value;
+    }
+
+    async shareVehicles(vehiclesList: VehiclePreview[]) {
+        var textToShare = this.translateSvc.getValue("vehicles.vehiclesList");
+        textToShare += "\n\n";
+        for (var vehicle of vehiclesList) {
+            textToShare += `- ${vehicle.plate.toUpperCase()}: ${this.capitalizeFirstLetter(vehicle.brand)} ${this.capitalizeFirstLetter(vehicle.model)}\n`;
+        }
+        await Share.share({
+            text: textToShare,
+        });
+    }
+
+    capitalizeFirstLetter(word: string): string {
+        if (word.length === 0) {
+            return word;
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1);
     }
 }
 
