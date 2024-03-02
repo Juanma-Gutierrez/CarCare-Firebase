@@ -21,10 +21,6 @@ export class ProviderItemSelectableComponent implements OnInit {
 
     ngOnInit() { }
 
-    /**
-     * Método llamado al hacer clic en el proveedor.
-     * Emite el evento 'clicked' con el proveedor asociado.
-     */
     onProviderClicked() {
         this.clicked.emit(this._provider);
     }

@@ -9,11 +9,6 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 })
 export class RegisterPage implements OnInit {
 
-    /**
-     * Constructor de la página de registro.
-     * @constructor
-     * @param {AuthService} authSvc - Servicio de autenticación para realizar operaciones de registro.
-     */
     constructor(
         private authSvc: AuthService,
         private utilsSvc: UtilsService,
@@ -22,13 +17,6 @@ export class RegisterPage implements OnInit {
     ngOnInit() {
     }
 
-    /**
-     * Método invocado al enviar el formulario de registro.
-     * Realiza el registro del usuario y almacena el nombre de usuario en las preferencias.
-     * @method onRegisterFormSubmit
-     * @param {any} data - Datos del formulario de registro.
-     * @return {void}
-     */
     onRegisterFormSubmit(data: any) {
         let _data: any = { ...data };
         delete _data.confirm;

@@ -6,24 +6,12 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class HttpClientWebProvider extends HttpClientProvider {
 
-    /**
-     * provider constructor
-     *
-     * @param httpClient angular http client
-     */
     constructor(
         private readonly httpClient: HttpClient
     ) {
         super();
     }
 
-    /**
-     * getImage
-     *
-     * @param url http request url
-     * @param options http request options
-     * @returns observable with http response
-     */
     public getImage(
         url: string
     ): Observable<Blob> {
@@ -32,14 +20,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         });
     }
 
-    /**
-     * get
-     *
-     * @param url http request url
-     * @param params http request params
-     * @param headers http request headers
-     * @returns observable with http response
-     */
     public get<T>(
         url: string,
         params: any = {},
@@ -51,15 +31,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         });
     }
 
-    /**
-     * post
-     *
-     * @param url http request url
-     * @param body http request body
-     * @param headers http request headers
-     * @param urlEncoded http request as url encoded content-type
-     * @returns observable with http response
-     */
     public post<T>(
         url: string,
         body: any = {},
@@ -71,15 +42,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         });
     }
 
-    /**
-     * put
-     *
-     * @param url http request url
-     * @param body http request body
-     * @param headers http request headers
-     * @param urlEncoded http request as url encoded content-type
-     * @returns observable with http response
-     */
     public put<T>(
         url: string,
         body: any = {},
@@ -91,15 +53,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         });
     }
 
-    /**
-     * patch
-     *
-     * @param url http request url
-     * @param body http request body
-     * @param headers http request headers
-     * @param urlEncoded http request as url encoded content-type
-     * @returns observable with http response
-     */
     public patch<T>(
         url: string,
         body: any = {},
@@ -116,14 +69,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         }
     }
 
-    /**
-     * delete
-     *
-     * @param url http request url
-     * @param params http request params
-     * @param headers http request headers
-     * @returns observable with http response
-     */
     public delete<T>(
         url: string,
         params: any = {},
@@ -135,20 +80,8 @@ export class HttpClientWebProvider extends HttpClientProvider {
         });
     }
 
-    /**
-     * Sets the trust mode for the server
-     *
-     * @param mode server trust mode
-     */
     public setServerTrustMode(mode: 'default' | 'nocheck' | 'pinned' | 'legacy'): void { }
 
-    /**
-     * create http headers
-     *
-     * @param headers http headers
-     * @param urlEncoded http request as url encoded content-type
-     * @returns angular http headers
-     */
     private createHeaders(
         headers: any,
         urlEncoded: boolean = false
@@ -159,13 +92,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         return _headers;
     }
 
-    /**
-     * create http request body
-     *
-     * @param body http request body
-     * @param urlEncoded http request as url encoded content-type
-     * @returns http request body
-     */
     private createBody(body: any, urlEncoded: boolean): any | HttpParams {
         return urlEncoded
             ? new HttpParams({ fromObject: body })

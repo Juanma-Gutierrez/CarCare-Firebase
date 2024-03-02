@@ -11,18 +11,10 @@ import { Provider } from 'src/app/core/interfaces/Provider';
 export class ProviderItemComponent implements OnInit {
     @Input() provider: any = null
     public providerFormatted: Provider | null = null
-    // @Input() provider?: Provider
     @Output() onEditProviderClicked: EventEmitter<void> = new EventEmitter<void>();
     public categoryFormatted: string = '';
 
-    /**
-     * Constructor del componente.
-     * @constructor
-     * @param {ProvidersService} providerSvc - Servicio para gestionar operaciones relacionadas con proveedores.
-     * @param {ApiService} apiSvc - Servicio para realizar operaciones generales de la API.
-     */
     constructor(
-        //public providerSvc: ProvidersService,
         public apiSvc: ApiService,
         public translate: CustomTranslateService,
     ) { }
@@ -91,13 +83,6 @@ export class ProviderItemComponent implements OnInit {
         }
     }
 
-    /**
-     * Maneja el evento de clic en el botón de editar proveedor.
-     * Emite el evento onEditProviderClicked y detiene la propagación del evento original.
-     * @method onEditProviderClick
-     * @param {Event} event - Objeto de evento del clic.
-     * @return {void}
-     */
     public async onEditProviderClick(event: Event) {
         this.onEditProviderClicked.emit();
         event.stopPropagation();

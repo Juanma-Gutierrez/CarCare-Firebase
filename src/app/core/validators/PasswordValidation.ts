@@ -1,11 +1,6 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 export class PasswordValidation {
 
-    /**
-     * Validador para verificar que la contraseña cumple con los requisitos mínimos.
-     * @param controlName Nombre del control de formulario que contiene la contraseña.
-     * @return Función de validación.
-     */
     public static passwordProto(controlName: string = ''): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             let password = '';
@@ -13,7 +8,7 @@ export class PasswordValidation {
                 password = control?.value;
             else
                 password = control.get(controlName)?.value;
-            // Requiere al menos una mayúscula, una minúscula, número y 8 caracteres
+            // Requires at least one uppercase letter, one lowercase letter, number and 8 characters
             if (password && !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
                 return { 'passwordProto': true };
             }
@@ -23,12 +18,6 @@ export class PasswordValidation {
         }
     }
 
-    /**
-     * Validador para verificar que las contraseñas coinciden.
-     * @param passwordControlName Nombre del control de formulario que contiene la contraseña.
-     * @param confirmControlName Nombre del control de formulario que contiene la confirmación de la contraseña.
-     * @return Función de validación.
-     */
     public static passwordMatch(passwordControlName: string, confirmControlName: string): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             const password = control.get(passwordControlName)?.value;

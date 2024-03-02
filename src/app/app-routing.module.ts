@@ -24,10 +24,6 @@ const routes: Routes = [
         path: 'about-me',
         loadChildren: () => import('./pages/about-me/about-me.module').then(m => m.AboutMePageModule)
     },
-    /**
-     * AuthGuard used to protect access to this route.
-     * The user must be authenticated to access the main page.
-     */
     {
         path: 'home',
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
@@ -42,11 +38,11 @@ const routes: Routes = [
         path: 'providers',
         loadChildren: () => import('./pages/providers/providers.module').then(m => m.ProvidersPageModule),
         canActivate: [AuthGuard]
-    },  {
-    path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
-  },
-
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminPageModule)
+    },
 ];
 
 @NgModule({

@@ -8,17 +8,10 @@ import { Router } from '@angular/router';
 })
 export class AboutMePage {
 
-    /**
-     * Constructor de la clase.
-     * @param router Servicio de enrutamiento utilizado para navegar entre páginas.
-     */
     constructor(
         private router: Router
     ) { }
 
-    /**
-     * Navega a la página de inicio.
-     */
     navToHome() {
         this.router.navigate(["/home"]);
     }
