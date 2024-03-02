@@ -25,10 +25,8 @@ export class VehicleService {
         switch (info.role) {
             case 'ok': {
                 var user = this.localDataSvc.getUser().value;
-                // Genera un id para el vehículo
                 var vehicleId = this.utilsSvc.generateId();
                 var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.uuid!);
-                // Genera el documento del vehículo y recibe un documentReference para actualizar al user
                 try {
                     var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
                     this.updateUser(info.data, ref);
@@ -56,10 +54,11 @@ export class VehicleService {
             registrationDate: data.registrationDate,
             vehicleId: ref.id,
         }
-        var user = this.localDataSvc.getUser().value!! // Carga el usuario
-        var vehiclesList = user.vehicles; // Carga la lista de vehículos
-        vehiclesList.push(vehiclePreview); // Añade el nuevo vehículo preview
-        await this.firebaseSvc.updateDocument("user", user.uuid, user)
+        var user = this.localDataSvc.getUser().value!!
+        var vehiclesList = user.vehicles;
+        vehiclesList.push(vehiclePreview);
+        vehiclesList = this.sortVehiclesByDate(vehiclesList);
+        await this.firebaseSvc.updateDocument("user", user.uuid, user);
     }
 
     editVehicle(info: any, vehicle: VehiclePreview) {
@@ -67,12 +66,9 @@ export class VehicleService {
             case 'ok': {
                 var user: User = this.localDataSvc.getUser().value!
                 try {
-                    // Actualiza la lista de vehiculos preview
                     var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
                     var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
-                    // Actualiza el documento del usuario
                     this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
-                    // Actualiza el documento del vehículo
                     this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
                     this.utilsSvc.showToast("message.vehicles.editVehicleOk", SUCCESS, BOTTOM);
                 } catch (e) {
@@ -83,9 +79,7 @@ export class VehicleService {
             }
             case 'delete': {
                 try {
-                    // eliminar el documento del vehículo
                     this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
-                    // Eliminar el vehículo del array del usuario
                     this.deleteVehiclePreview(vehicle.vehicleId);
                     this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", SUCCESS, BOTTOM);
                 } catch (e) {
@@ -126,9 +120,19 @@ export class VehicleService {
                 }
                 vehiclesFiltered.push(vehiclePreview);
             } else {
-                vehiclesFiltered.push(vehicle)
+                vehiclesFiltered.push(vehicle);
             }
         })
-        return vehiclesFiltered
+        vehiclesFiltered = this.sortVehiclesByDate(vehiclesFiltered);
+        return vehiclesFiltered;
+    }
+
+    sortVehiclesByDate(list: VehiclePreview[]): VehiclePreview[] {
+        var listOrdered = list.sort((a, b) => {
+            const dateA = new Date(a.registrationDate).getTime();
+            const dateB = new Date(b.registrationDate).getTime();
+            return dateB - dateA;
+        });
+        return listOrdered;
     }
 }

@@ -1,4 +1,4 @@
-import { DocumentReference, Timestamp } from "firebase/firestore"
+import { DocumentReference } from "firebase/firestore"
 
 export interface User {
     email: string,
@@ -18,7 +18,7 @@ export interface VehiclePreview {
     model: string,
     plate: string,
     ref: DocumentReference,
-    registrationDate: Timestamp,
+    registrationDate: Date,
     vehicleId: string,
 }
 

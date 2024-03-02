@@ -44,7 +44,6 @@ export class FirebaseService {
         this.init(config);
     }
     public async init(firebaseConfig: any) {
-        // Initialize Firebase
         this._app = initializeApp(firebaseConfig);
         this._db = getFirestore(this._app);
         this._auth = initializeAuth(getApp(), { persistence: indexedDBLocalPersistence });
@@ -83,7 +82,6 @@ export class FirebaseService {
                 resolve(null);
             try {
                 resolve({ user: await createUserWithEmailAndPassword(this._auth!, email, password) });
-                // TODO Control de los mensajes en diferentes idiomas
                 this.utilSvc.showToast("message.auth.signUpOk", SUCCESS, BOTTOM);
             } catch (error: any) {
                 switch (error.code) {
@@ -149,7 +147,6 @@ export class FirebaseService {
             if (docSnap.exists()) {
                 resolve({ id: docSnap.id, data: docSnap.data() });
             } else {
-                // doc.data() will be undefined in this case
                 reject('document does not exists');
             }
         });
@@ -161,7 +158,6 @@ export class FirebaseService {
             if (docSnap.exists()) {
                 resolve({ id: docSnap.id, data: docSnap.data() });
             } else {
-                // doc.data() will be undefined in this case
                 reject('document does not exists');
             }
         });
@@ -190,14 +186,6 @@ export class FirebaseService {
                 }
         });
     }
-
-    /*     public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction: (el: DocumentData) => any): Unsubscribe | null {
-            if (!this._db)
-                return null;
-            return onSnapshot(collection(this._db, collectionName), (snapshot) => {
-                subject.next(snapshot.docs.map<any>(doc => mapFunction(doc)));
-            }, error => { throw new Error(error.message) });
-        } */
 
     public subscribeToDocument(collectionName: string, documentId: string, subject: BehaviorSubject<any>, mapFunction: (el: DocumentData) => any = res => res): Unsubscribe | null {
         if (!this._db)

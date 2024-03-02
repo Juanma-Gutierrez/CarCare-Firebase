@@ -58,7 +58,7 @@ export class FirebaseAuthService extends AuthService {
         });
     }
 
-    private postRegister(info: any): Observable<any> {  // User
+    private postRegister(info: any): Observable<any> {
         if (info.uuid)
             return from(this.firebaseSvc.createDocumentWithId('user', {
                 email: info.email,

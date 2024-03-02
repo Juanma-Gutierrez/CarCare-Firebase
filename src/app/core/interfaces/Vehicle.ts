@@ -1,5 +1,4 @@
 import { Spent } from "./Spent"
-import { Timestamp } from "firebase/firestore"
 
 export interface Vehicle {
     available: boolean,
@@ -7,7 +6,7 @@ export interface Vehicle {
     category: VehicleCategory,
     model: string,
     plate: string,
-    registrationDate: Timestamp,
+    registrationDate: Date,
     spents?: Spent[],
     userId: string,
     vehicleId: string,
