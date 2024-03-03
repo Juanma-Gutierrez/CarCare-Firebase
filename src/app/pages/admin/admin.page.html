@@ -6,10 +6,15 @@
         <ion-card-content>
             <ion-list div class="card-list">
                 <ion-row class="header">
-                    <ion-col>{{"administration.username" | translate}}</ion-col>
-                    <ion-col>{{"administration.name" | translate}}</ion-col>
-                    <ion-col>{{"administration.surname" | translate}}</ion-col>
-                    <ion-col>{{"administration.email" | translate}}</ion-col>
+                    <ion-col size="2">{{"administration.username" | translate}}</ion-col>
+                    <ion-col size="2">{{"administration.name" | translate}}</ion-col>
+                    <ion-col size="2">{{"administration.surname" | translate}}</ion-col>
+                    <ion-col size="3">{{"administration.email" | translate}}</ion-col>
+                    <ion-col class="ion-text-center"><img src="assets/icon/icon-car.png"></ion-col>
+                    <ion-col class="ion-text-center"><img src="assets/icon/icon-motorbike.png"></ion-col>
+                    <ion-col class="ion-text-center"><img src="assets/icon/icon-van.png"></ion-col>
+                    <ion-col class="ion-text-center"><img src="assets/icon/icon-truck.png"></ion-col>
+                    <ion-col class="ion-text-center"><img src="assets/icon/icon-list.png"></ion-col>
                 </ion-row>
                 <app-user-list-item *ngFor="let user of (users$ | async)" [user]=user></app-user-list-item>
             </ion-list>

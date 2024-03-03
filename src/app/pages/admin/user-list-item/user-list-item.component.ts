@@ -7,8 +7,33 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UserListItemComponent implements OnInit {
     @Input() user: any = null;
+    public numCars = 0;
+    public numMotorbikes = 0;
+    public numVans = 0;
+    public numTrucks = 0;
+
     constructor() { }
 
-    ngOnInit() { }
-
+    ngOnInit() {
+        for (var vehicle of this.user.vehicles) {
+            switch (vehicle.category) {
+                case "car": {
+                    this.numCars++;
+                    break;
+                };
+                case "motorbike": {
+                    this.numMotorbikes++;
+                    break;
+                };
+                case "van": {
+                    this.numVans++;
+                    break;
+                };
+                case "truck": {
+                    this.numTrucks++;
+                    break;
+                }
+            }
+        };
+    }
 }

@@ -27,6 +27,7 @@ export class AdminPage implements OnInit {
                 nickname: userData.nickname,
                 email: userData.email,
                 vehicles: userData.vehicles,
+                role: userData.role,
             }
             return user;
         });

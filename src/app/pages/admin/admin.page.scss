@@ -12,6 +12,11 @@ ion-card-title{
     padding: 5px 15px;
     font-size: 1.1rem;
     border-radius: 10px 10px 0px 0px;
+
+    img{
+        width: 20px;
+        filter: invert(1);
+    }
 }
 
 @media (max-width: 767px) {

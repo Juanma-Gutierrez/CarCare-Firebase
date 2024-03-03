@@ -6,6 +6,11 @@
     display: none;
 }
 
+.admin {
+    width: 25px;
+    filter: invert(0.5) sepia(1) hue-rotate(200deg) saturate(100%);
+}
+
 @media (max-width: 767px) {
     .computer-mode {
         display: none;
