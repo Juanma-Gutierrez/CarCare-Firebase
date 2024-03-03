@@ -18,6 +18,26 @@
 
     .mobile-mode {
         display: block;
-        padding: -10px;
+        padding:10px;
+    }
+
+    .header {
+        background-color: var(--ion-color-tertiary);
+        border-radius: 10px 10px 0px 0px;
+        color: white;
+        margin-top: 10px;
+
+        img {
+            filter: invert(1);
+            width: 20px;
+        }
+    }
+
+    .admin {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: 30px;
+        z-index: 1000;
     }
 }

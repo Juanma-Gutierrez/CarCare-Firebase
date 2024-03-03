@@ -8,16 +8,34 @@
     <ion-col size="2"> <ion-label>{{user.surname | upperCamelCase}}</ion-label> </ion-col>
     <ion-col size="3"> <ion-label>{{user.email | lowercase}}</ion-label> </ion-col>
     <ion-col class="ion-text-center"> <ion-label>{{numCars}}</ion-label> </ion-col>
-    <ion-col class="ion-text-center"> <ion-label>{{numMotorbikes}}</ion-label> </ion-col>
+    <ion-col class="ion-text-center"> <ion-label>{{numMotorcycles}}</ion-label> </ion-col>
     <ion-col class="ion-text-center"> <ion-label>{{numTrucks}}</ion-label> </ion-col>
     <ion-col class="ion-text-center"> <ion-label>{{numVans}}</ion-label> </ion-col>
     <ion-col class="ion-text-center"> <ion-label>{{user.vehicles.length}}</ion-label> </ion-col>
 </ion-item>
 
-<ion-item itemDirective class="mobile-mode">
-    <ion-grid>
-        <ion-row> <ion-label>{{user?.nickname | upperCamelCase}}</ion-label> </ion-row>
-        <ion-row> <ion-label>{{user?.name | upperCamelCase}} {{user?.surname | upperCamelCase}}</ion-label></ion-row>
-        <ion-row> <ion-label>{{user?.email | lowercase}}</ion-label> </ion-row>
-    </ion-grid>
-</ion-item>
+<ion-card itemDirective class="mobile-mode">
+    <img src="assets/icon/icon-admin.png" class="admin" *ngIf="user.role==='admin'">
+    <ion-item>
+        <ion-grid>
+            <ion-row> <ion-label>{{user?.nickname | upperCamelCase}}</ion-label> </ion-row>
+            <ion-row> <ion-label>{{user?.name | upperCamelCase}} {{user?.surname |
+                    upperCamelCase}}</ion-label></ion-row>
+            <ion-row> <ion-label>{{user?.email | lowercase}}</ion-label> </ion-row>
+            <ion-row class="header">
+                <ion-col class="ion-text-center"><img src="assets/icon/icon-car.png"></ion-col>
+                <ion-col class="ion-text-center"><img src="assets/icon/icon-motorcycle.png"></ion-col>
+                <ion-col class="ion-text-center"><img src="assets/icon/icon-van.png"></ion-col>
+                <ion-col class="ion-text-center"><img src="assets/icon/icon-truck.png"></ion-col>
+                <ion-col class="ion-text-center"><img src="assets/icon/icon-list.png"></ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="ion-text-center"> <ion-label>{{numCars}}</ion-label> </ion-col>
+                <ion-col class="ion-text-center"> <ion-label>{{numMotorcycles}}</ion-label> </ion-col>
+                <ion-col class="ion-text-center"> <ion-label>{{numVans}}</ion-label> </ion-col>
+                <ion-col class="ion-text-center"> <ion-label>{{numTrucks}}</ion-label> </ion-col>
+                <ion-col class="ion-text-center"> <ion-label>{{user.vehicles.length}}</ion-label> </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+</ion-card>

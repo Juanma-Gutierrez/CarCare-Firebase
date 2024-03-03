@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class UserListItemComponent implements OnInit {
     @Input() user: any = null;
     public numCars = 0;
-    public numMotorbikes = 0;
+    public numMotorcycles = 0;
     public numVans = 0;
     public numTrucks = 0;
 
@@ -21,8 +21,8 @@ export class UserListItemComponent implements OnInit {
                     this.numCars++;
                     break;
                 };
-                case "motorbike": {
-                    this.numMotorbikes++;
+                case "motorcycle": {
+                    this.numMotorcycles++;
                     break;
                 };
                 case "van": {
