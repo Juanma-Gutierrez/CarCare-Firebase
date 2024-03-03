@@ -5,6 +5,7 @@ import { Preferences } from '@capacitor/preferences';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { VehiclePreview } from '../interfaces/User';
 import { Share } from '@capacitor/share';
+import { LocalDataService } from './api/local-data.service';
 
 export const TOP: "top" = "top";
 export const BOTTOM: "bottom" = "bottom";
@@ -19,6 +20,7 @@ export class UtilsService {
     constructor(
         private toast: ToastController,
         private translateSvc: CustomTranslateService,
+        private localDataSvc: LocalDataService,
     ) { }
 
     public generateId(): string {
@@ -66,10 +68,10 @@ export class UtilsService {
     }
 
     async shareVehicles(vehiclesList: VehiclePreview[]) {
-        var textToShare = this.translateSvc.getValue("vehicles.vehiclesList");
-        textToShare += "\n\n";
+        var textToShare = this.translateSvc.getValue("vehicles.vehiclesList") + "\n\n";
         for (var vehicle of vehiclesList) {
-            textToShare += `- ${vehicle.plate.toUpperCase()}: ${this.capitalizeFirstLetter(vehicle.brand)} ${this.capitalizeFirstLetter(vehicle.model)}\n`;
+            var available = vehicle.available ? "✅" : "❌";
+            textToShare += `- ${available} ${vehicle.plate.toUpperCase()}: ${this.capitalizeFirstLetter(vehicle.brand)} ${this.capitalizeFirstLetter(vehicle.model)}\n`;
         }
         await Share.share({
             text: textToShare,
