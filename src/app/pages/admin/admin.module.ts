@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/core/services/custom-translate.service';
+import { UserListItemComponent } from './user-list-item/user-list-item.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { createTranslateLoader } from 'src/app/core/services/custom-translate.se
     ],
     declarations: [
         AdminPage,
+        UserListItemComponent,
     ]
 })
 export class AdminPageModule { }

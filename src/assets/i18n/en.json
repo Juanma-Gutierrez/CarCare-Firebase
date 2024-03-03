@@ -115,6 +115,13 @@
         "password": "Password",
         "confirm": "Confirm password"
     },
+    "administration": {
+        "administrationTitle": "Users management",
+        "username": "User name",
+        "name": "Name",
+        "surname": "Surname",
+        "email": "Email"
+    },
     "message": {
         "confirm": {
             "title": "Confirmación",

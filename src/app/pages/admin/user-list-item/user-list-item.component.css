@@ -1,0 +1,18 @@
+.computer-mode {
+    display: block;
+}
+
+.mobile-mode {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .computer-mode {
+        display: none;
+    }
+
+    .mobile-mode {
+        display: block;
+        padding: -10px;
+    }
+}

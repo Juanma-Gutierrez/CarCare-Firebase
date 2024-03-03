@@ -115,6 +115,13 @@
         "password": "Contraseña",
         "confirm": "Repita la contraseña"
     },
+    "administration": {
+        "administrationTitle": "Administración de usuarios",
+        "username":"Usuario",
+        "name":"Nombre",
+        "surname":"Apellidos",
+        "email":"Correo electrónico"
+    },
     "message": {
         "confirm": {
             "title": "Confirmación",

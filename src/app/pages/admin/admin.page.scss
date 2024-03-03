@@ -2,6 +2,20 @@ ion-content{
     height: 100vw;
 }
 
-.info{
-    margin:30px;
+ion-card-title{
+    color:var(--ion-color-tertiary);
+    font-weight: bold;
+}
+.header {
+    background-color: var(--ion-color-tertiary);
+    color: white;
+    padding: 5px 15px;
+    font-size: 1.1rem;
+    border-radius: 10px 10px 0px 0px;
+}
+
+@media (max-width: 767px) {
+    .header {
+        display: none;
+    }
 }

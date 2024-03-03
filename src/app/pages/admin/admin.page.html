@@ -1,10 +1,18 @@
 <ion-content>
     <ion-card>
-        <ion-header [translucent]="true">
-            <ion-toolbar>
-                <ion-title>Página de administración</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <div class="ion-text-center info">Pendiente de implementación</div>
+        <ion-card-header>
+            <ion-card-title>{{"administration.administrationTitle" | translate}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list div class="card-list">
+                <ion-row class="header">
+                    <ion-col>{{"administration.username" | translate}}</ion-col>
+                    <ion-col>{{"administration.name" | translate}}</ion-col>
+                    <ion-col>{{"administration.surname" | translate}}</ion-col>
+                    <ion-col>{{"administration.email" | translate}}</ion-col>
+                </ion-row>
+                <app-user-list-item *ngFor="let user of (users$ | async)" [user]=user></app-user-list-item>
+            </ion-list>
+        </ion-card-content>
     </ion-card>
 </ion-content>

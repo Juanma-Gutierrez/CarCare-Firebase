@@ -1,0 +1,22 @@
+<ion-item itemDirective class="computer-mode">
+        <ion-col>
+            <ion-label>{{user.nickname | upperCamelCase}}</ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-label>{{user.name | upperCamelCase}}</ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-label>{{user.surname | upperCamelCase}}</ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-label>{{user.email | lowercase}}</ion-label>
+        </ion-col>
+</ion-item>
+
+<ion-item itemDirective class="mobile-mode">
+    <ion-grid>
+        <ion-row> <ion-label>{{user?.nickname | upperCamelCase}}</ion-label> </ion-row>
+        <ion-row> <ion-label>{{user?.name | upperCamelCase}} {{user?.surname | upperCamelCase}}</ion-label></ion-row>
+        <ion-row> <ion-label>{{user?.email | lowercase}}</ion-label> </ion-row>
+    </ion-grid>
+</ion-item>
