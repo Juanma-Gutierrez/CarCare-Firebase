@@ -46,7 +46,7 @@
                         {{"toolbar.aboutMe" | translate}}
                     </ion-item>
                 </ion-menu-toggle>
-                <ion-menu-toggle class="button" *ngIf="user!.role === 'admin'">
+                <ion-menu-toggle class="button" *ngIf="user?.role === 'admin'">
                     <ion-item (click)="navToAdmin()" [ngClass]="{'active': selectedPage==='admin'}">
                         <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
                         {{"toolbar.admin" | translate}}

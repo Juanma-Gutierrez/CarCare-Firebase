@@ -30,7 +30,6 @@ export class HomePage implements OnInit {
         private firebaseSvc: FirebaseService,
         private modal: ModalController,
         private router: Router,
-        private translateSvc: CustomTranslateService,
         private utilsSvc: UtilsService,
         private vehicleSvc: VehicleService,
         public localDataSvc: LocalDataService,
