@@ -1,15 +1,10 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CustomTranslateService } from '../../custom-translate.service';
 import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
 import { Inject, Injectable } from '@angular/core';
 import { LocalDataService } from '../local-data.service';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth } from "firebase/auth";
 import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
 import { MyToast, UtilsService } from '../../utils.service';
-
-export interface Uuid {
-    uuid: String
-}
 
 export interface FirebaseStorageFile {
     path: string,

@@ -26,7 +26,7 @@ export class VehicleService {
                 if (confirm) {
                     var user = this.localDataSvc.getUser().value;
                     var vehicleId = this.utilsSvc.generateId();
-                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.uuid!);
+                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.userId!);
                     try {
                         var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
                         this.updateUser(info.data, ref);
@@ -61,7 +61,7 @@ export class VehicleService {
         var vehiclesList = user.vehicles;
         vehiclesList.push(vehiclePreview);
         vehiclesList = this.sortVehiclesByDate(vehiclesList);
-        await this.firebaseSvc.updateDocument("user", user.uuid, user);
+        await this.firebaseSvc.updateDocument("user", user.userId, user);
     }
 
     async editVehicle(info: any, vehicle: VehiclePreview) {
@@ -73,7 +73,7 @@ export class VehicleService {
                     try {
                         var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
                         var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
-                        this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
+                        this.firebaseSvc.updateDocument("user", user.userId, userUpdated);
                         this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
                         this.utilsSvc.showToast("message.vehicles.editVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
@@ -112,7 +112,7 @@ export class VehicleService {
         var vehiclesList = user.vehicles;
         vehiclesList = vehiclesList.filter(vehicle => { return vehicle.vehicleId != id })
         user.vehicles = vehiclesList;
-        await this.firebaseSvc.updateDocument("user", user.uuid!!, user)
+        await this.firebaseSvc.updateDocument("user", user.userId, user)
     }
 
 

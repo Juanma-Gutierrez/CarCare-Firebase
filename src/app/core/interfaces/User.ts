@@ -8,7 +8,6 @@ export interface User {
     role: string,
     surname: string,
     userId: string,
-    uuid: string,
     vehicles: VehiclePreview[],
 }
 

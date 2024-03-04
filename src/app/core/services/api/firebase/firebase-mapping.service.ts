@@ -61,7 +61,6 @@ export class FirebaseMappingService extends MappingService {
             role: role,
             surname: _user.surname,
             userId: userId,
-            uuid: _user.uuid,
             vehicles: [],
         };
         return user;
@@ -77,7 +76,6 @@ export class FirebaseMappingService extends MappingService {
             role: data.data['user'],
             surname: data.data['surname'],
             vehicles: data.data['vehicles'],
-            uuid: data.id
         }
     }
 
@@ -118,13 +116,12 @@ export class FirebaseMappingService extends MappingService {
         return {
             created: user.created,
             email: user.email,
-            userId: user.uuid,
+            userId: user.userId,
             name: user.name,
             nickname: user.nickname,
             role: user.role,
             surname: user.surname,
             vehicles: vehiclesListUpdated,
-            uuid: user.uuid
         }
     }
 

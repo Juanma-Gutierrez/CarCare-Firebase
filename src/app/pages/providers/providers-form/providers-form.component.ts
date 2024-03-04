@@ -30,8 +30,8 @@ export class ProvidersFormComponent implements OnInit {
         private localDataSvc: LocalDataService,
         private utilsSvc: UtilsService,
     ) {
-        var user = this.localDataSvc.getUser().value
-        var userId = user?.uuid
+        var user = this.localDataSvc.getUser().value;
+        var userId = user?.userId;
         this.form = this.formBuilder.group({
             providerId: [this.utilsSvc.generateId()],
             name: ['', Validators.required],

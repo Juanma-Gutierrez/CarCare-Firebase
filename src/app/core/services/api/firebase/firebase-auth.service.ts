@@ -37,7 +37,7 @@ export class FirebaseAuthService extends AuthService {
                     subscr.error('Cannot register');
                 if (credentials) {
                     var _info: any = { ...info };
-                    _info.uuid = credentials.user.user.uid;
+                    _info.userId = credentials.user.user.uid;
                     var user: User = this.firebaseMappingSvc.mapUser(_info, "user", credentials.user.user.uid);
                     this.postRegister(_info).subscribe(_ => {
                         this._user.next(user);
@@ -52,9 +52,10 @@ export class FirebaseAuthService extends AuthService {
     }
 
     private postRegister(info: any): Observable<any> {
-        if (info.uuid) {
-            var user: User = this.firebaseMappingSvc.mapUser(info, "user", info.uuid)
-            return from(this.firebaseSvc.createDocumentWithId('user', user, info.uuid))
+        console.log(info)
+        if (info.userId) {
+            var user: User = this.firebaseMappingSvc.mapUser(info, "user", info.userId)
+            return from(this.firebaseSvc.createDocumentWithId('user', user, info.userId))
         }
         throw new Error('Error inesperado');
     }

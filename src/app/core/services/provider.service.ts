@@ -58,7 +58,7 @@ export class ProviderService {
                         })
                     }
                     try {
-                        this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
+                        this.firebaseSvc.updateDocument("providers", user!.userId, providersFiltered);
                         this.utilsSvc.showToast("message.providers.editProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -78,7 +78,7 @@ export class ProviderService {
                         })
                     }
                     try {
-                        this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
+                        this.firebaseSvc.updateDocument("providers", user!.userId, providersFiltered);
                         this.utilsSvc.showToast("message.providers.deleteProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
