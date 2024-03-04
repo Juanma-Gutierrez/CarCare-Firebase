@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { DocumentData } from 'firebase/firestore';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DocumentData, Unsubscribe } from 'firebase/firestore';
 import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
@@ -13,13 +13,16 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
 import { MyToast, UtilsService } from 'src/app/core/services/utils.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
+    private unsubscribes: (Unsubscribe | null)[] = []
+    private subscriptions: Subscription[] = []
 
     public filterAvailableVehicle = true;
     public selectedVehicle: FirebaseDocument | null = null;
@@ -37,9 +40,10 @@ export class HomePage implements OnInit {
 
     ngOnInit(): void {
         var user = this.localDataSvc.getUser().value;
-        this.firebaseSvc.subscribeToDocument("providers", user!.uuid, this.localDataSvc.getProviders(), (data) => {
+
+        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument("providers", user!.uuid, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
-        });
+        }));
     }
 
     selectionChanged(event: CustomEvent) {
@@ -53,14 +57,14 @@ export class HomePage implements OnInit {
 
     public async onVehicleItemClicked(vehiclePreview: VehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
-        if (vehicle.id) this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicle());
+        if (vehicle.id) this.unsubscribes.push(this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicle()));
         this.selectedVehicle = vehicle
-        this.localDataSvc.vehicle$.subscribe(vehicle => {
+        this.subscriptions.push(this.localDataSvc.vehicle$.subscribe(vehicle => {
             this.localDataSvc.setSpents(vehicle?.spents!)
             this.spentsSvc.calculateNumberOfSpents(vehicle?.spents!)
             this.spentsSvc.calculateTotalSpents(vehicle?.spents!)
             // TODO VER POSIBILIDAD DE METERLE GRÁFICAS EN EL MÓDULO DE ADMIN
-        })
+        }))
     }
 
     onNewVehicle() {
@@ -144,6 +148,11 @@ export class HomePage implements OnInit {
                 onDismiss(result);
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribes.forEach(uns => { if (uns) uns() });
+        this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 }
 
