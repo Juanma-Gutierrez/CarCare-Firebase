@@ -1,11 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
-import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from './utils.service';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
 import { FirebaseService } from './api/firebase/firebase.service';
 import { DocumentReference } from 'firebase/firestore';
 import { User, VehiclePreview } from '../interfaces/User';
-import { CustomTranslateService } from './custom-translate.service';
+import { MyToast, UtilsService } from './utils.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +16,6 @@ export class VehicleService {
         private firebaseMappingSvc: FirebaseMappingService,
         private firebaseSvc: FirebaseService,
         private localDataSvc: LocalDataService,
-        private translateSvc: CustomTranslateService,
     ) { }
 
     async createVehicle(info: any) {
@@ -32,13 +30,13 @@ export class VehicleService {
                     try {
                         var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
                         this.updateUser(info.data, ref);
-                        this.utilsSvc.showToast("message.vehicles.newVehicleOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.vehicles.newVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.vehicles.newVehicleError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.vehicles.newVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -77,13 +75,13 @@ export class VehicleService {
                         var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
                         this.firebaseSvc.updateDocument("user", user.uuid, userUpdated);
                         this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
-                        this.utilsSvc.showToast("message.vehicles.editVehicleOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.vehicles.editVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.vehicles.editVehicleError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.vehicles.editVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -93,13 +91,13 @@ export class VehicleService {
                     try {
                         this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
                         this.deleteVehiclePreview(vehicle.vehicleId);
-                        this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.vehicles.deleteVehicleError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.vehicles.deleteVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }

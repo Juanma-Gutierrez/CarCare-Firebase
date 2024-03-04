@@ -28,11 +28,12 @@ export class SpentFormComponent implements OnInit {
         this.selectedProvider = _spent?.providerName!
         if (_spent) {
             this.mode = 'Edit';
+            console.log(_spent.spentId)
             this.form.controls['spentId'].setValue(_spent.spentId);
             this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount);
-            this.form.controls['provider'].setValue(_spent.provider);
-            this.form.controls['providerName'].setValue(_spent.provider);
+            this.form.controls['provider'].setValue(_spent.providerName);
+            this.form.controls['providerName'].setValue(_spent.providerName);
             this.form.controls['observations'].setValue(_spent.observations);
         }
     }
@@ -67,10 +68,10 @@ export class SpentFormComponent implements OnInit {
 
 
     onSelection(event: any) {
-        const provider = event.detail.value;
-        this.selectedProvider = provider.name;
-        this.form.controls['providerName'].setValue(provider?.name);
-        this.form.controls['provider'].setValue(provider?.name);
+        const providerName = event.detail.value;
+        this.selectedProvider = providerName;
+        this.form.controls['providerName'].setValue(providerName);
+        this.form.controls['provider'].setValue(providerName);
         this.form.markAsDirty();
     }
 

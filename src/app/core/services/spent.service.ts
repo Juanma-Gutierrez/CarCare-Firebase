@@ -5,7 +5,7 @@ import { FirebaseService } from './api/firebase/firebase.service';
 import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
 import { Spent } from '../interfaces/Spent';
-import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from './utils.service';
+import {  MyToast, UtilsService } from './utils.service';
 import { Vehicle } from '../interfaces/Vehicle';
 import { CustomTranslateService } from './custom-translate.service';
 
@@ -38,13 +38,13 @@ export class SpentService {
                         var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                         var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
                         await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
-                        this.utilsSvc.showToast("message.spents.newSpentOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.spents.newSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.spents.newSpentError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.spents.newSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -68,13 +68,13 @@ export class SpentService {
                     vehicle.spents = spentsListUpdated;
                     try {
                         this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle);
-                        this.utilsSvc.showToast("message.spents.editSpentOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.spents.editSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.spents.editSpentError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.spents.editSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -87,13 +87,13 @@ export class SpentService {
                         });
                         var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
                         this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
-                        this.utilsSvc.showToast("message.spents.deleteSpentOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.spents.deleteSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.spents.deleteSpentError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.spents.deleteSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }

@@ -5,12 +5,28 @@ import { Preferences } from '@capacitor/preferences';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { VehiclePreview } from '../interfaces/User';
 import { Share } from '@capacitor/share';
-import { LocalDataService } from './api/local-data.service';
 
-export const TOP: "top" = "top";
-export const BOTTOM: "bottom" = "bottom";
-export const SUCCESS: string = "secondary";
-export const DANGER: string = "danger";
+
+type Color = {
+    SUCCESS: "success";
+    DANGER: "danger";
+}
+
+type Position = {
+    TOP: "top";
+    BOTTOM: "bottom";
+}
+
+export class MyToast {
+    static readonly Position: Position = {
+        TOP: "top",
+        BOTTOM: "bottom"
+    };
+    static readonly Color: Color = {
+        DANGER: "danger",
+        SUCCESS: "success"
+    };
+}
 
 @Injectable({
     providedIn: 'root'
@@ -20,14 +36,13 @@ export class UtilsService {
     constructor(
         private toast: ToastController,
         private translateSvc: CustomTranslateService,
-        private localDataSvc: LocalDataService,
     ) { }
 
     public generateId(): string {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
 
-    public async showToast(message: string, color: string, position: "top" | "bottom", duration: number = 2000) {
+    public async showToast(message: string, color: string, position: Position["TOP"] | Position["BOTTOM"], duration: number = 2000) {
         var messageToShow = this.translateSvc.getValue(message);
         console.info("Show toast: " + messageToShow);
         if (messageToShow != null) {

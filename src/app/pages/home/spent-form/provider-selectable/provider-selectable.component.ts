@@ -16,5 +16,6 @@ export class ProviderSelectableComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+        console.log(this.selectedProvider)
     }
 }

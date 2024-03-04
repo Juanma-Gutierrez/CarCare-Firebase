@@ -2,9 +2,8 @@ import { FirebaseMappingService } from './api/firebase/firebase-mapping.service'
 import { FirebaseService } from './api/firebase/firebase.service';
 import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
-import { SUCCESS, BOTTOM, DANGER, TOP, UtilsService } from './utils.service';
+import {  UtilsService, MyToast } from './utils.service';
 import { Provider } from '../interfaces/Provider';
-import { CustomTranslateService } from './custom-translate.service';
 
 @Injectable({
     providedIn: 'root'
@@ -24,19 +23,20 @@ export class ProviderService {
         switch (info.role) {
             case 'ok': {
                 const confirm = await this.utilsSvc.showConfirm("message.providers.confirmCreation");
+                let dasd = MyToast.Color
                 if (confirm) {
                     try {
                         var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
                         var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                         providersList.push(provider)
                         await this.firebaseSvc.updateDocument("providers", info.data.userId, { "providers": providersList })
-                        this.utilsSvc.showToast("message.providers.newProviderOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.providers.newProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.providers.newProviderError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.providers.newProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -59,13 +59,13 @@ export class ProviderService {
                     }
                     try {
                         this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                        this.utilsSvc.showToast("message.providers.editProviderOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.providers.editProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.providers.editProviderError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.providers.editProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -79,13 +79,13 @@ export class ProviderService {
                     }
                     try {
                         this.firebaseSvc.updateDocument("providers", user!.uuid, providersFiltered);
-                        this.utilsSvc.showToast("message.providers.deleteProviderOk", SUCCESS, BOTTOM);
+                        this.utilsSvc.showToast("message.providers.deleteProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.providers.deleteProviderError", DANGER, TOP);
+                        this.utilsSvc.showToast("message.providers.deleteProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", DANGER, BOTTOM);
+                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
