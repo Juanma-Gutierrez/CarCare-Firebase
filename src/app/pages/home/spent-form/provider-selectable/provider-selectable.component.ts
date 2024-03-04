@@ -12,8 +12,7 @@ export class ProviderSelectableComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     onProviderChange(event: CustomEvent<any>) {
         this.selectedProvider = event.detail.value;
