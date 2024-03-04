@@ -23,7 +23,6 @@ import { Subscription } from 'rxjs';
 export class HomePage implements OnInit, OnDestroy {
     private unsubscribes: (Unsubscribe | null)[] = []
     private subscriptions: Subscription[] = []
-
     public filterAvailableVehicle = true;
     public selectedVehicle: FirebaseDocument | null = null;
     public providers: Provider[] = [];
@@ -40,7 +39,6 @@ export class HomePage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         var user = this.localDataSvc.getUser().value;
-
         this.unsubscribes.push(this.firebaseSvc.subscribeToDocument("providers", user!.uuid, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
         }));

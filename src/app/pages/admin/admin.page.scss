@@ -1,11 +1,12 @@
-ion-content{
+ion-content {
     height: 100vw;
 }
 
-ion-card-title{
-    color:var(--ion-color-tertiary);
+ion-card-title {
+    color: var(--ion-color-tertiary);
     font-weight: bold;
 }
+
 .header {
     background-color: var(--ion-color-tertiary);
     color: white;
@@ -13,7 +14,7 @@ ion-card-title{
     font-size: 1.1rem;
     border-radius: 10px 10px 0px 0px;
 
-    img{
+    img {
         width: 20px;
         filter: invert(1);
     }
