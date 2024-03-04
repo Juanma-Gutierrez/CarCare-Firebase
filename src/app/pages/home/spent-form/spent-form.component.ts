@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { UtilsService } from 'src/app/core/services/utils.service';
@@ -32,7 +31,7 @@ export class SpentFormComponent implements OnInit {
             this.form.controls['spentId'].setValue(_spent.spentId);
             this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount);
-            this.form.controls['provider'].setValue(_spent.providerName);
+            this.form.controls['provider'].setValue(_spent.provider);
             this.form.controls['providerName'].setValue(_spent.providerName);
             this.form.controls['observations'].setValue(_spent.observations);
         }
@@ -61,11 +60,9 @@ export class SpentFormComponent implements OnInit {
         this.providerName = this.spent?.providerName;
     }
 
-
     getVehicle(): number {
         return this._vehicle
     }
-
 
     onSelection(event: any) {
         const providerName = event.detail.value;
@@ -79,11 +76,9 @@ export class SpentFormComponent implements OnInit {
         this._modal.dismiss(null, 'cancel');
     }
 
-
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
-
 
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');

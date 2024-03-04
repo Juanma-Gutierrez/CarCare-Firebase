@@ -1,12 +1,11 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Provider } from 'src/app/core/interfaces/Provider';
-import { FirebaseMappingService } from 'src/app/core/services/api/firebase/firebase-mapping.service';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
-import { UtilsService } from 'src/app/core/services/utils.service';
 import { ProviderService } from 'src/app/core/services/provider.service';
+import { Unsubscribe } from 'firebase/firestore';
 
 @Injectable({
     providedIn: 'root'
@@ -16,22 +15,22 @@ import { ProviderService } from 'src/app/core/services/provider.service';
     templateUrl: './providers.page.html',
     styleUrls: ['./providers.page.scss'],
 })
-export class ProvidersPage implements OnInit {
+export class ProvidersPage implements OnInit, OnDestroy {
+    private unsubscribes: (Unsubscribe | null)[] = []
+
     constructor(
-        private firebaseMappingSvc: FirebaseMappingService,
         private firebaseSvc: FirebaseService,
         private modal: ModalController,
         private providerSvc: ProviderService,
-        private utilsSvc: UtilsService,
         public localDataSvc: LocalDataService,
     ) { }
 
 
     async ngOnInit() {
         var user = this.localDataSvc.getUser().value;
-        this.firebaseSvc.subscribeToDocument("providers", user!.userId, this.localDataSvc.getProviders(), (data) => {
+        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument("providers", user!.userId, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
-        })
+        }));
     }
 
     onEditProviderClicked(provider: Provider) {
@@ -62,6 +61,10 @@ export class ProvidersPage implements OnInit {
                 onDismiss(result);
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribes.forEach(uns => { if (uns) uns() });
     }
 }
 

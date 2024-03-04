@@ -1,14 +1,16 @@
 import { AuthService } from 'src/app/core/services/api/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
+    private subscriptions: Subscription[] = []
 
     constructor(
         private auth: AuthService,
@@ -18,13 +20,17 @@ export class LoginPage implements OnInit {
     ngOnInit() { }
 
     onLogin(credentials: UserCredentials) {
-        this.auth.login(credentials).subscribe({
+        this.subscriptions.push(this.auth.login(credentials).subscribe({
             next: data => {
                 this.router.navigate(['welcome'])
             },
             error: err => {
                 console.error("Login error")
             }
-        });
+        }));
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 }

@@ -1,6 +1,7 @@
-import { DocumentReference } from "firebase/firestore"
+import { DocumentReference, Timestamp } from "firebase/firestore"
 
 export interface User {
+    created: Timestamp,
     email: string,
     name: string,
     nickname: string,

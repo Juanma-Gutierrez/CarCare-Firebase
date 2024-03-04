@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { User, VehiclePreview } from "../../../interfaces/User";
 import { Provider } from "../../../interfaces/Provider";
 import { Spent } from "../../../interfaces/Spent";
+import { FirebaseDocument } from "./firebase.service";
 
 @Injectable({
     providedIn: 'root'
@@ -51,6 +52,35 @@ export class FirebaseMappingService extends MappingService {
         throw new Error("Method not implemented.");
     }
 
+    public mapUser(_user: any, role: string = "user", userId: string = _user.credentials): User {
+        var user: User = {
+            created: _user.created,
+            email: _user.email,
+            name: _user.name,
+            nickname: _user.username,
+            role: role,
+            surname: _user.surname,
+            userId: userId,
+            uuid: _user.uuid,
+            vehicles: [],
+        };
+        return user;
+    }
+
+    convertToUser(data: FirebaseDocument): User {
+        return {
+            created: data.data['created'],
+            email: data.data['email'],
+            userId: data.id,
+            name: data.data['name'],
+            nickname: data.data['nickname'],
+            role: data.data['user'],
+            surname: data.data['surname'],
+            vehicles: data.data['vehicles'],
+            uuid: data.id
+        }
+    }
+
     public mapFBVehicle(data: any, vehicleId: string, userId: string): Vehicle {
         return {
             available: data.available,
@@ -86,6 +116,7 @@ export class FirebaseMappingService extends MappingService {
 
     mapUserWithVehicles(user: User, vehiclesListUpdated: VehiclePreview[]): User {
         return {
+            created: user.created,
             email: user.email,
             userId: user.uuid,
             name: user.name,
