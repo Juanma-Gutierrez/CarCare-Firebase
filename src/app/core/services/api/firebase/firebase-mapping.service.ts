@@ -104,11 +104,13 @@ export class FirebaseMappingService extends MappingService {
 
     mapFBSpent(data: any): Spent {
         return {
-            spentId: data.spentId,
-            provider: data.providerName,
             amount: data.amount,
+            date: data.date,
             observations: data.observations,
-            date: data.date
+            providerId: data.providerId,
+            providerName: data.providerName,
+            spentId: data.spentId,
+
         }
     }
 

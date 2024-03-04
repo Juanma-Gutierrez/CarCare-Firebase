@@ -2,7 +2,7 @@ export interface Spent {
     amount: number,
     date: Date,
     observations?: string,
-    provider: string,
+    providerId: string,
     providerName?: string,
     spentId: string,
 }

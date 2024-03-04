@@ -18,10 +18,10 @@ export class ProviderItemSelectableComponent implements OnInit {
     }
 
     constructor() { }
-    
-    
-    ngOnInit() {}
-    
+
+
+    ngOnInit() { }
+
 
     onProviderClicked() {
         this.clicked.emit(this._provider);

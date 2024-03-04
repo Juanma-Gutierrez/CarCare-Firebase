@@ -7,15 +7,15 @@ import { Provider } from 'src/app/core/interfaces/Provider';
     styleUrls: ['./provider-selectable.component.scss'],
 })
 export class ProviderSelectableComponent implements OnInit {
-
-    disabled: boolean = true;
-
     @Input() providers: Provider[] = [];
-    @Input() selectedProvider?: string;
+    @Input() selectedProvider?: Provider;
 
     constructor() { }
 
     ngOnInit() {
-        console.log(this.selectedProvider)
+    }
+
+    onProviderChange(event: CustomEvent<any>) {
+        this.selectedProvider = event.detail.value;
     }
 }

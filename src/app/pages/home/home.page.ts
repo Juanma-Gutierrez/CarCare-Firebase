@@ -107,6 +107,7 @@ export class HomePage implements OnInit, OnDestroy {
     }
 
     createSpent(vehicleSelected: DocumentData) {
+        console.log(vehicleSelected)
         if (this.localDataSvc.getProviders().value?.length == 0) {
             this.utilsSvc.showToast("message.providers.noneProvider", MyToast.Color.DANGER, MyToast.Position.TOP);
             this.router.navigate(['/providers']);

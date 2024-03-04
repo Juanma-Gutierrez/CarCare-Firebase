@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { ProviderId } from 'firebase/auth';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
+import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
@@ -15,23 +18,23 @@ export class SpentFormComponent implements OnInit {
     today: Date = new Date()
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-    public selectedProvider: string | undefined = undefined;
-
-
+    public selectedProvider: Provider | undefined = undefined;
     private _vehicle: number = -1;
     @Input() set vehicleId(vehiclePassed: number) {
         this._vehicle = vehiclePassed; { }
         this.form.controls['vehicle'].setValue(this._vehicle);
     };
     @Input() set spent(_spent: Spent | null) {
-        this.selectedProvider = _spent?.providerName!
+        var selectedProvTemp = this.localDataSvc.getProviders().value!.find(p => p.providerId == _spent?.providerId);
+        if (selectedProvTemp != undefined)
+            this.selectedProvider = selectedProvTemp;
         if (_spent) {
             this.mode = 'Edit';
             console.log(_spent.spentId)
             this.form.controls['spentId'].setValue(_spent.spentId);
             this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount);
-            this.form.controls['provider'].setValue(_spent.provider);
+            this.form.controls['providerId'].setValue(_spent.providerId);
             this.form.controls['providerName'].setValue(_spent.providerName);
             this.form.controls['observations'].setValue(_spent.observations);
         }
@@ -44,15 +47,17 @@ export class SpentFormComponent implements OnInit {
         private _modal: ModalController,
         private formBuilder: FormBuilder,
         private utilsSvc: UtilsService,
+        private localDataSvc: LocalDataService,
     ) {
+        console.log(this._vehicle)
         this.form = this.formBuilder.group({
-            spentId: [this.utilsSvc.generateId()],
-            date: [this.today.toISOString(), Validators.required],
             amount: [0, Validators.required],
-            provider: ['', Validators.required],
+            date: [this.today.toISOString(), Validators.required],
+            observations: [''],
+            providerId: [''],
             providerName: ['', Validators.required],
-            vehicle: [this._vehicle],
-            observations: ['']
+            spentId: [this.utilsSvc.generateId()],
+            vehicle: [this._vehicle]
         });
     }
 
@@ -65,10 +70,10 @@ export class SpentFormComponent implements OnInit {
     }
 
     onSelection(event: any) {
-        const providerName = event.detail.value;
-        this.selectedProvider = providerName;
-        this.form.controls['providerName'].setValue(providerName);
-        this.form.controls['provider'].setValue(providerName);
+        const provider: Provider = event.detail.value;
+        this.selectedProvider = provider;
+        this.form.controls['providerName'].setValue(provider.name);
+        this.form.controls['providerId'].setValue(provider.providerId);
         this.form.markAsDirty();
     }
 

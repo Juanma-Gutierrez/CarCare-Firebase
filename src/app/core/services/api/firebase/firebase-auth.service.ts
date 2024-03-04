@@ -52,7 +52,6 @@ export class FirebaseAuthService extends AuthService {
     }
 
     private postRegister(info: any): Observable<any> {
-        console.log(info)
         if (info.userId) {
             var user: User = this.firebaseMappingSvc.mapUser(info, "user", info.userId)
             return from(this.firebaseSvc.createDocumentWithId('user', user, info.userId))
