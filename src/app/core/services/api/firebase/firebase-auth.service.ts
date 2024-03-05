@@ -1,11 +1,13 @@
 import { AuthService } from '../auth.service';
-import { FirebaseDocument, FirebaseService, FirebaseUserCredential } from './firebase.service';
+import { FirebaseUserCredential } from './firebase.service';
+import { FirebaseService } from './FirebaseService';
 import { LocalDataService } from '../local-data.service';
-import { Observable, from, map } from 'rxjs'; UtilsService
+import { Observable, from, map } from 'rxjs';
 import { User, UserCredential } from '../../../interfaces/User';
-import { PROVIDERS, UtilsService } from '../../utils.service';
 import { inject } from '@angular/core';
 import { FirebaseMappingService } from './firebase-mapping.service';
+import { UtilsService } from '../../utils.service';
+import { PROVIDERS, USER } from '../../const.service';
 
 
 export class FirebaseAuthService extends AuthService {
@@ -38,7 +40,7 @@ export class FirebaseAuthService extends AuthService {
                 if (credentials) {
                     var _info: any = { ...info };
                     _info.userId = credentials.user.user.uid;
-                    var user: User = this.firebaseMappingSvc.mapUser(_info, "user", credentials.user.user.uid);
+                    var user: User = this.firebaseMappingSvc.mapUser(_info, USER, credentials.user.user.uid);
                     this.postRegister(_info).subscribe(_ => {
                         this._user.next(user);
                         this._logged.next(true);
@@ -53,8 +55,8 @@ export class FirebaseAuthService extends AuthService {
 
     private postRegister(info: any): Observable<any> {
         if (info.userId) {
-            var user: User = this.firebaseMappingSvc.mapUser(info, "user", info.userId)
-            return from(this.firebaseSvc.createDocumentWithId('user', user, info.userId))
+            var user: User = this.firebaseMappingSvc.mapUser(info, USER, info.userId)
+            return from(this.firebaseSvc.createDocumentWithId(USER, user, info.userId))
         }
         throw new Error('Error inesperado');
     }
@@ -66,7 +68,7 @@ export class FirebaseAuthService extends AuthService {
 
     public me(): Observable<User> {
         if (this.localDataSvc.user?.userId)
-            return from(this.firebaseSvc.getDocument('user', this.localDataSvc.user.userId)).pipe(map(data => {
+            return from(this.firebaseSvc.getDocument(USER, this.localDataSvc.user.userId)).pipe(map(data => {
                 const newUser: User = this.firebaseMappingSvc.convertToUser(data)
                 this.saveLocalUser(newUser);
                 return newUser

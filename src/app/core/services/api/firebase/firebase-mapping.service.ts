@@ -5,6 +5,7 @@ import { User, VehiclePreview } from "../../../interfaces/User";
 import { Provider } from "../../../interfaces/Provider";
 import { Spent } from "../../../interfaces/Spent";
 import { FirebaseDocument } from "./firebase.service";
+import { USER } from "../../const.service";
 
 @Injectable({
     providedIn: 'root'
@@ -52,7 +53,7 @@ export class FirebaseMappingService extends MappingService {
         throw new Error("Method not implemented.");
     }
 
-    public mapUser(_user: any, role: string = "user", userId: string = _user.credentials): User {
+    public mapUser(_user: any, role: string = USER, userId: string = _user.credentials): User {
         var user: User = {
             created: _user.created,
             email: _user.email,

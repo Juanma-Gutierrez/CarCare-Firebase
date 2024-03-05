@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { USER_ROLE } from 'src/app/core/services/const.service';
 import { PasswordValidation } from 'src/app/core/validators/PasswordValidation';
 
 @Component({
@@ -21,7 +22,7 @@ export class RegisterFormComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             name: ['', [Validators.required]],
             password: ['', [Validators.required, PasswordValidation.passwordProto('password')]],
-            role: ['user'],
+            role: [USER_ROLE],
             surname: ['', [Validators.required]],
             username: ['', [Validators.required]],
             created: [creationDate]

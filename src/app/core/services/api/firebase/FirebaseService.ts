@@ -1,25 +1,13 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
+import { FirebaseApp, initializeApp, getApp } from 'firebase/app';
 import { Inject, Injectable } from '@angular/core';
 import { LocalDataService } from '../local-data.service';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, Auth } from "firebase/auth";
 import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
+import { FirebaseUserCredential, FirebaseDocument } from './firebase.service';
 import { UtilsService } from '../../utils.service';
 import { MyToast, USER } from '../../const.service';
 
-export interface FirebaseStorageFile {
-    path: string,
-    file: string
-};
-
-export interface FirebaseDocument {
-    id: string;
-    data: DocumentData;
-}
-
-export interface FirebaseUserCredential {
-    user: UserCredential
-}
 
 @Injectable({
     providedIn: 'root'
@@ -34,7 +22,7 @@ export class FirebaseService {
     constructor(
         @Inject('firebase-config') config: any,
         private utilSvc: UtilsService,
-        private localDataSvc: LocalDataService,
+        private localDataSvc: LocalDataService
     ) {
         this.init(config);
     }
@@ -42,7 +30,7 @@ export class FirebaseService {
         this._app = initializeApp(firebaseConfig);
         this._db = getFirestore(this._app);
         this._auth = initializeAuth(getApp(), { persistence: indexedDBLocalPersistence });
-        this._auth.onAuthStateChanged(async user => {
+        this._auth.onAuthStateChanged(async (user) => {
             if (user?.uid && user?.email) {
                 this.subscribeToDocument(USER, user.uid, this.localDataSvc.getUser());
                 this._isLogged.next(true);
@@ -56,13 +44,13 @@ export class FirebaseService {
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise<FirebaseUserCredential | null>(async (resolve, reject) => {
             if (!this._auth)
-                console.error("Error")
+                console.error("Error");
             resolve(null);
             try {
                 resolve({ user: await signInWithEmailAndPassword(this._auth!, email, password) });
             } catch (e) {
                 if (e instanceof Error) {
-                    console.error(e.message)
+                    console.error(e.message);
                     if (e.message == "Firebase: Error (auth/invalid-email)." || e.message == "Firebase: Error (auth/invalid-credential).") {
                         this.utilSvc.showToast("message.auth.loginError", MyToast.Color.DANGER, MyToast.Position.TOP, 3000);
                     }
@@ -189,9 +177,10 @@ export class FirebaseService {
         return onSnapshot(docRef, (snapshot) => {
             if (snapshot.exists())
                 subject.next(mapFunction(snapshot.data() as DocumentData));
+
             else
-                throw new Error('Error: The document does not exist.')
-        }, error => { throw new Error(error.message) });
+                throw new Error('Error: The document does not exist.');
+        }, error => { throw new Error(error.message); });
     }
 
     public deleteDocument(collectionName: string, docId: string): Promise<void> {

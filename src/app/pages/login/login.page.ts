@@ -22,10 +22,11 @@ export class LoginPage implements OnInit, OnDestroy {
     onLogin(credentials: UserCredentials) {
         this.subscriptions.push(this.auth.login(credentials).subscribe({
             next: data => {
-                this.router.navigate(['welcome'])
+                console.info("data: ",data);
+                this.router.navigate(['welcome']);
             },
             error: err => {
-                console.error("Login error")
+                console.error("Login error", err);
             }
         }));
     }

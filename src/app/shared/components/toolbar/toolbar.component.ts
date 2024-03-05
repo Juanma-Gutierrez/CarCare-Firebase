@@ -2,10 +2,9 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/interfaces/User';
-import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { PROVIDERS } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-toolbar',
@@ -48,7 +47,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     navToProviders() {
-        this.selectedPage = PROVIDERS;
+        this.selectedPage = "providers";
         this.router.navigate(['/providers']);
     }
 

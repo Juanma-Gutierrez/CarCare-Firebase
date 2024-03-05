@@ -1,9 +1,10 @@
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
-import { FirebaseService } from './api/firebase/firebase.service';
+import { FirebaseService } from './api/firebase/FirebaseService';
 import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
-import { UtilsService, MyToast, PROVIDERS } from './utils.service';
+import { UtilsService } from './utils.service';
 import { Provider } from '../interfaces/Provider';
+import { MyToast, PROVIDERS } from './const.service';
 
 @Injectable({
     providedIn: 'root'

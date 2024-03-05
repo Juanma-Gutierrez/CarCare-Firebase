@@ -1,13 +1,14 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentData } from 'firebase/firestore';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
-import { FirebaseService } from './api/firebase/firebase.service';
+import { FirebaseService } from './api/firebase/FirebaseService';
 import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
 import { Spent } from '../interfaces/Spent';
-import {  MyToast, UtilsService } from './utils.service';
 import { Vehicle } from '../interfaces/Vehicle';
 import { CustomTranslateService } from './custom-translate.service';
+import { UtilsService } from './utils.service';
+import { MyToast, VEHICLES } from './const.service';
 
 @Injectable({
     providedIn: 'root'
@@ -37,7 +38,7 @@ export class SpentService {
                     try {
                         var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                         var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
-                        await this.firebaseSvc.updateDocument("vehicles", vehicleSelected?.vehicleId!, vehicleWithSpents)
+                        await this.firebaseSvc.updateDocument(VEHICLES, vehicleSelected?.vehicleId!, vehicleWithSpents)
                         this.utilsSvc.showToast("message.spents.newSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -86,7 +87,7 @@ export class SpentService {
                             return spent.spentId != _spent.spentId;
                         });
                         var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
-                        this.firebaseSvc.updateDocument("vehicles", vehicleUpdated.vehicleId, vehicleUpdated);
+                        this.firebaseSvc.updateDocument(VEHICLES, vehicleUpdated.vehicleId, vehicleUpdated);
                         this.utilsSvc.showToast("message.spents.deleteSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);

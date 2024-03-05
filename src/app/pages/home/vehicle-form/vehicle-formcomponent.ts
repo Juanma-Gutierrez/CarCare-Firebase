@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { VEHICLES } from 'src/app/core/services/const.service';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -16,7 +17,7 @@ export class VehicleFormComponent implements OnInit {
     @Input() set vehicle(_vehicle: Vehicle | null) {
         if (_vehicle) {
             var spentsList: Spent[] = []
-            this.firebaseSvc.getDocument("vehicles", _vehicle!.vehicleId).then(vehicle => {
+            this.firebaseSvc.getDocument(VEHICLES, _vehicle!.vehicleId).then(vehicle => {
                 spentsList = vehicle.data['spents'];
                 this.mode = 'Edit';
                 this.form.controls['available'].setValue(_vehicle.available);

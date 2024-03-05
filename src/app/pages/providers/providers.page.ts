@@ -1,12 +1,12 @@
 import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Provider } from 'src/app/core/interfaces/Provider';
-import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
-import { ProvidersFormComponent } from './providers-form/providers-form.component';
+import { PROVIDERS } from 'src/app/core/services/const.service';
+import { Provider } from 'src/app/core/interfaces/Provider';
 import { ProviderService } from 'src/app/core/services/provider.service';
+import { ProvidersFormComponent } from './providers-form/providers-form.component';
 import { Unsubscribe } from 'firebase/firestore';
-import { PROVIDERS } from 'src/app/core/services/utils.service';
 
 @Injectable({
     providedIn: 'root'

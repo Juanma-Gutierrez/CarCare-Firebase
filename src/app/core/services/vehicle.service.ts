@@ -1,10 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
-import { FirebaseService } from './api/firebase/firebase.service';
+import { FirebaseService } from './api/firebase/FirebaseService';
 import { DocumentReference } from 'firebase/firestore';
 import { User, VehiclePreview } from '../interfaces/User';
-import { MyToast, UtilsService, generateId } from './utils.service';
+import { UtilsService, generateId } from './utils.service';
+import { MyToast, USER, VEHICLES } from './const.service';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +29,7 @@ export class VehicleService {
                     var vehicleId = generateId();
                     var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.userId!);
                     try {
-                        var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);
+                        var ref = await this.firebaseSvc.createDocumentWithId(VEHICLES, vehicle, vehicleId);
                         this.updateUser(info.data, ref);
                         this.utilsSvc.showToast("message.vehicles.newVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
@@ -61,7 +62,7 @@ export class VehicleService {
         var vehiclesList = user.vehicles;
         vehiclesList.push(vehiclePreview);
         vehiclesList = this.sortVehiclesByDate(vehiclesList);
-        await this.firebaseSvc.updateDocument("user", user.userId, user);
+        await this.firebaseSvc.updateDocument(USER, user.userId, user);
     }
 
     async editVehicle(info: any, vehicle: VehiclePreview) {
@@ -73,8 +74,8 @@ export class VehicleService {
                     try {
                         var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
                         var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
-                        this.firebaseSvc.updateDocument("user", user.userId, userUpdated);
-                        this.firebaseSvc.updateDocument("vehicles", info.data['vehicleId'], info.data);
+                        this.firebaseSvc.updateDocument(USER, user.userId, userUpdated);
+                        this.firebaseSvc.updateDocument(VEHICLES, info.data['vehicleId'], info.data);
                         this.utilsSvc.showToast("message.vehicles.editVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -89,7 +90,7 @@ export class VehicleService {
                 const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmDelete");
                 if (confirm) {
                     try {
-                        this.firebaseSvc.deleteDocument("vehicles", vehicle.vehicleId);
+                        this.firebaseSvc.deleteDocument(VEHICLES, vehicle.vehicleId);
                         this.deleteVehiclePreview(vehicle.vehicleId);
                         this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
@@ -112,7 +113,7 @@ export class VehicleService {
         var vehiclesList = user.vehicles;
         vehiclesList = vehiclesList.filter(vehicle => { return vehicle.vehicleId != id })
         user.vehicles = vehiclesList;
-        await this.firebaseSvc.updateDocument("user", user.userId, user)
+        await this.firebaseSvc.updateDocument(USER, user.userId, user)
     }
 
 

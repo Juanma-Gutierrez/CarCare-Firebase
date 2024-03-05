@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DocumentData, Unsubscribe } from 'firebase/firestore';
-import { FirebaseDocument, FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseDocument } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
@@ -12,8 +13,9 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
-import { MyToast, PROVIDERS, UtilsService } from 'src/app/core/services/utils.service';
 import { Subscription } from 'rxjs';
+import { UtilsService } from 'src/app/core/services/utils.service';
+import { MyToast, PROVIDERS, VEHICLES } from 'src/app/core/services/const.service';
 
 @Component({
     selector: 'app-home',
@@ -55,7 +57,7 @@ export class HomePage implements OnInit, OnDestroy {
 
     public async onVehicleItemClicked(vehiclePreview: VehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
-        if (vehicle.id) this.unsubscribes.push(this.firebaseSvc.subscribeToDocument("vehicles", vehicle.id, this.localDataSvc.getVehicle()));
+        if (vehicle.id) this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(VEHICLES, vehicle.id, this.localDataSvc.getVehicle()));
         this.selectedVehicle = vehicle
         this.subscriptions.push(this.localDataSvc.vehicle$.subscribe(vehicle => {
             this.localDataSvc.setSpents(vehicle?.spents!)
@@ -107,7 +109,6 @@ export class HomePage implements OnInit, OnDestroy {
     }
 
     createSpent(vehicleSelected: DocumentData) {
-        console.log(vehicleSelected)
         if (this.localDataSvc.getProviders().value?.length == 0) {
             this.utilsSvc.showToast("message.providers.noneProvider", MyToast.Color.DANGER, MyToast.Position.TOP);
             this.router.navigate(['/providers']);

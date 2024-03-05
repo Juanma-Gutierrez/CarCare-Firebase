@@ -7,7 +7,7 @@ import { DataService } from './core/services/api/data.service';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 import { FirebaseDataService } from './core/services/api/firebase/firebase-data.service';
 import { FirebaseMappingService } from './core/services/api/firebase/firebase-mapping.service';
-import { FirebaseService } from './core/services/api/firebase/firebase.service';
+import { FirebaseService } from './core/services/api/firebase/FirebaseService';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpClientProvider as HttpClientService } from './core/services/http/http-client.provider';
 import { HttpClientWebProvider } from './core/services/http/http-client-web.provider';

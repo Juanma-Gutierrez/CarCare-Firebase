@@ -25,7 +25,7 @@
                 <ion-col>
                     <app-provider-selectable [providers]="providers" [selectedProvider]="selectedProvider"
                         (ionChange)="onSelection($event)"/>
-                    <ion-input formControlName="provider" class="hidden"></ion-input>
+                    <ion-input formControlName="providerId" class="hidden"></ion-input>
                 </ion-col>
                 <ion-col size="3">
                     <ion-input label="{{'home.spentForm.amount' | translate}}" labelPlacement="floating" fill="outline"

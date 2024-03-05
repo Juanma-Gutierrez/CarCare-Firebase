@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
-import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { generateId } from 'src/app/core/services/utils.service';
 
 @Component({
@@ -28,7 +28,6 @@ export class SpentFormComponent implements OnInit {
             this.selectedProvider = selectedProvTemp;
         if (_spent) {
             this.mode = 'Edit';
-            console.log(_spent.spentId)
             this.form.controls['spentId'].setValue(_spent.spentId);
             this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount);
@@ -46,7 +45,6 @@ export class SpentFormComponent implements OnInit {
         private formBuilder: FormBuilder,
         private localDataSvc: LocalDataService,
     ) {
-        console.log(this._vehicle)
         this.form = this.formBuilder.group({
             amount: [0, Validators.required],
             date: [this.today.toISOString(), Validators.required],

@@ -5,29 +5,7 @@ import { Preferences } from '@capacitor/preferences';
 import { Share } from '@capacitor/share';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { VehiclePreview } from '../interfaces/User';
-
-type Color = {
-    SUCCESS: "success";
-    DANGER: "danger";
-}
-
-type Position = {
-    TOP: "top";
-    BOTTOM: "bottom";
-}
-
-export const PROVIDERS: string = "providers";
-
-export class MyToast {
-    static readonly Position: Position = {
-        TOP: "top",
-        BOTTOM: "bottom"
-    };
-    static readonly Color: Color = {
-        DANGER: "danger",
-        SUCCESS: "success"
-    };
-}
+import { Position } from './const.service';
 
 export function generateId(): string {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
