@@ -1,12 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { ProviderId } from 'firebase/auth';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
-import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { UtilsService } from 'src/app/core/services/utils.service';
+import { generateId } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-spent-form',
@@ -46,7 +44,6 @@ export class SpentFormComponent implements OnInit {
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
-        private utilsSvc: UtilsService,
         private localDataSvc: LocalDataService,
     ) {
         console.log(this._vehicle)
@@ -56,7 +53,7 @@ export class SpentFormComponent implements OnInit {
             observations: [''],
             providerId: [''],
             providerName: ['', Validators.required],
-            spentId: [this.utilsSvc.generateId()],
+            spentId: [generateId()],
             vehicle: [this._vehicle]
         });
     }

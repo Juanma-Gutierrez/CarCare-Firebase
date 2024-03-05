@@ -1,6 +1,6 @@
 import { AuthService } from 'src/app/core/services/api/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/core/services/utils.service';
+import { saveLocalStorageUser } from 'src/app/core/services/utils.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +13,6 @@ export class RegisterPage implements OnInit {
 
     constructor(
         private authSvc: AuthService,
-        private utilsSvc: UtilsService,
     ) { }
 
     ngOnInit() {
@@ -22,7 +21,7 @@ export class RegisterPage implements OnInit {
     onRegisterFormSubmit(data: any) {
         let _data: any = { ...data };
         delete _data.confirm;
-        this.utilsSvc.saveLocalStorageUser(data.email);
+        saveLocalStorageUser(data.email);
         this.subscriptions.push(this.authSvc.register(_data).subscribe({
             next: (data) => {
                 console.info("Data en registro: ", data);

@@ -12,7 +12,7 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
-import { MyToast, UtilsService } from 'src/app/core/services/utils.service';
+import { MyToast, PROVIDERS, UtilsService } from 'src/app/core/services/utils.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -39,7 +39,7 @@ export class HomePage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         var user = this.localDataSvc.getUser().value;
-        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument("providers", user!.userId, this.localDataSvc.getProviders(), (data) => {
+        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(PROVIDERS, user!.userId, this.localDataSvc.getProviders(), (data) => {
             return data['providers']
         }));
     }

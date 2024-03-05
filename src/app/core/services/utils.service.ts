@@ -1,11 +1,10 @@
 import { CustomTranslateService } from './custom-translate.service';
-import { Injectable } from '@angular/core';
 import { Dialog } from '@capacitor/dialog';
+import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+import { Share } from '@capacitor/share';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { VehiclePreview } from '../interfaces/User';
-import { Share } from '@capacitor/share';
-
 
 type Color = {
     SUCCESS: "success";
@@ -16,6 +15,8 @@ type Position = {
     TOP: "top";
     BOTTOM: "bottom";
 }
+
+export const PROVIDERS: string = "providers";
 
 export class MyToast {
     static readonly Position: Position = {
@@ -28,6 +29,31 @@ export class MyToast {
     };
 }
 
+export function generateId(): string {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+export function saveLocalStorageUser(user: string) {
+    console.info(`Saved to LocalStorage: ${user}`);
+    Preferences.set({
+        key: 'userName',
+        value: user
+    });
+}
+
+export function loadLocalStorageUser(): Promise<string> {
+    return Preferences.get({ key: 'userName' }).then((ret: any) => {
+        return ret.value;
+    }).catch();
+}
+
+export function capitalizeFirstLetter(word: string): string {
+    if (word.length === 0) {
+        return word;
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -37,10 +63,6 @@ export class UtilsService {
         private toast: ToastController,
         private translateSvc: CustomTranslateService,
     ) { }
-
-    public generateId(): string {
-        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    }
 
     public async showToast(message: string, color: string, position: Position["TOP"] | Position["BOTTOM"], duration: number = 2000) {
         var messageToShow = this.translateSvc.getValue(message);
@@ -55,20 +77,6 @@ export class UtilsService {
             const toast = await this.toast.create(options);
             toast.present();
         }
-    }
-
-    saveLocalStorageUser(user: string) {
-        console.info(`Saved to LocalStorage: ${user}`);
-        Preferences.set({
-            key: 'userName',
-            value: user
-        });
-    }
-
-    loadLocalStorageUser(): Promise<string> {
-        return Preferences.get({ key: 'userName' }).then((ret: any) => {
-            return ret.value;
-        }).catch();
     }
 
     async showConfirm(message: string): Promise<boolean> {
@@ -86,20 +94,10 @@ export class UtilsService {
         var textToShare = this.translateSvc.getValue("vehicles.vehiclesList") + "\n\n";
         for (var vehicle of vehiclesList) {
             var available = vehicle.available ? "✅" : "❌";
-            textToShare += `- ${available} ${vehicle.plate.toUpperCase()}: ${this.capitalizeFirstLetter(vehicle.brand)} ${this.capitalizeFirstLetter(vehicle.model)}\n`;
+            textToShare += `- ${available} ${vehicle.plate.toUpperCase()}: ${capitalizeFirstLetter(vehicle.brand)} ${capitalizeFirstLetter(vehicle.model)}\n`;
         }
         await Share.share({
             text: textToShare,
         });
     }
-
-    capitalizeFirstLetter(word: string): string {
-        if (word.length === 0) {
-            return word;
-        }
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }
 }
-
-
-

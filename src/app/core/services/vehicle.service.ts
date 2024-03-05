@@ -4,7 +4,7 @@ import { FirebaseMappingService } from './api/firebase/firebase-mapping.service'
 import { FirebaseService } from './api/firebase/firebase.service';
 import { DocumentReference } from 'firebase/firestore';
 import { User, VehiclePreview } from '../interfaces/User';
-import { MyToast, UtilsService } from './utils.service';
+import { MyToast, UtilsService, generateId } from './utils.service';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +25,7 @@ export class VehicleService {
                 const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmCreation");
                 if (confirm) {
                     var user = this.localDataSvc.getUser().value;
-                    var vehicleId = this.utilsSvc.generateId();
+                    var vehicleId = generateId();
                     var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.userId!);
                     try {
                         var ref = await this.firebaseSvc.createDocumentWithId("vehicles", vehicle, vehicleId);

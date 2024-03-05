@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
 import { ProviderService } from 'src/app/core/services/provider.service';
 import { Unsubscribe } from 'firebase/firestore';
+import { PROVIDERS } from 'src/app/core/services/utils.service';
 
 @Injectable({
     providedIn: 'root'
@@ -28,8 +29,8 @@ export class ProvidersPage implements OnInit, OnDestroy {
 
     async ngOnInit() {
         var user = this.localDataSvc.getUser().value;
-        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument("providers", user!.userId, this.localDataSvc.getProviders(), (data) => {
-            return data['providers']
+        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(PROVIDERS, user!.userId, this.localDataSvc.getProviders(), (data) => {
+            return data[PROVIDERS];
         }));
     }
 

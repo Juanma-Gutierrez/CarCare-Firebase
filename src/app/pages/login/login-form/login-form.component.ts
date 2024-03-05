@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
-import { UtilsService } from 'src/app/core/services/utils.service';
+import { loadLocalStorageUser, saveLocalStorageUser } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-login-form',
@@ -17,7 +17,6 @@ export class LoginFormComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private utilsSvc: UtilsService,
     ) {
         this.form = this.formBuilder.group({
             username: ['', [Validators.required]],
@@ -26,7 +25,7 @@ export class LoginFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.utilsSvc.loadLocalStorageUser().then(username => {
+        loadLocalStorageUser().then(username => {
             this.form?.controls['username'].setValue(username)
         });
     }
@@ -34,7 +33,7 @@ export class LoginFormComponent implements OnInit {
 
     onSubmit() {
         var userName = JSON.stringify(this.form!.value.username, null, 0).replace(/"/g, '');
-        this.utilsSvc.saveLocalStorageUser(userName);
+        saveLocalStorageUser(userName);
         this.onsubmit.emit(this.form?.value);
         this.form?.controls['password'].setValue('');
     }
