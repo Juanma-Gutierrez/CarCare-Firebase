@@ -1,7 +1,7 @@
-import { DocumentReference, Timestamp } from "firebase/firestore"
+import { DocumentReference } from "firebase/firestore"
 
 export interface User {
-    created: Timestamp,
+    created: string,
     email: string,
     name: string,
     nickname: string,
@@ -14,6 +14,7 @@ export interface User {
 export interface VehiclePreview {
     available: boolean,
     brand: string,
+    created: string,
     category: string,
     model: string,
     plate: string,

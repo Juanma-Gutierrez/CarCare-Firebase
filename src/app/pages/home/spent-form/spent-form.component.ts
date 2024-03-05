@@ -28,12 +28,13 @@ export class SpentFormComponent implements OnInit {
             this.selectedProvider = selectedProvTemp;
         if (_spent) {
             this.mode = 'Edit';
-            this.form.controls['spentId'].setValue(_spent.spentId);
-            this.form.controls['date'].setValue(_spent.date);
             this.form.controls['amount'].setValue(_spent.amount);
+            this.form.controls['created'].setValue(_spent.created);
+            this.form.controls['date'].setValue(_spent.date);
+            this.form.controls['observations'].setValue(_spent.observations);
             this.form.controls['providerId'].setValue(_spent.providerId);
             this.form.controls['providerName'].setValue(_spent.providerName);
-            this.form.controls['observations'].setValue(_spent.observations);
+            this.form.controls['spentId'].setValue(_spent.spentId);
         }
     }
 
@@ -47,6 +48,7 @@ export class SpentFormComponent implements OnInit {
     ) {
         this.form = this.formBuilder.group({
             amount: [0, Validators.required],
+            created: [new Date().toISOString()],
             date: [this.today.toISOString(), Validators.required],
             observations: [''],
             providerId: [''],

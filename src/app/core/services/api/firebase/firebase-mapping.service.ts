@@ -11,6 +11,11 @@ import { USER } from "../../const.service";
     providedIn: 'root'
 })
 export class FirebaseMappingService extends MappingService {
+    providerToUpdate(providersList: Provider[]) {
+        return {
+            "providers": providersList
+        }
+    }
 
 
     constructor() {
@@ -84,6 +89,7 @@ export class FirebaseMappingService extends MappingService {
         return {
             available: data.available,
             brand: data.brand,
+            created: data.created,
             category: data.category,
             model: data.model,
             plate: data.plate,
@@ -97,6 +103,7 @@ export class FirebaseMappingService extends MappingService {
     public mapFBProvider(data: any): Provider {
         return {
             providerId: data.providerId,
+            created: data.created,
             category: data.category,
             name: data.name,
             phone: data.phone,
@@ -106,6 +113,7 @@ export class FirebaseMappingService extends MappingService {
     mapFBSpent(data: any): Spent {
         return {
             amount: data.amount,
+            created: data.created,
             date: data.date,
             observations: data.observations,
             providerId: data.providerId,
@@ -116,7 +124,7 @@ export class FirebaseMappingService extends MappingService {
     }
 
     mapUserWithVehicles(user: User, vehiclesListUpdated: VehiclePreview[]): User {
-        return {
+        var data = {
             created: user.created,
             email: user.email,
             userId: user.userId,
@@ -126,12 +134,15 @@ export class FirebaseMappingService extends MappingService {
             surname: user.surname,
             vehicles: vehiclesListUpdated,
         }
+        console.log(data)
+        return data
     }
 
     mapVehicleWithSpents(vehicle: Vehicle, spentsUpdated: Spent[]): Vehicle {
         return {
             available: vehicle.available,
             brand: vehicle.brand,
+            created: vehicle.created,
             category: vehicle.category,
             model: vehicle.model,
             plate: vehicle.plate,

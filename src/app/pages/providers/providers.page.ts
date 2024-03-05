@@ -2,7 +2,7 @@ import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { ModalController } from '@ionic/angular';
-import { PROVIDERS } from 'src/app/core/services/const.service';
+import { PROVIDER } from 'src/app/core/services/const.service';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { ProviderService } from 'src/app/core/services/provider.service';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
@@ -29,8 +29,8 @@ export class ProvidersPage implements OnInit, OnDestroy {
 
     async ngOnInit() {
         var user = this.localDataSvc.getUser().value;
-        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(PROVIDERS, user!.userId, this.localDataSvc.getProviders(), (data) => {
-            return data[PROVIDERS];
+        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(PROVIDER, user!.userId, this.localDataSvc.getProviders(), (data) => {
+            return data['providers'];
         }));
     }
 

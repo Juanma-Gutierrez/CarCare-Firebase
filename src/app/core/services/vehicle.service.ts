@@ -5,7 +5,7 @@ import { FirebaseService } from './api/firebase/FirebaseService';
 import { DocumentReference } from 'firebase/firestore';
 import { User, VehiclePreview } from '../interfaces/User';
 import { UtilsService, generateId } from './utils.service';
-import { MyToast, USER, VEHICLES } from './const.service';
+import { MyToast, USER, VEHICLE } from './const.service';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +20,7 @@ export class VehicleService {
     ) { }
 
     async createVehicle(info: any) {
-        var localDataSvc = new LocalDataService();
+        console.log(info)
         switch (info.role) {
             case 'ok': {
                 const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmCreation");
@@ -29,7 +29,7 @@ export class VehicleService {
                     var vehicleId = generateId();
                     var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.userId!);
                     try {
-                        var ref = await this.firebaseSvc.createDocumentWithId(VEHICLES, vehicle, vehicleId);
+                        var ref = await this.firebaseSvc.createDocumentWithId(VEHICLE, vehicle, vehicleId);
                         this.updateUser(info.data, ref);
                         this.utilsSvc.showToast("message.vehicles.newVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
@@ -51,6 +51,7 @@ export class VehicleService {
         var vehiclePreview: VehiclePreview = {
             available: data.available,
             brand: data.brand,
+            created: data.created,
             category: data.category,
             model: data.model,
             plate: data.plate,
@@ -62,6 +63,7 @@ export class VehicleService {
         var vehiclesList = user.vehicles;
         vehiclesList.push(vehiclePreview);
         vehiclesList = this.sortVehiclesByDate(vehiclesList);
+        user.vehicles = vehiclesList;
         await this.firebaseSvc.updateDocument(USER, user.userId, user);
     }
 
@@ -75,7 +77,7 @@ export class VehicleService {
                         var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
                         var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
                         this.firebaseSvc.updateDocument(USER, user.userId, userUpdated);
-                        this.firebaseSvc.updateDocument(VEHICLES, info.data['vehicleId'], info.data);
+                        this.firebaseSvc.updateDocument(VEHICLE, info.data['vehicleId'], info.data);
                         this.utilsSvc.showToast("message.vehicles.editVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -90,7 +92,7 @@ export class VehicleService {
                 const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmDelete");
                 if (confirm) {
                     try {
-                        this.firebaseSvc.deleteDocument(VEHICLES, vehicle.vehicleId);
+                        this.firebaseSvc.deleteDocument(VEHICLE, vehicle.vehicleId);
                         this.deleteVehiclePreview(vehicle.vehicleId);
                         this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
@@ -125,6 +127,7 @@ export class VehicleService {
                 var vehiclePreview: VehiclePreview = {
                     available: vehicleUpdated.available,
                     brand: vehicleUpdated.brand,
+                    created: vehicleUpdated.created,
                     category: vehicleUpdated.category,
                     model: vehicleUpdated.model,
                     plate: vehicleUpdated.plate,

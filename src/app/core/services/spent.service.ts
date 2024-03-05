@@ -8,7 +8,7 @@ import { Spent } from '../interfaces/Spent';
 import { Vehicle } from '../interfaces/Vehicle';
 import { CustomTranslateService } from './custom-translate.service';
 import { UtilsService } from './utils.service';
-import { MyToast, VEHICLES } from './const.service';
+import { MyToast, VEHICLE } from './const.service';
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +38,7 @@ export class SpentService {
                     try {
                         var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                         var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
-                        await this.firebaseSvc.updateDocument(VEHICLES, vehicleSelected?.vehicleId!, vehicleWithSpents)
+                        await this.firebaseSvc.updateDocument(VEHICLE, vehicleSelected?.vehicleId!, vehicleWithSpents)
                         this.utilsSvc.showToast("message.spents.newSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -68,7 +68,7 @@ export class SpentService {
                     this.sortSpentsByDate(spentsListUpdated);
                     vehicle.spents = spentsListUpdated;
                     try {
-                        this.firebaseSvc.updateDocument("vehicles", vehicle.vehicleId, vehicle);
+                        this.firebaseSvc.updateDocument(VEHICLE, vehicle.vehicleId, vehicle);
                         this.utilsSvc.showToast("message.spents.editSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -87,7 +87,7 @@ export class SpentService {
                             return spent.spentId != _spent.spentId;
                         });
                         var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
-                        this.firebaseSvc.updateDocument(VEHICLES, vehicleUpdated.vehicleId, vehicleUpdated);
+                        this.firebaseSvc.updateDocument(VEHICLE, vehicleUpdated.vehicleId, vehicleUpdated);
                         this.utilsSvc.showToast("message.spents.deleteSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);

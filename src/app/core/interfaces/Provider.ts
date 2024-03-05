@@ -1,5 +1,6 @@
 export interface Provider {
     category: ProviderCategory,
+    created: string,
     name: string,
     phone: string,
     providerId: string,

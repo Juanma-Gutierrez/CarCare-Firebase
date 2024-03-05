@@ -4,6 +4,8 @@ import { ModalController } from '@ionic/angular';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { generateId } from 'src/app/core/services/utils.service';
 import { Provider } from 'src/app/core/interfaces/Provider';
+import { CATEGORIES } from 'src/app/core/services/const.service';
+
 
 @Component({
     selector: 'app-providers-form',
@@ -11,16 +13,18 @@ import { Provider } from 'src/app/core/interfaces/Provider';
     styleUrls: ['./providers-form.component.scss'],
 })
 export class ProvidersFormComponent implements OnInit {
+    public categories = CATEGORIES;
 
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set provider(_provider: Provider | null) {
         if (_provider) {
             this.mode = 'Edit';
-            this.form.controls['providerId'].setValue(_provider.providerId);
-            this.form.controls['name'].setValue(_provider.name);
             this.form.controls['category'].setValue(_provider.category);
+            this.form.controls['created'].setValue(_provider.created);
+            this.form.controls['name'].setValue(_provider.name);
             this.form.controls['phone'].setValue(_provider.phone);
+            this.form.controls['providerId'].setValue(_provider.providerId);
         }
     }
 
@@ -37,6 +41,7 @@ export class ProvidersFormComponent implements OnInit {
             category: ['', Validators.required],
             phone: [''],
             userId: [userId],
+            created: [new Date().toISOString()],
         })
     }
 

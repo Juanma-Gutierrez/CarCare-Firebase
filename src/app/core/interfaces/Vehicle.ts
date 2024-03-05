@@ -3,6 +3,7 @@ import { Spent } from "./Spent"
 export interface Vehicle {
     available: boolean,
     brand: string,
+    created: string,
     category: VehicleCategory,
     model: string,
     plate: string,

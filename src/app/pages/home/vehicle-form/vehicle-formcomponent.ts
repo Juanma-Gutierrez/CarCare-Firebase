@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { VEHICLES } from 'src/app/core/services/const.service';
+import { VEHICLE } from 'src/app/core/services/const.service';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -17,11 +17,13 @@ export class VehicleFormComponent implements OnInit {
     @Input() set vehicle(_vehicle: Vehicle | null) {
         if (_vehicle) {
             var spentsList: Spent[] = []
-            this.firebaseSvc.getDocument(VEHICLES, _vehicle!.vehicleId).then(vehicle => {
+            this.firebaseSvc.getDocument(VEHICLE, _vehicle!.vehicleId).then(vehicle => {
+                console.log(_vehicle)
                 spentsList = vehicle.data['spents'];
                 this.mode = 'Edit';
                 this.form.controls['available'].setValue(_vehicle.available);
                 this.form.controls['brand'].setValue(_vehicle.brand);
+                this.form.controls['created'].setValue(_vehicle.created);
                 this.form.controls['category'].setValue(_vehicle.category);
                 this.form.controls['model'].setValue(_vehicle.model);
                 this.form.controls['plate'].setValue(_vehicle.plate);
@@ -40,6 +42,7 @@ export class VehicleFormComponent implements OnInit {
         this.form = this.formBuilder.group({
             available: [true],
             brand: ['', Validators.required],
+            created: [new Date().toISOString()],
             category: ['car', Validators.required],
             model: ['', Validators.required],
             plate: ['', Validators.required],

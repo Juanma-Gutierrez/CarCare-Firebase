@@ -31,7 +31,7 @@ export class LocalDataService {
         }
     }
 
-    getUser() {
+    getUser(): BehaviorSubject<User | null> {
         return this._user;
     }
 
@@ -39,7 +39,7 @@ export class LocalDataService {
         this._vehicle.next(vehicle);
     }
 
-    getVehicle() {
+    getVehicle(): BehaviorSubject<Vehicle | null> {
         return this._vehicle;
     }
 
@@ -47,7 +47,7 @@ export class LocalDataService {
         this._spents.next(spents);
     }
 
-    getSpents() {
+    getSpents(): BehaviorSubject<Spent[]> {
         return this._spents;
     }
 
@@ -55,7 +55,7 @@ export class LocalDataService {
         this._providers.next(providers)
     }
 
-    getProviders() {
+    getProviders(): BehaviorSubject<Provider[] | null> {
         return this._providers
     }
 

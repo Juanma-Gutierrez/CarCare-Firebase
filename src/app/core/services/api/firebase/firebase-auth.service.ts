@@ -7,7 +7,7 @@ import { User, UserCredential } from '../../../interfaces/User';
 import { inject } from '@angular/core';
 import { FirebaseMappingService } from './firebase-mapping.service';
 import { UtilsService } from '../../utils.service';
-import { PROVIDERS, USER } from '../../const.service';
+import { PROVIDER, USER } from '../../const.service';
 
 
 export class FirebaseAuthService extends AuthService {
@@ -86,6 +86,6 @@ export class FirebaseAuthService extends AuthService {
         var providers = {
             providers: []
         }
-        this.firebaseSvc.createDocumentWithId(PROVIDERS, providers, uid)
+        this.firebaseSvc.createDocumentWithId(PROVIDER, providers, uid)
     }
 }

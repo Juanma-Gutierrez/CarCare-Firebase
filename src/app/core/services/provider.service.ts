@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { LocalDataService } from './api/local-data.service';
 import { UtilsService } from './utils.service';
 import { Provider } from '../interfaces/Provider';
-import { MyToast, PROVIDERS } from './const.service';
+import { MyToast, PROVIDER} from './const.service';
 
 @Injectable({
     providedIn: 'root'
@@ -28,9 +28,11 @@ export class ProviderService {
                 if (confirm) {
                     try {
                         var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
-                        var provider = this.firebaseMappingSvc.mapFBProvider(info.data);
+                        if (providersList == undefined) providersList = [];
+                        var provider: Provider = this.firebaseMappingSvc.mapFBProvider(info.data);
                         providersList.push(provider)
-                        await this.firebaseSvc.updateDocument(PROVIDERS, info.data.userId, { PROVIDERS: providersList })
+                        var providerToUpdate = this.firebaseMappingSvc.providerToUpdate(providersList);
+                        await this.firebaseSvc.updateDocument(PROVIDER, info.data.userId, providerToUpdate)
                         this.utilsSvc.showToast("message.providers.newProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -59,7 +61,7 @@ export class ProviderService {
                         })
                     }
                     try {
-                        this.firebaseSvc.updateDocument(PROVIDERS, user!.userId, providersFiltered);
+                        this.firebaseSvc.updateDocument(PROVIDER, user!.userId, providersFiltered);
                         this.utilsSvc.showToast("message.providers.editProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
@@ -79,7 +81,7 @@ export class ProviderService {
                         })
                     }
                     try {
-                        this.firebaseSvc.updateDocument(PROVIDERS, user!.userId, providersFiltered);
+                        this.firebaseSvc.updateDocument(PROVIDER, user!.userId, providersFiltered);
                         this.utilsSvc.showToast("message.providers.deleteProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);

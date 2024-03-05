@@ -16,7 +16,6 @@ export class RegisterFormComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder
     ) {
-        var creationDate = new Date();
         this.form = this.formBuilder.group({
             confirm: ['', [Validators.required, PasswordValidation.passwordProto('confirm')]],
             email: ['', [Validators.required, Validators.email]],
@@ -25,7 +24,7 @@ export class RegisterFormComponent implements OnInit {
             role: [USER_ROLE],
             surname: ['', [Validators.required]],
             username: ['', [Validators.required]],
-            created: [creationDate]
+            created: [new Date().toISOString()],
         }, { validator: [PasswordValidation.passwordMatch('password', 'confirm')] });
     }
 

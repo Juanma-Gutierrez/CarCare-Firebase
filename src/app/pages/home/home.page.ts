@@ -15,7 +15,7 @@ import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
 import { Subscription } from 'rxjs';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { MyToast, PROVIDERS, VEHICLES } from 'src/app/core/services/const.service';
+import { MyToast, PROVIDER, VEHICLE } from 'src/app/core/services/const.service';
 
 @Component({
     selector: 'app-home',
@@ -23,11 +23,11 @@ import { MyToast, PROVIDERS, VEHICLES } from 'src/app/core/services/const.servic
     styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit, OnDestroy {
-    private unsubscribes: (Unsubscribe | null)[] = []
-    private subscriptions: Subscription[] = []
-    public filterAvailableVehicle = true;
     public selectedVehicle: FirebaseDocument | null = null;
     public providers: Provider[] = [];
+    public filterAvailableVehicle = true;
+    private unsubscribes: (Unsubscribe | null)[] = []
+    private subscriptions: Subscription[] = []
 
     constructor(
         private firebaseSvc: FirebaseService,
@@ -41,9 +41,9 @@ export class HomePage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         var user = this.localDataSvc.getUser().value;
-        this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(PROVIDERS, user!.userId, this.localDataSvc.getProviders(), (data) => {
-            return data['providers']
-        }));
+        this.firebaseSvc.subscribeToDocument("provider", user!.userId, this.localDataSvc.getProviders(), (data) => {
+            return (data['providers']);
+        });
     }
 
     selectionChanged(event: CustomEvent) {
@@ -57,7 +57,7 @@ export class HomePage implements OnInit, OnDestroy {
 
     public async onVehicleItemClicked(vehiclePreview: VehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
-        if (vehicle.id) this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(VEHICLES, vehicle.id, this.localDataSvc.getVehicle()));
+        if (vehicle.id) this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(VEHICLE, vehicle.id, this.localDataSvc.getVehicle()));
         this.selectedVehicle = vehicle
         this.subscriptions.push(this.localDataSvc.vehicle$.subscribe(vehicle => {
             this.localDataSvc.setSpents(vehicle?.spents!)
