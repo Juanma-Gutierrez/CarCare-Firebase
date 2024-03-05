@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { generateId } from 'src/app/core/services/utils.service';
 import { Provider } from 'src/app/core/interfaces/Provider';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { CATEGORIES } from 'src/app/core/services/const.service';
+import { generateId } from 'src/app/core/services/utils.service';
 
 
 @Component({

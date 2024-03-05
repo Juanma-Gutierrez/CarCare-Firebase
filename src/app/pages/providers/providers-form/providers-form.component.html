@@ -28,8 +28,8 @@
                     label="{{'providers.providerForm.categoryTitle' | translate}}" formControlName="category"
                     placeholder="{{'providers.providerForm.category.selectCategory' |
                 translate}}" class="input">
-                <ion-select-option *ngFor="let category of categories" [value]="category.value">{{category.title |
-                    translate}}</ion-select-option>
+                    <ion-select-option *ngFor="let category of categories" [value]="category.value">{{category.title |
+                        translate}}</ion-select-option>
                 </ion-select>
             </ion-list>
         </form>
