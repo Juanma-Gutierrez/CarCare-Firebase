@@ -2,18 +2,38 @@
 
 Proyecto realizado para la asignatura de Acceso a datos de 2º de Desarrollo de aplicaciones móviles (DAM).
 
-La aplicación está realizada en Angular e Ionic, utiliza una base de datos de Strapi y está en producción en netlify. También utiliza Capacitor para el almacenamiento local en caché del navegador.
+La aplicación está realizada en Angular e Ionic, utiliza una base de datos de Firebase y está en producción en Netlify. También utiliza servicios de Capacitor.
 
-Link en producción: [https://carcare-project.netlify.app](https://carcare-project.netlify.app/)
+Link en producción: [https://carcare-firebase.netlify.app](https://carcare-firebase.netlify.app/)
 
 ## Tecnologías Utilizadas
 
-- **Angular CLI:** Versión 16.2.10
-- **Node:** Versión 18.17.0# **Autenticación**
-- **Ionic CLI:** Versión 7.1.1
-- **Ionic Framework:** Versión 7.5.4
-- **Capacitor CLI:** Versión 5.5.1
-- **Strapi:** Versión 3.6.11
+Ionic:
+
+   Ionic CLI                     : 7.2.0
+   Ionic Framework               : @ionic/angular 7.5.4
+   @angular-devkit/build-angular : 16.2.10
+   @angular-devkit/schematics    : 16.2.10
+   @angular/cli                  : 16.2.10
+   @ionic/angular-toolkit        : 9.0.0
+
+Capacitor:
+
+   Capacitor CLI      : 5.5.1
+   @capacitor/android : 5.5.1
+   @capacitor/core    : 5.6.0
+   @capacitor/ios     : not installed
+
+Utility:
+
+   cordova-res : not installed globally
+   native-run  : 1.7.4
+
+System:
+
+   NodeJS : v20.11.0
+   npm    : 10.2.4
+   OS     : Windows 10
 
 # **Requisitos del proyecto**
 
@@ -25,7 +45,7 @@ Angular + Ionic + Capacitor
 
 ### BackEnd:
 
-Strapi desplegado de forma pública en la red
+Servicio de autenticación de Firebase y base de datos Firestore Database desplegado de forma pública en la red.
 
 ## Núcleo de la app
 
@@ -48,15 +68,11 @@ Strapi desplegado de forma pública en la red
 
 ### ApiService
 
-- Un servicio de api que contiene la lógica necesaria para comunicarse con el backend (en nuestro caso los endpoints de la api de strapi)
+- Un servicio de api que contiene la lógica necesaria para comunicarse con el backend.
 
 ### HttpClientWebProvider (HttpClientProvider)
 
 - Un servicio de Http para browser que envuelve las llamadas a HttpClient
-
-### JwtService
-
-- Un servicio para manejar los tokens jwt necesarios para el acceso a métodos privados de strapi. Deberá almacenar el token en el almacenamiento interno del navegador. // Servicio anulado para el uso en Firestore y Authentication.
 
 ### LocalService
 
@@ -124,9 +140,6 @@ En la carpeta documentation del repositorio está disponible la documentación d
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0f162392-c52b-426e-a78f-09e80c653d11)
 
-Documentación completa del proyecto:
-
-https://juanma-gutierrez.github.io/CarCareDocumentation/
 
 # Proyecto en marcha
 
@@ -134,7 +147,7 @@ Link al video demostrativo del funcionamiento de la aplicación.
 
 https://www.youtube.com/watch?v=BkaSsS3durw
 
-La aplicación inicia con un control de acceso, ya que comprueba si tiene JWT almacenado en la caché. Si lo tiene, te redirige a la página principal de la aplicación. En caso contrario, te lleva a la página de login y registro.
+La aplicación inicia con un control de acceso, ya que comprueba si el usuario está autenticado en Firebase. Si lo está, lo redirige a la página principal de la aplicación. En caso contrario, lo lleva a la página de login y registro.
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0c35df5a-3369-4784-940f-09b3a88a016f)
 
@@ -166,9 +179,11 @@ Pantalla de creación, edición y eliminación de proveedores.
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/2d00624a-b750-4bb0-a605-9e92973a94e9)
 
-Página 'Sobre mí'
+Página 'Sobre mí'.
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/ea974c04-1b0d-4988-813c-9449bf0c2cf7)
+
+Página de administración.
 
 Página inicial con el servicio de traducción en inglés.
 
