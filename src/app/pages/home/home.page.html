@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="computer-mode">
-    <ion-grid [fixed]="true">
+    <ion-grid class="container">
         <ion-row>
             <ion-col>
                 <div class="ion-text-center">
@@ -39,7 +39,7 @@
                     <ion-card>
                         <ion-card-header>
                             <ion-row>
-                                <ion-col>
+                                <ion-col size="9">
                                     <ion-card-title>{{(localDataSvc.vehicle$|async)?.brand | upperCamelCase}}
                                         {{(localDataSvc.vehicle$|async)?.model | upperCamelCase}}</ion-card-title>
                                     <ion-card-title>{{"home.totalAmount" | translate}}: {{(spentsSvc.totalSpentsAmount$
