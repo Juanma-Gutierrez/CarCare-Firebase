@@ -54,7 +54,7 @@
             "notAvailable": "Vehicle not available",
             "registrationDate": "Registration date",
             "car": "Car",
-            "motorbike": "Motorbike",
+            "motorcycle": "Motorcycle",
             "van": "Van",
             "truck": "Truck"
         }
@@ -170,6 +170,19 @@
             "confirmCreation": "Are you sure you want to create the provider?",
             "confirmEdit": "Are you sure you want to edit the provider?",
             "confirmDelete": "Are you sure you want to delete the provider?"
+        }
+    },
+    "charts": {
+        "titles": {
+            "title1": "By brand",
+            "title2": "Availables by category",
+            "title3": "Availables by category"
+        },
+        "vehicleCategory": {
+                "car": "Car",
+                "motorcycle": "Motorcycle",
+                "van": "Van",
+                "truck": "Truck"
         }
     }
 }

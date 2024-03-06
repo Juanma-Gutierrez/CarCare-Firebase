@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Unsubscribe } from 'firebase/firestore';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User, VehiclePreview } from 'src/app/core/interfaces/User';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { USER } from 'src/app/core/services/const.service';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
+import { capitalizeFirstLetter } from 'src/app/core/services/utils.service';
 
 @Component({
     selector: 'app-admin',
@@ -23,18 +24,17 @@ export class AdminPage implements OnInit, OnDestroy {
 
     constructor(
         private firebaseSvc: FirebaseService,
+        private translateSvc: CustomTranslateService,
     ) {
         this.users$.subscribe(_data => {
-            this.data1 = dataMappingSvc(_data, "brand");
-            this.data2 = dataMappingSvc(_data, "category");
-            this.data3 = dataMappingSvc(_data, "available");
+            this.data1 = dataMappingSvc(_data, "brand", translateSvc);
+            this.data2 = dataMappingSvc(_data, "category", translateSvc);
+            this.data3 = dataMappingSvc(_data, "available", translateSvc);
         });
         this.options = {
             responsive: true,
             maintainAspectRatio: false,
         };
-
-
     }
 
     ngOnInit() {
@@ -59,7 +59,7 @@ export class AdminPage implements OnInit, OnDestroy {
     }
 }
 
-function dataMappingSvc(usersList: User[], segmentation: string): any {
+function dataMappingSvc(usersList: User[], segmentation: string, translateSvc: CustomTranslateService): any {
     var dataset: VehiclePreview[] = [];
     usersList.forEach(user => {
         user.vehicles.forEach(vehicle => {
@@ -67,11 +67,10 @@ function dataMappingSvc(usersList: User[], segmentation: string): any {
         });
     })
     var datamap = dataset.map(d => {
-        console.log(d)
         return {
             available: d.available,
-            brand: d.brand,
-            category: d.category,
+            brand: capitalizeFirstLetter(d.brand),
+            category: translateSvc.getValue("charts.vehicleCategory." + d.category),
         }
     })
     const objectByCategories = countCategories(datamap);
@@ -79,23 +78,22 @@ function dataMappingSvc(usersList: User[], segmentation: string): any {
     var label;
     var data;
     switch (segmentation) {
-        case ("available"): {
-            title = "Unidades disponibles";
-            label = Object.keys(objectByCategories.available);
-            data = Object.values(objectByCategories.available);
-            console.log(data)
-            break;
-        };
         case ("brand"): {
-            title = "Por marca";
+            title = translateSvc.getValue("charts.titles.title1");
             label = Object.keys(objectByCategories.brand);
             data = Object.values(objectByCategories.brand);
             break;
         };
         case ("category"): {
-            title = "Por categoría";
+            title = translateSvc.getValue("charts.titles.title2");
             label = Object.keys(objectByCategories.category);
             data = Object.values(objectByCategories.category);
+            break;
+        };
+        case ("available"): {
+            title = translateSvc.getValue("charts.titles.title3");
+            label = Object.keys(objectByCategories.available);
+            data = Object.values(objectByCategories.available);
             break;
         };
     }

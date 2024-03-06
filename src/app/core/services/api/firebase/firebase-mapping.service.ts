@@ -75,7 +75,6 @@ export class FirebaseMappingService extends MappingService {
         vehicleId: string = data['vehicleId'],
         userId: string = data['userId'],
         spents: [] = data['spents']): Vehicle {
-        console.log(data)
         let vehicle = {
             available: data.available,
             brand: data.brand,
@@ -88,7 +87,6 @@ export class FirebaseMappingService extends MappingService {
             vehicleId: vehicleId,
             userId: userId,
         }
-        console.log(vehicle)
         return vehicle;
     }
 

@@ -53,7 +53,7 @@
             "notAvailable": "Vehículo no disponible",
             "registrationDate": "Fecha de registro",
             "car": "Coche",
-            "motorbike": "Motocicleta",
+            "motorcycle": "Motocicleta",
             "van": "Furgoneta",
             "truck": "Camión"
         }
@@ -117,10 +117,10 @@
     },
     "administration": {
         "administrationTitle": "Administración de usuarios",
-        "username":"Usuario",
-        "name":"Nombre",
-        "surname":"Apellidos",
-        "email":"Correo electrónico"
+        "username": "Usuario",
+        "name": "Nombre",
+        "surname": "Apellidos",
+        "email": "Correo electrónico"
     },
     "message": {
         "confirm": {
@@ -170,6 +170,19 @@
             "confirmCreation": "¿Estás seguro de que quieres crear el proveedor?",
             "confirmEdit": "¿Estás seguro de que quieres editar el proveedor?",
             "confirmDelete": "¿Estás seguro de que quieres eliminar el proveedor?"
+        }
+    },
+    "charts": {
+        "titles": {
+            "title1": "Por marca",
+            "title2": "Dispoibles por categoría",
+            "title3": "Disponibles por categoría"
+        },
+        "vehicleCategory":{
+            "car": "Coche",
+            "motorcycle": "Motocicleta",
+            "van": "Furgoneta",
+            "truck": "Camión"
         }
     }
 }
