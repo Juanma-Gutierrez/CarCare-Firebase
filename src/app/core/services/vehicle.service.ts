@@ -20,24 +20,23 @@ export class VehicleService {
     ) { }
 
     async createVehicle(info: any) {
-        console.log(info)
         switch (info.role) {
             case 'ok': {
                 const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmCreation");
                 if (confirm) {
                     var user = this.localDataSvc.getUser().value;
                     var vehicleId = generateId();
-                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.userId!);
+                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.userId!, []);
                     try {
                         var ref = await this.firebaseSvc.createDocumentWithId(VEHICLE, vehicle, vehicleId);
                         this.updateUser(info.data, ref);
-                        this.utilsSvc.showToast("message.vehicles.newVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                        await this.utilsSvc.showToast("message.vehicles.newVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.vehicles.newVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
+                        await this.utilsSvc.showToast("message.vehicles.newVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -76,15 +75,15 @@ export class VehicleService {
                     try {
                         var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
                         var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
-                        this.firebaseSvc.updateDocument(USER, user.userId, userUpdated);
-                        this.firebaseSvc.updateDocument(VEHICLE, info.data['vehicleId'], info.data);
-                        this.utilsSvc.showToast("message.vehicles.editVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                        await this.firebaseSvc.updateDocument(USER, user.userId, userUpdated);
+                        await this.firebaseSvc.updateDocument(VEHICLE, info.data['vehicleId'], info.data);
+                        await this.utilsSvc.showToast("message.vehicles.editVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.vehicles.editVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
+                        await this.utilsSvc.showToast("message.vehicles.editVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -92,15 +91,15 @@ export class VehicleService {
                 const confirm = await this.utilsSvc.showConfirm("message.vehicles.confirmDelete");
                 if (confirm) {
                     try {
-                        this.firebaseSvc.deleteDocument(VEHICLE, vehicle.vehicleId);
-                        this.deleteVehiclePreview(vehicle.vehicleId);
-                        this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                        await this.firebaseSvc.deleteDocument(VEHICLE, vehicle.vehicleId);
+                        await this.deleteVehiclePreview(vehicle.vehicleId);
+                        await this.utilsSvc.showToast("message.vehicles.deleteVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.vehicles.deleteVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
+                        await this.utilsSvc.showToast("message.vehicles.deleteVehicleError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }

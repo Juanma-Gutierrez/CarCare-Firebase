@@ -108,9 +108,9 @@ export class HomePage implements OnInit, OnDestroy {
         });
     }
 
-    createSpent(vehicleSelected: DocumentData) {
+    async createSpent(vehicleSelected: DocumentData) {
         if (this.localDataSvc.getProviders().value?.length == 0) {
-            this.utilsSvc.showToast("message.providers.noneProvider", MyToast.Color.DANGER, MyToast.Position.TOP);
+            await this.utilsSvc.showToast("message.providers.noneProvider", MyToast.Color.DANGER, MyToast.Position.TOP);
             this.router.navigate(['/providers']);
         } else {
             var onDismiss = async (info: any) => {

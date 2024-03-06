@@ -36,7 +36,7 @@ export class ProvidersPage implements OnInit, OnDestroy {
 
     onEditProviderClicked(provider: Provider) {
         var onDismiss = (info: any) => {
-            this.providerSvc.editProvider(info, provider);
+            this.providerSvc.editOrDeleteProvider(info, provider);
         }
         this.presentForm(provider, onDismiss);
     }

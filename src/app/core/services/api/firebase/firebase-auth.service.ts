@@ -82,10 +82,10 @@ export class FirebaseAuthService extends AuthService {
         this.localDataSvc.setUser(newUser);
     }
 
-    createEmptyProviders(uid: string) {
+    async createEmptyProviders(uid: string) {
         var providers = {
             providers: []
         }
-        this.firebaseSvc.createDocumentWithId(PROVIDER, providers, uid)
+        await this.firebaseSvc.createDocumentWithId(PROVIDER, providers, uid)
     }
 }

@@ -18,7 +18,6 @@ export class VehicleFormComponent implements OnInit {
         if (_vehicle) {
             var spentsList: Spent[] = []
             this.firebaseSvc.getDocument(VEHICLE, _vehicle!.vehicleId).then(vehicle => {
-                console.log(_vehicle)
                 spentsList = vehicle.data['spents'];
                 this.mode = 'Edit';
                 this.form.controls['available'].setValue(_vehicle.available);

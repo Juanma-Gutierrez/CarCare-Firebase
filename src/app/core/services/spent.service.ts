@@ -39,13 +39,13 @@ export class SpentService {
                         var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
                         var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
                         await this.firebaseSvc.updateDocument(VEHICLE, vehicleSelected?.vehicleId!, vehicleWithSpents)
-                        this.utilsSvc.showToast("message.spents.newSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                        await this.utilsSvc.showToast("message.spents.newSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.spents.newSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
+                        await this.utilsSvc.showToast("message.spents.newSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -68,14 +68,14 @@ export class SpentService {
                     this.sortSpentsByDate(spentsListUpdated);
                     vehicle.spents = spentsListUpdated;
                     try {
-                        this.firebaseSvc.updateDocument(VEHICLE, vehicle.vehicleId, vehicle);
-                        this.utilsSvc.showToast("message.spents.editSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                        await this.firebaseSvc.updateDocument(VEHICLE, vehicle.vehicleId, vehicle);
+                        await this.utilsSvc.showToast("message.spents.editSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.spents.editSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
+                        await this.utilsSvc.showToast("message.spents.editSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -87,14 +87,14 @@ export class SpentService {
                             return spent.spentId != _spent.spentId;
                         });
                         var vehicleUpdated = this.firebaseMappingSvc.mapVehicleWithSpents(vehicle!, spentsList);
-                        this.firebaseSvc.updateDocument(VEHICLE, vehicleUpdated.vehicleId, vehicleUpdated);
-                        this.utilsSvc.showToast("message.spents.deleteSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                        await this.firebaseSvc.updateDocument(VEHICLE, vehicleUpdated.vehicleId, vehicleUpdated);
+                        await this.utilsSvc.showToast("message.spents.deleteSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.spents.deleteSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
+                        await this.utilsSvc.showToast("message.spents.deleteSpentError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }

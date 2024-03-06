@@ -6,6 +6,7 @@ import { FirebaseMappingService } from './api/firebase/firebase-mapping.service'
 import { LocalDataService } from './api/local-data.service';
 import { MyToast, PROVIDER, VEHICLE } from './const.service';
 import { UtilsService } from './utils.service';
+import { Vehicle } from '../interfaces/Vehicle';
 
 @Injectable({
     providedIn: 'root'
@@ -32,13 +33,13 @@ export class ProviderService {
                         providersList.push(provider)
                         var providerToUpdate = this.firebaseMappingSvc.providerToUpdate(providersList);
                         await this.firebaseSvc.updateDocument(PROVIDER, info.data.userId, providerToUpdate)
-                        this.utilsSvc.showToast("message.providers.newProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                        await this.utilsSvc.showToast("message.providers.newProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
                         console.error(e);
-                        this.utilsSvc.showToast("message.providers.newProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
+                        await this.utilsSvc.showToast("message.providers.newProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
                     }
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
@@ -47,48 +48,25 @@ export class ProviderService {
             }
         }
     }
-    async editProvider(info: any, provider: Provider) {
-        var user = this.localDataSvc.getUser().value;
+    async editOrDeleteProvider(info: any, provider: Provider) {
         var providersList = this.localDataSvc.getProviders().value
-        console.log(info)
-        console.log(provider)
         switch (info.role) {
             case 'ok': {
                 const confirm = await this.utilsSvc.showConfirm("message.providers.confirmEdit");
                 if (confirm) {
-                    var providersFiltered: any = {
-                        providers: providersList?.map(_provider => {
-                            return (_provider.providerId == provider.providerId) ? info.data : _provider
-                        })
-                    }
-                    try {
-                        this.firebaseSvc.updateDocument(PROVIDER, user!.userId, providersFiltered);
-                        this.utilsSvc.showToast("message.providers.editProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
-                    } catch (e) {
-                        console.error(e);
-                        this.utilsSvc.showToast("message.providers.editProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
-                    }
+                    this.editProvider(providersList, info, provider);
                 } else {
-                    this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
                 }
                 break;
             }
             case 'delete': {
-                var vehiclesList = this.localDataSvc.getUser().value?.vehicles;
-                vehiclesList?.forEach(vehicle => {
-                    this.firebaseSvc.getDocument(VEHICLE, vehicle.vehicleId).then(data => {
-                        var spent = data.data['spents']
-                        spent.forEach((s: Spent) => {
-                            if (provider.providerId == s.providerId) {
-                                //TODO Recorre todos los gastos de todos los vehículos y debe eliminar
-                                // el gasto del proveedor de cada uno de los vehículos
-                                // Crear función que haga la edición/borrado en función de lo que se le pase
-                            }
-                        });
-                    })
-                })
-                // Elimina el documento del proveedor
-                this.deleteProvider(providersList, info);
+                const confirm = await this.utilsSvc.showConfirm("message.providers.confirmDelete");
+                if (confirm) {
+                    await this.deleteProvider(providersList, info).catch(err => console.error(err));
+                } else {
+                    await this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                }
                 break;
             }
             default: {
@@ -96,25 +74,59 @@ export class ProviderService {
             }
         }
     }
+    async editProvider(providersList: Provider[] | null, info: any, provider: Provider) {
+        var user = this.localDataSvc.getUser().value;
+        var providersFiltered: any = {
+            providers: providersList?.map(_provider => {
+                return (_provider.providerId == provider.providerId) ? info.data : _provider
+            })
+        }
+        try {
+            var vehiclesList = this.localDataSvc.getUser().value?.vehicles;
+            var spentListUpdated: Spent[] = [];
+            vehiclesList?.forEach(async vehiclePreview => {
+                var vehicleToUpdate: Vehicle;
+                await this.firebaseSvc.getDocument(VEHICLE, vehiclePreview.vehicleId).then(vehicle => {
+                    spentListUpdated = []
+                    var spent = vehicle.data['spents']
+                    spent.forEach((s: Spent) => {
+                        if (provider.providerId == s.providerId) {
+                            var spentUpdated: Spent = {
+                                amount: s.amount,
+                                created: s.created,
+                                date: s.date,
+                                observations: s.observations,
+                                providerId: s.providerId,
+                                providerName: info.data.name,
+                                spentId: s.spentId,
+                            }
+                            spentListUpdated.push(spentUpdated)
+                        } else {
+                            spentListUpdated.push(s)
+                        }
+                    });
+                    vehicle.data['spents'] = spentListUpdated;
+                    vehicleToUpdate = this.firebaseMappingSvc.mapFBVehicle(vehicle.data);
+                    this.firebaseSvc.updateDocument(VEHICLE, vehicle.data['vehicleId'], vehicle.data);
+                })
+            })
+            // Actualiza el proveedor
+            await this.firebaseSvc.updateDocument(PROVIDER, user!.userId, providersFiltered);
+            await this.utilsSvc.showToast("message.providers.editProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+        } catch (e) {
+            console.error(e);
+            await this.utilsSvc.showToast("message.providers.editProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
+        }
+    }
 
     async deleteProvider(providersList: Provider[] | null, info: any) {
-        const confirm = await this.utilsSvc.showConfirm("message.providers.confirmDelete");
-        if (confirm) {
-            var providersFiltered: any = {
-                providers: providersList?.filter(_provider => {
-                    return _provider.providerId != info.data.providerId;
-                })
-            }
-            try {
-                this.firebaseSvc.updateDocument(PROVIDER, info.userId, providersFiltered);
-                this.utilsSvc.showToast("message.providers.deleteProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
-            } catch (e) {
-                console.error(e);
-                this.utilsSvc.showToast("message.providers.deleteProviderError", MyToast.Color.DANGER, MyToast.Position.TOP);
-            }
-        } else {
-            this.utilsSvc.showToast("message.confirm.actionCancel", MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+        var providersFiltered: any = {
+            providers: providersList?.filter(_provider => {
+                return _provider.providerId != info.data.providerId;
+            })
         }
+        await this.firebaseSvc.updateDocument(PROVIDER, info.data.userId, providersFiltered).catch(err => { throw new Error(err) });
+        await this.utilsSvc.showToast("message.providers.deleteProviderOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM).catch(err => { throw new Error(err) });
     }
 }
 

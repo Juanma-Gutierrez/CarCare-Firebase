@@ -85,8 +85,13 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    public mapFBVehicle(data: any, vehicleId: string, userId: string): Vehicle {
-        return {
+    public mapFBVehicle(
+        data: any,
+        vehicleId: string = data['vehicleId'],
+        userId: string = data['userId'],
+        spents: [] = data['spents']): Vehicle {
+        console.log(data)
+        let vehicle = {
             available: data.available,
             brand: data.brand,
             created: data.created,
@@ -94,10 +99,12 @@ export class FirebaseMappingService extends MappingService {
             model: data.model,
             plate: data.plate,
             registrationDate: data.registrationDate,
-            spents: [],
+            spents: spents,
             vehicleId: vehicleId,
             userId: userId,
         }
+        console.log(vehicle)
+        return vehicle;
     }
 
     public mapFBProvider(data: any): Provider {
@@ -123,7 +130,7 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    mapUserWithVehicles(user: User, vehiclesListUpdated: VehiclePreview[]): User {
+    mapUserWithVehicles(user: User, vehicles: VehiclePreview[]): User {
         var data = {
             created: user.created,
             email: user.email,
@@ -132,9 +139,8 @@ export class FirebaseMappingService extends MappingService {
             nickname: user.nickname,
             role: user.role,
             surname: user.surname,
-            vehicles: vehiclesListUpdated,
+            vehicles: vehicles,
         }
-        console.log(data)
         return data
     }
 
