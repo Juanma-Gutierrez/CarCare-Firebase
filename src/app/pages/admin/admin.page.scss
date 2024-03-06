@@ -1,5 +1,7 @@
 ion-content {
-    height: 100vw;
+    display: flex;
+    justify-content:center;
+    align-items:flex-start;
 }
 
 ion-card-title {
@@ -20,8 +22,29 @@ ion-card-title {
     }
 }
 
+.charts-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.charts-container {
+    width: 25vw;
+    min-width: 100px;
+    max-width: 1200px;
+}
+
 @media (max-width: 767px) {
     .header {
         display: none;
+    }
+
+    .charts-line {
+        flex-direction: column;
+    }
+
+    .charts-container {
+        width: 80vw;
     }
 }

@@ -1,19 +1,20 @@
-import { ButtonDirective } from './directives/button-directive.directive';
-import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { IonicModule } from '@ionic/angular';
-import { ItemDirective } from './directives/item-directive.directive';
 import { NgModule } from '@angular/core';
-import { NumberFormatPipe } from './pipes/number-format.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectedCardDirective } from './directives/selectable-card.directive';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { IonicModule } from '@ionic/angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { UpperCamelCasePipe } from './pipes/upper-camel-case.pipe';
-import { UserItemComponent } from './components/toolbar/user-item/user-item.component';
+import { ChartModule } from 'primeng/chart';
 import { createTranslateLoader } from '../core/services/custom-translate.service';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { UserItemComponent } from './components/toolbar/user-item/user-item.component';
+import { ButtonDirective } from './directives/button-directive.directive';
+import { ItemDirective } from './directives/item-directive.directive';
+import { SelectedCardDirective } from './directives/selectable-card.directive';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { NumberFormatPipe } from './pipes/number-format.pipe';
+import { UpperCamelCasePipe } from './pipes/upper-camel-case.pipe';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
         IonicModule,
         ReactiveFormsModule,
         RouterModule,
+        ChartModule,
         TranslateModule.forChild({
             loader: {
                 provide: TranslateLoader,
@@ -55,6 +57,7 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
         ItemDirective,
         SelectedCardDirective,
         // Modules
+        ChartModule,
         CommonModule,
         FormsModule,
         HttpClientModule,
