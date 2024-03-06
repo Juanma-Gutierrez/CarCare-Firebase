@@ -1,22 +1,16 @@
-import { MappingService } from "../mapping.service";
-import { Vehicle } from "../../../interfaces/Vehicle";
 import { Injectable } from "@angular/core";
-import { User, VehiclePreview } from "../../../interfaces/User";
 import { Provider } from "../../../interfaces/Provider";
 import { Spent } from "../../../interfaces/Spent";
-import { FirebaseDocument } from "./firebase.service";
+import { User, VehiclePreview } from "../../../interfaces/User";
+import { Vehicle } from "../../../interfaces/Vehicle";
 import { USER } from "../../const.service";
+import { MappingService } from "../mapping.service";
+import { FirebaseDocument } from "./firebase.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class FirebaseMappingService extends MappingService {
-    providerToUpdate(providersList: Provider[]) {
-        return {
-            "providers": providersList
-        }
-    }
-
 
     constructor() {
         super();
@@ -33,9 +27,6 @@ export class FirebaseMappingService extends MappingService {
     public override deleteVehicleUrl(id: number): string {
         throw new Error("Method not implemented.");
     }
-    public override mapVehicle(data: any): Vehicle {
-        throw new Error("Method not implemented.");
-    }
     public override mapVehicles(data: any): Vehicle[] {
         throw new Error("Method not implemented.");
     }
@@ -45,16 +36,10 @@ export class FirebaseMappingService extends MappingService {
     public override deleteProviderUrl(id: number): string {
         throw new Error("Method not implemented.");
     }
-    public override mapProvider(data: any): Provider {
-        throw new Error("Method not implemented.");
-    }
     public override updateSpentUrl(id: number): string {
         throw new Error("Method not implemented.");
     }
     public override deleteSpentUrl(id: number): string {
-        throw new Error("Method not implemented.");
-    }
-    public override mapSpent(data: any): Spent {
         throw new Error("Method not implemented.");
     }
 
@@ -85,7 +70,7 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    public mapFBVehicle(
+    public mapVehicle(
         data: any,
         vehicleId: string = data['vehicleId'],
         userId: string = data['userId'],
@@ -107,7 +92,7 @@ export class FirebaseMappingService extends MappingService {
         return vehicle;
     }
 
-    public mapFBProvider(data: any): Provider {
+    public mapProvider(data: any): Provider {
         return {
             providerId: data.providerId,
             created: data.created,
@@ -117,7 +102,7 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
-    mapFBSpent(data: any): Spent {
+    mapSpent(data: any): Spent {
         return {
             amount: data.amount,
             created: data.created,
@@ -159,4 +144,21 @@ export class FirebaseMappingService extends MappingService {
         }
     }
 
+    mapSpentWithProvider(s: Spent, provider: Provider, info: any): Spent {
+        return {
+            amount: s.amount,
+            created: s.created,
+            date: s.date,
+            observations: s.observations,
+            providerId: s.providerId,
+            providerName: info.data.name,
+            spentId: s.spentId,
+        }
+    }
+
+    providerToUpdate(providersList: Provider[]) {
+        return {
+            "providers": providersList
+        }
+    }
 }

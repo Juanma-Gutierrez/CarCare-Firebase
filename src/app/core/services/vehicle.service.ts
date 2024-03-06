@@ -1,11 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
-import { LocalDataService } from './api/local-data.service';
-import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
-import { FirebaseService } from './api/firebase/FirebaseService';
+import { Injectable } from '@angular/core';
 import { DocumentReference } from 'firebase/firestore';
 import { User, VehiclePreview } from '../interfaces/User';
-import { UtilsService, generateId } from './utils.service';
+import { FirebaseService } from './api/firebase/FirebaseService';
+import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
+import { LocalDataService } from './api/local-data.service';
 import { MyToast, USER, VEHICLE } from './const.service';
+import { UtilsService, generateId } from './utils.service';
 
 @Injectable({
     providedIn: 'root'
@@ -26,7 +26,7 @@ export class VehicleService {
                 if (confirm) {
                     var user = this.localDataSvc.getUser().value;
                     var vehicleId = generateId();
-                    var vehicle = this.firebaseMappingSvc.mapFBVehicle(info.data, vehicleId, user?.userId!, []);
+                    var vehicle = this.firebaseMappingSvc.mapVehicle(info.data, vehicleId, user?.userId!, []);
                     try {
                         var ref = await this.firebaseSvc.createDocumentWithId(VEHICLE, vehicle, vehicleId);
                         this.updateUser(info.data, ref);

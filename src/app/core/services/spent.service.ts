@@ -1,14 +1,14 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { DocumentData } from 'firebase/firestore';
-import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
-import { FirebaseService } from './api/firebase/FirebaseService';
 import { Injectable } from '@angular/core';
-import { LocalDataService } from './api/local-data.service';
+import { DocumentData } from 'firebase/firestore';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Spent } from '../interfaces/Spent';
 import { Vehicle } from '../interfaces/Vehicle';
+import { FirebaseService } from './api/firebase/FirebaseService';
+import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
+import { LocalDataService } from './api/local-data.service';
+import { MyToast, VEHICLE } from './const.service';
 import { CustomTranslateService } from './custom-translate.service';
 import { UtilsService } from './utils.service';
-import { MyToast, VEHICLE } from './const.service';
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +36,7 @@ export class SpentService {
                 const confirm = await this.utilsSvc.showConfirm("message.spents.confirmCreation");
                 if (confirm) {
                     try {
-                        var spent = this.firebaseMappingSvc.mapFBSpent(info.data)
+                        var spent = this.firebaseMappingSvc.mapSpent(info.data)
                         var vehicleWithSpents = await this.addSpentToSpentsArray(vehicleSelected, spent)
                         await this.firebaseSvc.updateDocument(VEHICLE, vehicleSelected?.vehicleId!, vehicleWithSpents)
                         await this.utilsSvc.showToast("message.spents.newSpentOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);

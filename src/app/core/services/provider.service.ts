@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Provider } from '../interfaces/Provider';
 import { Spent } from '../interfaces/Spent';
+import { Vehicle } from '../interfaces/Vehicle';
 import { FirebaseService } from './api/firebase/FirebaseService';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
 import { LocalDataService } from './api/local-data.service';
 import { MyToast, PROVIDER, VEHICLE } from './const.service';
 import { UtilsService } from './utils.service';
-import { Vehicle } from '../interfaces/Vehicle';
 
 @Injectable({
     providedIn: 'root'
@@ -29,7 +29,7 @@ export class ProviderService {
                     try {
                         var providersList: Provider[] = this.localDataSvc.getProviders().value!!;
                         if (providersList == undefined) providersList = [];
-                        var provider: Provider = this.firebaseMappingSvc.mapFBProvider(info.data);
+                        var provider: Provider = this.firebaseMappingSvc.mapProvider(info.data);
                         providersList.push(provider)
                         var providerToUpdate = this.firebaseMappingSvc.providerToUpdate(providersList);
                         await this.firebaseSvc.updateDocument(PROVIDER, info.data.userId, providerToUpdate)
@@ -74,6 +74,7 @@ export class ProviderService {
             }
         }
     }
+
     async editProvider(providersList: Provider[] | null, info: any, provider: Provider) {
         var user = this.localDataSvc.getUser().value;
         var providersFiltered: any = {
@@ -91,22 +92,13 @@ export class ProviderService {
                     var spent = vehicle.data['spents']
                     spent.forEach((s: Spent) => {
                         if (provider.providerId == s.providerId) {
-                            var spentUpdated: Spent = {
-                                amount: s.amount,
-                                created: s.created,
-                                date: s.date,
-                                observations: s.observations,
-                                providerId: s.providerId,
-                                providerName: info.data.name,
-                                spentId: s.spentId,
-                            }
-                            spentListUpdated.push(spentUpdated)
+                            spentListUpdated.push(this.firebaseMappingSvc.mapSpentWithProvider(s, provider, info))
                         } else {
                             spentListUpdated.push(s)
                         }
                     });
                     vehicle.data['spents'] = spentListUpdated;
-                    vehicleToUpdate = this.firebaseMappingSvc.mapFBVehicle(vehicle.data);
+                    vehicleToUpdate = this.firebaseMappingSvc.mapVehicle(vehicle.data);
                     this.firebaseSvc.updateDocument(VEHICLE, vehicle.data['vehicleId'], vehicle.data);
                 })
             })
