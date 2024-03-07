@@ -149,56 +149,60 @@ https://www.youtube.com/watch?v=BkaSsS3durw
 
 La aplicación inicia con un control de acceso, ya que comprueba si el usuario está autenticado en Firebase. Si lo está, lo redirige a la página principal de la aplicación. En caso contrario, lo lleva a la página de login y registro.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0c35df5a-3369-4784-940f-09b3a88a016f)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/f976bd47-5821-4c52-b4b5-e5422696b6af)
 
 Una vez dentro de la aplicación, el usuario podrá dar de alta vehículos, proveedores y cuando ya tenga tanto proveedores como vehículos, podrá crear gastos asignados al vehículo que indique.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/d596c874-f619-47e3-a749-fe889fea81c4)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/1cce58a7-71bc-4362-9863-8a1f4bad6186)
 
 Pantalla inicial con el menú desplegado.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/4a7ce6ed-08b8-498c-ba21-291296434658)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/1bea72e2-c608-481f-b165-c6edfc6a3a23)
 
 Ventana modal de creación, edición y eliminación de vehículos.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/c564d2ba-4e18-4c52-8992-fa06c8878e42)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/26c34911-9032-41de-b9dd-5ba63fc5baea)
 
 Ventana modal de creación, edición y eliminación de gastos.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/b142cb11-7576-49e6-a7c2-bd5433d63715)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/be5691fb-02fb-43b1-818e-c71cf5775920)
 
 Pantalla de vehículos.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/6bf7308f-240d-4fc9-9bd8-b71fb00e9821)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ce881b9f-b0bf-4444-b786-66849d915683)
 
 Pantalla de proveedores.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/93ee9c7e-48c2-4b55-96df-d08aa7a5c7e1)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/37d565aa-89fa-463d-a2e8-82f4660834d5)
 
 Pantalla de creación, edición y eliminación de proveedores.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/2d00624a-b750-4bb0-a605-9e92973a94e9)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/5dfccd53-e6d2-4665-b72b-73f04ecdd5df)
 
 Página 'Sobre mí'.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/ea974c04-1b0d-4988-813c-9449bf0c2cf7)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ada08c92-4f36-48ac-87db-2865865b40d2)
 
 Página de administración.
 
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/e685c3f0-9128-413e-a252-94d6f6254afc)
+
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/8c73ada8-2455-4a2d-abf8-1916551b9be1)
+
 Página inicial con el servicio de traducción en inglés.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/cd79a021-ea1e-440d-a031-5d58a9f864eb)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/84e52342-6b7a-40d6-87fe-80729a72626c)
 
 Modo responsive en móvil.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/1f2d73f9-b4a0-4634-8848-dcf56cee2bd6)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/c79fb927-c44b-4c36-bbeb-4d910cc49693)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/ec5a1a9a-267e-4ced-8769-90fa60f8c84d)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/5cacf14f-2d98-43e6-8426-11bd470bad54)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/71463a9a-8fe5-43a7-913b-b452fcff2fef)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ce6a72d1-5829-4930-826a-b3b724afa3fa)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/d4e45744-d634-4936-8744-cc81ece4299e)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ad3b3b90-d93b-4e1e-8c58-a907d0256777)
 
 Captura del SplashScreen con el que se inicia la aplicación.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/766ae4b3-a325-486e-91d4-bd720950ea0c)
+![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/a46dfe0f-d6bc-4121-acc1-94eaea2e1cc3)
