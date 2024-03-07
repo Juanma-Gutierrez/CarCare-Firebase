@@ -1,0 +1,931 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>CarCare documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">CarCare documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ProviderService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/provider.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Represents a service for managing providers.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createProvider" >createProvider</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteProvider" >deleteProvider</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#editOrDeleteProvider" >editOrDeleteProvider</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#editProvider" >editProvider</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(utilsSvc: <a href="../injectables/UtilsService.html" target="_self">UtilsService</a>, firebaseMappingSvc: <a href="../injectables/FirebaseMappingService.html" target="_self">FirebaseMappingService</a>, firebaseSvc: <a href="../injectables/FirebaseService.html" target="_self">FirebaseService</a>, localDataSvc: <a href="../injectables/LocalDataService.html" target="_self">LocalDataService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/services/provider.service.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Creates an instance of ProviderService.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>utilsSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UtilsService.html" target="_self" >UtilsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The utility service for common functions.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>firebaseMappingSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirebaseMappingService.html" target="_self" >FirebaseMappingService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The service for mapping Firebase data.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>firebaseSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirebaseService.html" target="_self" >FirebaseService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The Firebase service for data operations.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>localDataSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LocalDataService.html" target="_self" >LocalDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The service for managing local data.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createProvider"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createProvider</b></span>
+                        <a href="#createProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createProvider(info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/app/core/services/provider.service.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a new provider based on the provided information.</p>
+<ul>
+<li><code>role</code>: The role of the provider (e.g., &#39;ok&#39;).</li>
+<li><code>data</code>: Additional data related to the provider.</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing details about the provider creation.</li>
+<li><code>role</code>: The role of the provider (e.g., &#39;ok&#39;).</li>
+<li><code>data</code>: Additional data related to the provider.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when the provider creation is complete.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteProvider"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteProvider</b></span>
+                        <a href="#deleteProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteProvider(providersList: <a href="../interfaces/Provider.html" target="_self">Provider[] | null</a>, info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">src/app/core/services/provider.service.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Deletes a provider from the list of providers.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>providersList</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Provider.html" target="_self" >Provider[] | null</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The list of providers.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Additional information related to the delete operation.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editOrDeleteProvider"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>editOrDeleteProvider</b></span>
+                        <a href="#editOrDeleteProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>editOrDeleteProvider(info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, provider: <a href="../interfaces/Provider.html" target="_self">Provider</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/core/services/provider.service.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Edits or deletes a provider based on the provided information and the specified provider.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing details about the action (e.g., &#39;ok&#39; for editing, &#39;delete&#39; for deletion).</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>provider</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Provider.html" target="_self" >Provider</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The provider to be edited or deleted.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when the edit or delete operation is complete.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editProvider"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>editProvider</b></span>
+                        <a href="#editProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>editProvider(providersList: <a href="../interfaces/Provider.html" target="_self">Provider[] | null</a>, info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, provider: <a href="../interfaces/Provider.html" target="_self">Provider</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/core/services/provider.service.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Edits a provider in the list of providers.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>providersList</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Provider.html" target="_self" >Provider[] | null</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The list of providers.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Additional information for the edit operation.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>provider</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Provider.html" target="_self" >Provider</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The provider to be edited.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { Provider } from &#x27;../interfaces/Provider&#x27;;
+import { Spent } from &#x27;../interfaces/Spent&#x27;;
+import { Vehicle } from &#x27;../interfaces/Vehicle&#x27;;
+import { FirebaseService } from &#x27;./api/firebase/FirebaseService&#x27;;
+import { FirebaseMappingService } from &#x27;./api/firebase/firebase-mapping.service&#x27;;
+import { LocalDataService } from &#x27;./api/local-data.service&#x27;;
+import { MyToast, PROVIDER, VEHICLE } from &#x27;./const.service&#x27;;
+import { UtilsService } from &#x27;./utils.service&#x27;;
+
+/**
+ * Represents a service for managing providers.
+ */
+@Injectable({
+    providedIn: &#x27;root&#x27;
+})
+export class ProviderService {
+    /**
+     * Creates an instance of ProviderService.
+     * @param utilsSvc - The utility service for common functions.
+     * @param firebaseMappingSvc - The service for mapping Firebase data.
+     * @param firebaseSvc - The Firebase service for data operations.
+     * @param localDataSvc - The service for managing local data.
+     */
+    constructor(
+        private utilsSvc: UtilsService,
+        private firebaseMappingSvc: FirebaseMappingService,
+        private firebaseSvc: FirebaseService,
+        private localDataSvc: LocalDataService,
+    ) { }
+
+    /**
+     * Creates a new provider based on the provided information.
+     * @param info - An object containing details about the provider creation.
+     *   - &#x60;role&#x60;: The role of the provider (e.g., &#x27;ok&#x27;).
+     *   - &#x60;data&#x60;: Additional data related to the provider.
+     * @returns A promise that resolves when the provider creation is complete.
+     */
+    async createProvider(info: any) {
+        switch (info.role) {
+            case &#x27;ok&#x27;: {
+                const confirm &#x3D; await this.utilsSvc.showConfirm(&quot;message.providers.confirmCreation&quot;);
+                let dasd &#x3D; MyToast.Color
+                if (confirm) {
+                    try {
+                        var providersList: Provider[] &#x3D; this.localDataSvc.getProviders().value!!;
+                        if (providersList &#x3D;&#x3D; undefined) providersList &#x3D; [];
+                        var provider: Provider &#x3D; this.firebaseMappingSvc.mapProvider(info.data);
+                        providersList.push(provider)
+                        var providerToUpdate &#x3D; this.firebaseMappingSvc.providerToUpdate(providersList);
+                        await this.firebaseSvc.updateDocument(PROVIDER, info.data.userId, providerToUpdate)
+                        await this.utilsSvc.showToast(&quot;message.providers.newProviderOk&quot;, MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        await this.utilsSvc.showToast(&quot;message.providers.newProviderError&quot;, MyToast.Color.DANGER, MyToast.Position.TOP);
+                    }
+                } else {
+                    await this.utilsSvc.showToast(&quot;message.confirm.actionCancel&quot;, MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                }
+                break;
+            }
+            default: {
+                console.error(&quot;No debería entrar: createProvider&quot;);
+            }
+        }
+    }
+
+    /**
+     * Edits or deletes a provider based on the provided information and the specified provider.
+     * @param info - An object containing details about the action (e.g., &#x27;ok&#x27; for editing, &#x27;delete&#x27; for deletion).
+     * @param provider - The provider to be edited or deleted.
+     * @returns A promise that resolves when the edit or delete operation is complete.
+     */
+    async editOrDeleteProvider(info: any, provider: Provider) {
+        var providersList &#x3D; this.localDataSvc.getProviders().value
+        switch (info.role) {
+            case &#x27;ok&#x27;: {
+                const confirm &#x3D; await this.utilsSvc.showConfirm(&quot;message.providers.confirmEdit&quot;);
+                if (confirm) {
+                    this.editProvider(providersList, info, provider);
+                } else {
+                    await this.utilsSvc.showToast(&quot;message.confirm.actionCancel&quot;, MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                }
+                break;
+            }
+            case &#x27;delete&#x27;: {
+                const confirm &#x3D; await this.utilsSvc.showConfirm(&quot;message.providers.confirmDelete&quot;);
+                if (confirm) {
+                    await this.deleteProvider(providersList, info).catch(err &#x3D;&gt; console.error(err));
+                } else {
+                    await this.utilsSvc.showToast(&quot;message.confirm.actionCancel&quot;, MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                }
+                break;
+            }
+            default: {
+                console.error(&quot;No debería entrar: editProvider&quot;);
+            }
+        }
+    }
+
+    /**
+     * Edits a provider in the list of providers.
+     * @param {Provider[] | null} providersList - The list of providers.
+     * @param {any} info - Additional information for the edit operation.
+     * @param {Provider} provider - The provider to be edited.
+     * @returns {void}
+     */
+    async editProvider(providersList: Provider[] | null, info: any, provider: Provider) {
+        var user &#x3D; this.localDataSvc.getUser().value;
+        var providersFiltered: any &#x3D; {
+            providers: providersList?.map(_provider &#x3D;&gt; {
+                return (_provider.providerId &#x3D;&#x3D; provider.providerId) ? info.data : _provider
+            })
+        }
+        try {
+            var vehiclesList &#x3D; this.localDataSvc.getUser().value?.vehicles;
+            var spentListUpdated: Spent[] &#x3D; [];
+            vehiclesList?.forEach(async vehiclePreview &#x3D;&gt; {
+                var vehicleToUpdate: Vehicle;
+                await this.firebaseSvc.getDocument(VEHICLE, vehiclePreview.vehicleId).then(vehicle &#x3D;&gt; {
+                    spentListUpdated &#x3D; []
+                    var spent &#x3D; vehicle.data[&#x27;spents&#x27;]
+                    spent.forEach((s: Spent) &#x3D;&gt; {
+                        if (provider.providerId &#x3D;&#x3D; s.providerId) {
+                            spentListUpdated.push(this.firebaseMappingSvc.mapSpentWithProvider(s, provider, info))
+                        } else {
+                            spentListUpdated.push(s)
+                        }
+                    });
+                    vehicle.data[&#x27;spents&#x27;] &#x3D; spentListUpdated;
+                    vehicleToUpdate &#x3D; this.firebaseMappingSvc.mapVehicle(vehicle.data);
+                    this.firebaseSvc.updateDocument(VEHICLE, vehicle.data[&#x27;vehicleId&#x27;], vehicle.data);
+                })
+            })
+            // Actualiza el proveedor
+            await this.firebaseSvc.updateDocument(PROVIDER, user!.userId, providersFiltered);
+            await this.utilsSvc.showToast(&quot;message.providers.editProviderOk&quot;, MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+        } catch (e) {
+            console.error(e);
+            await this.utilsSvc.showToast(&quot;message.providers.editProviderError&quot;, MyToast.Color.DANGER, MyToast.Position.TOP);
+        }
+    }
+
+    /**
+     * Deletes a provider from the list of providers.
+     * @param {Provider[] | null} providersList - The list of providers.
+     * @param {any} info - Additional information related to the delete operation.
+     * @returns {void}
+     */
+    async deleteProvider(providersList: Provider[] | null, info: any) {
+        var providersFiltered: any &#x3D; {
+            providers: providersList?.filter(_provider &#x3D;&gt; {
+                return _provider.providerId !&#x3D; info.data.providerId;
+            })
+        }
+        await this.firebaseSvc.updateDocument(PROVIDER, info.data.userId, providersFiltered).catch(err &#x3D;&gt; { throw new Error(err) });
+        await this.utilsSvc.showToast(&quot;message.providers.deleteProviderOk&quot;, MyToast.Color.SUCCESS, MyToast.Position.BOTTOM).catch(err &#x3D;&gt; { throw new Error(err) });
+    }
+}
+
+
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProviderService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

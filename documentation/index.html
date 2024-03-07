@@ -1,0 +1,317 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>CarCare documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="./" class="navbar-brand">CarCare documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1>Proyecto Car Care app</h1>
+<p>Proyecto realizado para la asignatura de Acceso a datos de 2º de Desarrollo de aplicaciones móviles (DAM).</p>
+<p>La aplicación está realizada en Angular e Ionic, utiliza una base de datos de Firebase y está en producción en Netlify. También utiliza servicios de Capacitor.</p>
+<p>Link en producción: <a href="https://carcare-firebase.netlify.app/">https://carcare-firebase.netlify.app</a></p>
+<h2>Tecnologías Utilizadas</h2>
+<p>Ionic:</p>
+<p>   Ionic CLI                     : 7.2.0
+   Ionic Framework               : @ionic/angular 7.5.4
+   @angular-devkit/build-angular : 16.2.10
+   @angular-devkit/schematics    : 16.2.10
+   @angular/cli                  : 16.2.10
+   @ionic/angular-toolkit        : 9.0.0</p>
+<p>Capacitor:</p>
+<p>   Capacitor CLI      : 5.5.1
+   @capacitor/android : 5.5.1
+   @capacitor/core    : 5.6.0
+   @capacitor/ios     : not installed</p>
+<p>Utility:</p>
+<p>   cordova-res : not installed globally
+   native-run  : 1.7.4</p>
+<p>System:</p>
+<p>   NodeJS : v20.11.0
+   npm    : 10.2.4
+   OS     : Windows 10</p>
+<h1><strong>Requisitos del proyecto</strong></h1>
+<h2>Tecnologías a usar</h2>
+<h3>FrontEnd:</h3>
+<p>Angular + Ionic + Capacitor</p>
+<h3>BackEnd:</h3>
+<p>Servicio de autenticación de Firebase y base de datos Firestore Database desplegado de forma pública en la red.</p>
+<h2>Núcleo de la app</h2>
+<ul>
+<li>Crea un core en tu aplicación donde se añadirán los servicios y utilidades que no dependen de un módulo y que pueden ser importados desde cualquier sitio. (Servicios, interfaces, etc…). Puedes llamarlo core.</li>
+</ul>
+<h2>Módulos</h2>
+<ul>
+<li>Cada página debe ser un módulo independiente.</li>
+<li>Tienes que tener un módulo compartido donde añadirás todo aquello que pueda ser usado en otros módulos. (componentes, directivas y pipes). Puedes llamarlo SharedModule.</li>
+</ul>
+<h2>Servicios</h2>
+<h3>Autenticación</h3>
+<ul>
+<li>Un servicio de autenticación con opciones para hacer login, logout y registro.</li>
+</ul>
+<h3>Acceso a datos</h3>
+<ul>
+<li>Un servicio por cada modelo de datos de la base de datos con métodos para poder hacer las operaciones CRUD sobre dicho modelo.</li>
+</ul>
+<h3>ApiService</h3>
+<ul>
+<li>Un servicio de api que contiene la lógica necesaria para comunicarse con el backend.</li>
+</ul>
+<h3>HttpClientWebProvider (HttpClientProvider)</h3>
+<ul>
+<li>Un servicio de Http para browser que envuelve las llamadas a HttpClient</li>
+</ul>
+<h3>LocalService</h3>
+<ul>
+<li>Un servicio para manejar el idioma con el que se carga la aplicación. Deberá guardar la configuración del idioma seleccionado en el almacenamiento interno del navegador. Hace uso del servicio TranslateService para establecer el idioma seleccionado.</li>
+</ul>
+<h3>TranslateService</h3>
+<ul>
+<li>Haz uso de este servicio incluido en el paquete @ngx-translate/core para ello sigue las instrucciones que el profesor te dio en clases para importar el servicio de forma forRoot y forChild en cada uno de los módulos.</li>
+</ul>
+<h2>Directivas</h2>
+<p>Crea al menos una directiva personalizada.</p>
+<p>Haz uso de al menos 2 de las directivas siguientes:</p>
+<ul>
+<li>ngIf (obligatoria)</li>
+<li>ngFor (obligatoria)</li>
+<li>ngStyle (opcional)</li>
+<li>ngClass (opcional)</li>
+</ul>
+<h2>Pipes</h2>
+<ul>
+<li>Crea al menos un pipe personalizado y haz uso del mismo en tu app.</li>
+<li>Usa los pipes de angular (uppercase, translate, date, …)</li>
+</ul>
+<h2>Componentes</h2>
+<ul>
+<li>Crea componentes para contener las páginas, formularios para editar o añadir datos, visualización de registros de las tablas etc…</li>
+<li>Haz uso de la interfaz ControlValueAccessor en algún componente y úsalo dentro de algún formulario reactivo.</li>
+</ul>
+<h2>Formularios Reactivos</h2>
+<ul>
+<li>Crea al menos un formulario reactivo por cada modelo de datos que tengas.</li>
+</ul>
+<h2>Modales</h2>
+<ul>
+<li>Haz uso de los modales por ejemplo para los formularios reactivos o para otra cosa que se te ocurra.</li>
+</ul>
+<h2>Páginas</h2>
+<p>Habrá al menos:</p>
+<ul>
+<li>Una página de login</li>
+<li>Una página de registro</li>
+<li>Una página de horme</li>
+<li>Una página de about. Tiene que tener información sobre la app y el desarrollador, con enlaces externos que se abrirán en otra pestaña.</li>
+<li>Una página por cada modelo de datos</li>
+</ul>
+<h2>Enrutamiento</h2>
+<ul>
+<li>Organiza tus páginas en el enrutador de la aplicación y protege las mismas que necesiten un usuario autenticado mediante una <strong>guarda</strong> que debes implementar.</li>
+</ul>
+<h2>Interfaz de usuario</h2>
+<ul>
+<li>Tu app debe ser responsiva.</li>
+<li>Haz uso de los componentes de ionic.</li>
+<li>Configura el tema de ionic para cambiar los colores corporativos que se añaden por defecto.</li>
+<li>Haz uso de componentes de PrimeNg (opcional).</li>
+</ul>
+<h1>Documentación del proyecto</h1>
+<p>En la carpeta documentation del repositorio está disponible la documentación del proyecto.</p>
+<p>Éste ese un resumen de los principales elementos utilizados en la aplicación.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0f162392-c52b-426e-a78f-09e80c653d11" alt="image" class="img-responsive"></p>
+<h1>Proyecto en marcha</h1>
+<p>Link al video demostrativo del funcionamiento de la aplicación.</p>
+<p><a href="https://www.youtube.com/watch?v=BkaSsS3durw">https://www.youtube.com/watch?v=BkaSsS3durw</a></p>
+<p>La aplicación inicia con un control de acceso, ya que comprueba si el usuario está autenticado en Firebase. Si lo está, lo redirige a la página principal de la aplicación. En caso contrario, lo lleva a la página de login y registro.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0c35df5a-3369-4784-940f-09b3a88a016f" alt="image" class="img-responsive"></p>
+<p>Una vez dentro de la aplicación, el usuario podrá dar de alta vehículos, proveedores y cuando ya tenga tanto proveedores como vehículos, podrá crear gastos asignados al vehículo que indique.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/d596c874-f619-47e3-a749-fe889fea81c4" alt="image" class="img-responsive"></p>
+<p>Pantalla inicial con el menú desplegado.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/4a7ce6ed-08b8-498c-ba21-291296434658" alt="image" class="img-responsive"></p>
+<p>Ventana modal de creación, edición y eliminación de vehículos.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/c564d2ba-4e18-4c52-8992-fa06c8878e42" alt="image" class="img-responsive"></p>
+<p>Ventana modal de creación, edición y eliminación de gastos.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/b142cb11-7576-49e6-a7c2-bd5433d63715" alt="image" class="img-responsive"></p>
+<p>Pantalla de vehículos.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/6bf7308f-240d-4fc9-9bd8-b71fb00e9821" alt="image" class="img-responsive"></p>
+<p>Pantalla de proveedores.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/93ee9c7e-48c2-4b55-96df-d08aa7a5c7e1" alt="image" class="img-responsive"></p>
+<p>Pantalla de creación, edición y eliminación de proveedores.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/2d00624a-b750-4bb0-a605-9e92973a94e9" alt="image" class="img-responsive"></p>
+<p>Página &#39;Sobre mí&#39;.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/ea974c04-1b0d-4988-813c-9449bf0c2cf7" alt="image" class="img-responsive"></p>
+<p>Página de administración.</p>
+<p>Página inicial con el servicio de traducción en inglés.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/cd79a021-ea1e-440d-a031-5d58a9f864eb" alt="image" class="img-responsive"></p>
+<p>Modo responsive en móvil.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/1f2d73f9-b4a0-4634-8848-dcf56cee2bd6" alt="image" class="img-responsive"></p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/ec5a1a9a-267e-4ced-8769-90fa60f8c84d" alt="image" class="img-responsive"></p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/71463a9a-8fe5-43a7-913b-b452fcff2fef" alt="image" class="img-responsive"></p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/d4e45744-d634-4936-8744-cc81ece4299e" alt="image" class="img-responsive"></p>
+<p>Captura del SplashScreen con el que se inicia la aplicación.</p>
+<p><img src="https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/766ae4b3-a325-486e-91d4-bd720950ea0c" alt="image" class="img-responsive"></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

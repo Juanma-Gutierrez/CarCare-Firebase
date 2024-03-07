@@ -1,0 +1,1090 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>CarCare documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">CarCare documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >VehicleService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/vehicle.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createVehicle" >createVehicle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteVehiclePreview" >deleteVehiclePreview</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#editVehicle" >editVehicle</a>
+                            </li>
+                            <li>
+                                <a href="#sortVehiclesByDate" >sortVehiclesByDate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateUser" >updateUser</a>
+                            </li>
+                            <li>
+                                <a href="#updateVehicleInUserCollection" >updateVehicleInUserCollection</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(utilsSvc: <a href="../injectables/UtilsService.html" target="_self">UtilsService</a>, firebaseMappingSvc: <a href="../injectables/FirebaseMappingService.html" target="_self">FirebaseMappingService</a>, firebaseSvc: <a href="../injectables/FirebaseService.html" target="_self">FirebaseService</a>, localDataSvc: <a href="../injectables/LocalDataService.html" target="_self">LocalDataService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/core/services/vehicle.service.ts:13</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructs a new VehicleService.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>utilsSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UtilsService.html" target="_self" >UtilsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The utility service for miscellaneous functions.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>firebaseMappingSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirebaseMappingService.html" target="_self" >FirebaseMappingService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The service for mapping Firebase data.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>firebaseSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirebaseService.html" target="_self" >FirebaseService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The service for Firebase operations.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>localDataSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LocalDataService.html" target="_self" >LocalDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The service for local data operations.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createVehicle"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createVehicle</b></span>
+                        <a href="#createVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createVehicle(info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Asynchronously creates a new vehicle.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Information about the creation action.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteVehiclePreview"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteVehiclePreview</b></span>
+                        <a href="#deleteVehiclePreview"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteVehiclePreview(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank">String</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Asynchronously deletes a vehicle preview.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" >String</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the vehicle to be deleted.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editVehicle"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>editVehicle</b></span>
+                        <a href="#editVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>editVehicle(info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, vehicle: <a href="../interfaces/VehiclePreview.html" target="_self">VehiclePreview</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Asynchronously edits a vehicle.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>info</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Information about the edit action.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>vehicle</td>
+                                            <td>
+                                                            <code><a href="../interfaces/VehiclePreview.html" target="_self" >VehiclePreview</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The vehicle object to be edited.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sortVehiclesByDate"></a>
+                    <span class="name">
+                        <span ><b>sortVehiclesByDate</b></span>
+                        <a href="#sortVehiclesByDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sortVehiclesByDate(list: VehiclePreview[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="181"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:181</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sorts an array of vehicle previews by registration date in descending order.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>list</td>
+                                            <td>
+                                                        <code>VehiclePreview[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The array of vehicle previews to be sorted.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>VehiclePreview[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <ul>
+<li>The sorted array of vehicle previews.</li>
+</ul>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUser"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateUser</b></span>
+                        <a href="#updateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateUser(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, ref: DocumentReference)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Asynchronously updates the user&#39;s information with a new vehicle.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The data of the new vehicle.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>ref</td>
+                                            <td>
+                                                        <code>DocumentReference</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The reference to the document of the new vehicle.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateVehicleInUserCollection"></a>
+                    <span class="name">
+                        <span ><b>updateVehicleInUserCollection</b></span>
+                        <a href="#updateVehicleInUserCollection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateVehicleInUserCollection(vehicleUpdated: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, vehicleId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates a vehicle in the user&#39;s collection.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vehicleUpdated</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The updated vehicle data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>vehicleId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the vehicle to be updated.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>VehiclePreview[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <ul>
+<li>The updated list of vehicle previews.</li>
+</ul>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { DocumentReference } from &#x27;firebase/firestore&#x27;;
+import { User, VehiclePreview } from &#x27;../interfaces/User&#x27;;
+import { FirebaseService } from &#x27;./api/firebase/FirebaseService&#x27;;
+import { FirebaseMappingService } from &#x27;./api/firebase/firebase-mapping.service&#x27;;
+import { LocalDataService } from &#x27;./api/local-data.service&#x27;;
+import { MyToast, USER, VEHICLE } from &#x27;./const.service&#x27;;
+import { UtilsService, generateId } from &#x27;./utils.service&#x27;;
+
+@Injectable({
+    providedIn: &#x27;root&#x27;
+})
+export class VehicleService {
+
+    /**
+     * Constructs a new VehicleService.
+     * @param {UtilsService} utilsSvc - The utility service for miscellaneous functions.
+     * @param {FirebaseMappingService} firebaseMappingSvc - The service for mapping Firebase data.
+     * @param {FirebaseService} firebaseSvc - The service for Firebase operations.
+     * @param {LocalDataService} localDataSvc - The service for local data operations.
+     */
+    constructor(
+        private utilsSvc: UtilsService,
+        private firebaseMappingSvc: FirebaseMappingService,
+        private firebaseSvc: FirebaseService,
+        private localDataSvc: LocalDataService,
+    ) { }
+
+    /**
+     * Asynchronously creates a new vehicle.
+     * @param {any} info - Information about the creation action.
+     */
+    async createVehicle(info: any) {
+        switch (info.role) {
+            case &#x27;ok&#x27;: {
+                const confirm &#x3D; await this.utilsSvc.showConfirm(&quot;message.vehicles.confirmCreation&quot;);
+                if (confirm) {
+                    var user &#x3D; this.localDataSvc.getUser().value;
+                    var vehicleId &#x3D; generateId();
+                    var vehicle &#x3D; this.firebaseMappingSvc.mapVehicle(info.data, vehicleId, user?.userId!, []);
+                    try {
+                        var ref &#x3D; await this.firebaseSvc.createDocumentWithId(VEHICLE, vehicle, vehicleId);
+                        this.updateUser(info.data, ref);
+                        await this.utilsSvc.showToast(&quot;message.vehicles.newVehicleOk&quot;, MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        await this.utilsSvc.showToast(&quot;message.vehicles.newVehicleError&quot;, MyToast.Color.DANGER, MyToast.Position.TOP);
+                    }
+                } else {
+                    await this.utilsSvc.showToast(&quot;message.confirm.actionCancel&quot;, MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                }
+                break;
+            }
+            default: {
+                console.error(&quot;No debería entrar: createVehicle&quot;);
+            }
+        }
+    }
+
+    /**
+     * Asynchronously updates the user&#x27;s information with a new vehicle.
+     * @param {any} data - The data of the new vehicle.
+     * @param {DocumentReference} ref - The reference to the document of the new vehicle.
+     */
+    async updateUser(data: any, ref: DocumentReference) {
+        var vehiclePreview: VehiclePreview &#x3D; {
+            available: data.available,
+            brand: data.brand,
+            created: data.created,
+            category: data.category,
+            model: data.model,
+            plate: data.plate,
+            ref: ref,
+            registrationDate: data.registrationDate,
+            vehicleId: ref.id,
+        }
+        var user &#x3D; this.localDataSvc.getUser().value!!
+        var vehiclesList &#x3D; user.vehicles;
+        vehiclesList.push(vehiclePreview);
+        vehiclesList &#x3D; this.sortVehiclesByDate(vehiclesList);
+        user.vehicles &#x3D; vehiclesList;
+        await this.firebaseSvc.updateDocument(USER, user.userId, user);
+    }
+
+    /**
+     * Asynchronously edits a vehicle.
+     * @param {any} info - Information about the edit action.
+     * @param {VehiclePreview} vehicle - The vehicle object to be edited.
+     */
+    async editVehicle(info: any, vehicle: VehiclePreview) {
+        switch (info.role) {
+            case &#x27;ok&#x27;: {
+                const confirm &#x3D; await this.utilsSvc.showConfirm(&quot;message.vehicles.confirmEdit&quot;);
+                if (confirm) {
+                    var user: User &#x3D; this.localDataSvc.getUser().value!
+                    try {
+                        var vehiclesListUpdated: VehiclePreview[] &#x3D; this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
+                        var userUpdated: User &#x3D; this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
+                        await this.firebaseSvc.updateDocument(USER, user.userId, userUpdated);
+                        await this.firebaseSvc.updateDocument(VEHICLE, info.data[&#x27;vehicleId&#x27;], info.data);
+                        await this.utilsSvc.showToast(&quot;message.vehicles.editVehicleOk&quot;, MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        await this.utilsSvc.showToast(&quot;message.vehicles.editVehicleError&quot;, MyToast.Color.DANGER, MyToast.Position.TOP);
+                    }
+                } else {
+                    await this.utilsSvc.showToast(&quot;message.confirm.actionCancel&quot;, MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                }
+                break;
+            }
+            case &#x27;delete&#x27;: {
+                const confirm &#x3D; await this.utilsSvc.showConfirm(&quot;message.vehicles.confirmDelete&quot;);
+                if (confirm) {
+                    try {
+                        await this.firebaseSvc.deleteDocument(VEHICLE, vehicle.vehicleId);
+                        await this.deleteVehiclePreview(vehicle.vehicleId);
+                        await this.utilsSvc.showToast(&quot;message.vehicles.deleteVehicleOk&quot;, MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
+                    } catch (e) {
+                        console.error(e);
+                        await this.utilsSvc.showToast(&quot;message.vehicles.deleteVehicleError&quot;, MyToast.Color.DANGER, MyToast.Position.TOP);
+                    }
+                } else {
+                    await this.utilsSvc.showToast(&quot;message.confirm.actionCancel&quot;, MyToast.Color.DANGER, MyToast.Position.BOTTOM);
+                }
+                break;
+            }
+            default: {
+                console.error(&quot;No debería entrar: editVehicle&quot;);
+            }
+        }
+    }
+
+    /**
+     * Asynchronously deletes a vehicle preview.
+     * @param {String} id - The ID of the vehicle to be deleted.
+     */
+    async deleteVehiclePreview(id: String) {
+        var user &#x3D; this.localDataSvc.getUser().value!!
+        var vehiclesList &#x3D; user.vehicles;
+        vehiclesList &#x3D; vehiclesList.filter(vehicle &#x3D;&gt; { return vehicle.vehicleId !&#x3D; id })
+        user.vehicles &#x3D; vehiclesList;
+        await this.firebaseSvc.updateDocument(USER, user.userId, user)
+    }
+
+    /**
+     * Updates a vehicle in the user&#x27;s collection.
+     * @param {any} vehicleUpdated - The updated vehicle data.
+     * @param {string} vehicleId - The ID of the vehicle to be updated.
+     * @returns {VehiclePreview[]} - The updated list of vehicle previews.
+     */
+    updateVehicleInUserCollection(vehicleUpdated: any, vehicleId: string): VehiclePreview[] {
+        var vehiclesList &#x3D; this.localDataSvc.getUser().value?.vehicles!
+        var vehiclesFiltered: VehiclePreview[] &#x3D; []
+        vehiclesList?.map(vehicle &#x3D;&gt; {
+            if (vehicle.vehicleId &#x3D;&#x3D; vehicleId) {
+                var vehiclePreview: VehiclePreview &#x3D; {
+                    available: vehicleUpdated.available,
+                    brand: vehicleUpdated.brand,
+                    created: vehicleUpdated.created,
+                    category: vehicleUpdated.category,
+                    model: vehicleUpdated.model,
+                    plate: vehicleUpdated.plate,
+                    ref: vehicle.ref,
+                    registrationDate: vehicleUpdated.registrationDate,
+                    vehicleId: vehicleUpdated.vehicleId,
+                }
+                vehiclesFiltered.push(vehiclePreview);
+            } else {
+                vehiclesFiltered.push(vehicle);
+            }
+        })
+        vehiclesFiltered &#x3D; this.sortVehiclesByDate(vehiclesFiltered);
+        return vehiclesFiltered;
+    }
+
+    /**
+     * Sorts an array of vehicle previews by registration date in descending order.
+     * @param {VehiclePreview[]} list - The array of vehicle previews to be sorted.
+     * @returns {VehiclePreview[]} - The sorted array of vehicle previews.
+     */
+    sortVehiclesByDate(list: VehiclePreview[]): VehiclePreview[] {
+        var listOrdered &#x3D; list.sort((a, b) &#x3D;&gt; {
+            const dateA &#x3D; new Date(a.registrationDate).getTime();
+            const dateB &#x3D; new Date(b.registrationDate).getTime();
+            return dateB - dateA;
+        });
+        return listOrdered;
+    }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'VehicleService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
