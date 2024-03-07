@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Provider } from 'src/app/core/interfaces/Provider';
 
+/**
+ * Component for selecting a provider.
+ */
 @Component({
     selector: 'app-provider-selectable',
     templateUrl: './provider-selectable.component.html',
@@ -14,6 +17,10 @@ export class ProviderSelectableComponent implements OnInit {
 
     ngOnInit() { }
 
+    /**
+     * Event handler for when the selected provider changes.
+     * @param {CustomEvent<any>} event - The event containing the new selected provider.
+     */
     onProviderChange(event: CustomEvent<any>) {
         this.selectedProvider = event.detail.value;
     }

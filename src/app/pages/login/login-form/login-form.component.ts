@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 import { loadLocalStorageUser, saveLocalStorageUser } from 'src/app/core/services/utils.service';
 
+/**
+ * Represents a login form component.
+ * This component allows users to input their username and password to log in.
+ */
 @Component({
     selector: 'app-login-form',
     templateUrl: './login-form.component.html',
@@ -24,13 +28,20 @@ export class LoginFormComponent implements OnInit {
         });
     }
 
+    /**
+     * Initializes the login form component.
+     * Loads the username from local storage and sets it as the initial value of the username input field.
+     */
     ngOnInit() {
         loadLocalStorageUser().then(username => {
             this.form?.controls['username'].setValue(username)
         });
     }
 
-
+    /**
+     * Handles form submission.
+     * Emits user credentials if the form is valid.
+     */
     onSubmit() {
         var userName = JSON.stringify(this.form!.value.username, null, 0).replace(/"/g, '');
         saveLocalStorageUser(userName);

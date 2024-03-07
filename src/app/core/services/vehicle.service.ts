@@ -12,6 +12,13 @@ import { UtilsService, generateId } from './utils.service';
 })
 export class VehicleService {
 
+    /**
+     * Constructs a new VehicleService.
+     * @param {UtilsService} utilsSvc - The utility service for miscellaneous functions.
+     * @param {FirebaseMappingService} firebaseMappingSvc - The service for mapping Firebase data.
+     * @param {FirebaseService} firebaseSvc - The service for Firebase operations.
+     * @param {LocalDataService} localDataSvc - The service for local data operations.
+     */
     constructor(
         private utilsSvc: UtilsService,
         private firebaseMappingSvc: FirebaseMappingService,
@@ -19,6 +26,10 @@ export class VehicleService {
         private localDataSvc: LocalDataService,
     ) { }
 
+    /**
+     * Asynchronously creates a new vehicle.
+     * @param {any} info - Information about the creation action.
+     */
     async createVehicle(info: any) {
         switch (info.role) {
             case 'ok': {
@@ -46,6 +57,11 @@ export class VehicleService {
         }
     }
 
+    /**
+     * Asynchronously updates the user's information with a new vehicle.
+     * @param {any} data - The data of the new vehicle.
+     * @param {DocumentReference} ref - The reference to the document of the new vehicle.
+     */
     async updateUser(data: any, ref: DocumentReference) {
         var vehiclePreview: VehiclePreview = {
             available: data.available,
@@ -66,6 +82,11 @@ export class VehicleService {
         await this.firebaseSvc.updateDocument(USER, user.userId, user);
     }
 
+    /**
+     * Asynchronously edits a vehicle.
+     * @param {any} info - Information about the edit action.
+     * @param {VehiclePreview} vehicle - The vehicle object to be edited.
+     */
     async editVehicle(info: any, vehicle: VehiclePreview) {
         switch (info.role) {
             case 'ok': {
@@ -109,6 +130,10 @@ export class VehicleService {
         }
     }
 
+    /**
+     * Asynchronously deletes a vehicle preview.
+     * @param {String} id - The ID of the vehicle to be deleted.
+     */
     async deleteVehiclePreview(id: String) {
         var user = this.localDataSvc.getUser().value!!
         var vehiclesList = user.vehicles;
@@ -117,7 +142,12 @@ export class VehicleService {
         await this.firebaseSvc.updateDocument(USER, user.userId, user)
     }
 
-
+    /**
+     * Updates a vehicle in the user's collection.
+     * @param {any} vehicleUpdated - The updated vehicle data.
+     * @param {string} vehicleId - The ID of the vehicle to be updated.
+     * @returns {VehiclePreview[]} - The updated list of vehicle previews.
+     */
     updateVehicleInUserCollection(vehicleUpdated: any, vehicleId: string): VehiclePreview[] {
         var vehiclesList = this.localDataSvc.getUser().value?.vehicles!
         var vehiclesFiltered: VehiclePreview[] = []
@@ -143,6 +173,11 @@ export class VehicleService {
         return vehiclesFiltered;
     }
 
+    /**
+     * Sorts an array of vehicle previews by registration date in descending order.
+     * @param {VehiclePreview[]} list - The array of vehicle previews to be sorted.
+     * @returns {VehiclePreview[]} - The sorted array of vehicle previews.
+     */
     sortVehiclesByDate(list: VehiclePreview[]): VehiclePreview[] {
         var listOrdered = list.sort((a, b) => {
             const dateA = new Date(a.registrationDate).getTime();

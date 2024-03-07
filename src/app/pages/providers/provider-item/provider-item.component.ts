@@ -1,8 +1,11 @@
-import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 import { Provider } from 'src/app/core/interfaces/Provider';
+import { ApiService } from 'src/app/core/services/api/api.service';
+import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 
+/**
+ * Represents a component to display provider information.
+ */
 @Component({
     selector: 'app-provider-item',
     templateUrl: './provider-item.component.html',
@@ -14,11 +17,22 @@ export class ProviderItemComponent implements OnInit {
     @Output() onEditProviderClicked: EventEmitter<void> = new EventEmitter<void>();
     public categoryFormatted: string = '';
 
+    /**
+     * Initializes the component.
+     * @constructor
+     * @param {ApiService} apiSvc - The ApiService instance.
+     * @param {CustomTranslateService} translate - The CustomTranslateService instance.
+     */
     constructor(
         public apiSvc: ApiService,
         public translate: CustomTranslateService,
     ) { }
 
+    /**
+     * Initializes the component and subscribes to the language change to translate the category.
+     * @returns {void}
+     * @public
+     */
     ngOnInit() {
         var lang = '';
         this.translate.language$.subscribe(l => {
@@ -27,6 +41,12 @@ export class ProviderItemComponent implements OnInit {
         });
     }
 
+    /**
+     * Translates the category based on the provided language.
+     * @param {string} lang - The language code.
+     * @returns {void}
+     * @public
+     */
     translateCategory(lang: string) {
         if (lang == 'en') {
             switch (this.provider?.category) {
@@ -83,6 +103,12 @@ export class ProviderItemComponent implements OnInit {
         }
     }
 
+/**
+ * Handles the click event for editing the provider and emits an event.
+ * @param {Event} event - The click event.
+ * @returns {void}
+ * @public
+ */
     public async onEditProviderClick(event: Event) {
         this.onEditProviderClicked.emit();
         event.stopPropagation();

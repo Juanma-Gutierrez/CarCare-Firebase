@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Provider } from 'src/app/core/interfaces/Provider';
 
+/**
+ * Component for displaying a selectable provider item.
+ */
 @Component({
     selector: 'app-provider-item-selectable',
     templateUrl: './provider-item-selectable.component.html',
@@ -22,7 +25,9 @@ export class ProviderItemSelectableComponent implements OnInit {
 
     ngOnInit() { }
 
-
+    /**
+     * Event handler for when a provider item is clicked.
+     */
     onProviderClicked() {
         this.clicked.emit(this._provider);
     }

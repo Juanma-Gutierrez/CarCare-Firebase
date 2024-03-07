@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RegisterFormComponent } from './register-form/register-form.component';
-import { RegisterPage } from './register.page';
-import { RegisterPageRoutingModule } from './register-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { RegisterPageRoutingModule } from './register-routing.module';
+import { RegisterPage } from './register.page';
 
 @NgModule({
     imports: [

@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { VEHICLE } from 'src/app/core/services/const.service';
 
+/**
+ * Component for managing a vehicle form.
+ */
 @Component({
     selector: 'app-vehicle-form',
     templateUrl: './vehicle-form.component.html',
@@ -33,6 +36,12 @@ export class VehicleFormComponent implements OnInit {
         }
     }
 
+    /**
+     * Constructs a new VehicleFormComponent.
+     * @param {ModalController} _modal - The modal controller for managing modals.
+     * @param {FormBuilder} formBuilder - The form builder for building the form.
+     * @param {FirebaseService} firebaseSvc - The service for Firebase operations.
+     */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
@@ -51,17 +60,28 @@ export class VehicleFormComponent implements OnInit {
         })
     }
 
+    /**
+     * Initializes the VehicleFormComponent.
+     */
     ngOnInit() { }
 
+    /**
+     * Dismisses the modal with a cancellation result.
+     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
+    /**
+     * Submits the form and dismisses the modal with an ok result.
+     */
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
-
+    /**
+     * Dismisses the modal with a delete result.
+     */
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

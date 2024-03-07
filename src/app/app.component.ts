@@ -1,10 +1,15 @@
-import { BehaviorSubject } from 'rxjs';
 import { Component } from '@angular/core';
-import { CustomTranslateService } from './core/services/custom-translate.service';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { User } from './core/interfaces/User';
 import { LocalDataService } from './core/services/api/local-data.service';
-import { Router } from '@angular/router';
+import { CustomTranslateService } from './core/services/custom-translate.service';
 
+/**
+ * The root component of the application.
+ *
+ * This component handles user authentication state, language preferences, and initial navigation.
+ */
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',
@@ -35,7 +40,11 @@ export class AppComponent {
         })
     }
 
-
+    /**
+     * Handles language changes emitted by a child component.
+     *
+     * @param event A CustomEvent object containing the new language value.
+     */
     languageChanged(event: CustomEvent) {
         const lang = event.detail.value
         this.lang = lang;

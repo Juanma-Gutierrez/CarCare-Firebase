@@ -1,22 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DocumentData, Unsubscribe } from 'firebase/firestore';
-import { FirebaseDocument } from 'src/app/core/services/api/firebase/firebase.service';
-import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
-import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { ModalController } from '@ionic/angular';
-import { Provider } from 'src/app/core/interfaces/Provider';
 import { Router } from '@angular/router';
-import { Spent } from 'src/app/core/interfaces/Spent';
-import { SpentFormComponent } from './spent-form/spent-form.component';
-import { SpentService } from 'src/app/core/services/spent.service';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
-import { VehiclePreview } from 'src/app/core/interfaces/User';
-import { VehicleService } from 'src/app/core/services/vehicle.service';
+import { ModalController } from '@ionic/angular';
+import { DocumentData, Unsubscribe } from 'firebase/firestore';
 import { Subscription } from 'rxjs';
+import { Provider } from 'src/app/core/interfaces/Provider';
+import { Spent } from 'src/app/core/interfaces/Spent';
+import { VehiclePreview } from 'src/app/core/interfaces/User';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
+import { FirebaseDocument } from 'src/app/core/services/api/firebase/firebase.service';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
+import { MyToast, VEHICLE } from 'src/app/core/services/const.service';
+import { SpentService } from 'src/app/core/services/spent.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { MyToast, PROVIDER, VEHICLE } from 'src/app/core/services/const.service';
+import { VehicleService } from 'src/app/core/services/vehicle.service';
+import { SpentFormComponent } from './spent-form/spent-form.component';
+import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 
+/**
+ * Initializes the HomePage component.
+ */
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -29,6 +32,16 @@ export class HomePage implements OnInit, OnDestroy {
     private unsubscribes: (Unsubscribe | null)[] = []
     private subscriptions: Subscription[] = []
 
+    /**
+     * Creates an instance of the HomePage component.
+     * @param {FirebaseService} firebaseSvc - The Firebase service.
+     * @param {ModalController} modal - The modal controller service.
+     * @param {Router} router - The router service.
+     * @param {UtilsService} utilsSvc - The utilities service.
+     * @param {VehicleService} vehicleSvc - The vehicle service.
+     * @param {LocalDataService} localDataSvc - The local data service.
+     * @param {SpentService} spentsSvc - The spent service.
+     */
     constructor(
         private firebaseSvc: FirebaseService,
         private modal: ModalController,
@@ -39,6 +52,9 @@ export class HomePage implements OnInit, OnDestroy {
         public spentsSvc: SpentService,
     ) { }
 
+    /**
+     * Initializes the HomePage component.
+     */
     ngOnInit(): void {
         var user = this.localDataSvc.getUser().value;
         this.firebaseSvc.subscribeToDocument("provider", user!.userId, this.localDataSvc.getProviders(), (data) => {
@@ -46,6 +62,10 @@ export class HomePage implements OnInit, OnDestroy {
         });
     }
 
+    /**
+     * Handles the selection change event.
+     * @param {CustomEvent} event - The custom event containing the selection value.
+     */
     selectionChanged(event: CustomEvent) {
         switch (event.detail.value) {
             case "available": this.filterAvailableVehicle = true;
@@ -55,6 +75,10 @@ export class HomePage implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Handles the click event when a vehicle item is clicked.
+     * @param {VehiclePreview} vehiclePreview - The vehicle preview object.
+     */
     public async onVehicleItemClicked(vehiclePreview: VehiclePreview) {
         var vehicle = await this.firebaseSvc.getDocumentByRef(vehiclePreview.ref)
         if (vehicle.id) this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(VEHICLE, vehicle.id, this.localDataSvc.getVehicle()));
@@ -63,10 +87,12 @@ export class HomePage implements OnInit, OnDestroy {
             this.localDataSvc.setSpents(vehicle?.spents!)
             this.spentsSvc.calculateNumberOfSpents(vehicle?.spents!)
             this.spentsSvc.calculateTotalSpents(vehicle?.spents!)
-            // TODO VER POSIBILIDAD DE METERLE GRÁFICAS EN EL MÓDULO DE ADMIN
         }))
     }
 
+    /**
+     * Handles the click event when creating a new vehicle.
+     */
     onNewVehicle() {
         var onDismiss = async (info: any) => {
             this.vehicleSvc.createVehicle(info);
@@ -74,6 +100,10 @@ export class HomePage implements OnInit, OnDestroy {
         this.presentFormVehicles(null, onDismiss);
     }
 
+    /**
+     * Handles the click event when editing a vehicle.
+     * @param {VehiclePreview} vehicle - The vehicle object to edit.
+     */
     public async onEditVehicleClicked(vehicle: VehiclePreview) {
         var onDismiss = (info: any) => {
             this.vehicleSvc.editVehicle(info, vehicle);
@@ -84,6 +114,9 @@ export class HomePage implements OnInit, OnDestroy {
         this.presentFormVehicles(vehicle, onDismiss);
     }
 
+    /**
+     * Cleans the spents data.
+     */
     cleanSpentsData() {
         this.localDataSvc.setSpents([]);
         this.spentsSvc.updateTotalSpentsAmount(0);
@@ -92,6 +125,11 @@ export class HomePage implements OnInit, OnDestroy {
         this.selectedVehicle = null;
     }
 
+    /**
+     * Presents the vehicle form modal.
+     * @param {VehiclePreview | null} data - The vehicle data to populate the form.
+     * @param {Function} onDismiss - The function to call on modal dismiss.
+     */
     async presentFormVehicles(data: VehiclePreview | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: VehicleFormComponent,
@@ -108,6 +146,10 @@ export class HomePage implements OnInit, OnDestroy {
         });
     }
 
+    /**
+     * Creates a new spent for the selected vehicle.
+     * @param {DocumentData} vehicleSelected - The selected vehicle.
+     */
     async createSpent(vehicleSelected: DocumentData) {
         if (this.localDataSvc.getProviders().value?.length == 0) {
             await this.utilsSvc.showToast("message.providers.noneProvider", MyToast.Color.DANGER, MyToast.Position.TOP);
@@ -120,6 +162,10 @@ export class HomePage implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Handles the click event when editing a spent.
+     * @param {Spent} spent - The spent object to edit.
+     */
     public async onEditSpentClicked(spent: Spent) {
         var vehicle: Vehicle = this.localDataSvc.getVehicle().value!;
         var onDismiss = (info: any) => {
@@ -128,6 +174,12 @@ export class HomePage implements OnInit, OnDestroy {
         this.presentFormSpents(spent, vehicle!.vehicleId, onDismiss);
     }
 
+    /**
+     * Presents the spent form modal.
+     * @param {Spent | null} data - The spent data to populate the form.
+     * @param {string} _vehicleId - The ID of the vehicle associated with the spent.
+     * @param {Function} onDismiss - The function to call on modal dismiss.
+     */
     async presentFormSpents(data: Spent | null, _vehicleId: string, onDismiss: (result: any) => void) {
         var providers: Provider[] | null = []
         this.localDataSvc.providers$.subscribe(providerList => {
@@ -150,6 +202,9 @@ export class HomePage implements OnInit, OnDestroy {
         });
     }
 
+    /**
+     * Unsubscribes from Firebase and other subscriptions to prevent memory leaks.
+     */
     ngOnDestroy(): void {
         this.unsubscribes.forEach(uns => { if (uns) uns() });
         this.subscriptions.forEach(sub => sub.unsubscribe());

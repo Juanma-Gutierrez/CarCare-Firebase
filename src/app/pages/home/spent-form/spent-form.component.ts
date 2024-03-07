@@ -6,6 +6,9 @@ import { Spent } from 'src/app/core/interfaces/Spent';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { generateId } from 'src/app/core/services/utils.service';
 
+/**
+ * Component for managing a spent form.
+ */
 @Component({
     selector: 'app-spent-form',
     templateUrl: './spent-form.component.html',
@@ -41,6 +44,12 @@ export class SpentFormComponent implements OnInit {
     @Input() providers: Provider[] = [];
     public providerName?: String;
 
+    /**
+     * Constructs a new SpentFormComponent.
+     * @param {ModalController} _modal - The modal controller for managing modals.
+     * @param {FormBuilder} formBuilder - The form builder for building the form.
+     * @param {LocalDataService} localDataSvc - The service for local data operations.
+     */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
@@ -58,14 +67,25 @@ export class SpentFormComponent implements OnInit {
         });
     }
 
+    /**
+     * Initializes the SpentFormComponent.
+     */
     ngOnInit() {
         this.providerName = this.spent?.providerName;
     }
 
+    /**
+     * Retrieves the vehicle ID.
+     * @returns {number} - The vehicle ID.
+     */
     getVehicle(): number {
         return this._vehicle
     }
 
+    /**
+     * Event handler for when a provider is selected.
+     * @param {any} event - The event containing the selected provider.
+     */
     onSelection(event: any) {
         const provider: Provider = event.detail.value;
         this.selectedProvider = provider;
@@ -74,14 +94,23 @@ export class SpentFormComponent implements OnInit {
         this.form.markAsDirty();
     }
 
+    /**
+     * Dismisses the modal with a cancellation result.
+     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
+    /**
+     * Submits the form and dismisses the modal with an ok result.
+     */
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
+    /**
+     * Dismisses the modal with a delete result.
+     */
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

@@ -27,5 +27,8 @@
 
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
-}
+  },
+  "docwriter.style": "Doxygen",
+  "docwriter.progress.trackClasses": false,
+  "docwriter.progress.trackTypes": false
 }

@@ -8,11 +8,20 @@ import { LocalDataService } from './api/local-data.service';
 import { MyToast, PROVIDER, VEHICLE } from './const.service';
 import { UtilsService } from './utils.service';
 
+/**
+ * Represents a service for managing providers.
+ */
 @Injectable({
     providedIn: 'root'
 })
 export class ProviderService {
-
+    /**
+     * Creates an instance of ProviderService.
+     * @param utilsSvc - The utility service for common functions.
+     * @param firebaseMappingSvc - The service for mapping Firebase data.
+     * @param firebaseSvc - The Firebase service for data operations.
+     * @param localDataSvc - The service for managing local data.
+     */
     constructor(
         private utilsSvc: UtilsService,
         private firebaseMappingSvc: FirebaseMappingService,
@@ -20,6 +29,13 @@ export class ProviderService {
         private localDataSvc: LocalDataService,
     ) { }
 
+    /**
+     * Creates a new provider based on the provided information.
+     * @param info - An object containing details about the provider creation.
+     *   - `role`: The role of the provider (e.g., 'ok').
+     *   - `data`: Additional data related to the provider.
+     * @returns A promise that resolves when the provider creation is complete.
+     */
     async createProvider(info: any) {
         switch (info.role) {
             case 'ok': {
@@ -48,6 +64,13 @@ export class ProviderService {
             }
         }
     }
+
+    /**
+     * Edits or deletes a provider based on the provided information and the specified provider.
+     * @param info - An object containing details about the action (e.g., 'ok' for editing, 'delete' for deletion).
+     * @param provider - The provider to be edited or deleted.
+     * @returns A promise that resolves when the edit or delete operation is complete.
+     */
     async editOrDeleteProvider(info: any, provider: Provider) {
         var providersList = this.localDataSvc.getProviders().value
         switch (info.role) {
@@ -75,6 +98,13 @@ export class ProviderService {
         }
     }
 
+    /**
+     * Edits a provider in the list of providers.
+     * @param {Provider[] | null} providersList - The list of providers.
+     * @param {any} info - Additional information for the edit operation.
+     * @param {Provider} provider - The provider to be edited.
+     * @returns {void}
+     */
     async editProvider(providersList: Provider[] | null, info: any, provider: Provider) {
         var user = this.localDataSvc.getUser().value;
         var providersFiltered: any = {
@@ -111,6 +141,12 @@ export class ProviderService {
         }
     }
 
+    /**
+     * Deletes a provider from the list of providers.
+     * @param {Provider[] | null} providersList - The list of providers.
+     * @param {any} info - Additional information related to the delete operation.
+     * @returns {void}
+     */
     async deleteProvider(providersList: Provider[] | null, info: any) {
         var providersFiltered: any = {
             providers: providersList?.filter(_provider => {

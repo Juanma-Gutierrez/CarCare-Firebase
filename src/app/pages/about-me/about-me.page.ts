@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+/**
+ * Page component for displaying information about the user.
+ */
 @Component({
     selector: 'app-about-me',
     templateUrl: './about-me.page.html',

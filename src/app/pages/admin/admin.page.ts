@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Unsubscribe } from 'firebase/firestore';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User, VehiclePreview } from 'src/app/core/interfaces/User';
@@ -7,6 +7,9 @@ import { USER } from 'src/app/core/services/const.service';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 import { capitalizeFirstLetter } from 'src/app/core/services/utils.service';
 
+/**
+ * Page component for the admin dashboard.
+ */
 @Component({
     selector: 'app-admin',
     templateUrl: './admin.page.html',
@@ -22,6 +25,11 @@ export class AdminPage implements OnInit, OnDestroy {
     data3: any;
     options: any;
 
+    /**
+     * Constructs a new AdminPage component.
+     * @param {FirebaseService} firebaseSvc - The service for Firebase operations.
+     * @param {CustomTranslateService} translateSvc - The translation service for translating messages.
+     */
     constructor(
         private firebaseSvc: FirebaseService,
         private translateSvc: CustomTranslateService,
@@ -37,6 +45,9 @@ export class AdminPage implements OnInit, OnDestroy {
         };
     }
 
+    /**
+     * Initializes the AdminPage component.
+     */
     ngOnInit() {
         this.unsubscribes.push(this.firebaseSvc.subscribeToCollection(USER, this._users, (data) => {
             const userData = data['data']();
@@ -53,12 +64,22 @@ export class AdminPage implements OnInit, OnDestroy {
         this.subscriptions.push(this.users$.subscribe());
     }
 
+    /**
+     * Performs cleanup operations when the AdminPage component is destroyed.
+     */
     ngOnDestroy(): void {
         this.unsubscribes.forEach(uns => { if (uns) uns() });
         this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 }
 
+/**
+ * Maps data for chart visualization based on user and vehicle information.
+ * @param {User[]} usersList - The list of users.
+ * @param {string} segmentation - The segmentation criteria for mapping the data.
+ * @param {CustomTranslateService} translateSvc - The translation service for translating messages.
+ * @returns {any} - The mapped data for chart visualization.
+ */
 function dataMappingSvc(usersList: User[], segmentation: string, translateSvc: CustomTranslateService): any {
     var dataset: VehiclePreview[] = [];
     usersList.forEach(user => {
@@ -110,6 +131,11 @@ function dataMappingSvc(usersList: User[], segmentation: string, translateSvc: C
     };
 }
 
+/**
+ * Counts the occurrences of categories in the provided data.
+ * @param {any[]} data - The data to be counted.
+ * @returns {any} - An object containing counts of available, not available, category, and brand.
+ */
 function countCategories(data: any[]): any {
     const availableCounts: Record<string, number> = {};
     const notAvailableCounts: Record<string, number> = {};

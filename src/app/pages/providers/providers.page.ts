@@ -8,6 +8,9 @@ import { PROVIDER } from 'src/app/core/services/const.service';
 import { ProviderService } from 'src/app/core/services/provider.service';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
 
+/**
+ * Providers page component
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -19,6 +22,14 @@ import { ProvidersFormComponent } from './providers-form/providers-form.componen
 export class ProvidersPage implements OnInit, OnDestroy {
     private unsubscribes: (Unsubscribe | null)[] = []
 
+    /**
+     * Constructs the ProvidersPage component.
+     * @constructor
+     * @param {FirebaseService} firebaseSvc - The Firebase service for database operations.
+     * @param {ModalController} modal - The modal controller service for displaying modals.
+     * @param {ProviderService} providerSvc - The provider service for provider-related operations.
+     * @param {LocalDataService} localDataSvc - The local data service for accessing local data.
+     */
     constructor(
         private firebaseSvc: FirebaseService,
         private modal: ModalController,
@@ -26,7 +37,12 @@ export class ProvidersPage implements OnInit, OnDestroy {
         public localDataSvc: LocalDataService,
     ) { }
 
-
+    /**
+     * Initializes the ProvidersPage component.
+     * Subscribes to the provider document in Firebase database.
+     * @async
+     * @returns {Promise<void>}
+     */
     async ngOnInit() {
         var user = this.localDataSvc.getUser().value;
         this.unsubscribes.push(this.firebaseSvc.subscribeToDocument(PROVIDER, user!.userId, this.localDataSvc.getProviders(), (data) => {
@@ -34,6 +50,12 @@ export class ProvidersPage implements OnInit, OnDestroy {
         }));
     }
 
+    /**
+     * Handles the event when the edit provider button is clicked.
+     * Opens a modal form for editing the provider.
+     * @param {Provider} provider - The provider to be edited.
+     * @returns {void}
+     */
     onEditProviderClicked(provider: Provider) {
         var onDismiss = (info: any) => {
             this.providerSvc.editOrDeleteProvider(info, provider);
@@ -41,6 +63,11 @@ export class ProvidersPage implements OnInit, OnDestroy {
         this.presentForm(provider, onDismiss);
     }
 
+    /**
+     * Handles the event when the create provider button is clicked.
+     * Opens a modal form for creating a new provider.
+     * @returns {void}
+     */
     onCreateProviderClicked() {
         var onDismiss = async (info: any) => {
             this.providerSvc.createProvider(info);
@@ -48,6 +75,13 @@ export class ProvidersPage implements OnInit, OnDestroy {
         this.presentForm(null, onDismiss);
     }
 
+    /**
+     * Presents a modal form for creating or editing a provider.
+     * @async
+     * @param {Provider | null} data - The provider data to populate the form with (null for new provider).
+     * @param {(result: any) => void} onDismiss - The callback function to handle the modal dismiss event.
+     * @returns {Promise<void>}
+     */
     async presentForm(data: Provider | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: ProvidersFormComponent,
@@ -64,6 +98,11 @@ export class ProvidersPage implements OnInit, OnDestroy {
         });
     }
 
+    /**
+     * Cleans up subscriptions when the component is destroyed.
+     * Unsubscribes from Firebase document subscription.
+     * @returns {void}
+     */
     ngOnDestroy(): void {
         this.unsubscribes.forEach(uns => { if (uns) uns() });
     }

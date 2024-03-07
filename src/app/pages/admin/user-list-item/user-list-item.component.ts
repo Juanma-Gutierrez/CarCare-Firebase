@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+/**
+ * Component for displaying a user item in a list.
+ */
 @Component({
     selector: 'app-user-list-item',
     templateUrl: './user-list-item.component.html',

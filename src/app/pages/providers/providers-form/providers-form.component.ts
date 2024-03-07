@@ -6,7 +6,9 @@ import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { CATEGORIES } from 'src/app/core/services/const.service';
 import { generateId } from 'src/app/core/services/utils.service';
 
-
+/**
+ * Providers form component
+ */
 @Component({
     selector: 'app-providers-form',
     templateUrl: './providers-form.component.html',
@@ -28,6 +30,14 @@ export class ProvidersFormComponent implements OnInit {
         }
     }
 
+    /**
+     * Constructs the form for adding or editing a provider.
+     * @param {ModalController} _modal - The modal controller for managing the modal.
+     * @param {FormBuilder} formBuilder - The form builder service for building the form.
+     * @param {LocalDataService} localDataSvc - The service for managing local data.
+     * @returns {void}
+     * @constructor
+     */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
@@ -45,16 +55,32 @@ export class ProvidersFormComponent implements OnInit {
         })
     }
 
+    /**
+     * Initializes the component on initialization.
+     * @returns {void}
+     */
     ngOnInit() { }
 
+    /**
+     * Cancels the form operation and dismisses the modal.
+     * @returns {void}
+     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
+    /**
+     * Submits the form data and dismisses the modal.
+     * @returns {void}
+     */
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
+    /**
+     * Deletes the provider and dismisses the modal.
+     * @returns {void}
+     */
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

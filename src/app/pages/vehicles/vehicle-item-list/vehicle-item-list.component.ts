@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
 
+/**
+ * Component to display a single vehicle item in a list.
+ */
 @Component({
     selector: 'app-vehicle-item-list',
     templateUrl: './vehicle-item-list.component.html',
@@ -9,8 +12,11 @@ import { VehiclePreview } from 'src/app/core/interfaces/User';
 export class VehicleItemListComponent implements OnInit {
     @Input() vehicle: VehiclePreview | null = null
 
-    constructor(
-    ) { }
+    constructor() { }
+
+    /**
+     * Lifecycle hook called after component initialization.
+     */
     ngOnInit(): void { }
 
 }
