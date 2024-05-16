@@ -50,7 +50,8 @@
                 <div class="date-block">
                     <div>
                         {{'home.vehicleForm.registrationDate' | translate}}
-                        <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="vehicle?.registrationDate"
+                        <ion-datetime presentation="date" [firstDayOfWeek]="1"
+                            [value]="form.get('registrationDate')!!.value"
                             formControlName="registrationDate"></ion-datetime>
                     </div>
                 </div>

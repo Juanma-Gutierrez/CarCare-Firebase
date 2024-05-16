@@ -43,7 +43,7 @@ export interface VehiclePreview {
     model: string,
     plate: string,
     ref: DocumentReference,
-    registrationDate: Date,
+    registrationDate: string,
     vehicleId: string,
 }
 

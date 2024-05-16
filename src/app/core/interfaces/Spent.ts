@@ -11,7 +11,7 @@
 export interface Spent {
     amount: number,
     created: string,
-    date: Date,
+    date: string,
     observations?: string,
     providerId: string,
     providerName?: string,

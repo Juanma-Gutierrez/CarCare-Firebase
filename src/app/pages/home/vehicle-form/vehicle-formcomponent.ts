@@ -5,6 +5,7 @@ import { Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { VEHICLE } from 'src/app/core/services/const.service';
+import { convertDateToLongIsoFormatDate } from 'src/app/core/services/utils.service';
 
 /**
  * Component for managing a vehicle form.
@@ -25,11 +26,11 @@ export class VehicleFormComponent implements OnInit {
                 this.mode = 'Edit';
                 this.form.controls['available'].setValue(_vehicle.available);
                 this.form.controls['brand'].setValue(_vehicle.brand);
-                this.form.controls['created'].setValue(_vehicle.created);
+                this.form.controls['created'].setValue(convertDateToLongIsoFormatDate(_vehicle.created));
                 this.form.controls['category'].setValue(_vehicle.category);
                 this.form.controls['model'].setValue(_vehicle.model);
                 this.form.controls['plate'].setValue(_vehicle.plate);
-                this.form.controls['registrationDate'].setValue(_vehicle.registrationDate);
+                this.form.controls['registrationDate'].setValue(convertDateToLongIsoFormatDate(_vehicle.registrationDate));
                 this.form.controls['spents'].setValue(spentsList);
                 this.form.controls['vehicleId'].setValue(_vehicle.vehicleId);
             })

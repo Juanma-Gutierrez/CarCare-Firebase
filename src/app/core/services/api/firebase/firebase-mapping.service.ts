@@ -6,6 +6,11 @@ import { Vehicle } from "../../../interfaces/Vehicle";
 import { USER } from "../../const.service";
 import { MappingService } from "../mapping.service";
 import { FirebaseDocument } from "./firebase.service";
+import { convertDateToLongIsoFormatDate } from "../../utils.service";
+
+/**
+ * Injectable service for mapping data with Firebase.
+ */
 
 /**
  * Injectable service for mapping data with Firebase.
@@ -121,7 +126,7 @@ export class FirebaseMappingService extends MappingService {
      */
     public mapUser(_user: any, role: string = USER, userId: string = _user.credentials): User {
         var user: User = {
-            created: _user.created,
+            created: convertDateToLongIsoFormatDate(_user.created),
             email: _user.email,
             name: _user.name,
             nickname: _user.username,
@@ -140,7 +145,7 @@ export class FirebaseMappingService extends MappingService {
      */
     public convertToUser(data: FirebaseDocument): User {
         return {
-            created: data.data['created'],
+            created: convertDateToLongIsoFormatDate(data.data['created']),
             email: data.data['email'],
             userId: data.id,
             name: data.data['name'],
@@ -163,11 +168,11 @@ export class FirebaseMappingService extends MappingService {
         let vehicle = {
             available: data.available,
             brand: data.brand,
-            created: data.created,
+            created: convertDateToLongIsoFormatDate(data.created),
             category: data.category,
             model: data.model,
             plate: data.plate,
-            registrationDate: data.registrationDate,
+            registrationDate: convertDateToLongIsoFormatDate(data.registrationDate),
             spents: spents,
             vehicleId: vehicleId,
             userId: userId,
@@ -183,7 +188,7 @@ export class FirebaseMappingService extends MappingService {
     public mapProvider(data: any): Provider {
         return {
             providerId: data.providerId,
-            created: data.created,
+            created: convertDateToLongIsoFormatDate(data.created),
             category: data.category,
             name: data.name,
             phone: data.phone,
@@ -198,8 +203,8 @@ export class FirebaseMappingService extends MappingService {
     public mapSpent(data: any): Spent {
         return {
             amount: data.amount,
-            created: data.created,
-            date: data.date,
+            created: convertDateToLongIsoFormatDate(data.created),
+            date: convertDateToLongIsoFormatDate(data.date),
             observations: data.observations,
             providerId: data.providerId,
             providerName: data.providerName,
@@ -215,7 +220,7 @@ export class FirebaseMappingService extends MappingService {
      */
     public mapUserWithVehicles(user: User, vehicles: VehiclePreview[]): User {
         var data = {
-            created: user.created,
+            created: convertDateToLongIsoFormatDate(user.created),
             email: user.email,
             userId: user.userId,
             name: user.name,
@@ -237,11 +242,11 @@ export class FirebaseMappingService extends MappingService {
         return {
             available: vehicle.available,
             brand: vehicle.brand,
-            created: vehicle.created,
+            created: convertDateToLongIsoFormatDate(vehicle.created),
             category: vehicle.category,
             model: vehicle.model,
             plate: vehicle.plate,
-            registrationDate: vehicle.registrationDate,
+            registrationDate: convertDateToLongIsoFormatDate(vehicle.registrationDate),
             spents: spentsUpdated,
             userId: vehicle.userId,
             vehicleId: vehicle.vehicleId,
@@ -255,15 +260,15 @@ export class FirebaseMappingService extends MappingService {
      * @param info Additional information.
      * @return A Spent object with the mapped data.
      */
-    public mapSpentWithProvider(s: Spent, provider: Provider, info: any): Spent {
+    public mapSpentWithProvider(spent: Spent, provider: Provider, info: any): Spent {
         return {
-            amount: s.amount,
-            created: s.created,
-            date: s.date,
-            observations: s.observations,
-            providerId: s.providerId,
+            amount: spent.amount,
+            created: convertDateToLongIsoFormatDate(spent.created),
+            date: convertDateToLongIsoFormatDate(spent.date),
+            observations: spent.observations,
+            providerId: spent.providerId,
             providerName: info.data.name,
-            spentId: s.spentId,
+            spentId: spent.spentId,
         }
     }
 
