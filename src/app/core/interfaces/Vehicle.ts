@@ -7,7 +7,7 @@ export interface Vehicle {
     category: VehicleCategory,
     model: string,
     plate: string,
-    registrationDate: Date,
+    registrationDate: string,
     spents?: Spent[],
     userId: string,
     vehicleId: string,

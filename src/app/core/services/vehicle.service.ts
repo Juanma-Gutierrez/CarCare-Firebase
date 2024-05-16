@@ -5,7 +5,8 @@ import { FirebaseService } from './api/firebase/FirebaseService';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
 import { LocalDataService } from './api/local-data.service';
 import { MyToast, USER, VEHICLE } from './const.service';
-import { UtilsService, generateId } from './utils.service';
+import { UtilsService, convertDateToLongIsoFormatDate, generateId } from './utils.service';
+import { Vehicle } from '../interfaces/Vehicle';
 
 @Injectable({
     providedIn: 'root'
@@ -50,12 +51,12 @@ export class VehicleService {
         var vehiclePreview: VehiclePreview = {
             available: data.available,
             brand: data.brand,
-            created: data.created,
+            created: convertDateToLongIsoFormatDate(data.created),
             category: data.category,
             model: data.model,
             plate: data.plate,
             ref: ref,
-            registrationDate: data.registrationDate,
+            registrationDate: convertDateToLongIsoFormatDate(data.registrationDate),
             vehicleId: ref.id,
         }
         var user = this.localDataSvc.getUser().value!!
@@ -76,6 +77,7 @@ export class VehicleService {
                         var vehiclesListUpdated: VehiclePreview[] = this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
                         var userUpdated: User = this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
                         await this.firebaseSvc.updateDocument(USER, user.userId, userUpdated);
+                        info.data["registrationDate"] = convertDateToLongIsoFormatDate(info.data["registrationDate"])
                         await this.firebaseSvc.updateDocument(VEHICLE, info.data['vehicleId'], info.data);
                         await this.utilsSvc.showToast("message.vehicles.editVehicleOk", MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
@@ -126,12 +128,12 @@ export class VehicleService {
                 var vehiclePreview: VehiclePreview = {
                     available: vehicleUpdated.available,
                     brand: vehicleUpdated.brand,
-                    created: vehicleUpdated.created,
+                    created: convertDateToLongIsoFormatDate(vehicleUpdated.created),
                     category: vehicleUpdated.category,
                     model: vehicleUpdated.model,
                     plate: vehicleUpdated.plate,
                     ref: vehicle.ref,
-                    registrationDate: vehicleUpdated.registrationDate,
+                    registrationDate: convertDateToLongIsoFormatDate(vehicleUpdated.registrationDate),
                     vehicleId: vehicleUpdated.vehicleId,
                 }
                 vehiclesFiltered.push(vehiclePreview);

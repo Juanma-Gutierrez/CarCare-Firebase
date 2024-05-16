@@ -19,6 +19,16 @@ export function saveLocalStorageUser(user: string) {
     });
 }
 
+export function convertDateToLongIsoFormatDate(date: any): string {
+    let stringDate = date.toString()
+    let formattedDate = stringDate.substring(0,19) + ".000Z"
+    return formattedDate
+}
+
+/**
+ * Loads the user's name from the LocalStorage.
+ * @returns {Promise<string>} - A promise that resolves to the user's name retrieved from the LocalStorage.
+ */
 export function loadLocalStorageUser(): Promise<string> {
     return Preferences.get({ key: 'userName' }).then((ret: any) => {
         return ret.value;

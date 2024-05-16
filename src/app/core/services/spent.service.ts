@@ -8,7 +8,7 @@ import { FirebaseMappingService } from './api/firebase/firebase-mapping.service'
 import { LocalDataService } from './api/local-data.service';
 import { MyToast, VEHICLE } from './const.service';
 import { CustomTranslateService } from './custom-translate.service';
-import { UtilsService } from './utils.service';
+import { UtilsService, convertDateToLongIsoFormatDate } from './utils.service';
 
 @Injectable({
     providedIn: 'root'
@@ -57,6 +57,8 @@ export class SpentService {
 
     async editSpent(info: any, vehicle: Vehicle) {
         var spent = info.data;
+        spent.created = convertDateToLongIsoFormatDate(spent.created)
+        spent.date = convertDateToLongIsoFormatDate(spent.date)
         var spentsList = this.localDataSvc.getVehicle().value?.spents;
         switch (info.role) {
             case 'ok': {
