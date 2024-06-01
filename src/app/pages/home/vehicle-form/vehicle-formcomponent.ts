@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { categoriesArray } from 'src/app/core/services/api/category-repository';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { VEHICLE } from 'src/app/core/services/const.service';
 import { convertDateToLongIsoFormatDate } from 'src/app/core/services/utils.service';
@@ -17,7 +18,10 @@ import { convertDateToLongIsoFormatDate } from 'src/app/core/services/utils.serv
     styleUrls: ['./vehicle-form.component.scss'],
 })
 export class VehicleFormComponent implements OnInit {
+    categories: string[] = categoriesArray;
+    category: string = ""
     brands: string[] = [];
+    models: string[] = [];
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set vehicle(_vehicle: Vehicle | null) {
@@ -36,6 +40,8 @@ export class VehicleFormComponent implements OnInit {
                 this.form.controls['spents'].setValue(spentsList);
                 this.form.controls['vehicleId'].setValue(_vehicle.vehicleId);
             })
+            this.category = _vehicle.category + "s"
+            this.fetchBrands(this.category);
         }
     }
 
@@ -56,12 +62,28 @@ export class VehicleFormComponent implements OnInit {
             available: [true],
             brand: ['', Validators.required],
             created: [new Date().toISOString()],
-            category: ['car', Validators.required],
+            category: ['', Validators.required],
             model: ['', Validators.required],
             plate: ['', Validators.required],
             registrationDate: [new Date().toISOString()],
             spents: [],
             vehicleId: ['']
+        })
+
+        this.form.controls['category'].valueChanges.subscribe(category => {
+            if (category) {
+                this.category = category + "s";
+                this.form.controls['brand'].enable();
+                this.form.controls['model'].disable();
+                this.fetchBrands(this.form.controls['category'].value + "s");
+            }
+        })
+
+        this.form.controls['brand'].valueChanges.subscribe(brand => {
+            if (brand) {
+                this.form.controls['model'].enable();
+                this.fetchModels(this.category, brand);
+            }
         })
     }
 
@@ -69,15 +91,28 @@ export class VehicleFormComponent implements OnInit {
      * Initializes the VehicleFormComponent.
      */
     ngOnInit() {
-        this.fetchBrands();
+        this.form.controls['brand'].disable();
+        this.form.controls['model'].disable();
     }
-    fetchBrands() {
-        this.http.get<any>('https://jumang.pythonanywhere.com/api/cars/brands')
+
+    fetchBrands(category: string) {
+        let url = 'https://jumang.pythonanywhere.com/api/' + category + '/brands'
+        this.http.get<any>(url)
             .subscribe(response => {
                 this.brands = response.brands.sort((a: string, b: string) => a.localeCompare(b));
 
             }, error => {
                 console.error('Error fetching brands:', error);
+            });
+    }
+
+    fetchModels(category: string, brand: string) {
+        let url = 'https://jumang.pythonanywhere.com/api/' + category + '/models/' + brand
+        this.http.get<any>(url)
+            .subscribe(response => {
+                this.models = response.models.sort((a: string, b: string) => a.localeCompare(b));
+            }, error => {
+                console.error('Error fetching models:', error);
             });
     }
 

@@ -23,25 +23,19 @@
     <ion-content class="ion-padding" size="small">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
             <ion-list>
-                <div>
-                    <ion-select label="{{'home.vehicleForm.categoryTitle' | translate}}" formControlName="category"
-                        placeholder="S{{'home.vehicleForm.category.selectCategory' | translate}}">
-                        <ion-select-option value="car">{{"home.vehicleForm.category.car" |
-                            translate}}</ion-select-option>
-                        <ion-select-option value="motorcycle">{{"home.vehicleForm.category.motorcycle" |
-                            translate}}</ion-select-option>
-                        <ion-select-option value="van">{{"home.vehicleForm.category.van" |
-                            translate}}</ion-select-option>
-                        <ion-select-option value="truck">{{"home.vehicleForm.category.truck" |
-                            translate}}</ion-select-option>
-                    </ion-select>
-                </div>
+                <ion-select label="{{'home.vehicleForm.categoryTitle' | translate}}" formControlName="category"
+                    fill="outline" labelPlacement="floating"
+                    placeholder="S{{'home.vehicleForm.category.selectCategory' | translate}}">
+                    <ion-select-option *ngFor="let category of categories" [value]="category">{{ ('home.vehicleForm.category.' + category) | translate }}</ion-select-option>
+                </ion-select>
                 <ion-select label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline"
                     formControlName="brand" type="text">
                     <ion-select-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</ion-select-option>
                 </ion-select>
-                <ion-input label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline"
-                    formControlName="model" type="text"></ion-input>
+                <ion-select label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="model" type="text">
+                    <ion-select-option *ngFor="let model of models" [value]="model">{{ model }}</ion-select-option>
+                </ion-select>
                 <ion-input label="{{'home.vehicleForm.plate' | translate}}" labelPlacement="floating" fill="outline"
                     formControlName="plate" type="text"></ion-input>
                 <div>
