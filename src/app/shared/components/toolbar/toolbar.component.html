@@ -3,8 +3,7 @@
         <ion-header>
             <ion-toolbar>
                 <div class="in-line">
-                    <img class="logo" src="/assets/images/logo_carcare_transparent.png">
-                    <h4>Car Care app</h4>
+                    <img class="logo" src="/assets/images/logo_carcare_horizontal.png">
                 </div>
             </ion-toolbar>
         </ion-header>
@@ -52,7 +51,7 @@
                         {{"toolbar.admin" | translate}}
                     </ion-item>
                 </ion-menu-toggle>
-                <ion-col class="ion-text-end" *ngIf="(authSvc.isLogged$ | async) && (localDataSvc.user$ | async)">
+                <ion-col class="ion-text-end avatar" *ngIf="(authSvc.isLogged$ | async) && (localDataSvc.user$ | async)">
                     <app-user-item (onLanguageChanged)="onLanguageChanged($event)" (logoutClicked)="logoutClicked()"
                         [user]="user"></app-user-item>
                 </ion-col>

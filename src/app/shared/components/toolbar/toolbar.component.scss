@@ -11,15 +11,15 @@
     justify-content: end;
 }
 
-img {
-    width: 50px;
-    margin-inline: 20px;
-}
-
 .in-line {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.logo {
+    width: 150px;
+    margin-inline: 45px;
 }
 
 .flags {
@@ -28,4 +28,8 @@ img {
 
 .button {
     cursor: pointer;
+}
+
+.avatar{
+    margin-left: 55px;
 }
