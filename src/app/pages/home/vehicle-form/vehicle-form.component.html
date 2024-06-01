@@ -1,5 +1,4 @@
 <div class="form-component">
-
     <ion-header>
         <ion-toolbar>
             <ion-buttons slot="start">
@@ -24,12 +23,6 @@
     <ion-content class="ion-padding" size="small">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
             <ion-list>
-                <ion-input label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline"
-                    formControlName="brand" type="text"></ion-input>
-                <ion-input label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline"
-                    formControlName="model" type="text"></ion-input>
-                <ion-input label="{{'home.vehicleForm.plate' | translate}}" labelPlacement="floating" fill="outline"
-                    formControlName="plate" type="text"></ion-input>
                 <div>
                     <ion-select label="{{'home.vehicleForm.categoryTitle' | translate}}" formControlName="category"
                         placeholder="S{{'home.vehicleForm.category.selectCategory' | translate}}">
@@ -43,6 +36,14 @@
                             translate}}</ion-select-option>
                     </ion-select>
                 </div>
+                <ion-select label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="brand" type="text">
+                    <ion-select-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</ion-select-option>
+                </ion-select>
+                <ion-input label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="model" type="text"></ion-input>
+                <ion-input label="{{'home.vehicleForm.plate' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="plate" type="text"></ion-input>
                 <div>
                     <ion-checkbox labelPlacement="end" formControlName="available"
                         checked="true">{{'home.vehicleForm.available' | translate}}</ion-checkbox>

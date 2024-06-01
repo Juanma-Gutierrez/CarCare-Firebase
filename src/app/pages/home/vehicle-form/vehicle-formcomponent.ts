@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
@@ -16,6 +17,7 @@ import { convertDateToLongIsoFormatDate } from 'src/app/core/services/utils.serv
     styleUrls: ['./vehicle-form.component.scss'],
 })
 export class VehicleFormComponent implements OnInit {
+    brands: string[] = [];
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set vehicle(_vehicle: Vehicle | null) {
@@ -47,6 +49,8 @@ export class VehicleFormComponent implements OnInit {
         private _modal: ModalController,
         private formBuilder: FormBuilder,
         private firebaseSvc: FirebaseService,
+        private http: HttpClient,
+
     ) {
         this.form = this.formBuilder.group({
             available: [true],
@@ -64,7 +68,18 @@ export class VehicleFormComponent implements OnInit {
     /**
      * Initializes the VehicleFormComponent.
      */
-    ngOnInit() { }
+    ngOnInit() {
+        this.fetchBrands();
+    }
+    fetchBrands() {
+        this.http.get<any>('https://jumang.pythonanywhere.com/api/cars/brands')
+            .subscribe(response => {
+                this.brands = response.brands.sort((a: string, b: string) => a.localeCompare(b));
+
+            }, error => {
+                console.error('Error fetching brands:', error);
+            });
+    }
 
     /**
      * Dismisses the modal with a cancellation result.
