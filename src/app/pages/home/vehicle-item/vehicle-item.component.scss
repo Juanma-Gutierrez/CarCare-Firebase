@@ -8,8 +8,14 @@ ion-card {
     align-items: center;
 }
 
-.vehiclesItem {
-    padding-inline: 10px;
+.vehicleItem {
+
+    // padding-inline: 10px;
+    ion-img {
+        object-fit: cover;
+        height: 100px;
+        margin: -10px;
+    }
 }
 
 .retired {

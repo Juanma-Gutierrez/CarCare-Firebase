@@ -38,8 +38,8 @@ export interface User {
 export interface VehiclePreview {
     available: boolean,
     brand: string,
-    created: string,
     category: string,
+    created: string,
     model: string,
     plate: string,
     ref: DocumentReference,
