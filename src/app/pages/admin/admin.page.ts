@@ -24,6 +24,7 @@ export class AdminPage implements OnInit, OnDestroy {
     data2: any;
     data3: any;
     options: any;
+    horizontalOptions: any;
 
     /**
      * Constructs a new AdminPage component.
@@ -36,12 +37,15 @@ export class AdminPage implements OnInit, OnDestroy {
     ) {
         this.users$.subscribe(_data => {
             this.data1 = dataMappingSvc(_data, "brand", translateSvc);
-            this.data2 = dataMappingSvc(_data, "category", translateSvc);
+            this.data2 = dataMappingSvc(_data.sort((a, b) => a.name.localeCompare(b.name)), "category", translateSvc);
             this.data3 = dataMappingSvc(_data, "available", translateSvc);
         });
         this.options = {
             responsive: true,
             maintainAspectRatio: false,
+        };
+        this.horizontalOptions = {
+            indexAxis: 'y',
         };
     }
 

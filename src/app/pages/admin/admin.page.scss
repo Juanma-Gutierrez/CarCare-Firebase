@@ -1,7 +1,7 @@
 ion-content {
     display: flex;
-    justify-content:center;
-    align-items:flex-start;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 ion-card-title {
@@ -17,7 +17,8 @@ ion-card-title {
     border-radius: 10px 10px 0px 0px;
 
     img {
-        width: 20px;
+        width: 30px;
+        margin: 0px;
         filter: invert(1);
     }
 }
