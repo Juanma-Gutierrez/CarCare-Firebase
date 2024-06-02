@@ -73,15 +73,15 @@ export class VehicleFormComponent implements OnInit {
         this.form.controls['category'].valueChanges.subscribe(category => {
             if (category) {
                 this.category = category + "s";
-                this.form.controls['brand'].enable();
                 this.form.controls['model'].disable();
+                this.form.controls['model'].setValue("");
+
                 this.fetchBrands(this.form.controls['category'].value + "s");
             }
         })
 
         this.form.controls['brand'].valueChanges.subscribe(brand => {
             if (brand) {
-                this.form.controls['model'].enable();
                 this.fetchModels(this.category, brand);
             }
         })
@@ -99,6 +99,7 @@ export class VehicleFormComponent implements OnInit {
         let url = 'https://jumang.pythonanywhere.com/api/' + category + '/brands'
         this.http.get<any>(url)
             .subscribe(response => {
+                this.form.controls['brand'].enable();
                 this.brands = response.brands.sort((a: string, b: string) => a.localeCompare(b));
 
             }, error => {
@@ -110,6 +111,7 @@ export class VehicleFormComponent implements OnInit {
         let url = 'https://jumang.pythonanywhere.com/api/' + category + '/models/' + brand
         this.http.get<any>(url)
             .subscribe(response => {
+                this.form.controls['model'].enable();
                 this.models = response.models.sort((a: string, b: string) => a.localeCompare(b));
             }, error => {
                 console.error('Error fetching models:', error);
