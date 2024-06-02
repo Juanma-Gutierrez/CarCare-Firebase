@@ -1,4 +1,5 @@
 <ion-card [ngClass]="{'not-available': !vehicle?.available}">
+    <ion-img class="vehicleImage" [src]="url || getPlaceholderCategory()" alt="Vehicle image"></ion-img>
     <ion-row class="ion-justify-content-center">
         <ion-card-title>{{vehicle?.brand |upperCamelCase}} {{vehicle?.model | upperCamelCase}}</ion-card-title>
     </ion-row>
@@ -6,15 +7,13 @@
         <ion-card-subtitle>{{vehicle?.plate | uppercase}}</ion-card-subtitle>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle *ngIf="vehicle?.available">{{"vehicles.vehicleItem.available" |
-            translate}}</ion-card-subtitle>
         <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available">{{"vehicles.vehicleItem.notAvailable" |
             translate}}</ion-card-subtitle>
     </ion-row>
     <ion-row class="ion-justify-content-center">
         <ion-card-subtitle *ngIf="vehicle?.category === 'car'"> {{'vehicles.vehicleItem.car' | translate}}
         </ion-card-subtitle>
-        <ion-card-subtitle *ngIf="vehicle?.category === 'motorbike'"> {{'vehicles.vehicleItem.motorbike' | translate}}
+        <ion-card-subtitle *ngIf="vehicle?.category === 'motorcycle'"> {{'vehicles.vehicleItem.motorcycle' | translate}}
         </ion-card-subtitle>
         <ion-card-subtitle *ngIf="vehicle?.category === 'van'"> {{'vehicles.vehicleItem.van' | translate}}
         </ion-card-subtitle>

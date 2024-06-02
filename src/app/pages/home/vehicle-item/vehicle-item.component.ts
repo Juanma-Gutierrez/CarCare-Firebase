@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 /**
  * Component for displaying a vehicle item.
@@ -13,13 +14,27 @@ export class VehicleItemComponent implements OnInit {
     @Input() vehicle?: VehiclePreview;
     @Output() onVehicleItemClicked: EventEmitter<void> = new EventEmitter<void>();
     @Output() onEditVehicleClicked: EventEmitter<void> = new EventEmitter<void>();
+    url: string = "";
 
-    constructor() { }
+    constructor(
+        private utilSvc: UtilsService
+    ) { }
 
     /**
      * Initializes the VehicleItemComponent.
      */
-    ngOnInit() { }
+    ngOnInit() {
+        this.getImageFromVehicle()
+    }
+
+    getImageFromVehicle() {
+        this.utilSvc.getURLFromVehicle(this.vehicle!!).then(url => this.url = url)
+    }
+
+    getPlaceholderCategory(): string {
+        return this.utilSvc.getPlaceholderCategory(this.vehicle!!)
+    }
+
 
     /**
      * Event handler for when the edit vehicle button is clicked.

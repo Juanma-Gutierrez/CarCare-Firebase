@@ -32,8 +32,9 @@ export class VehicleFormComponent implements OnInit {
                 this.mode = 'Edit';
                 this.form.controls['available'].setValue(_vehicle.available);
                 this.form.controls['brand'].setValue(_vehicle.brand);
-                this.form.controls['created'].setValue(convertDateToLongIsoFormatDate(_vehicle.created));
                 this.form.controls['category'].setValue(_vehicle.category);
+                this.form.controls['created'].setValue(convertDateToLongIsoFormatDate(_vehicle.created));
+                this.form.controls['imageURL'].setValue(_vehicle.imageURL);
                 this.form.controls['model'].setValue(_vehicle.model);
                 this.form.controls['plate'].setValue(_vehicle.plate);
                 this.form.controls['registrationDate'].setValue(convertDateToLongIsoFormatDate(_vehicle.registrationDate));
@@ -61,8 +62,9 @@ export class VehicleFormComponent implements OnInit {
         this.form = this.formBuilder.group({
             available: [true],
             brand: ['', Validators.required],
-            created: [new Date().toISOString()],
             category: ['', Validators.required],
+            created: [new Date().toISOString()],
+            imageURL: [''],
             model: ['', Validators.required],
             plate: ['', Validators.required],
             registrationDate: [new Date().toISOString()],
@@ -75,7 +77,6 @@ export class VehicleFormComponent implements OnInit {
                 this.category = category + "s";
                 this.form.controls['model'].disable();
                 this.form.controls['model'].setValue("");
-
                 this.fetchBrands(this.form.controls['category'].value + "s");
             }
         })

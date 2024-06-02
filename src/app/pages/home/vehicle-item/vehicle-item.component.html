@@ -4,7 +4,7 @@
         <ion-row class="ion-align-items-center vehicleItem">
             <ion-col size="4">
                 <ion-img
-                    src="https://hips.hearstapps.com/hmg-prod/images/dacia-sandero-1667402550.jpg?crop=0.856xw:0.677xh;0.0865xw,0.256xh&resize=1200:*"
+                    [src]="url || getPlaceholderCategory()"
                     alt="Vehicle image"></ion-img>
             </ion-col>
             <ion-col size="6">

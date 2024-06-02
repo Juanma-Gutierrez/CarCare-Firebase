@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 /**
  * Component to display a single vehicle item in a list.
@@ -11,12 +12,25 @@ import { VehiclePreview } from 'src/app/core/interfaces/User';
 })
 export class VehicleItemListComponent implements OnInit {
     @Input() vehicle: VehiclePreview | null = null
+    url: string = ""
 
-    constructor() { }
+    constructor(
+        private utilSvc: UtilsService
+    ) { }
 
     /**
      * Lifecycle hook called after component initialization.
      */
-    ngOnInit(): void { }
+    ngOnInit() {
+        this.getImageFromVehicle()
+    }
+
+    getImageFromVehicle() {
+        this.utilSvc.getURLFromVehicle(this.vehicle!!).then(url => this.url = url)
+    }
+
+    getPlaceholderCategory(): string {
+        return this.utilSvc.getPlaceholderCategory(this.vehicle!!)
+    }
 
 }

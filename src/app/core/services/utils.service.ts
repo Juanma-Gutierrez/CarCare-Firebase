@@ -3,9 +3,11 @@ import { Dialog } from '@capacitor/dialog';
 import { Preferences } from '@capacitor/preferences';
 import { Share } from '@capacitor/share';
 import { ToastController, ToastOptions } from '@ionic/angular';
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { VehiclePreview } from '../interfaces/User';
 import { Position } from './const.service';
 import { CustomTranslateService } from './custom-translate.service';
+
 
 /**
  * Generates a random alphanumeric ID.
@@ -29,7 +31,7 @@ export function saveLocalStorageUser(user: string) {
 
 export function convertDateToLongIsoFormatDate(date: any): string {
     let stringDate = date.toString()
-    let formattedDate = stringDate.substring(0,19) + ".000Z"
+    let formattedDate = stringDate.substring(0, 19) + ".000Z"
     return formattedDate
 }
 
@@ -64,6 +66,7 @@ export function capitalizeFirstLetter(word: string): string {
     providedIn: 'root'
 })
 export class UtilsService {
+
 
     /**
      * Constructs a new UtilsService.
@@ -126,5 +129,29 @@ export class UtilsService {
         await Share.share({
             text: textToShare,
         });
+    }
+
+    async getURLFromVehicle(vehicle: VehiclePreview): Promise<string> {
+        const storage = getStorage();
+        if (vehicle.imageURL) {
+            try {
+                const url = await getDownloadURL(ref(storage, vehicle.imageURL));
+                return url;
+            } catch (error) {
+                return this.getPlaceholderCategory(vehicle);
+            }
+        } else {
+            return this.getPlaceholderCategory(vehicle);
+        }
+    }
+
+    getPlaceholderCategory(vehicle: VehiclePreview): string {
+        switch (vehicle.category) {
+            case "car": return "assets/placeholder/placeholder_car.png";
+            case "motorcycle": return "assets/placeholder/placeholder_motorcycle.png";
+            case "van": return "assets/placeholder/placeholder_van.png";
+            case "truck": return "assets/placeholder/placeholder_truck.png";
+            default: return "assets/placeholder/placeholder_car.png";
+        }
     }
 }

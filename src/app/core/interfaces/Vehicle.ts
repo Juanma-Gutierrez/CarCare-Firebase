@@ -17,8 +17,9 @@ import { Spent } from "./Spent";
 export interface Vehicle {
     available: boolean,
     brand: string,
-    created: string,
     category: VehicleCategory,
+    created: string,
+    imageURL: string,
     model: string,
     plate: string,
     registrationDate: string,

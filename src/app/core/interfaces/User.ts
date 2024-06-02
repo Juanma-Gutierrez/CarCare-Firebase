@@ -40,6 +40,7 @@ export interface VehiclePreview {
     brand: string,
     category: string,
     created: string,
+    imageURL: string,
     model: string,
     plate: string,
     ref: DocumentReference,

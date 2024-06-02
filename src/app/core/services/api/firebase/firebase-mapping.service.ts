@@ -168,14 +168,15 @@ export class FirebaseMappingService extends MappingService {
         let vehicle = {
             available: data.available,
             brand: data.brand,
-            created: convertDateToLongIsoFormatDate(data.created),
             category: data.category,
+            created: convertDateToLongIsoFormatDate(data.created),
+            imageURL: data.imageURL,
             model: data.model,
             plate: data.plate,
             registrationDate: convertDateToLongIsoFormatDate(data.registrationDate),
             spents: spents,
-            vehicleId: vehicleId,
             userId: userId,
+            vehicleId: vehicleId,
         }
         return vehicle;
     }
@@ -242,8 +243,9 @@ export class FirebaseMappingService extends MappingService {
         return {
             available: vehicle.available,
             brand: vehicle.brand,
-            created: convertDateToLongIsoFormatDate(vehicle.created),
             category: vehicle.category,
+            created: convertDateToLongIsoFormatDate(vehicle.created),
+            imageURL: vehicle.imageURL,
             model: vehicle.model,
             plate: vehicle.plate,
             registrationDate: convertDateToLongIsoFormatDate(vehicle.registrationDate),
