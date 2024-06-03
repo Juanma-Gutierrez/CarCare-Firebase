@@ -19,7 +19,8 @@ import { convertDateToLongIsoFormatDate } from 'src/app/core/services/utils.serv
 })
 export class VehicleFormComponent implements OnInit {
     categories: string[] = categoriesArray;
-    category: string = ""
+    isLoading = false;
+    category: string = "";
     brands: string[] = [];
     models: string[] = [];
     form: FormGroup;
@@ -76,6 +77,7 @@ export class VehicleFormComponent implements OnInit {
             if (category) {
                 this.category = category + "s";
                 this.form.controls['model'].disable();
+                this.form.controls['brand'].setValue("");
                 this.form.controls['model'].setValue("");
                 this.fetchBrands(this.form.controls['category'].value + "s");
             }
@@ -97,9 +99,11 @@ export class VehicleFormComponent implements OnInit {
     }
 
     fetchBrands(category: string) {
+        this.isLoading = true;
         let url = 'https://jumang.pythonanywhere.com/api/' + category + '/brands'
         this.http.get<any>(url)
             .subscribe(response => {
+                this.isLoading = false;
                 this.form.controls['brand'].enable();
                 this.brands = response.brands.sort((a: string, b: string) => a.localeCompare(b));
 
@@ -109,9 +113,11 @@ export class VehicleFormComponent implements OnInit {
     }
 
     fetchModels(category: string, brand: string) {
+        this.isLoading = true;
         let url = 'https://jumang.pythonanywhere.com/api/' + category + '/models/' + brand
         this.http.get<any>(url)
             .subscribe(response => {
+                this.isLoading = false;
                 this.form.controls['model'].enable();
                 this.models = response.models.sort((a: string, b: string) => a.localeCompare(b));
             }, error => {

@@ -26,7 +26,8 @@
                 <ion-select label="{{'home.vehicleForm.categoryTitle' | translate}}" formControlName="category"
                     fill="outline" labelPlacement="floating"
                     placeholder="S{{'home.vehicleForm.category.selectCategory' | translate}}">
-                    <ion-select-option *ngFor="let category of categories" [value]="category">{{ ('home.vehicleForm.category.' + category) | translate }}</ion-select-option>
+                    <ion-select-option *ngFor="let category of categories" [value]="category">{{
+                        ('home.vehicleForm.category.' + category) | translate }}</ion-select-option>
                 </ion-select>
                 <ion-select label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline"
                     formControlName="brand" type="text">
@@ -61,4 +62,8 @@
             [disabled]="!form.dirty || form.invalid" class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.save'
             | translate}}</ion-button>
     </div>
+</div>
+
+<div class="isLoading" *ngIf="isLoading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
 </div>
