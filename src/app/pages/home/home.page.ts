@@ -193,7 +193,23 @@ export class HomePage implements OnInit, OnDestroy {
             this.router.navigate(['/providers']);
         } else {
             var onDismiss = async (info: any) => {
-                this.spentsSvc.createSpent(info, vehicleSelected);
+                try {
+                    const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                        LOG_CONTENT.SPENT_CREATION_SUCCESSFULLY,
+                        OperationLog.SPENT,
+                        LogType.INFO
+                    )
+                    this.firebaseSvc.fbSaveLog(itemLog);
+                    this.spentsSvc.createSpent(info, vehicleSelected);
+                } catch (e: any) {
+                    console.log("Error: ", e.message)
+                    const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                        LOG_CONTENT.SPENT_CREATION_ERROR,
+                        OperationLog.SPENT,
+                        LogType.ERROR
+                    )
+                    this.firebaseSvc.fbSaveLog(itemLog);
+                }
             }
             this.presentFormSpents(null, vehicleSelected['id'], onDismiss);
         }
@@ -206,7 +222,25 @@ export class HomePage implements OnInit, OnDestroy {
     public async onEditSpentClicked(spent: Spent) {
         var vehicle: Vehicle = this.localDataSvc.getVehicle().value!;
         var onDismiss = (info: any) => {
-            this.spentsSvc.editSpent(info, vehicle);
+            const content_successful = info.role == "delete" ? LOG_CONTENT.SPENT_DELETION_SUCCESSFULLY : LOG_CONTENT.SPENT_EDITION_SUCCESSFULLY
+            const content_error = info.role == "delete" ? LOG_CONTENT.SPENT_DELETION_ERROR : LOG_CONTENT.SPENT_EDITION_ERROR
+            try {
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    content_successful,
+                    OperationLog.SPENT,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.spentsSvc.editSpent(info, vehicle);
+            } catch (e: any) {
+                console.log("Error: ", e.message)
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    content_error,
+                    OperationLog.SPENT,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
         }
         this.presentFormSpents(spent, vehicle!.vehicleId, onDismiss);
     }

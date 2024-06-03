@@ -4,9 +4,11 @@ import { Unsubscribe } from 'firebase/firestore';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { PROVIDER } from 'src/app/core/services/const.service';
+import { LOG_CONTENT, PROVIDER } from 'src/app/core/services/const.service';
 import { ProviderService } from 'src/app/core/services/provider.service';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
+import { Mapping } from 'src/app/core/services/api/firebase/mapping';
+import { LogType, OperationLog } from 'src/app/core/interfaces/ItemLog';
 
 /**
  * Providers page component
@@ -51,6 +53,34 @@ export class ProvidersPage implements OnInit, OnDestroy {
     }
 
     /**
+     * Handles the event when the create provider button is clicked.
+     * Opens a modal form for creating a new provider.
+     * @returns {void}
+     */
+    onCreateProviderClicked() {
+        var onDismiss = async (info: any) => {
+            try {
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.PROVIDER_CREATION_SUCCESSFULLY,
+                    OperationLog.PROVIDER,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.providerSvc.createProvider(info);
+            } catch (e: any) {
+                console.log("Error: ", e.message)
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.PROVIDER_CREATION_ERROR,
+                    OperationLog.PROVIDER,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
+        }
+        this.presentForm(null, onDismiss);
+    }
+
+    /**
      * Handles the event when the edit provider button is clicked.
      * Opens a modal form for editing the provider.
      * @param {Provider} provider - The provider to be edited.
@@ -58,21 +88,27 @@ export class ProvidersPage implements OnInit, OnDestroy {
      */
     onEditProviderClicked(provider: Provider) {
         var onDismiss = (info: any) => {
-            this.providerSvc.editOrDeleteProvider(info, provider);
+            const content_successful = info.role == "delete" ? LOG_CONTENT.PROVIDER_DELETION_SUCCESSFULLY : LOG_CONTENT.PROVIDER_EDITION_SUCCESSFULLY
+            const content_error = info.role == "delete" ? LOG_CONTENT.PROVIDER_DELETION_ERROR : LOG_CONTENT.PROVIDER_EDITION_ERROR
+            try {
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    content_successful,
+                    OperationLog.PROVIDER,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.providerSvc.editOrDeleteProvider(info, provider);
+            } catch (e: any) {
+                console.log("Error: ", e.message)
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    content_error,
+                    OperationLog.PROVIDER,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
         }
         this.presentForm(provider, onDismiss);
-    }
-
-    /**
-     * Handles the event when the create provider button is clicked.
-     * Opens a modal form for creating a new provider.
-     * @returns {void}
-     */
-    onCreateProviderClicked() {
-        var onDismiss = async (info: any) => {
-            this.providerSvc.createProvider(info);
-        }
-        this.presentForm(null, onDismiss);
     }
 
     /**
