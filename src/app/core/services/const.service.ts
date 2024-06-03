@@ -32,3 +32,45 @@ export const CATEGORIES = [
     { "value": "towTruck", "title": "providers.providerForm.category.towTruck" },
     { "value": "other", "title": "providers.providerForm.category.other" },
 ]
+
+export const LOG = {
+    COLLECTION: "log",
+    DOCUMENT: "generalLog",
+    FIELD: "logs"
+}
+
+export const FB_COLLECTIONS = {
+    LOG: "log",
+    PROVIDER: "provider",
+    USER: "user",
+    VEHICLE: "vehicle",
+}
+
+export const FB_ERRORS = {
+    NO_DOCUMENT: "No such document",
+    ERROR_DB_OPERATION: "Error in database operation"
+}
+
+export const LOG_CONTENT = {
+    // Log VEHICLE
+    VEHICLE_CREATION_SUCCESSFULLY: "Creation of vehicle successfully",
+    VEHICLE_CREATION_ERROR: "Error in vehicle creation",
+    VEHICLE_EDITION_SUCCESSFULLY: "Edition of vehicle successfully",
+    VEHICLE_EDITION_ERROR: "Error in vehicle edition",
+    VEHICLE_DELETION_SUCCESSFULLY: "Deletion of vehicle successfully",
+    VEHICLE_DELETION_ERROR: "Error in vehicle deletion",
+    // Log PROVIDER
+    PROVIDER_CREATION_SUCCESSFULLY: "Creation of provider successfully",
+    PROVIDER_CREATION_ERROR: "Error in provider creation",
+    PROVIDER_EDITION_SUCCESSFULLY: "Edition of provider successfully",
+    PROVIDER_EDITION_ERROR: "Error in provider edition",
+    PROVIDER_DELETION_SUCCESSFULLY: "Deletion of provider successfully",
+    PROVIDER_DELETION_ERROR: "Error in vehicle provider",
+    // Log SPENT
+    SPENT_CREATION_SUCCESSFULLY: "Creation of spent successfully",
+    SPENT_CREATION_ERROR: "Error in spent creation",
+    SPENT_EDITION_SUCCESSFULLY: "Edition of spent successfully",
+    SPENT_EDITION_ERROR: "Error in spent edition",
+    SPENT_DELETION_SUCCESSFULLY: "Deletion of spent successfully",
+    SPENT_DELETION_ERROR: "Error in spent deletion",
+}

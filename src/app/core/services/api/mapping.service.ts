@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Provider } from '../../interfaces/Provider';
 import { Spent } from '../../interfaces/Spent';
 import { Vehicle } from '../../interfaces/Vehicle';
+import { ItemLog, LogType, OperationLog } from '../../interfaces/ItemLog';
+import { User } from '../../interfaces/User';
+import { LocalDataService } from './local-data.service';
 
 /**
  * Abstract class representing a mapping service for various data entities.
@@ -11,7 +14,6 @@ import { Vehicle } from '../../interfaces/Vehicle';
     providedIn: 'root'
 })
 export abstract class MappingService {
-
     /**
      * Retrieves the URL for querying vehicles.
      * @returns {string} The query vehicles URL.
@@ -95,3 +97,4 @@ export abstract class MappingService {
      */
     public abstract mapSpent(data: any): Spent;
 }
+

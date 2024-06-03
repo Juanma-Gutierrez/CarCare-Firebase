@@ -3,10 +3,11 @@ import { FirebaseApp, initializeApp, getApp } from 'firebase/app';
 import { Inject, Injectable } from '@angular/core';
 import { LocalDataService } from '../local-data.service';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, Auth } from "firebase/auth";
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
+import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc, arrayUnion } from "firebase/firestore";
 import { FirebaseUserCredential, FirebaseDocument } from './firebase.service';
 import { UtilsService } from '../../utils.service';
-import { MyToast, USER } from '../../const.service';
+import { LOG, MyToast, USER } from '../../const.service';
+import { ItemLog } from 'src/app/core/interfaces/ItemLog';
 
 
 @Injectable({
@@ -22,7 +23,7 @@ export class FirebaseService {
     constructor(
         @Inject('firebase-config') config: any,
         private utilSvc: UtilsService,
-        private localDataSvc: LocalDataService
+        private localDataSvc: LocalDataService,
     ) {
         this.init(config);
     }
@@ -199,5 +200,15 @@ export class FirebaseService {
         return onSnapshot(collection(this._db, collectionName), (snapshot) => {
             subject.next(snapshot.docs.map<any>(doc => mapFunction(doc)));
         }, error => { });
+    }
+
+    async fbSaveLog(itemLog: ItemLog): Promise<void> {
+        const docRef = doc(this._db, `${LOG.COLLECTION}/${LOG.DOCUMENT}`);
+        try {
+            await updateDoc(docRef, { [LOG.FIELD]: arrayUnion(itemLog) });
+            console.log('Log saved successfully');
+        } catch (e) {
+            const logMap = { logs: [itemLog] };
+        }
     }
 }

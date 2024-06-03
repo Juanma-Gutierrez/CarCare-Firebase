@@ -3,17 +3,20 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DocumentData, Unsubscribe } from 'firebase/firestore';
 import { Subscription } from 'rxjs';
+import { LogType, OperationLog } from 'src/app/core/interfaces/ItemLog';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
 import { FirebaseDocument } from 'src/app/core/services/api/firebase/firebase.service';
+import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
+import { Mapping } from 'src/app/core/services/api/firebase/mapping';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
-import { MyToast, VEHICLE } from 'src/app/core/services/const.service';
+import { LOG_CONTENT, MyToast, VEHICLE } from 'src/app/core/services/const.service';
 import { SpentService } from 'src/app/core/services/spent.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
+
 import { SpentFormComponent } from './spent-form/spent-form.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 
@@ -95,7 +98,23 @@ export class HomePage implements OnInit, OnDestroy {
      */
     onNewVehicle() {
         var onDismiss = async (info: any) => {
-            this.vehicleSvc.createVehicle(info);
+            try {
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.VEHICLE_CREATION_SUCCESSFULLY,
+                    OperationLog.VEHICLE,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.vehicleSvc.createVehicle(info);
+            } catch (e: any) {
+                console.log("Error: ", e.message)
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.VEHICLE_CREATION_ERROR,
+                    OperationLog.VEHICLE,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
         }
         this.presentFormVehicles(null, onDismiss);
     }
@@ -106,7 +125,25 @@ export class HomePage implements OnInit, OnDestroy {
      */
     public async onEditVehicleClicked(vehicle: VehiclePreview) {
         var onDismiss = (info: any) => {
-            this.vehicleSvc.editVehicle(info, vehicle);
+            const content_successful = info.role == "delete" ? LOG_CONTENT.VEHICLE_DELETION_SUCCESSFULLY : LOG_CONTENT.VEHICLE_EDITION_SUCCESSFULLY
+            const content_error = info.role == "delete" ? LOG_CONTENT.VEHICLE_DELETION_ERROR : LOG_CONTENT.VEHICLE_EDITION_ERROR
+            try {
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    content_successful,
+                    OperationLog.VEHICLE,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.vehicleSvc.editVehicle(info, vehicle);
+            } catch (e: any) {
+                console.log("Error: ", e.message)
+                const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                    content_error,
+                    OperationLog.VEHICLE,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
             if (info.role == "delete") {
                 this.cleanSpentsData();
             }
