@@ -29,16 +29,16 @@
                     <ion-select-option *ngFor="let category of categories" [value]="category">{{
                         ('home.vehicleForm.category.' + category) | translate }}</ion-select-option>
                 </ion-select>
-                <ion-select label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline"
-                    formControlName="brand" type="text">
+                <ion-select label="{{'home.vehicleForm.brand' | translate}}" formControlName="brand" fill="outline"
+                    labelPlacement="floating">
                     <ion-select-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</ion-select-option>
                 </ion-select>
                 <ion-select label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline"
-                    formControlName="model" type="text">
+                    formControlName="model">
                     <ion-select-option *ngFor="let model of models" [value]="model">{{ model }}</ion-select-option>
                 </ion-select>
                 <ion-input label="{{'home.vehicleForm.plate' | translate}}" labelPlacement="floating" fill="outline"
-                    formControlName="plate" type="text"></ion-input>
+                    formControlName="plate"></ion-input>
                 <div>
                     <ion-checkbox labelPlacement="end" formControlName="available"
                         checked="true">{{'home.vehicleForm.available' | translate}}</ion-checkbox>

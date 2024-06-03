@@ -23,6 +23,7 @@ export class VehicleFormComponent implements OnInit {
     category: string = "";
     brands: string[] = [];
     models: string[] = [];
+    isFirstLoadingBrand = true;
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set vehicle(_vehicle: Vehicle | null) {
@@ -41,9 +42,9 @@ export class VehicleFormComponent implements OnInit {
                 this.form.controls['registrationDate'].setValue(convertDateToLongIsoFormatDate(_vehicle.registrationDate));
                 this.form.controls['spents'].setValue(spentsList);
                 this.form.controls['vehicleId'].setValue(_vehicle.vehicleId);
+                this.form.markAsPristine();
             })
             this.category = _vehicle.category + "s"
-            this.fetchBrands(this.category);
         }
     }
 
@@ -76,10 +77,14 @@ export class VehicleFormComponent implements OnInit {
         this.form.controls['category'].valueChanges.subscribe(category => {
             if (category) {
                 this.category = category + "s";
-                this.form.controls['model'].disable();
-                this.form.controls['brand'].setValue("");
-                this.form.controls['model'].setValue("");
                 this.fetchBrands(this.form.controls['category'].value + "s");
+                if (!this.isFirstLoadingBrand) {
+                    this.form.controls['brand'].setValue("");
+                    this.form.controls['model'].disable();
+                    this.form.controls['model'].setValue("");
+                } else {
+                    this.isFirstLoadingBrand = false;
+                }
             }
         })
 
@@ -90,12 +95,15 @@ export class VehicleFormComponent implements OnInit {
         })
     }
 
+
     /**
      * Initializes the VehicleFormComponent.
      */
     ngOnInit() {
-        this.form.controls['brand'].disable();
-        this.form.controls['model'].disable();
+        if (this.mode == "New") {
+            this.form.controls['brand'].disable();
+            this.form.controls['model'].disable();
+        }
     }
 
     fetchBrands(category: string) {
