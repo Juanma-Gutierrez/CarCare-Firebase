@@ -120,7 +120,8 @@
         "username": "User name",
         "name": "Name",
         "surname": "Surname",
-        "email": "Email"
+        "email": "Email",
+        "export": "Export"
     },
     "message": {
         "confirm": {

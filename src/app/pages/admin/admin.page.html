@@ -1,8 +1,14 @@
 <ion-content>
     <ion-card>
-        <ion-card-header>
-            <ion-card-title>{{"administration.administrationTitle" | translate}}</ion-card-title>
-        </ion-card-header>
+        <ion-grid>
+            <ion-row class="ion-align-items-center">
+                <ion-button size="small" class="export-button"  (click)="onExportClicked()">
+                    <ion-icon slot="start" name="download-outline"></ion-icon>
+                    {{"administration.export" | translate}}
+                </ion-button>
+                <ion-card-title>{{"administration.administrationTitle" | translate}}</ion-card-title>
+            </ion-row>
+        </ion-grid>
         <ion-card-content>
             <div class="charts-line">
                 <div class="charts-container">

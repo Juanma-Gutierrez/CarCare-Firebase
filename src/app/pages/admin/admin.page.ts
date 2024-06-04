@@ -3,9 +3,10 @@ import { Unsubscribe } from 'firebase/firestore';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User, VehiclePreview } from 'src/app/core/interfaces/User';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
-import { USER } from 'src/app/core/services/const.service';
+import { LOG, USER } from 'src/app/core/services/const.service';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 import { capitalizeFirstLetter } from 'src/app/core/services/utils.service';
+import { CLIENT_RENEG_LIMIT } from 'tls';
 
 /**
  * Page component for the admin dashboard.
@@ -74,6 +75,13 @@ export class AdminPage implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.unsubscribes.forEach(uns => { if (uns) uns() });
         this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
+
+    onExportClicked() {
+        // TODO REGISTRAR LA EXPORTACIÓN DE LOS DATOS, ordenar los campos, crear un objeto con todo para exportarlo a csv
+        this.firebaseSvc.getDocument(LOG.COLLECTION, LOG.DOCUMENT).then(log =>
+            console.table(log.data)
+        )
     }
 }
 
