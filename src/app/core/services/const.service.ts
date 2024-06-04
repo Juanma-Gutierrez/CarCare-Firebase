@@ -55,9 +55,11 @@ export const LOG_CONTENT = {
     // REGISTER
     REGISTER_USER_SUCCESSFULLY: "Register user successfully",
     REGISTER_USER_ERROR: "Error in register user",
-    // LOGIN
+    // LOGIN-LOGOUT
     LOGIN_SUCCESFULLY: "Login successfully",
     LOGIN_ERROR: "Login error",
+    LOGOUT_SUCCESFULLY: "Logout successfully",
+    LOGOUT_ERROR: "Logout error",
     // VEHICLE
     VEHICLE_CREATION_SUCCESSFULLY: "Creation of vehicle successfully",
     VEHICLE_CREATION_ERROR: "Error in vehicle creation",

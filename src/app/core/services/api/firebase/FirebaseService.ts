@@ -203,7 +203,8 @@ export class FirebaseService {
     }
 
     async fbSaveLog(itemLog: ItemLog): Promise<void> {
-        const docRef = doc(this._db, `${LOG.COLLECTION}/${LOG.DOCUMENT}`);
+        const logRef = `${LOG.COLLECTION}/${LOG.DOCUMENT}`;
+        const docRef = doc(this._db, logRef);
         try {
             await updateDoc(docRef, { [LOG.FIELD]: arrayUnion(itemLog) });
             console.log('Log saved successfully');

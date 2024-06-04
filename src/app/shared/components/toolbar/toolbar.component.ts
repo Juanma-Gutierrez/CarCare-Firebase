@@ -1,9 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LogType, OperationLog } from 'src/app/core/interfaces/ItemLog';
 import { User } from 'src/app/core/interfaces/User';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/api/auth.service';
+import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
+import { Mapping } from 'src/app/core/services/api/firebase/mapping';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
+import { LOG_CONTENT } from 'src/app/core/services/const.service';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 
 /**
@@ -32,7 +36,8 @@ export class ToolbarComponent implements OnInit {
         public authSvc: AuthService,
         public apiSvc: ApiService,
         public translateScv: CustomTranslateService,
-        public localDataSvc: LocalDataService
+        public localDataSvc: LocalDataService,
+        private firebaseSvc: FirebaseService
     ) { }
 
     /**
@@ -88,8 +93,24 @@ export class ToolbarComponent implements OnInit {
     /**
      * Handles the logout action.
      */
-    logoutClicked() {
-        this.authSvc.logout();
+    async logoutClicked() {
+        try {
+            var itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                LOG_CONTENT.LOGOUT_SUCCESFULLY,
+                OperationLog.LOGOUT,
+                LogType.INFO
+            );
+            await this.firebaseSvc.fbSaveLog(itemLog);
+            this.authSvc.logout();
+        } catch (e: any) {
+            console.log("Error: ", e.message)
+            const itemLog = new Mapping(this.localDataSvc).generateItemLog(
+                LOG_CONTENT.LOGOUT_ERROR,
+                OperationLog.LOGOUT,
+                LogType.ERROR
+            );
+            this.firebaseSvc.fbSaveLog(itemLog);
+        }
     }
 
     /**
