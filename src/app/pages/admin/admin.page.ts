@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Unsubscribe } from 'firebase/firestore';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { ItemLog } from 'src/app/core/interfaces/ItemLog';
 import { User, VehiclePreview } from 'src/app/core/interfaces/User';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
+import { Mapping } from 'src/app/core/services/api/firebase/mapping';
+import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { LOG, USER } from 'src/app/core/services/const.service';
 import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 import { capitalizeFirstLetter } from 'src/app/core/services/utils.service';
-import { CLIENT_RENEG_LIMIT } from 'tls';
 
 /**
  * Page component for the admin dashboard.
@@ -35,6 +37,7 @@ export class AdminPage implements OnInit, OnDestroy {
     constructor(
         private firebaseSvc: FirebaseService,
         private translateSvc: CustomTranslateService,
+        private localDataSvc: LocalDataService,
     ) {
         this.users$.subscribe(_data => {
             this.data1 = dataMappingSvc(_data, "brand", translateSvc);
@@ -78,11 +81,32 @@ export class AdminPage implements OnInit, OnDestroy {
     }
 
     onExportClicked() {
-        // TODO REGISTRAR LA EXPORTACIÓN DE LOS DATOS, ordenar los campos, crear un objeto con todo para exportarlo a csv
-        this.firebaseSvc.getDocument(LOG.COLLECTION, LOG.DOCUMENT).then(log =>
-            console.table(log.data)
+        const mapping = new Mapping(this.localDataSvc)
+        this.firebaseSvc.getDocument(LOG.COLLECTION, LOG.DOCUMENT).then(log => {
+            const data: ItemLog[] = log.data['logs'];
+            const formattedData = mapping.mapArrayItemLogToCSVData(data);
+            console.log(formattedData)
+            const csvRaw = convertArrayToCSV(formattedData);
+            console.log(csvRaw);
+            generateCSV(csvRaw);
+        }
         )
     }
+}
+
+function convertArrayToCSV(data: ItemLog[]): string {
+    const headers = ['uid', 'content', 'operationLog', 'dateTime', 'currentUser', 'type'];
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+    for (const row of data) {
+        const values = headers.map(header => {
+            const value = row[header as keyof ItemLog] || '';
+            const escapedValue = ('' + value).replace(/"/g, '""');
+            return `"${escapedValue}"`;
+        });
+        csvRows.push(values.join(','));
+    }
+    return csvRows.join('\n');
 }
 
 /**
@@ -165,4 +189,16 @@ function countCategories(data: any[]): any {
         category: categoryCounts,
         brand: brandCounts
     };
+}
+
+function generateCSV(csvRaw: string, filename: string = 'logs.csv') {
+    const blob = new Blob([csvRaw], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }

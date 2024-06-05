@@ -41,4 +41,15 @@ export class Mapping {
         }
         return itemLog
     }
+
+    public mapArrayItemLogToCSVData(data: ItemLog[]): ItemLog[] {
+        return data.map(row => ({
+            uid: row.uid || '',
+            content: row.content || '',
+            operationLog: row.operationLog || '',
+            dateTime: row.dateTime || '',
+            currentUser: row.currentUser || '',
+            type: row.type || ''
+        }));
+    }
 }
