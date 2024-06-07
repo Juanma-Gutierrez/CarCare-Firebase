@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VehiclePreview } from 'src/app/core/interfaces/User';
+import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 import { UtilsService } from 'src/app/core/services/utils.service';
 
 /**
@@ -11,26 +12,36 @@ import { UtilsService } from 'src/app/core/services/utils.service';
     styleUrls: ['./vehicle-item-list.component.scss'],
 })
 export class VehicleItemListComponent implements OnInit {
-    @Input() vehicle: VehiclePreview | null = null
-    url: string = ""
+    @Input() vehicle: VehiclePreview | null = null;
+    url: string = "";
+    category: string = "";
+    icon:string = "";
 
     constructor(
-        private utilSvc: UtilsService
+        private utilSvc: UtilsService,
+        private translateSvc: CustomTranslateService,
     ) { }
 
     /**
      * Lifecycle hook called after component initialization.
      */
     ngOnInit() {
-        this.getImageFromVehicle()
+        this.getImageFromVehicle();
+        this.getCategoryFromVehicle();
+    }
+    getCategoryFromVehicle() {
+        if (this.vehicle != null) {
+            this.category = "vehicles.vehicleItem." + this.vehicle.category;
+            this.icon = "assets/icon/icon-" + this.vehicle.category + ".png";
+        }
     }
 
     getImageFromVehicle() {
-        this.utilSvc.getURLFromVehicle(this.vehicle!!).then(url => this.url = url)
+        this.utilSvc.getURLFromVehicle(this.vehicle!!).then(url => this.url = url);
     }
 
     getPlaceholderCategory(): string {
-        return this.utilSvc.getPlaceholderCategory(this.vehicle!!)
+        return this.utilSvc.getPlaceholderCategory(this.vehicle!!);
     }
 
 }

@@ -1,29 +1,21 @@
 <ion-card [ngClass]="{'not-available': !vehicle?.available}">
     <ion-img class="vehicleImage" [src]="url || getPlaceholderCategory()" alt="Vehicle image"></ion-img>
-    <ion-row class="ion-justify-content-center">
-        <ion-card-title>{{vehicle?.brand |upperCamelCase}} {{vehicle?.model | upperCamelCase}}</ion-card-title>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle>{{vehicle?.plate | uppercase}}</ion-card-subtitle>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available">{{"vehicles.vehicleItem.notAvailable" |
-            translate}}</ion-card-subtitle>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle *ngIf="vehicle?.category === 'car'"> {{'vehicles.vehicleItem.car' | translate}}
-        </ion-card-subtitle>
-        <ion-card-subtitle *ngIf="vehicle?.category === 'motorcycle'"> {{'vehicles.vehicleItem.motorcycle' | translate}}
-        </ion-card-subtitle>
-        <ion-card-subtitle *ngIf="vehicle?.category === 'van'"> {{'vehicles.vehicleItem.van' | translate}}
-        </ion-card-subtitle>
-        <ion-card-subtitle *ngIf="vehicle?.category === 'truck'"> {{'vehicles.vehicleItem.truck' | translate}}
-        </ion-card-subtitle>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle>
-            {{ 'vehicles.vehicleItem.registrationDate' | translate }}:
-            {{ vehicle?.registrationDate?.toString() | date:"dd/MM/yy" }}
-        </ion-card-subtitle>
-    </ion-row>
+    <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available"> {{"vehicles.vehicleItem.notAvailable" |
+        translate}}</ion-card-subtitle>
+    <div class="text-info">
+        <ion-row class="ion-justify-content-start">
+            <ion-card-title>{{vehicle?.brand |upperCamelCase}} {{vehicle?.model | upperCamelCase}}</ion-card-title>
+        </ion-row>
+        <ion-row class="ion-justify-content-start">
+            <ion-card-subtitle>{{vehicle?.plate | uppercase}}</ion-card-subtitle>
+            <ion-card-subtitle class="ion-margin-start">{{category | translate}}</ion-card-subtitle>
+        </ion-row>
+        <ion-row class="ion-justify-content-start">
+            <ion-card-subtitle>
+                {{ 'vehicles.vehicleItem.registrationDate' | translate }}:
+                {{ vehicle?.registrationDate?.toString() | date:"dd/MM/yy" }}
+            </ion-card-subtitle>
+        </ion-row>
+    </div>
+    <ion-img src={{icon}} class="icon"></ion-img>
 </ion-card>
