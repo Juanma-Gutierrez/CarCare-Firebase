@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChartModule } from 'primeng/chart';
+
 import { createTranslateLoader } from '../core/services/custom-translate.service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { UserItemComponent } from './components/toolbar/user-item/user-item.component';

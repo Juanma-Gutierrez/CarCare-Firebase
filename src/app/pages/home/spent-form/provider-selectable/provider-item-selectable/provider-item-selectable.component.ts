@@ -16,6 +16,10 @@ export class ProviderItemSelectableComponent implements OnInit {
         this._provider = _provider;
     }
     @Output('clicked') clicked = new EventEmitter();
+
+    /**
+     * Retrieves the provider item currently set.
+     */
     get provider(): Provider | undefined {
         return this._provider;
     }
@@ -27,6 +31,7 @@ export class ProviderItemSelectableComponent implements OnInit {
 
     /**
      * Event handler for when a provider item is clicked.
+     * Emits the clicked event with the current provider item.
      */
     onProviderClicked() {
         this.clicked.emit(this._provider);

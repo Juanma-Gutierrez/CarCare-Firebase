@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+
 import { User } from '../../interfaces/User';
 import { HttpClientProvider } from '../http/http-client.provider';
 
 /**
  * Service for making API requests.
- * 
  * @param http The HttpClientProvider instance.
  */
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,6 @@ export class ApiService {
 
     /**
      * Constructs a new instance of the ApiService.
-     * 
      * @param http The HttpClientProvider instance.
      */
     constructor(

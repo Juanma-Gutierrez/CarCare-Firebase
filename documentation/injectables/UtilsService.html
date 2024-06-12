@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -150,6 +143,13 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#getPlaceholderCategory" >getPlaceholderCategory</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getURLFromVehicle" >getURLFromVehicle</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Async</span>
                                 <a href="#shareVehicles" >shareVehicles</a>
                             </li>
@@ -185,7 +185,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/core/services/utils.service.ts:60</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/core/services/utils.service.ts:74</a></div>
                             </td>
                         </tr>
 
@@ -259,6 +259,160 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getPlaceholderCategory"></a>
+                    <span class="name">
+                        <span ><b>getPlaceholderCategory</b></span>
+                        <a href="#getPlaceholderCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPlaceholderCategory(vehicle: <a href="../interfaces/VehiclePreview.html" target="_self">VehiclePreview</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/app/core/services/utils.service.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a placeholder image URL based on the category of the vehicle.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vehicle</td>
+                                            <td>
+                                                            <code><a href="../interfaces/VehiclePreview.html" target="_self" >VehiclePreview</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The vehicle for which the placeholder image URL is to be retrieved.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A string representing the URL of the placeholder image corresponding to the vehicle category.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getURLFromVehicle"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getURLFromVehicle</b></span>
+                        <a href="#getURLFromVehicle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getURLFromVehicle(vehicle: <a href="../interfaces/VehiclePreview.html" target="_self">VehiclePreview</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/core/services/utils.service.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the URL of the image associated with a vehicle.
+If the image URL exists, it fetches the URL from the storage.
+If the image URL doesn&#39;t exist or there is an error fetching the URL, it returns a placeholder URL.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vehicle</td>
+                                            <td>
+                                                            <code><a href="../interfaces/VehiclePreview.html" target="_self" >VehiclePreview</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The vehicle for which the image URL is to be retrieved.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to the URL of the vehicle image or a placeholder URL.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="shareVehicles"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -277,8 +431,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="114"
-                                    class="link-to-prism">src/app/core/services/utils.service.ts:114</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/core/services/utils.service.ts:128</a></div>
                         </td>
                     </tr>
 
@@ -355,8 +509,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="99"
-                                    class="link-to-prism">src/app/core/services/utils.service.ts:99</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/core/services/utils.service.ts:113</a></div>
                         </td>
                     </tr>
 
@@ -437,8 +591,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="79"
-                                    class="link-to-prism">src/app/core/services/utils.service.ts:79</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">src/app/core/services/utils.service.ts:93</a></div>
                         </td>
                     </tr>
 
@@ -568,9 +722,12 @@ import { Dialog } from &#x27;@capacitor/dialog&#x27;;
 import { Preferences } from &#x27;@capacitor/preferences&#x27;;
 import { Share } from &#x27;@capacitor/share&#x27;;
 import { ToastController, ToastOptions } from &#x27;@ionic/angular&#x27;;
+import { getDownloadURL, getStorage, ref } from &#x27;firebase/storage&#x27;;
+
 import { VehiclePreview } from &#x27;../interfaces/User&#x27;;
 import { Position } from &#x27;./const.service&#x27;;
 import { CustomTranslateService } from &#x27;./custom-translate.service&#x27;;
+
 
 /**
  * Generates a random alphanumeric ID.
@@ -590,6 +747,17 @@ export function saveLocalStorageUser(user: string) {
         key: &#x27;userName&#x27;,
         value: user
     });
+}
+
+/**
+ * Converts a date to long ISO format.
+ * @param {any} date - The date to be converted.
+ * @returns {string} - The date in long ISO format.
+ */
+export function convertDateToLongIsoFormatDate(date: any): string {
+    let stringDate &#x3D; date.toString()
+    let formattedDate &#x3D; stringDate.substring(0, 19) + &quot;.000Z&quot;
+    return formattedDate
 }
 
 /**
@@ -686,6 +854,42 @@ export class UtilsService {
             text: textToShare,
         });
     }
+
+    /**
+     * Retrieves the URL of the image associated with a vehicle.
+     * If the image URL exists, it fetches the URL from the storage.
+     * If the image URL doesn&#x27;t exist or there is an error fetching the URL, it returns a placeholder URL.
+     * @param vehicle The vehicle for which the image URL is to be retrieved.
+     * @returns A promise that resolves to the URL of the vehicle image or a placeholder URL.
+     */
+    async getURLFromVehicle(vehicle: VehiclePreview): Promise&lt;string&gt; {
+        const storage &#x3D; getStorage();
+        if (vehicle.imageURL) {
+            try {
+                const url &#x3D; await getDownloadURL(ref(storage, vehicle.imageURL));
+                return url;
+            } catch (error) {
+                return this.getPlaceholderCategory(vehicle);
+            }
+        } else {
+            return this.getPlaceholderCategory(vehicle);
+        }
+    }
+
+    /**
+     * Retrieves a placeholder image URL based on the category of the vehicle.
+     * @param vehicle The vehicle for which the placeholder image URL is to be retrieved.
+     * @returns A string representing the URL of the placeholder image corresponding to the vehicle category.
+     */
+    getPlaceholderCategory(vehicle: VehiclePreview): string {
+        switch (vehicle.category) {
+            case &quot;car&quot;: return &quot;assets/placeholder/placeholder_car.png&quot;;
+            case &quot;motorcycle&quot;: return &quot;assets/placeholder/placeholder_motorcycle.png&quot;;
+            case &quot;van&quot;: return &quot;assets/placeholder/placeholder_van.png&quot;;
+            case &quot;truck&quot;: return &quot;assets/placeholder/placeholder_truck.png&quot;;
+            default: return &quot;assets/placeholder/placeholder_car.png&quot;;
+        }
+    }
 }
 </code></pre>
     </div>
@@ -733,6 +937,19 @@ export class UtilsService {
             var COMPODOC_CURRENT_PAGE_URL = 'UtilsService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

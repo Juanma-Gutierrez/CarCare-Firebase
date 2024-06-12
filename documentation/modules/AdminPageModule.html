@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -239,6 +232,13 @@
 
 
 
+        <p class="comment">
+            <h3>Description</h3>
+        </p>
+        <p class="comment">
+            <p>NgModule that declares components and imports necessary modules for the admin page.</p>
+
+        </p>
 
 
         <div class="container-fluid module">
@@ -284,12 +284,15 @@ import { NgModule } from &#x27;@angular/core&#x27;;
 import { TranslateLoader, TranslateModule } from &#x27;@ngx-translate/core&#x27;;
 import { createTranslateLoader } from &#x27;src/app/core/services/custom-translate.service&#x27;;
 import { SharedModule } from &#x27;src/app/shared/shared.module&#x27;;
+
 import { HomePageRoutingModule } from &#x27;../home/home-routing.module&#x27;;
 import { AdminPageRoutingModule } from &#x27;./admin-routing.module&#x27;;
 import { AdminPage } from &#x27;./admin.page&#x27;;
 import { UserListItemComponent } from &#x27;./user-list-item/user-list-item.component&#x27;;
 
-
+/**
+ * NgModule that declares components and imports necessary modules for the admin page.
+ */
 @NgModule({
     imports: [
         AdminPageRoutingModule,
@@ -359,6 +362,19 @@ export class AdminPageModule { }
             var COMPODOC_CURRENT_PAGE_URL = 'AdminPageModule.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

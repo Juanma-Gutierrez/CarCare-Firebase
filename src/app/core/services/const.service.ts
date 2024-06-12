@@ -1,29 +1,63 @@
+/**
+ * Constants for user-related entities.
+ */
 export const USER: string = "user";
+
+/**
+ * Constants for provider-related entities.
+ */
 export const PROVIDER: string = "provider";
+
+/**
+ * Constants for vehicle-related entities.
+ */
 export const VEHICLE: string = "vehicle";
+
+/**
+ * Constant for user role.
+ */
 export const USER_ROLE: string = "user";
 
+/**
+ * Type definition for colors used in the application.
+ */
 export type Color = {
     SUCCESS: "success";
     DANGER: "danger";
 }
 
+/**
+ * Type definition for toast positions.
+ */
 export type Position = {
     TOP: "top";
     BOTTOM: "bottom";
 }
 
+/**
+ * Class containing static properties related to toast messages.
+ */
 export class MyToast {
+    /**
+     * Static property defining toast positions.
+     */
     static readonly Position: Position = {
         TOP: "top",
         BOTTOM: "bottom"
     };
+
+    /**
+     * Static property defining toast colors.
+     */
     static readonly Color: Color = {
         DANGER: "danger",
         SUCCESS: "success"
     };
 }
 
+/**
+ * Array containing categories for providers.
+ */
 export const CATEGORIES = [
     { "value": "workshop", "title": "providers.providerForm.category.workshop" },
     { "value": "gasStation", "title": "providers.providerForm.category.gasStation" },
@@ -33,12 +67,18 @@ export const CATEGORIES = [
     { "value": "other", "title": "providers.providerForm.category.other" },
 ]
 
+/**
+ * Constants related to logging.
+ */
 export const LOG = {
     COLLECTION: "log",
     DOCUMENT: "generalLog",
     FIELD: "logs"
 }
 
+/**
+ * Constants for Firebase collections.
+ */
 export const FB_COLLECTIONS = {
     LOG: "log",
     PROVIDER: "provider",
@@ -46,11 +86,17 @@ export const FB_COLLECTIONS = {
     VEHICLE: "vehicle",
 }
 
+/**
+ * Constants for Firebase errors.
+ */
 export const FB_ERRORS = {
     NO_DOCUMENT: "No such document",
     ERROR_DB_OPERATION: "Error in database operation"
 }
 
+/**
+ * Constants for log content.
+ */
 export const LOG_CONTENT = {
     // REGISTER
     REGISTER_USER_SUCCESSFULLY: "Register user successfully",

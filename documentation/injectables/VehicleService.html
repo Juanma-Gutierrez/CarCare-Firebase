@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -187,7 +180,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/core/services/vehicle.service.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/core/services/vehicle.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -315,8 +308,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -393,8 +386,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="137"
-                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:137</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:140</a></div>
                         </td>
                     </tr>
 
@@ -471,8 +464,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="90"
-                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:90</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:92</a></div>
                         </td>
                     </tr>
 
@@ -565,8 +558,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="181"
-                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:181</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:185</a></div>
                         </td>
                     </tr>
 
@@ -646,8 +639,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="65"
-                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:65</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:66</a></div>
                         </td>
                     </tr>
 
@@ -740,8 +733,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="151"
-                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:151</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">src/app/core/services/vehicle.service.ts:154</a></div>
                         </td>
                     </tr>
 
@@ -825,12 +818,13 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { DocumentReference } from &#x27;firebase/firestore&#x27;;
+
 import { User, VehiclePreview } from &#x27;../interfaces/User&#x27;;
-import { FirebaseService } from &#x27;./api/firebase/FirebaseService&#x27;;
 import { FirebaseMappingService } from &#x27;./api/firebase/firebase-mapping.service&#x27;;
+import { FirebaseService } from &#x27;./api/firebase/FirebaseService&#x27;;
 import { LocalDataService } from &#x27;./api/local-data.service&#x27;;
 import { MyToast, USER, VEHICLE } from &#x27;./const.service&#x27;;
-import { UtilsService, generateId } from &#x27;./utils.service&#x27;;
+import { convertDateToLongIsoFormatDate, generateId, UtilsService } from &#x27;./utils.service&#x27;;
 
 @Injectable({
     providedIn: &#x27;root&#x27;
@@ -891,12 +885,13 @@ export class VehicleService {
         var vehiclePreview: VehiclePreview &#x3D; {
             available: data.available,
             brand: data.brand,
-            created: data.created,
+            created: convertDateToLongIsoFormatDate(data.created),
             category: data.category,
+            imageURL: data.imageURL,
             model: data.model,
             plate: data.plate,
             ref: ref,
-            registrationDate: data.registrationDate,
+            registrationDate: convertDateToLongIsoFormatDate(data.registrationDate),
             vehicleId: ref.id,
         }
         var user &#x3D; this.localDataSvc.getUser().value!!
@@ -922,6 +917,7 @@ export class VehicleService {
                         var vehiclesListUpdated: VehiclePreview[] &#x3D; this.updateVehicleInUserCollection(info.data, vehicle.vehicleId);
                         var userUpdated: User &#x3D; this.firebaseMappingSvc.mapUserWithVehicles(user, vehiclesListUpdated);
                         await this.firebaseSvc.updateDocument(USER, user.userId, userUpdated);
+                        info.data[&quot;registrationDate&quot;] &#x3D; convertDateToLongIsoFormatDate(info.data[&quot;registrationDate&quot;])
                         await this.firebaseSvc.updateDocument(VEHICLE, info.data[&#x27;vehicleId&#x27;], info.data);
                         await this.utilsSvc.showToast(&quot;message.vehicles.editVehicleOk&quot;, MyToast.Color.SUCCESS, MyToast.Position.BOTTOM);
                     } catch (e) {
@@ -981,12 +977,13 @@ export class VehicleService {
                 var vehiclePreview: VehiclePreview &#x3D; {
                     available: vehicleUpdated.available,
                     brand: vehicleUpdated.brand,
-                    created: vehicleUpdated.created,
+                    created: convertDateToLongIsoFormatDate(vehicleUpdated.created),
                     category: vehicleUpdated.category,
+                    imageURL: vehicleUpdated.imageURL,
                     model: vehicleUpdated.model,
                     plate: vehicleUpdated.plate,
                     ref: vehicle.ref,
-                    registrationDate: vehicleUpdated.registrationDate,
+                    registrationDate: convertDateToLongIsoFormatDate(vehicleUpdated.registrationDate),
                     vehicleId: vehicleUpdated.vehicleId,
                 }
                 vehiclesFiltered.push(vehiclePreview);
@@ -1058,6 +1055,19 @@ export class VehicleService {
             var COMPODOC_CURRENT_PAGE_URL = 'VehicleService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

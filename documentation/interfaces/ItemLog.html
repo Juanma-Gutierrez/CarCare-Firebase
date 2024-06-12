@@ -98,7 +98,7 @@
   <li class="breadcrumb-item">Interfaces</li>
   <li class="breadcrumb-item"
   >
-  Spent</li>
+  ItemLog</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -122,7 +122,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/core/interfaces/Spent.ts</code>
+            <code>src/app/core/interfaces/ItemLog.ts</code>
         </p>
 
 
@@ -130,7 +130,7 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>Represents a spent transaction.</p>
+                <p>Represents a log item.</p>
 
             </p>
 
@@ -148,47 +148,41 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#amount" 
+                                        <a href="#content" 
 >
-                                            amount
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#created" 
->
-                                            created
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#date" 
->
-                                            date
+                                            content
                                         </a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#observations" 
+                                        <a href="#currentUser" 
 >
-                                            observations
+                                            currentUser
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#providerId" 
+                                        <a href="#dateTime" 
 >
-                                            providerId
+                                            dateTime
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#operationLog" 
+>
+                                            operationLog
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
                                         </a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#providerName" 
+                                        <a href="#uid" 
 >
-                                            providerName
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#spentId" 
->
-                                            spentId
+                                            uid
                                         </a>
                                 </li>
                             </ul>
@@ -206,9 +200,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="amount"></a>
-                                        <span class="name "><b>amount</b>
-                                            <a href="#amount">
+                                        <a name="content"></a>
+                                        <span class="name "><b>content</b>
+                                            <a href="#content">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -216,40 +210,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>amount:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="created"></a>
-                                        <span class="name "><b>created</b>
-                                            <a href="#created">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>created:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>content:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -272,9 +233,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="date"></a>
-                                        <span class="name "><b>date</b>
-                                            <a href="#date">
+                                        <a name="currentUser"></a>
+                                        <span class="name "><b>currentUser</b>
+                                            <a href="#currentUser">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -282,40 +243,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>date:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="observations"></a>
-                                        <span class="name "><b>observations</b>
-                                            <a href="#observations">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>observations:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>currentUser:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -343,9 +271,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="providerId"></a>
-                                        <span class="name "><b>providerId</b>
-                                            <a href="#providerId">
+                                        <a name="dateTime"></a>
+                                        <span class="name "><b>dateTime</b>
+                                            <a href="#dateTime">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -353,7 +281,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>providerId:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>dateTime:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -376,9 +304,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="providerName"></a>
-                                        <span class="name "><b>providerName</b>
-                                            <a href="#providerName">
+                                        <a name="operationLog"></a>
+                                        <span class="name "><b>operationLog</b>
+                                            <a href="#operationLog">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -386,7 +314,73 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>providerName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>operationLog:         <code><a href="../miscellaneous/enumerations.html#OperationLog" target="_self" >OperationLog</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#OperationLog" target="_self" >OperationLog</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:         <code><a href="../miscellaneous/enumerations.html#LogType" target="_self" >LogType</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#LogType" target="_self" >LogType</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="uid"></a>
+                                        <span class="name "><b>uid</b>
+                                            <a href="#uid">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>uid:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -404,39 +398,6 @@
                                             <i>Optional</i>
                                         </td>
                                     </tr>
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="spentId"></a>
-                                        <span class="name "><b>spentId</b>
-                                            <a href="#spentId">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>spentId:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                                        </td>
-                                    </tr>
-
 
 
 
@@ -448,16 +409,50 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface Spent {
-    amount: number,
-    created: string,
-    date: string,
-    observations?: string,
-    providerId: string,
-    providerName?: string,
-    spentId: string,
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export enum LogType {
+    INFO &#x3D; &quot;INFO&quot;,
+    DEBUG &#x3D; &quot;DEBUG&quot;,
+    WARNING &#x3D; &quot;WARNING&quot;,
+    ERROR &#x3D; &quot;ERROR&quot;,
+    VERBOSE &#x3D; &quot;VERBOSE&quot;
 }
-</code></pre>
+
+/**
+ * Represents the type of operation log.
+ * Possible values:
+ * - CREATE_USER
+ * - LOGIN
+ * - LOGOUT
+ * - VEHICLE
+ * - PROVIDER
+ * - SPENT
+ */
+export enum OperationLog {
+    CREATE_USER &#x3D; &quot;CREATE_USER&quot;,
+    LOGIN &#x3D; &quot;LOGIN&quot;,
+    LOGOUT &#x3D; &quot;LOGOUT&quot;,
+    VEHICLE &#x3D; &quot;VEHICLE&quot;,
+    PROVIDER &#x3D; &quot;PROVIDER&quot;,
+    SPENT &#x3D; &quot;SPENT&quot;
+}
+
+/**
+ * Represents a log item.
+ * @param content The content of the log.
+ * @param currentUser The current user associated with the log (optional).
+ * @param dateTime The date and time when the log was created.
+ * @param operationLog The operation associated with the log.
+ * @param type The type of log.
+ * @param uid The unique identifier of the log (optional).
+ */
+export interface ItemLog {
+    content: string;
+    currentUser?: string;
+    dateTime: string;
+    operationLog: OperationLog;
+    type: LogType;
+    uid?: string;
+}</code></pre>
     </div>
 </div>
 
@@ -494,7 +489,7 @@
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'Spent.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'ItemLog.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

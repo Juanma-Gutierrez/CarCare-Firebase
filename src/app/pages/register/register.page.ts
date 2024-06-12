@@ -53,7 +53,7 @@ export class RegisterPage implements OnInit {
                         LogType.INFO
                     );
                     itemLog.currentUser = data.email;
-                    itemLog.uid= data.userId;
+                    itemLog.uid = data.userId;
                     this.firebaseSvc.fbSaveLog(itemLog);
                 } catch (e: any) {
                     console.log("Error: ", e.message)

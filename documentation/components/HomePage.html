@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -312,7 +305,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/home/home.page.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/home/home.page.ts:36</a></div>
                             </td>
                         </tr>
 
@@ -496,8 +489,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="120"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:120</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:157</a></div>
                         </td>
                     </tr>
 
@@ -537,8 +530,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="153"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:153</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:190</a></div>
                         </td>
                     </tr>
 
@@ -613,8 +606,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="208"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:208</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="279"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:279</a></div>
                         </td>
                     </tr>
 
@@ -652,8 +645,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -694,8 +687,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="169"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:169</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:222</a></div>
                         </td>
                     </tr>
 
@@ -773,8 +766,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="107"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:107</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:126</a></div>
                         </td>
                     </tr>
 
@@ -849,8 +842,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="96"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:96</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:99</a></div>
                         </td>
                     </tr>
 
@@ -891,8 +884,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="82"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:82</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:85</a></div>
                         </td>
                     </tr>
 
@@ -969,8 +962,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="183"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:183</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="254"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:254</a></div>
                         </td>
                     </tr>
 
@@ -1083,8 +1076,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="133"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:133</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="170"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:170</a></div>
                         </td>
                     </tr>
 
@@ -1177,8 +1170,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="69"
-                                    class="link-to-prism">src/app/pages/home/home.page.ts:69</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/pages/home/home.page.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -1258,7 +1251,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/home/home.page.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/home/home.page.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -1285,7 +1278,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/home/home.page.ts:51</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/pages/home/home.page.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -1322,7 +1315,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/home/home.page.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/home/home.page.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -1354,7 +1347,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/home/home.page.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/home/home.page.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -1381,7 +1374,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/home/home.page.ts:52</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/pages/home/home.page.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -1418,7 +1411,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/home/home.page.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/home/home.page.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -1450,7 +1443,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/home/home.page.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/home/home.page.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -1468,17 +1461,20 @@ import { Router } from &#x27;@angular/router&#x27;;
 import { ModalController } from &#x27;@ionic/angular&#x27;;
 import { DocumentData, Unsubscribe } from &#x27;firebase/firestore&#x27;;
 import { Subscription } from &#x27;rxjs&#x27;;
+import { LogType, OperationLog } from &#x27;src/app/core/interfaces/ItemLog&#x27;;
 import { Provider } from &#x27;src/app/core/interfaces/Provider&#x27;;
 import { Spent } from &#x27;src/app/core/interfaces/Spent&#x27;;
 import { VehiclePreview } from &#x27;src/app/core/interfaces/User&#x27;;
 import { Vehicle } from &#x27;src/app/core/interfaces/Vehicle&#x27;;
-import { FirebaseService } from &#x27;src/app/core/services/api/firebase/FirebaseService&#x27;;
 import { FirebaseDocument } from &#x27;src/app/core/services/api/firebase/firebase.service&#x27;;
+import { FirebaseService } from &#x27;src/app/core/services/api/firebase/FirebaseService&#x27;;
+import { Mapping } from &#x27;src/app/core/services/api/firebase/mapping&#x27;;
 import { LocalDataService } from &#x27;src/app/core/services/api/local-data.service&#x27;;
-import { MyToast, VEHICLE } from &#x27;src/app/core/services/const.service&#x27;;
+import { LOG_CONTENT, MyToast, VEHICLE } from &#x27;src/app/core/services/const.service&#x27;;
 import { SpentService } from &#x27;src/app/core/services/spent.service&#x27;;
 import { UtilsService } from &#x27;src/app/core/services/utils.service&#x27;;
 import { VehicleService } from &#x27;src/app/core/services/vehicle.service&#x27;;
+
 import { SpentFormComponent } from &#x27;./spent-form/spent-form.component&#x27;;
 import { VehicleFormComponent } from &#x27;./vehicle-form/vehicle-formcomponent&#x27;;
 
@@ -1560,7 +1556,23 @@ export class HomePage implements OnInit, OnDestroy {
      */
     onNewVehicle() {
         var onDismiss &#x3D; async (info: any) &#x3D;&gt; {
-            this.vehicleSvc.createVehicle(info);
+            try {
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.VEHICLE_CREATION_SUCCESSFULLY,
+                    OperationLog.VEHICLE,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.vehicleSvc.createVehicle(info);
+            } catch (e: any) {
+                console.log(&quot;Error: &quot;, e.message)
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.VEHICLE_CREATION_ERROR,
+                    OperationLog.VEHICLE,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
         }
         this.presentFormVehicles(null, onDismiss);
     }
@@ -1571,7 +1583,25 @@ export class HomePage implements OnInit, OnDestroy {
      */
     public async onEditVehicleClicked(vehicle: VehiclePreview) {
         var onDismiss &#x3D; (info: any) &#x3D;&gt; {
-            this.vehicleSvc.editVehicle(info, vehicle);
+            const content_successful &#x3D; info.role &#x3D;&#x3D; &quot;delete&quot; ? LOG_CONTENT.VEHICLE_DELETION_SUCCESSFULLY : LOG_CONTENT.VEHICLE_EDITION_SUCCESSFULLY
+            const content_error &#x3D; info.role &#x3D;&#x3D; &quot;delete&quot; ? LOG_CONTENT.VEHICLE_DELETION_ERROR : LOG_CONTENT.VEHICLE_EDITION_ERROR
+            try {
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    content_successful,
+                    OperationLog.VEHICLE,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.vehicleSvc.editVehicle(info, vehicle);
+            } catch (e: any) {
+                console.log(&quot;Error: &quot;, e.message)
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    content_error,
+                    OperationLog.VEHICLE,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
             if (info.role &#x3D;&#x3D; &quot;delete&quot;) {
                 this.cleanSpentsData();
             }
@@ -1621,7 +1651,23 @@ export class HomePage implements OnInit, OnDestroy {
             this.router.navigate([&#x27;/providers&#x27;]);
         } else {
             var onDismiss &#x3D; async (info: any) &#x3D;&gt; {
-                this.spentsSvc.createSpent(info, vehicleSelected);
+                try {
+                    const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                        LOG_CONTENT.SPENT_CREATION_SUCCESSFULLY,
+                        OperationLog.SPENT,
+                        LogType.INFO
+                    )
+                    this.firebaseSvc.fbSaveLog(itemLog);
+                    this.spentsSvc.createSpent(info, vehicleSelected);
+                } catch (e: any) {
+                    console.log(&quot;Error: &quot;, e.message)
+                    const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                        LOG_CONTENT.SPENT_CREATION_ERROR,
+                        OperationLog.SPENT,
+                        LogType.ERROR
+                    )
+                    this.firebaseSvc.fbSaveLog(itemLog);
+                }
             }
             this.presentFormSpents(null, vehicleSelected[&#x27;id&#x27;], onDismiss);
         }
@@ -1634,7 +1680,25 @@ export class HomePage implements OnInit, OnDestroy {
     public async onEditSpentClicked(spent: Spent) {
         var vehicle: Vehicle &#x3D; this.localDataSvc.getVehicle().value!;
         var onDismiss &#x3D; (info: any) &#x3D;&gt; {
-            this.spentsSvc.editSpent(info, vehicle);
+            const content_successful &#x3D; info.role &#x3D;&#x3D; &quot;delete&quot; ? LOG_CONTENT.SPENT_DELETION_SUCCESSFULLY : LOG_CONTENT.SPENT_EDITION_SUCCESSFULLY
+            const content_error &#x3D; info.role &#x3D;&#x3D; &quot;delete&quot; ? LOG_CONTENT.SPENT_DELETION_ERROR : LOG_CONTENT.SPENT_EDITION_ERROR
+            try {
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    content_successful,
+                    OperationLog.SPENT,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.spentsSvc.editSpent(info, vehicle);
+            } catch (e: any) {
+                console.log(&quot;Error: &quot;, e.message)
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    content_error,
+                    OperationLog.SPENT,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
         }
         this.presentFormSpents(spent, vehicle!.vehicleId, onDismiss);
     }
@@ -1833,7 +1897,7 @@ export class HomePage implements OnInit, OnDestroy {
                 <p class="comment">
                     <code>home.page.scss</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">.container{
+                <pre class="line-numbers"><code class="language-scss">.container {
     width: 90vw;
     min-width: 820px;
     max-width: 1200px;
@@ -1975,6 +2039,19 @@ app-spent-item {
             var COMPODOC_CURRENT_PAGE_URL = 'HomePage.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

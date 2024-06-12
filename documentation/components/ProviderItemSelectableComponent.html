@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -293,7 +286,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -376,8 +369,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -413,15 +406,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:36</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Event handler for when a provider item is clicked.</p>
+                        <div class="io-description"><p>Event handler for when a provider item is clicked.
+Emits the clicked event with the current provider item.</p>
 </div>
 
                         <div class="io-description">
@@ -487,9 +481,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/home/spent-form/provider-selectable/provider-item-selectable/provider-item-selectable.component.ts:23</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Retrieves the provider item currently set.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/Provider.html" target="_self" >Provider | undefined</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -563,6 +568,10 @@ export class ProviderItemSelectableComponent implements OnInit {
         this._provider &#x3D; _provider;
     }
     @Output(&#x27;clicked&#x27;) clicked &#x3D; new EventEmitter();
+
+    /**
+     * Retrieves the provider item currently set.
+     */
     get provider(): Provider | undefined {
         return this._provider;
     }
@@ -574,6 +583,7 @@ export class ProviderItemSelectableComponent implements OnInit {
 
     /**
      * Event handler for when a provider item is clicked.
+     * Emits the clicked event with the current provider item.
      */
     onProviderClicked() {
         this.clicked.emit(this._provider);
@@ -585,8 +595,7 @@ export class ProviderItemSelectableComponent implements OnInit {
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;ion-item [button]&#x3D;&quot;true&quot; (click)&#x3D;&quot;onProviderClicked()&quot;&gt;
     &lt;ion-label&gt;{{provider?.name}}&lt;/ion-label&gt;
-&lt;/ion-item&gt;
-</code></pre>
+&lt;/ion-item&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="styleData">
@@ -673,6 +682,19 @@ export class ProviderItemSelectableComponent implements OnInit {
             var COMPODOC_CURRENT_PAGE_URL = 'ProviderItemSelectableComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

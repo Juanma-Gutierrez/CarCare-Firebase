@@ -1,20 +1,20 @@
-.input{
+.input {
     margin: 10px 0px;
 }
 
-.container{
+.container {
     max-width: 80vw;
     min-height: 70vh;
 }
 
 @media (max-width: 767px) {
-    .container{
-        display:flex;
+    .container {
+        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         max-width: 100vw;
         height: 100vh;
-        margin:20px;
+        margin: 20px;
     }
 }

@@ -34,7 +34,6 @@ export interface User {
  * @param registrationDate The registration date of the vehicle.
  * @param vehicleId The ID of the vehicle.
  */
-
 export interface VehiclePreview {
     available: boolean,
     brand: string,
@@ -53,7 +52,6 @@ export interface VehiclePreview {
  * @param email The email address of the user.
  * @param password The password of the user.
  */
-
 export interface UserCredential {
     email: string,
     password: string,

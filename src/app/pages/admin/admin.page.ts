@@ -80,20 +80,27 @@ export class AdminPage implements OnInit, OnDestroy {
         this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 
+    /**
+     * Callback function for export button click event.
+     * Retrieves logs data from Firebase and generates a CSV file.
+     */
     onExportClicked() {
         const mapping = new Mapping(this.localDataSvc)
         this.firebaseSvc.getDocument(LOG.COLLECTION, LOG.DOCUMENT).then(log => {
             const data: ItemLog[] = log.data['logs'];
             const formattedData = mapping.mapArrayItemLogToCSVData(data);
-            console.log(formattedData)
             const csvRaw = convertArrayToCSV(formattedData);
-            console.log(csvRaw);
             generateCSV(csvRaw);
         }
         )
     }
 }
 
+/**
+ * Converts an array of objects to a CSV string.
+ * @param {ItemLog[]} data - The array of objects to be converted.
+ * @returns {string} - The CSV string.
+ */
 function convertArrayToCSV(data: ItemLog[]): string {
     const headers = ['uid', 'content', 'operationLog', 'dateTime', 'currentUser', 'type'];
     const csvRows = [];
@@ -191,6 +198,11 @@ function countCategories(data: any[]): any {
     };
 }
 
+/**
+ * Generates and initiates the download of a CSV file with the provided data.
+ * @param {string} csvRaw - The raw CSV data to be downloaded.
+ * @param {string} [filename='logs.csv'] - The filename for the downloaded CSV file.
+ */
 function generateCSV(csvRaw: string, filename: string = 'logs.csv') {
     const blob = new Blob([csvRaw], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');

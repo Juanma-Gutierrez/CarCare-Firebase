@@ -1,14 +1,15 @@
 import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Unsubscribe } from 'firebase/firestore';
+import { LogType, OperationLog } from 'src/app/core/interfaces/ItemLog';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { FirebaseService } from 'src/app/core/services/api/firebase/FirebaseService';
+import { Mapping } from 'src/app/core/services/api/firebase/mapping';
 import { LocalDataService } from 'src/app/core/services/api/local-data.service';
 import { LOG_CONTENT, PROVIDER } from 'src/app/core/services/const.service';
 import { ProviderService } from 'src/app/core/services/provider.service';
+
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
-import { Mapping } from 'src/app/core/services/api/firebase/mapping';
-import { LogType, OperationLog } from 'src/app/core/interfaces/ItemLog';
 
 /**
  * Providers page component

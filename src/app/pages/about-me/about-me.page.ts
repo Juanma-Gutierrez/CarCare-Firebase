@@ -15,6 +15,9 @@ export class AboutMePage {
         private router: Router
     ) { }
 
+    /**
+     * Navigates to the home page.
+     */
     navToHome() {
         this.router.navigate(["/home"]);
     }

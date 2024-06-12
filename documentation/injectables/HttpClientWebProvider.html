@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -214,7 +207,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/core/services/http/http-client-web.provider.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/core/services/http/http-client-web.provider.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -288,8 +281,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="162"
-                                    class="link-to-prism">src/app/core/services/http/http-client-web.provider.ts:162</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/core/services/http/http-client-web.provider.ts:163</a></div>
                         </td>
                     </tr>
 
@@ -385,8 +378,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="146"
-                                    class="link-to-prism">src/app/core/services/http/http-client-web.provider.ts:146</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">src/app/core/services/http/http-client-web.provider.ts:147</a></div>
                         </td>
                     </tr>
 
@@ -494,7 +487,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:122</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:123</a></code>
 </div>
                         </td>
                     </tr>
@@ -632,7 +625,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:42</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:43</a></code>
 </div>
                         </td>
                     </tr>
@@ -770,7 +763,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:27</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:28</a></code>
 </div>
                         </td>
                     </tr>
@@ -855,7 +848,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:99</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:100</a></code>
 </div>
                         </td>
                     </tr>
@@ -1014,7 +1007,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:61</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:62</a></code>
 </div>
                         </td>
                     </tr>
@@ -1173,7 +1166,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:80</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:81</a></code>
 </div>
                         </td>
                     </tr>
@@ -1332,7 +1325,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:138</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/HttpClientProvider.html#source" target="_self" >HttpClientProvider:139</a></code>
 </div>
                         </td>
                     </tr>
@@ -1397,6 +1390,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient, HttpHeaders, HttpParams } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
+
 import { HttpClientProvider } from &#x27;./http-client.provider&#x27;;
 
 /**
@@ -1607,6 +1601,19 @@ export class HttpClientWebProvider extends HttpClientProvider {
             var COMPODOC_CURRENT_PAGE_URL = 'HttpClientWebProvider.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

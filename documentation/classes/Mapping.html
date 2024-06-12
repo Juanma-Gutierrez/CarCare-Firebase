@@ -79,7 +79,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -89,9 +89,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >DataService</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >Mapping</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -115,18 +119,11 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/core/services/api/data.service.ts</code>
+            <code>src/app/core/services/api/firebase/mapping.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>Abstract class representing a data service for making HTTP requests.
-Provides methods for querying, retrieving, posting, updating, and deleting data.</p>
 
-            </p>
 
 
 
@@ -145,28 +142,15 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#delete" >delete</a>
+                                <a href="#fbCreateLog" >fbCreateLog</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#get" >get</a>
+                                <a href="#generateItemLog" >generateItemLog</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#post" >post</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#put" >put</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#query" >query</a>
+                                <a href="#mapArrayItemLogToCSVData" >mapArrayItemLogToCSVData</a>
                             </li>
                         </ul>
                     </td>
@@ -180,6 +164,55 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
     </table>
 </section>
 
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(localDataSvc: <a href="../injectables/LocalDataService.html" target="_self">LocalDataService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/core/services/api/firebase/mapping.ts:6</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>localDataSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LocalDataService.html" target="_self" >LocalDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
 
             <section data-compodoc="block-methods">
     
@@ -190,42 +223,33 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="delete"></a>
+                    <a name="fbCreateLog"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
-                            <span class="modifier">Abstract</span>
-                        <span ><b>delete</b></span>
-                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>fbCreateLog</b></span>
+                        <a href="#fbCreateLog"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>delete(resource: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>fbCreateLog(type: <a href="../undefineds/LogType.html" target="_self">LogType</a>, currentUser: <a href="../interfaces/User.html" target="_self">User</a>, uid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, operation: <a href="../undefineds/OperationLog.html" target="_self">OperationLog</a>, content: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">src/app/core/services/api/data.service.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">src/app/core/services/api/firebase/mapping.ts:20</a></div>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Type parameters :</b>
-                            <ul class="type-parameters">
-                                    <li>T</li>
-                            </ul>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Deletes data from a resource.</p>
+                        <div class="io-description"><p>Creates a new log entry for Firebase.</p>
 </div>
 
                             <div class="io-description">
@@ -237,12 +261,49 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Default value</td>
                                                 <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>resource</td>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#LogType" target="_self" >LogType</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The log type.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>currentUser</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The current user.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uid</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -251,9 +312,48 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                                                     No
                                             </td>
 
+                                            <td>
+                                            </td>
 
                                             <td>
-                                                    <p>The resource endpoint (e.g., API URL).</p>
+                                                    <p>The user ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>operation</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#OperationLog" target="_self" >OperationLog</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The operation performed.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>&quot;&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>The log content (optional).</p>
 
                                             </td>
                                         </tr>
@@ -261,11 +361,11 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;T&gt;</code>
+                            <b>Returns : </b>        <code><a href="../interfaces/ItemLog.html" target="_self" >ItemLog</a></code>
 
                         </div>
                             <div class="io-description">
-                                <p>An observable that emits the delete response.</p>
+                                <p>The created ItemLog object.</p>
 
                             </div>
                 </td>
@@ -276,42 +376,33 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="get"></a>
+                    <a name="generateItemLog"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
-                            <span class="modifier">Abstract</span>
-                        <span ><b>get</b></span>
-                        <a href="#get"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>generateItemLog</b></span>
+                        <a href="#generateItemLog"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>get(resource: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>generateItemLog(content: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, operation: <a href="../undefineds/OperationLog.html" target="_self">OperationLog</a>, type: <a href="../undefineds/LogType.html" target="_self">LogType</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="25"
-                                    class="link-to-prism">src/app/core/services/api/data.service.ts:25</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/core/services/api/firebase/mapping.ts:47</a></div>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Type parameters :</b>
-                            <ul class="type-parameters">
-                                    <li>T</li>
-                            </ul>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves data from a resource.</p>
+                        <div class="io-description"><p>Generates a new log entry with the current user.</p>
 </div>
 
                             <div class="io-description">
@@ -328,7 +419,7 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>resource</td>
+                                                <td>content</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -339,7 +430,39 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
 
 
                                             <td>
-                                                    <p>The resource endpoint (e.g., API URL).</p>
+                                                    <p>The log content.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>operation</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#OperationLog" target="_self" >OperationLog</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The operation performed.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#LogType" target="_self" >LogType</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The log type.</p>
 
                                             </td>
                                         </tr>
@@ -347,11 +470,11 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;T&gt;</code>
+                            <b>Returns : </b>        <code><a href="../interfaces/ItemLog.html" target="_self" >ItemLog</a></code>
 
                         </div>
                             <div class="io-description">
-                                <p>An observable that emits the retrieved data.</p>
+                                <p>The generated ItemLog object.</p>
 
                             </div>
                 </td>
@@ -362,42 +485,33 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="post"></a>
+                    <a name="mapArrayItemLogToCSVData"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
-                            <span class="modifier">Abstract</span>
-                        <span ><b>post</b></span>
-                        <a href="#post"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>mapArrayItemLogToCSVData</b></span>
+                        <a href="#mapArrayItemLogToCSVData"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>post(resource: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    <code>mapArrayItemLogToCSVData(data: <a href="../interfaces/ItemLog.html" target="_self">ItemLog[]</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/app/core/services/api/data.service.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/core/services/api/firebase/mapping.ts:65</a></div>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Type parameters :</b>
-                            <ul class="type-parameters">
-                                    <li>T</li>
-                            </ul>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Posts data to a resource.</p>
+                        <div class="io-description"><p>Maps an array of ItemLog to an array of CSV data.</p>
 </div>
 
                             <div class="io-description">
@@ -413,26 +527,10 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                                <td>resource</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <p>The resource endpoint (e.g., API URL).</p>
-
-                                            </td>
-                                        </tr>
                                         <tr>
                                                 <td>data</td>
                                             <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                            <code><a href="../interfaces/ItemLog.html" target="_self" >ItemLog[]</a></code>
                                             </td>
 
                                             <td>
@@ -441,7 +539,7 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
 
 
                                             <td>
-                                                    <p>The data to be posted.</p>
+                                                    <p>The array of ItemLog to map.</p>
 
                                             </td>
                                         </tr>
@@ -449,215 +547,11 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;T&gt;</code>
+                            <b>Returns : </b>        <code><a href="../interfaces/ItemLog.html" target="_self" >ItemLog[]</a></code>
 
                         </div>
                             <div class="io-description">
-                                <p>An observable that emits the post response.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="put"></a>
-                    <span class="name">
-                            <span class="modifier">Public</span>
-                            <span class="modifier">Abstract</span>
-                        <span ><b>put</b></span>
-                        <a href="#put"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>put(resource: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">src/app/core/services/api/data.service.ts:41</a></div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Type parameters :</b>
-                            <ul class="type-parameters">
-                                    <li>T</li>
-                            </ul>
-                        </td>
-                    </tr>
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Updates data in a resource.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>resource</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <p>The resource endpoint (e.g., API URL).</p>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>data</td>
-                                            <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <p>The data to be updated.</p>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;T&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>An observable that emits the update response.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="query"></a>
-                    <span class="name">
-                            <span class="modifier">Public</span>
-                            <span class="modifier">Abstract</span>
-                        <span ><b>query</b></span>
-                        <a href="#query"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>query(resource: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, params: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="18"
-                                    class="link-to-prism">src/app/core/services/api/data.service.ts:18</a></div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Type parameters :</b>
-                            <ul class="type-parameters">
-                                    <li>T</li>
-                            </ul>
-                        </td>
-                    </tr>
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Queries a resource with specified parameters.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>resource</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <p>The resource endpoint (e.g., API URL).</p>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>params</td>
-                                            <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <p>Additional query parameters.</p>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>An observable that emits the query response.</p>
+                                <p>The mapped CSV data array.</p>
 
                             </div>
                 </td>
@@ -666,67 +560,92 @@ Provides methods for querying, retrieving, posting, updating, and deleting data.
     </table>
 </section>
 
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ItemLog, LogType, OperationLog } from &#x27;src/app/core/interfaces/ItemLog&#x27;;
+import { User } from &#x27;src/app/core/interfaces/User&#x27;;
 
-/**
- * Abstract class representing a data service for making HTTP requests.
- * Provides methods for querying, retrieving, posting, updating, and deleting data.
- */
-@Injectable({
-    providedIn: &#x27;root&#x27;
-})
-export abstract class DataService {
-    /**
-     * Queries a resource with specified parameters.
-     * @param resource The resource endpoint (e.g., API URL).
-     * @param params Additional query parameters.
-     * @returns An observable that emits the query response.
-     */
-    public abstract query&lt;T&gt;(resource: string, params: any): Observable&lt;any&gt;;
+import { LocalDataService } from &#x27;../local-data.service&#x27;;
+
+export class Mapping {
+    constructor(
+        private localDataSvc: LocalDataService,
+    ) { }
 
     /**
-     * Retrieves data from a resource.
-     * @param resource The resource endpoint (e.g., API URL).
-     * @returns An observable that emits the retrieved data.
+     * Creates a new log entry for Firebase.
+     * @param type The log type.
+     * @param currentUser The current user.
+     * @param uid The user ID.
+     * @param operation The operation performed.
+     * @param content The log content (optional).
+     * @returns The created ItemLog object.
      */
-    public abstract get&lt;T&gt;(resource: string): Observable&lt;T&gt;;
+    public fbCreateLog(
+        type: LogType,
+        currentUser: User,
+        uid: string,
+        operation: OperationLog,
+        content: string &#x3D; &quot;&quot;
+    ): ItemLog {
+        const email &#x3D; currentUser?.email;
+        const userUid &#x3D; currentUser?.userId;
+        const log: ItemLog &#x3D; {
+            content: content,
+            currentUser: email,
+            dateTime: new Date().toISOString(),
+            operationLog: operation,
+            type: type,
+            uid: userUid,
+        };
+        return log
+    }
 
     /**
-     * Posts data to a resource.
-     * @param resource The resource endpoint (e.g., API URL).
-     * @param data The data to be posted.
-     * @returns An observable that emits the post response.
+     * Generates a new log entry with the current user.
+     * @param content The log content.
+     * @param operation The operation performed.
+     * @param type The log type.
+     * @returns The generated ItemLog object.
      */
-    public abstract post&lt;T&gt;(resource: string, data: any): Observable&lt;T&gt;;
+    public generateItemLog(content: string, operation: OperationLog, type: LogType): ItemLog {
+        const user &#x3D; this.localDataSvc.getUser().value;
+        const itemLog: ItemLog &#x3D; {
+            content: content,
+            currentUser: user?.email,
+            dateTime: new Date().toISOString(),
+            operationLog: operation,
+            type: type,
+            uid: user?.userId
+        }
+        return itemLog
+    }
 
     /**
-     * Updates data in a resource.
-     * @param resource The resource endpoint (e.g., API URL).
-     * @param data The data to be updated.
-     * @returns An observable that emits the update response.
+     * Maps an array of ItemLog to an array of CSV data.
+     * @param data The array of ItemLog to map.
+     * @returns The mapped CSV data array.
      */
-    public abstract put&lt;T&gt;(resource: string, data: any): Observable&lt;T&gt;;
-
-    /**
-     * Deletes data from a resource.
-     * @param resource The resource endpoint (e.g., API URL).
-     * @returns An observable that emits the delete response.
-     */
-    public abstract delete&lt;T&gt;(resource: string): Observable&lt;T&gt;;
+    public mapArrayItemLogToCSVData(data: ItemLog[]): ItemLog[] {
+        return data.map(row &#x3D;&gt; ({
+            uid: row.uid || &#x27;&#x27;,
+            content: row.content || &#x27;&#x27;,
+            operationLog: row.operationLog || &#x27;&#x27;,
+            dateTime: row.dateTime || &#x27;&#x27;,
+            currentUser: row.currentUser || &#x27;&#x27;,
+            type: row.type || &#x27;&#x27;
+        }));
+    }
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -761,8 +680,8 @@ export abstract class DataService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'DataService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'Mapping.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

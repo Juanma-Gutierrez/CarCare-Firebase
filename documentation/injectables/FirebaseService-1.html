@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -196,6 +189,10 @@
                                 <a href="#deleteDocument" >deleteDocument</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#fbSaveLog" >fbSaveLog</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Public</span>
                                 <a href="#getDocument" >getDocument</a>
                             </li>
@@ -248,12 +245,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:43</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Initializes the Firebase service with the given configuration.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -262,6 +261,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -276,6 +276,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>The Firebase configuration object.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>utilSvc</td>
@@ -288,6 +292,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Utility service for showing toast messages.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>localDataSvc</td>
@@ -300,6 +308,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Local data service for managing user data.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -338,14 +350,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:84</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Authenticates a user with email and password.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -356,6 +370,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -370,6 +385,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The user&#39;s email address.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>password</td>
@@ -382,6 +401,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The user&#39;s password.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -391,7 +414,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a FirebaseUserCredential object or null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -419,14 +443,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="92"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:92</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:144</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates a document in the specified Firestore collection.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -437,6 +463,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -451,6 +478,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the Firestore collection.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -463,6 +494,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The data to be added to the document.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -472,7 +507,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a DocumentReference object.</p>
+
                             </div>
                 </td>
             </tr>
@@ -500,14 +536,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="104"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:104</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:163</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates a document with a specified ID in the specified Firestore collection.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -518,6 +556,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -532,6 +571,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the Firestore collection.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -544,6 +587,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The data to be added to the document.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>docId</td>
@@ -556,6 +603,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The ID of the document.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -565,7 +616,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a DocumentReference object.</p>
+
                             </div>
                 </td>
             </tr>
@@ -594,14 +646,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="62"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:62</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:108</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates a new user with email and password.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -612,6 +666,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -626,6 +681,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The user&#39;s email address.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>password</td>
@@ -638,6 +697,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The user&#39;s password.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -647,7 +710,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a FirebaseUserCredential object or null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -675,14 +739,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="186"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:186</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="281"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:281</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Deletes a document from a Firestore collection.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -693,6 +759,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -707,6 +774,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the Firestore collection.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>docId</td>
@@ -719,6 +790,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The ID of the document to delete.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -728,7 +803,85 @@
 
                         </div>
                             <div class="io-description">
+                                <p>A promise that resolves when the document is deleted.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fbSaveLog"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>fbSaveLog</b></span>
+                        <a href="#fbSaveLog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fbSaveLog(itemLog: <a href="../interfaces/ItemLog.html" target="_self">ItemLog</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="311"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:311</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Saves a log item to Firestore.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
                                 
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>itemLog</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ItemLog.html" target="_self" >ItemLog</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The log item to be saved.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when the log item is saved.</p>
+
                             </div>
                 </td>
             </tr>
@@ -756,14 +909,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="122"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:122</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:187</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a document from the specified Firestore collection.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -774,6 +929,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -788,6 +944,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the Firestore collection.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>document</td>
@@ -800,6 +960,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The ID of the document to be retrieved.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -809,7 +973,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a FirebaseDocument object.</p>
+
                             </div>
                 </td>
             </tr>
@@ -837,14 +1002,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="138"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:138</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:208</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a document by its reference.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -855,6 +1022,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -869,6 +1037,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The reference of the document to be retrieved.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -878,7 +1050,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a FirebaseDocument object.</p>
+
                             </div>
                 </td>
             </tr>
@@ -907,14 +1080,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:63</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the Firebase app, Firestore, and authentication with the given configuration.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -925,6 +1100,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -939,6 +1115,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The Firebase configuration object.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -977,14 +1157,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="161"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:161</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="243"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:243</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Signs out the current user.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -996,6 +1178,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1013,6 +1196,10 @@
                                                     <code>false</code>
                                             </td>
 
+                                            <td>
+                                                    <p>Whether to sign in anonymously after signing out (default is false).</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1022,7 +1209,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves when the user is signed out.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1050,14 +1238,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="196"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:196</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="298"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:298</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Subscribes to changes in a specific Firestore collection.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1068,6 +1258,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1082,6 +1273,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the Firestore collection.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>subject</td>
@@ -1094,6 +1289,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The subject to emit the collection data.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>mapFunction</td>
@@ -1106,6 +1305,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Function to map each document data before emitting.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1115,7 +1318,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A function to unsubscribe from the subscription or null if database is not connected.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1143,14 +1347,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="173"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:173</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="262"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:262</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Subscribes to changes in a specific document in Firestore.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1162,6 +1368,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1178,6 +1385,10 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <p>The name of the Firestore collection.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>documentId</td>
@@ -1192,6 +1403,10 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <p>The ID of the document to subscribe to.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>subject</td>
@@ -1206,6 +1421,10 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <p>The subject to emit the document data.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>mapFunction</td>
@@ -1221,6 +1440,10 @@
                                                     <code>res &#x3D;&gt; res</code>
                                             </td>
 
+                                            <td>
+                                                    <p>Optional function to map the document data before emitting.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1230,7 +1453,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A function to unsubscribe from the subscription or null if database is not connected.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1258,14 +1482,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="149"
-                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:149</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="226"
+                                    class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:226</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates a document in the specified Firestore collection.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1276,6 +1502,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1290,6 +1517,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the Firestore collection.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>document</td>
@@ -1302,6 +1533,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The ID of the document to be updated.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -1314,6 +1549,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The data to be updated in the document.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1323,7 +1562,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves when the document is updated.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1355,7 +1595,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -1382,7 +1622,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -1409,7 +1649,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -1441,7 +1681,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -1473,7 +1713,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/core/services/api/firebase/FirebaseService.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -1486,15 +1726,38 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
-import { FirebaseApp, initializeApp, getApp } from &#x27;firebase/app&#x27;;
-import { Inject, Injectable } from &#x27;@angular/core&#x27;;
-import { LocalDataService } from &#x27;../local-data.service&#x27;;
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, Auth } from &quot;firebase/auth&quot;;
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from &quot;firebase/firestore&quot;;
-import { FirebaseUserCredential, FirebaseDocument } from &#x27;./firebase.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable } from &#x27;@angular/core&#x27;;
+import { FirebaseApp, getApp, initializeApp } from &#x27;firebase/app&#x27;;
+import {
+    Auth,
+    createUserWithEmailAndPassword,
+    indexedDBLocalPersistence,
+    initializeAuth,
+    signInWithEmailAndPassword,
+} from &#x27;firebase/auth&#x27;;
+import {
+    addDoc,
+    arrayUnion,
+    collection,
+    deleteDoc,
+    doc,
+    DocumentData,
+    DocumentReference,
+    Firestore,
+    getDoc,
+    getFirestore,
+    onSnapshot,
+    setDoc,
+    Unsubscribe,
+    updateDoc,
+} from &#x27;firebase/firestore&#x27;;
+import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
+import { ItemLog } from &#x27;src/app/core/interfaces/ItemLog&#x27;;
+
+import { LOG, MyToast, USER } from &#x27;../../const.service&#x27;;
 import { UtilsService } from &#x27;../../utils.service&#x27;;
-import { MyToast, USER } from &#x27;../../const.service&#x27;;
+import { LocalDataService } from &#x27;../local-data.service&#x27;;
+import { FirebaseDocument, FirebaseUserCredential } from &#x27;./firebase.service&#x27;;
 
 
 @Injectable({
@@ -1507,13 +1770,24 @@ export class FirebaseService {
     private _isLogged: BehaviorSubject&lt;boolean&gt; &#x3D; new BehaviorSubject&lt;boolean&gt;(false);
     public isLogged$: Observable&lt;boolean&gt; &#x3D; this._isLogged.asObservable();
 
+    /**
+     * Initializes the Firebase service with the given configuration.
+     * @param config The Firebase configuration object.
+     * @param utilSvc Utility service for showing toast messages.
+     * @param localDataSvc Local data service for managing user data.
+     */
     constructor(
         @Inject(&#x27;firebase-config&#x27;) config: any,
         private utilSvc: UtilsService,
-        private localDataSvc: LocalDataService
+        private localDataSvc: LocalDataService,
     ) {
         this.init(config);
     }
+
+    /**
+     * Initializes the Firebase app, Firestore, and authentication with the given configuration.
+     * @param firebaseConfig The Firebase configuration object.
+     */
     public async init(firebaseConfig: any) {
         this._app &#x3D; initializeApp(firebaseConfig);
         this._db &#x3D; getFirestore(this._app);
@@ -1529,6 +1803,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Authenticates a user with email and password.
+     * @param email The user&#x27;s email address.
+     * @param password The user&#x27;s password.
+     * @returns A promise that resolves to a FirebaseUserCredential object or null.
+     */
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise&lt;FirebaseUserCredential | null&gt; {
         return new Promise&lt;FirebaseUserCredential | null&gt;(async (resolve, reject) &#x3D;&gt; {
             if (!this._auth)
@@ -1547,6 +1827,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Creates a new user with email and password.
+     * @param email The user&#x27;s email address.
+     * @param password The user&#x27;s password.
+     * @returns A promise that resolves to a FirebaseUserCredential object or null.
+     */
     public async createUserWithEmailAndPassword(email: string, password: string): Promise&lt;FirebaseUserCredential | null&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._auth)
@@ -1577,6 +1863,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Creates a document in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param data The data to be added to the document.
+     * @returns A promise that resolves to a DocumentReference object.
+     */
     public createDocument(collectionName: string, data: any): Promise&lt;DocumentReference&gt; {
         return new Promise((resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -1589,6 +1881,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Creates a document with a specified ID in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param data The data to be added to the document.
+     * @param docId The ID of the document.
+     * @returns A promise that resolves to a DocumentReference object.
+     */
     public createDocumentWithId(
         collectionName: string,
         data: any,
@@ -1607,6 +1906,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Retrieves a document from the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param document The ID of the document to be retrieved.
+     * @returns A promise that resolves to a FirebaseDocument object.
+     */
     public getDocument(collectionName: string, document: string): Promise&lt;FirebaseDocument&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -1623,6 +1928,11 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Retrieves a document by its reference.
+     * @param docRef The reference of the document to be retrieved.
+     * @returns A promise that resolves to a FirebaseDocument object.
+     */
     public getDocumentByRef(docRef: DocumentReference): Promise&lt;FirebaseDocument&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             const docSnap &#x3D; await getDoc(docRef);
@@ -1634,6 +1944,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Updates a document in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param document The ID of the document to be updated.
+     * @param data The data to be updated in the document.
+     * @returns A promise that resolves when the document is updated.
+     */
     public updateDocument(collectionName: string, document: string, data: any): Promise&lt;void&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -1646,6 +1963,11 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Signs out the current user.
+     * @param signInAnon Whether to sign in anonymously after signing out (default is false).
+     * @returns A promise that resolves when the user is signed out.
+     */
     public async signOut(signInAnon: boolean &#x3D; false): Promise&lt;void&gt; {
         new Promise&lt;void&gt;(async (resolve, reject) &#x3D;&gt; {
             if (this._auth)
@@ -1657,7 +1979,14 @@ export class FirebaseService {
                 }
         });
     }
-
+    /**
+     * Subscribes to changes in a specific document in Firestore.
+     * @param collectionName The name of the Firestore collection.
+     * @param documentId The ID of the document to subscribe to.
+     * @param subject The subject to emit the document data.
+     * @param mapFunction Optional function to map the document data before emitting.
+     * @returns A function to unsubscribe from the subscription or null if database is not connected.
+     */
     public subscribeToDocument(collectionName: string, documentId: string, subject: BehaviorSubject&lt;any&gt;, mapFunction: (el: DocumentData) &#x3D;&gt; any &#x3D; res &#x3D;&gt; res): Unsubscribe | null {
         if (!this._db)
             return null;
@@ -1671,6 +2000,12 @@ export class FirebaseService {
         }, error &#x3D;&gt; { throw new Error(error.message); });
     }
 
+    /**
+     * Deletes a document from a Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param docId The ID of the document to delete.
+     * @returns A promise that resolves when the document is deleted.
+     */
     public deleteDocument(collectionName: string, docId: string): Promise&lt;void&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -1681,12 +2016,35 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Subscribes to changes in a specific Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param subject The subject to emit the collection data.
+     * @param mapFunction Function to map each document data before emitting.
+     * @returns A function to unsubscribe from the subscription or null if database is not connected.
+     */
     public subscribeToCollection(collectionName: string, subject: BehaviorSubject&lt;any[]&gt;, mapFunction: (el: DocumentData) &#x3D;&gt; any): Unsubscribe | null {
         if (!this._db)
             return null;
         return onSnapshot(collection(this._db, collectionName), (snapshot) &#x3D;&gt; {
             subject.next(snapshot.docs.map&lt;any&gt;(doc &#x3D;&gt; mapFunction(doc)));
         }, error &#x3D;&gt; { });
+    }
+
+    /**
+     * Saves a log item to Firestore.
+     * @param itemLog The log item to be saved.
+     * @returns A promise that resolves when the log item is saved.
+     */
+    async fbSaveLog(itemLog: ItemLog): Promise&lt;void&gt; {
+        const logRef &#x3D; &#x60;${LOG.COLLECTION}/${LOG.DOCUMENT}&#x60;;
+        const docRef &#x3D; doc(this._db, logRef);
+        try {
+            await updateDoc(docRef, { [LOG.FIELD]: arrayUnion(itemLog) });
+            console.log(&#x27;Log saved successfully&#x27;);
+        } catch (e) {
+            const logMap &#x3D; { logs: [itemLog] };
+        }
     }
 }
 </code></pre>
@@ -1735,6 +2093,19 @@ export class FirebaseService {
             var COMPODOC_CURRENT_PAGE_URL = 'FirebaseService-1.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
