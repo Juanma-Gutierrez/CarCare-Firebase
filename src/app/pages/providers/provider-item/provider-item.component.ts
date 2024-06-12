@@ -103,12 +103,12 @@ export class ProviderItemComponent implements OnInit {
         }
     }
 
-/**
- * Handles the click event for editing the provider and emits an event.
- * @param {Event} event - The click event.
- * @returns {void}
- * @public
- */
+    /**
+     * Handles the click event for editing the provider and emits an event.
+     * @param {Event} event - The click event.
+     * @returns {void}
+     * @public
+     */
     public async onEditProviderClick(event: Event) {
         this.onEditProviderClicked.emit();
         event.stopPropagation();

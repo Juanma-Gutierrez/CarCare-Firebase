@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -243,6 +236,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#logoutClicked" >logoutClicked</a>
                             </li>
                             <li>
@@ -298,12 +292,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(router: Router, authSvc: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, apiSvc: <a href="../injectables/ApiService.html" target="_self">ApiService</a>, translateScv: <a href="../injectables/CustomTranslateService.html" target="_self">CustomTranslateService</a>, localDataSvc: <a href="../injectables/LocalDataService.html" target="_self">LocalDataService</a>)</code>
+<code>constructor(router: Router, authSvc: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, apiSvc: <a href="../injectables/ApiService.html" target="_self">ApiService</a>, translateScv: <a href="../injectables/CustomTranslateService.html" target="_self">CustomTranslateService</a>, localDataSvc: <a href="../injectables/LocalDataService.html" target="_self">LocalDataService</a>, firebaseSvc: <a href="../injectables/FirebaseService.html" target="_self">FirebaseService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -403,6 +397,20 @@
 
                                                         </td>
                                                 </tr>
+                                                <tr>
+                                                        <td>firebaseSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirebaseService.html" target="_self" >FirebaseService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -431,7 +439,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:24</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -450,6 +458,7 @@
                 <td class="col-md-4">
                     <a name="logoutClicked"></a>
                     <span class="name">
+                            <span class="modifier">Async</span>
                         <span ><b>logoutClicked</b></span>
                         <a href="#logoutClicked"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -457,15 +466,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>logoutClicked()</code>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>logoutClicked()</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="91"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:91</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:96</a></div>
                         </td>
                     </tr>
 
@@ -476,7 +486,7 @@
 </div>
 
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                 </td>
@@ -503,8 +513,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -542,8 +552,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="83"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:83</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:88</a></div>
                         </td>
                     </tr>
 
@@ -581,8 +591,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="59"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:59</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:64</a></div>
                         </td>
                     </tr>
 
@@ -620,8 +630,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="75"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:75</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:80</a></div>
                         </td>
                     </tr>
 
@@ -659,8 +669,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="67"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:67</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -698,8 +708,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:41</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -737,8 +747,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="99"
-                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:99</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:120</a></div>
                         </td>
                     </tr>
 
@@ -817,7 +827,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -849,7 +859,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -881,7 +891,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -918,7 +928,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -945,7 +955,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -982,7 +992,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/shared/components/toolbar/toolbar.component.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -997,10 +1007,14 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, OnInit, Output } from &#x27;@angular/core&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
+import { LogType, OperationLog } from &#x27;src/app/core/interfaces/ItemLog&#x27;;
 import { User } from &#x27;src/app/core/interfaces/User&#x27;;
 import { ApiService } from &#x27;src/app/core/services/api/api.service&#x27;;
 import { AuthService } from &#x27;src/app/core/services/api/auth.service&#x27;;
+import { FirebaseService } from &#x27;src/app/core/services/api/firebase/FirebaseService&#x27;;
+import { Mapping } from &#x27;src/app/core/services/api/firebase/mapping&#x27;;
 import { LocalDataService } from &#x27;src/app/core/services/api/local-data.service&#x27;;
+import { LOG_CONTENT } from &#x27;src/app/core/services/const.service&#x27;;
 import { CustomTranslateService } from &#x27;src/app/core/services/custom-translate.service&#x27;;
 
 /**
@@ -1029,7 +1043,8 @@ export class ToolbarComponent implements OnInit {
         public authSvc: AuthService,
         public apiSvc: ApiService,
         public translateScv: CustomTranslateService,
-        public localDataSvc: LocalDataService
+        public localDataSvc: LocalDataService,
+        private firebaseSvc: FirebaseService
     ) { }
 
     /**
@@ -1085,8 +1100,24 @@ export class ToolbarComponent implements OnInit {
     /**
      * Handles the logout action.
      */
-    logoutClicked() {
-        this.authSvc.logout();
+    async logoutClicked() {
+        try {
+            var itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                LOG_CONTENT.LOGOUT_SUCCESFULLY,
+                OperationLog.LOGOUT,
+                LogType.INFO
+            );
+            await this.firebaseSvc.fbSaveLog(itemLog);
+            this.authSvc.logout();
+        } catch (e: any) {
+            console.log(&quot;Error: &quot;, e.message)
+            const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                LOG_CONTENT.LOGOUT_ERROR,
+                OperationLog.LOGOUT,
+                LogType.ERROR
+            );
+            this.firebaseSvc.fbSaveLog(itemLog);
+        }
     }
 
     /**
@@ -1105,8 +1136,7 @@ export class ToolbarComponent implements OnInit {
         &lt;ion-header&gt;
             &lt;ion-toolbar&gt;
                 &lt;div class&#x3D;&quot;in-line&quot;&gt;
-                    &lt;img class&#x3D;&quot;logo&quot; src&#x3D;&quot;/assets/images/logo_carcare_transparent.png&quot;&gt;
-                    &lt;h4&gt;Car Care app&lt;/h4&gt;
+                    &lt;img class&#x3D;&quot;logo&quot; src&#x3D;&quot;/assets/images/logo_carcare_horizontal.png&quot;&gt;
                 &lt;/div&gt;
             &lt;/ion-toolbar&gt;
         &lt;/ion-header&gt;
@@ -1154,7 +1184,8 @@ export class ToolbarComponent implements OnInit {
                         {{&quot;toolbar.admin&quot; | translate}}
                     &lt;/ion-item&gt;
                 &lt;/ion-menu-toggle&gt;
-                &lt;ion-col class&#x3D;&quot;ion-text-end&quot; *ngIf&#x3D;&quot;(authSvc.isLogged$ | async) &amp;&amp; (localDataSvc.user$ | async)&quot;&gt;
+                &lt;ion-col class&#x3D;&quot;ion-text-end avatar&quot;
+                    *ngIf&#x3D;&quot;(authSvc.isLogged$ | async) &amp;&amp; (localDataSvc.user$ | async)&quot;&gt;
                     &lt;app-user-item (onLanguageChanged)&#x3D;&quot;onLanguageChanged($event)&quot; (logoutClicked)&#x3D;&quot;logoutClicked()&quot;
                         [user]&#x3D;&quot;user&quot;&gt;&lt;/app-user-item&gt;
                 &lt;/ion-col&gt;
@@ -1190,15 +1221,15 @@ export class ToolbarComponent implements OnInit {
     justify-content: end;
 }
 
-img {
-    width: 50px;
-    margin-inline: 20px;
-}
-
 .in-line {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.logo {
+    width: 150px;
+    margin-inline: 45px;
 }
 
 .flags {
@@ -1207,6 +1238,10 @@ img {
 
 .button {
     cursor: pointer;
+}
+
+.avatar {
+    margin-left: 55px;
 }</code></pre>
     </div>
 
@@ -1235,7 +1270,7 @@ img {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="mobile-mode">    <ion-menu contentId="main-content">        <ion-header>            <ion-toolbar>                <div class="in-line">                    <img class="logo" src="/assets/images/logo_carcare_transparent.png">                    <h4>Car Care app</h4>                </div>            </ion-toolbar>        </ion-header>        <ion-content class="ion-padding">            <ion-content class="ion-padding">                <ion-row>                    <ion-segment value="es" (ionChange)="onLanguageChanged($event)">                        <ion-segment-button value="es">                            <ion-img class="flags" src="/assets/images/es_flag.png" />                        </ion-segment-button>                        <ion-segment-button value="en">                            <ion-img class="flags" src="/assets/images/en_flag.png" />                        </ion-segment-button>                    </ion-segment>                </ion-row>                <div *ngIf="(authSvc.isLogged$ | async)">                    <ion-menu-toggle class="button">                        <ion-item (click)="navToHome()" [ngClass]="{\'active\': selectedPage===\'home\'}">                            <ion-icon slot="start" name="home-outline"></ion-icon>                            {{"toolbar.home" | translate}}                        </ion-item>                    </ion-menu-toggle>                    <ion-menu-toggle class="button">                        <ion-item (click)="navToVehicles()" [ngClass]="{\'active\': selectedPage===\'vehicles\'}">                            <ion-icon slot="start" name="car-outline"></ion-icon>                            {{"toolbar.vehicles" | translate}}                        </ion-item>                    </ion-menu-toggle>                    <ion-menu-toggle class="button">                        <ion-item (click)="navToProviders()" [ngClass]="{\'active\': selectedPage===\'providers\'}">                            <ion-icon slot="start" name="build-outline"></ion-icon>                            {{"toolbar.providers" | translate}}                        </ion-item>                    </ion-menu-toggle>                </div>                <ion-menu-toggle class="button">                    <ion-item (click)="navToAbout()" [ngClass]="{\'active\': selectedPage===\'aboutMe\'}">                        <ion-icon slot="start" name="information-circle-outline"></ion-icon>                        {{"toolbar.aboutMe" | translate}}                    </ion-item>                </ion-menu-toggle>                <ion-menu-toggle class="button" *ngIf="user?.role === \'admin\'">                    <ion-item (click)="navToAdmin()" [ngClass]="{\'active\': selectedPage===\'admin\'}">                        <ion-icon slot="start" name="bar-chart-outline"></ion-icon>                        {{"toolbar.admin" | translate}}                    </ion-item>                </ion-menu-toggle>                <ion-col class="ion-text-end" *ngIf="(authSvc.isLogged$ | async) && (localDataSvc.user$ | async)">                    <app-user-item (onLanguageChanged)="onLanguageChanged($event)" (logoutClicked)="logoutClicked()"                        [user]="user"></app-user-item>                </ion-col>            </ion-content>        </ion-content>    </ion-menu>    <div class="ion-page" id="main-content">        <ion-header>            <ion-toolbar>                <ion-buttons slot="start">                    <ion-menu-button></ion-menu-button>                </ion-buttons>            </ion-toolbar>        </ion-header>    </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="mobile-mode">    <ion-menu contentId="main-content">        <ion-header>            <ion-toolbar>                <div class="in-line">                    <img class="logo" src="/assets/images/logo_carcare_horizontal.png">                </div>            </ion-toolbar>        </ion-header>        <ion-content class="ion-padding">            <ion-content class="ion-padding">                <ion-row>                    <ion-segment value="es" (ionChange)="onLanguageChanged($event)">                        <ion-segment-button value="es">                            <ion-img class="flags" src="/assets/images/es_flag.png" />                        </ion-segment-button>                        <ion-segment-button value="en">                            <ion-img class="flags" src="/assets/images/en_flag.png" />                        </ion-segment-button>                    </ion-segment>                </ion-row>                <div *ngIf="(authSvc.isLogged$ | async)">                    <ion-menu-toggle class="button">                        <ion-item (click)="navToHome()" [ngClass]="{\'active\': selectedPage===\'home\'}">                            <ion-icon slot="start" name="home-outline"></ion-icon>                            {{"toolbar.home" | translate}}                        </ion-item>                    </ion-menu-toggle>                    <ion-menu-toggle class="button">                        <ion-item (click)="navToVehicles()" [ngClass]="{\'active\': selectedPage===\'vehicles\'}">                            <ion-icon slot="start" name="car-outline"></ion-icon>                            {{"toolbar.vehicles" | translate}}                        </ion-item>                    </ion-menu-toggle>                    <ion-menu-toggle class="button">                        <ion-item (click)="navToProviders()" [ngClass]="{\'active\': selectedPage===\'providers\'}">                            <ion-icon slot="start" name="build-outline"></ion-icon>                            {{"toolbar.providers" | translate}}                        </ion-item>                    </ion-menu-toggle>                </div>                <ion-menu-toggle class="button">                    <ion-item (click)="navToAbout()" [ngClass]="{\'active\': selectedPage===\'aboutMe\'}">                        <ion-icon slot="start" name="information-circle-outline"></ion-icon>                        {{"toolbar.aboutMe" | translate}}                    </ion-item>                </ion-menu-toggle>                <ion-menu-toggle class="button" *ngIf="user?.role === \'admin\'">                    <ion-item (click)="navToAdmin()" [ngClass]="{\'active\': selectedPage===\'admin\'}">                        <ion-icon slot="start" name="bar-chart-outline"></ion-icon>                        {{"toolbar.admin" | translate}}                    </ion-item>                </ion-menu-toggle>                <ion-col class="ion-text-end avatar"                    *ngIf="(authSvc.isLogged$ | async) && (localDataSvc.user$ | async)">                    <app-user-item (onLanguageChanged)="onLanguageChanged($event)" (logoutClicked)="logoutClicked()"                        [user]="user"></app-user-item>                </ion-col>            </ion-content>        </ion-content>    </ion-menu>    <div class="ion-page" id="main-content">        <ion-header>            <ion-toolbar>                <ion-buttons slot="start">                    <ion-menu-button></ion-menu-button>                </ion-buttons>            </ion-toolbar>        </ion-header>    </div></div></div>'
     var COMPONENTS = [{'name': 'AboutMePage', 'selector': 'app-about-me'},{'name': 'AdminPage', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CardAboutComponent', 'selector': 'app-card-about'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'ProviderItemComponent', 'selector': 'app-provider-item'},{'name': 'ProviderItemSelectableComponent', 'selector': 'app-provider-item-selectable'},{'name': 'ProviderSelectableComponent', 'selector': 'app-provider-selectable'},{'name': 'ProvidersFormComponent', 'selector': 'app-providers-form'},{'name': 'ProvidersPage', 'selector': 'app-providers'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'SpentFormComponent', 'selector': 'app-spent-form'},{'name': 'SpentItemComponent', 'selector': 'app-spent-item'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'UserItemComponent', 'selector': 'app-user-item'},{'name': 'UserListItemComponent', 'selector': 'app-user-list-item'},{'name': 'VehicleFormComponent', 'selector': 'app-vehicle-form'},{'name': 'VehicleItemComponent', 'selector': 'app-vehicle'},{'name': 'VehicleItemListComponent', 'selector': 'app-vehicle-item-list'},{'name': 'VehiclesPage', 'selector': 'app-vehicles'},{'name': 'WelcomePage', 'selector': 'app-welcome'}];
     var DIRECTIVES = [{'name': 'ButtonDirective', 'selector': '[buttonDirective]'},{'name': 'ItemDirective', 'selector': '[itemDirective]'},{'name': 'SelectedCardDirective', 'selector': '[appSelectableCard]'}];
     var ACTUAL_COMPONENT = {'name': 'ToolbarComponent'};
@@ -1287,6 +1322,19 @@ img {
             var COMPODOC_CURRENT_PAGE_URL = 'ToolbarComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

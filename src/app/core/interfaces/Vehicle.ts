@@ -13,7 +13,6 @@ import { Spent } from "./Spent";
  * @param userId The ID of the user who owns the vehicle.
  * @param vehicleId The ID of the vehicle.
  */
-
 export interface Vehicle {
     available: boolean,
     brand: string,
@@ -36,7 +35,6 @@ export interface Vehicle {
  * - truck
  * - van
  */
-
 export enum VehicleCategory {
     car = 'car',
     motorcycle = 'motorcycle',

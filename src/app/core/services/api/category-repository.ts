@@ -1,3 +1,6 @@
+/**
+ * Enum representing vehicle categories.
+ */
 enum Categories {
     Car = "car",
     Motorcycle = "motorcycle",
@@ -5,4 +8,7 @@ enum Categories {
     Truck = "truck"
 }
 
+/**
+ * Array containing all vehicle categories.
+ */
 export const categoriesArray: string[] = Object.values(Categories);

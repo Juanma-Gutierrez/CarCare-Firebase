@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -314,7 +307,7 @@ export class CardAboutComponent implements OnInit {
 
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;ion-row class&#x3D;&quot;ion-justify-content-center card&quot;&gt;
-    &lt;ion-col &gt;
+    &lt;ion-col&gt;
         &lt;ion-card color&#x3D;&quot;tertiary&quot;&gt;
             &lt;ion-card-header&gt;
                 &lt;ion-card-title&gt;{{&#x27;aboutMe.author&#x27; | translate}}&lt;/ion-card-title&gt;
@@ -322,11 +315,11 @@ export class CardAboutComponent implements OnInit {
             &lt;/ion-card-header&gt;
             &lt;ion-card-content&gt;{{&#x27;aboutMe.info&#x27; | translate}}
             &lt;/ion-card-content&gt;
-            &lt;ion-button  href&#x3D;&quot;https://github.com/Juanma-Gutierrez&quot; target&#x3D;&quot;_blank&quot;&gt;
+            &lt;ion-button href&#x3D;&quot;https://github.com/Juanma-Gutierrez&quot; target&#x3D;&quot;_blank&quot;&gt;
                 &lt;ion-icon name&#x3D;&quot;logo-github&quot; aria-label&#x3D;&quot;GitHub&quot;&gt;&lt;/ion-icon&gt;
                 GitHub
             &lt;/ion-button&gt;
-            &lt;ion-button  href&#x3D;&quot;https://www.linkedin.com/in/juanmanuelgutierrezm/&quot; target&#x3D;&quot;_blank&quot;&gt;
+            &lt;ion-button href&#x3D;&quot;https://www.linkedin.com/in/juanmanuelgutierrezm/&quot; target&#x3D;&quot;_blank&quot;&gt;
                 &lt;ion-icon name&#x3D;&quot;logo-linkedin&quot; aria-label&#x3D;&quot;LinkedIn&quot;&gt;&lt;/ion-icon&gt;
                 LinkedIn&lt;/ion-button&gt;
         &lt;/ion-card&gt;
@@ -384,7 +377,7 @@ ion-icon {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-row class="ion-justify-content-center card">    <ion-col >        <ion-card color="tertiary">            <ion-card-header>                <ion-card-title>{{\'aboutMe.author\' | translate}}</ion-card-title>                <ion-card-subtitle>{{\'aboutMe.position\' | translate}}</ion-card-subtitle>            </ion-card-header>            <ion-card-content>{{\'aboutMe.info\' | translate}}            </ion-card-content>            <ion-button  href="https://github.com/Juanma-Gutierrez" target="_blank">                <ion-icon name="logo-github" aria-label="GitHub"></ion-icon>                GitHub            </ion-button>            <ion-button  href="https://www.linkedin.com/in/juanmanuelgutierrezm/" target="_blank">                <ion-icon name="logo-linkedin" aria-label="LinkedIn"></ion-icon>                LinkedIn</ion-button>        </ion-card>    </ion-col></ion-row></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-row class="ion-justify-content-center card">    <ion-col>        <ion-card color="tertiary">            <ion-card-header>                <ion-card-title>{{\'aboutMe.author\' | translate}}</ion-card-title>                <ion-card-subtitle>{{\'aboutMe.position\' | translate}}</ion-card-subtitle>            </ion-card-header>            <ion-card-content>{{\'aboutMe.info\' | translate}}            </ion-card-content>            <ion-button href="https://github.com/Juanma-Gutierrez" target="_blank">                <ion-icon name="logo-github" aria-label="GitHub"></ion-icon>                GitHub            </ion-button>            <ion-button href="https://www.linkedin.com/in/juanmanuelgutierrezm/" target="_blank">                <ion-icon name="logo-linkedin" aria-label="LinkedIn"></ion-icon>                LinkedIn</ion-button>        </ion-card>    </ion-col></ion-row></div>'
     var COMPONENTS = [{'name': 'AboutMePage', 'selector': 'app-about-me'},{'name': 'AdminPage', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CardAboutComponent', 'selector': 'app-card-about'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'ProviderItemComponent', 'selector': 'app-provider-item'},{'name': 'ProviderItemSelectableComponent', 'selector': 'app-provider-item-selectable'},{'name': 'ProviderSelectableComponent', 'selector': 'app-provider-selectable'},{'name': 'ProvidersFormComponent', 'selector': 'app-providers-form'},{'name': 'ProvidersPage', 'selector': 'app-providers'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'SpentFormComponent', 'selector': 'app-spent-form'},{'name': 'SpentItemComponent', 'selector': 'app-spent-item'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'UserItemComponent', 'selector': 'app-user-item'},{'name': 'UserListItemComponent', 'selector': 'app-user-list-item'},{'name': 'VehicleFormComponent', 'selector': 'app-vehicle-form'},{'name': 'VehicleItemComponent', 'selector': 'app-vehicle'},{'name': 'VehicleItemListComponent', 'selector': 'app-vehicle-item-list'},{'name': 'VehiclesPage', 'selector': 'app-vehicles'},{'name': 'WelcomePage', 'selector': 'app-welcome'}];
     var DIRECTIVES = [{'name': 'ButtonDirective', 'selector': '[buttonDirective]'},{'name': 'ItemDirective', 'selector': '[itemDirective]'},{'name': 'SelectedCardDirective', 'selector': '[appSelectableCard]'}];
     var ACTUAL_COMPONENT = {'name': 'CardAboutComponent'};
@@ -436,6 +429,19 @@ ion-icon {
             var COMPODOC_CURRENT_PAGE_URL = 'CardAboutComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

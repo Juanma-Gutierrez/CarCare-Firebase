@@ -1,22 +1,58 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { FirebaseApp, initializeApp, getApp } from 'firebase/app'
 import { Inject, Injectable } from '@angular/core';
-import { LocalDataService } from '../local-data.service';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth } from "firebase/auth";
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from "firebase/firestore";
-import { UtilsService } from '../../utils.service';
-import { MyToast, USER } from '../../const.service';
+import { FirebaseApp, getApp, initializeApp } from 'firebase/app';
+import {
+    Auth,
+    createUserWithEmailAndPassword,
+    indexedDBLocalPersistence,
+    initializeAuth,
+    signInWithEmailAndPassword,
+    UserCredential,
+} from 'firebase/auth';
+import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    DocumentData,
+    DocumentReference,
+    Firestore,
+    getDoc,
+    getFirestore,
+    onSnapshot,
+    setDoc,
+    Unsubscribe,
+    updateDoc,
+} from 'firebase/firestore';
+import { BehaviorSubject, Observable } from 'rxjs';
 
+import { MyToast, USER } from '../../const.service';
+import { UtilsService } from '../../utils.service';
+import { LocalDataService } from '../local-data.service';
+
+/**
+ * Represents a file in Firebase Storage.
+ * @param path The path of the file in Firebase Storage.
+ * @param file The name of the file.
+ */
 export interface FirebaseStorageFile {
     path: string,
     file: string
 };
 
+/**
+ * Represents a document in Firebase Firestore.
+ * @param id The unique identifier of the document.
+ * @param data The data contained in the document.
+ */
 export interface FirebaseDocument {
     id: string;
     data: DocumentData;
 }
 
+/**
+ * Represents a user credential in Firebase Authentication.
+ * @param user The user credential object.
+ */
 export interface FirebaseUserCredential {
     user: UserCredential
 }
@@ -24,6 +60,9 @@ export interface FirebaseUserCredential {
 @Injectable({
     providedIn: 'root'
 })
+/**
+ * Service for interacting with Firebase functionalities such as authentication and Firestore database operations.
+ */
 export class FirebaseService {
     private _app!: FirebaseApp;
     private _db!: Firestore;
@@ -31,6 +70,12 @@ export class FirebaseService {
     private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isLogged$: Observable<boolean> = this._isLogged.asObservable();
 
+    /**
+     * Initializes the Firebase service with the given configuration.
+     * @param config The Firebase configuration object.
+     * @param utilSvc Utility service for showing toast messages.
+     * @param localDataSvc Local data service for managing user data.
+     */
     constructor(
         @Inject('firebase-config') config: any,
         private utilSvc: UtilsService,
@@ -38,6 +83,11 @@ export class FirebaseService {
     ) {
         this.init(config);
     }
+
+    /**
+     * Initializes the Firebase app, Firestore, and authentication with the given configuration.
+     * @param firebaseConfig The Firebase configuration object.
+     */
     public async init(firebaseConfig: any) {
         this._app = initializeApp(firebaseConfig);
         this._db = getFirestore(this._app);
@@ -53,6 +103,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Authenticates a user with email and password.
+     * @param email The user's email address.
+     * @param password The user's password.
+     * @returns A promise that resolves to a FirebaseUserCredential object or null.
+     */
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise<FirebaseUserCredential | null>(async (resolve, reject) => {
             if (!this._auth)
@@ -71,6 +127,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Creates a new user with email and password.
+     * @param email The user's email address.
+     * @param password The user's password.
+     * @returns A promise that resolves to a FirebaseUserCredential object or null.
+     */
     public async createUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
         return new Promise(async (resolve, reject) => {
             if (!this._auth)
@@ -100,7 +162,12 @@ export class FirebaseService {
             }
         });
     }
-
+    /**
+     * Creates a document in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param data The data to be added to the document.
+     * @returns A promise that resolves to a DocumentReference object.
+     */
     public createDocument(collectionName: string, data: any): Promise<DocumentReference> {
         return new Promise((resolve, reject) => {
             if (!this._db)
@@ -113,6 +180,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Creates a document with a specified ID in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param data The data to be added to the document.
+     * @param docId The ID of the document.
+     * @returns A promise that resolves to a DocumentReference object.
+     */
     public createDocumentWithId(
         collectionName: string,
         data: any,
@@ -131,6 +205,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Retrieves a document from the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param document The ID of the document to be retrieved.
+     * @returns A promise that resolves to a FirebaseDocument object.
+     */
     public getDocument(collectionName: string, document: string): Promise<FirebaseDocument> {
         return new Promise(async (resolve, reject) => {
             if (!this._db)
@@ -147,6 +227,11 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Retrieves a document by its reference.
+     * @param docRef The reference of the document to be retrieved.
+     * @returns A promise that resolves to a FirebaseDocument object.
+     */
     public getDocumentByRef(docRef: DocumentReference): Promise<FirebaseDocument> {
         return new Promise(async (resolve, reject) => {
             const docSnap = await getDoc(docRef);
@@ -158,6 +243,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Updates a document in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param document The ID of the document to be updated.
+     * @param data The data to be updated in the document.
+     * @returns A promise that resolves when the document is updated.
+     */
     public updateDocument(collectionName: string, document: string, data: any): Promise<void> {
         return new Promise(async (resolve, reject) => {
             if (!this._db)
@@ -170,6 +262,11 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Signs out the current user.
+     * @param signInAnon Whether to sign in anonymously after signing out (default is false).
+     * @returns A promise that resolves when the user is signed out.
+     */
     public async signOut(signInAnon: boolean = false): Promise<void> {
         new Promise<void>(async (resolve, reject) => {
             if (this._auth)
@@ -182,6 +279,14 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Subscribes to changes in a specific document in Firestore.
+     * @param collectionName The name of the Firestore collection.
+     * @param documentId The ID of the document to subscribe to.
+     * @param subject The subject to emit the document data.
+     * @param mapFunction Optional function to map the document data before emitting.
+     * @returns A function to unsubscribe from the subscription or null if database is not connected.
+     */
     public subscribeToDocument(collectionName: string, documentId: string, subject: BehaviorSubject<any>, mapFunction: (el: DocumentData) => any = res => res): Unsubscribe | null {
         if (!this._db)
             return null;
@@ -194,6 +299,12 @@ export class FirebaseService {
         }, error => { throw new Error(error.message) });
     }
 
+    /**
+     * Deletes a document from a Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param docId The ID of the document to delete.
+     * @returns A promise that resolves when the document is deleted.
+     */
     public deleteDocument(collectionName: string, docId: string): Promise<void> {
         return new Promise(async (resolve, reject) => {
             if (!this._db)
@@ -204,6 +315,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Subscribes to changes in a specific Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param subject The subject to emit the collection data.
+     * @param mapFunction Function to map each document data before emitting.
+     * @returns A function to unsubscribe from the subscription or null if database is not connected.
+     */
     public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction: (el: DocumentData) => any): Unsubscribe | null {
         if (!this._db)
             return null;

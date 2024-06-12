@@ -5,15 +5,16 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiService } from './core/services/api/api.service';
 import { AuthService } from './core/services/api/auth.service';
 import { DataService } from './core/services/api/data.service';
-import { FirebaseService } from './core/services/api/firebase/FirebaseService';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 import { FirebaseDataService } from './core/services/api/firebase/firebase-data.service';
 import { FirebaseMappingService } from './core/services/api/firebase/firebase-mapping.service';
+import { FirebaseService } from './core/services/api/firebase/FirebaseService';
 import { MappingService } from './core/services/api/mapping.service';
 import { createTranslateLoader } from './core/services/custom-translate.service';
 import { HttpClientWebProvider } from './core/services/http/http-client-web.provider';

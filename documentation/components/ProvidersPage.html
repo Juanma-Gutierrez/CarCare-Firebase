@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -267,7 +260,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/providers/providers.page.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/providers/providers.page.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -397,8 +390,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="106"
-                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:106</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:143</a></div>
                         </td>
                     </tr>
 
@@ -442,8 +435,8 @@ Unsubscribes from Firebase document subscription.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="46"
-                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:46</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -485,8 +478,8 @@ Subscribes to the provider document in Firebase database.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="71"
-                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:71</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -528,8 +521,8 @@ Opens a modal form for creating a new provider.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="59"
-                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:59</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:90</a></div>
                         </td>
                     </tr>
 
@@ -607,8 +600,8 @@ Opens a modal form for editing the provider.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="85"
-                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:85</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/pages/providers/providers.page.ts:122</a></div>
                         </td>
                     </tr>
 
@@ -707,7 +700,7 @@ Opens a modal form for editing the provider.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/providers/providers.page.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/providers/providers.page.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -747,7 +740,7 @@ Opens a modal form for editing the provider.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/providers/providers.page.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/providers/providers.page.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -763,11 +756,14 @@ Opens a modal form for editing the provider.</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Injectable, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
 import { ModalController } from &#x27;@ionic/angular&#x27;;
 import { Unsubscribe } from &#x27;firebase/firestore&#x27;;
+import { LogType, OperationLog } from &#x27;src/app/core/interfaces/ItemLog&#x27;;
 import { Provider } from &#x27;src/app/core/interfaces/Provider&#x27;;
 import { FirebaseService } from &#x27;src/app/core/services/api/firebase/FirebaseService&#x27;;
+import { Mapping } from &#x27;src/app/core/services/api/firebase/mapping&#x27;;
 import { LocalDataService } from &#x27;src/app/core/services/api/local-data.service&#x27;;
-import { PROVIDER } from &#x27;src/app/core/services/const.service&#x27;;
+import { LOG_CONTENT, PROVIDER } from &#x27;src/app/core/services/const.service&#x27;;
 import { ProviderService } from &#x27;src/app/core/services/provider.service&#x27;;
+
 import { ProvidersFormComponent } from &#x27;./providers-form/providers-form.component&#x27;;
 
 /**
@@ -813,6 +809,34 @@ export class ProvidersPage implements OnInit, OnDestroy {
     }
 
     /**
+     * Handles the event when the create provider button is clicked.
+     * Opens a modal form for creating a new provider.
+     * @returns {void}
+     */
+    onCreateProviderClicked() {
+        var onDismiss &#x3D; async (info: any) &#x3D;&gt; {
+            try {
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.PROVIDER_CREATION_SUCCESSFULLY,
+                    OperationLog.PROVIDER,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.providerSvc.createProvider(info);
+            } catch (e: any) {
+                console.log(&quot;Error: &quot;, e.message)
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    LOG_CONTENT.PROVIDER_CREATION_ERROR,
+                    OperationLog.PROVIDER,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
+        }
+        this.presentForm(null, onDismiss);
+    }
+
+    /**
      * Handles the event when the edit provider button is clicked.
      * Opens a modal form for editing the provider.
      * @param {Provider} provider - The provider to be edited.
@@ -820,21 +844,27 @@ export class ProvidersPage implements OnInit, OnDestroy {
      */
     onEditProviderClicked(provider: Provider) {
         var onDismiss &#x3D; (info: any) &#x3D;&gt; {
-            this.providerSvc.editOrDeleteProvider(info, provider);
+            const content_successful &#x3D; info.role &#x3D;&#x3D; &quot;delete&quot; ? LOG_CONTENT.PROVIDER_DELETION_SUCCESSFULLY : LOG_CONTENT.PROVIDER_EDITION_SUCCESSFULLY
+            const content_error &#x3D; info.role &#x3D;&#x3D; &quot;delete&quot; ? LOG_CONTENT.PROVIDER_DELETION_ERROR : LOG_CONTENT.PROVIDER_EDITION_ERROR
+            try {
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    content_successful,
+                    OperationLog.PROVIDER,
+                    LogType.INFO
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+                this.providerSvc.editOrDeleteProvider(info, provider);
+            } catch (e: any) {
+                console.log(&quot;Error: &quot;, e.message)
+                const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                    content_error,
+                    OperationLog.PROVIDER,
+                    LogType.ERROR
+                )
+                this.firebaseSvc.fbSaveLog(itemLog);
+            }
         }
         this.presentForm(provider, onDismiss);
-    }
-
-    /**
-     * Handles the event when the create provider button is clicked.
-     * Opens a modal form for creating a new provider.
-     * @returns {void}
-     */
-    onCreateProviderClicked() {
-        var onDismiss &#x3D; async (info: any) &#x3D;&gt; {
-            this.providerSvc.createProvider(info);
-        }
-        this.presentForm(null, onDismiss);
     }
 
     /**
@@ -1008,6 +1038,19 @@ export class ProvidersPage implements OnInit, OnDestroy {
             var COMPODOC_CURRENT_PAGE_URL = 'ProvidersPage.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

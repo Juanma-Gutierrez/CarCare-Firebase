@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -262,6 +255,8 @@ This component provides a user interface for logging in.</p>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructs a new LoginPage component.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -270,6 +265,7 @@ This component provides a user interface for logging in.</p>
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -284,6 +280,10 @@ This component provides a user interface for logging in.</p>
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>The authentication service used for logging in users.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>router</td>
@@ -296,6 +296,10 @@ This component provides a user interface for logging in.</p>
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>The router service for navigating to different pages.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -335,8 +339,8 @@ This component provides a user interface for logging in.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/app/pages/login/login.page.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/pages/login/login.page.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -377,8 +381,8 @@ This component provides a user interface for logging in.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/app/pages/login/login.page.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/pages/login/login.page.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -416,8 +420,8 @@ This component provides a user interface for logging in.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/pages/login/login.page.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/app/pages/login/login.page.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -532,6 +536,11 @@ import { AuthService } from &#x27;src/app/core/services/api/auth.service&#x27;;
 export class LoginPage implements OnInit, OnDestroy {
     private subscriptions: Subscription[] &#x3D; []
 
+    /**
+     * Constructs a new LoginPage component.
+     * @param {AuthService} auth The authentication service used for logging in users.
+     * @param {Router} router The router service for navigating to different pages.
+     */
     constructor(
         private auth: AuthService,
         private router: Router,
@@ -707,6 +716,19 @@ ion-card {
             var COMPODOC_CURRENT_PAGE_URL = 'LoginPage.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DocumentReference } from 'firebase/firestore';
+
 import { User, VehiclePreview } from '../interfaces/User';
-import { FirebaseService } from './api/firebase/FirebaseService';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
+import { FirebaseService } from './api/firebase/FirebaseService';
 import { LocalDataService } from './api/local-data.service';
 import { MyToast, USER, VEHICLE } from './const.service';
-import { UtilsService, convertDateToLongIsoFormatDate, generateId } from './utils.service';
-import { Vehicle } from '../interfaces/Vehicle';
+import { convertDateToLongIsoFormatDate, generateId, UtilsService } from './utils.service';
 
 @Injectable({
     providedIn: 'root'

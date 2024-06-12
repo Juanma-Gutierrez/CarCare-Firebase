@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -130,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Class containing static properties related to toast messages.</p>
+
+            </p>
 
 
 
@@ -204,10 +204,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/core/services/const.service.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/core/services/const.service.ts:52</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Static property defining toast colors.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -240,10 +246,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/services/const.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/core/services/const.service.ts:44</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Static property defining toast positions.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -260,31 +272,62 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export const USER: string &#x3D; &quot;user&quot;;
+
+/**
+ * Constants for provider-related entities.
+ */
 export const PROVIDER: string &#x3D; &quot;provider&quot;;
+
+/**
+ * Constants for vehicle-related entities.
+ */
 export const VEHICLE: string &#x3D; &quot;vehicle&quot;;
+
+/**
+ * Constant for user role.
+ */
 export const USER_ROLE: string &#x3D; &quot;user&quot;;
 
+/**
+ * Type definition for colors used in the application.
+ */
 export type Color &#x3D; {
     SUCCESS: &quot;success&quot;;
     DANGER: &quot;danger&quot;;
 }
 
+/**
+ * Type definition for toast positions.
+ */
 export type Position &#x3D; {
     TOP: &quot;top&quot;;
     BOTTOM: &quot;bottom&quot;;
 }
 
+/**
+ * Class containing static properties related to toast messages.
+ */
 export class MyToast {
+    /**
+     * Static property defining toast positions.
+     */
     static readonly Position: Position &#x3D; {
         TOP: &quot;top&quot;,
         BOTTOM: &quot;bottom&quot;
     };
+
+    /**
+     * Static property defining toast colors.
+     */
     static readonly Color: Color &#x3D; {
         DANGER: &quot;danger&quot;,
         SUCCESS: &quot;success&quot;
     };
 }
 
+/**
+ * Array containing categories for providers.
+ */
 export const CATEGORIES &#x3D; [
     { &quot;value&quot;: &quot;workshop&quot;, &quot;title&quot;: &quot;providers.providerForm.category.workshop&quot; },
     { &quot;value&quot;: &quot;gasStation&quot;, &quot;title&quot;: &quot;providers.providerForm.category.gasStation&quot; },
@@ -292,7 +335,69 @@ export const CATEGORIES &#x3D; [
     { &quot;value&quot;: &quot;ITV&quot;, &quot;title&quot;: &quot;providers.providerForm.category.ITV&quot; },
     { &quot;value&quot;: &quot;towTruck&quot;, &quot;title&quot;: &quot;providers.providerForm.category.towTruck&quot; },
     { &quot;value&quot;: &quot;other&quot;, &quot;title&quot;: &quot;providers.providerForm.category.other&quot; },
-]</code></pre>
+]
+
+/**
+ * Constants related to logging.
+ */
+export const LOG &#x3D; {
+    COLLECTION: &quot;log&quot;,
+    DOCUMENT: &quot;generalLog&quot;,
+    FIELD: &quot;logs&quot;
+}
+
+/**
+ * Constants for Firebase collections.
+ */
+export const FB_COLLECTIONS &#x3D; {
+    LOG: &quot;log&quot;,
+    PROVIDER: &quot;provider&quot;,
+    USER: &quot;user&quot;,
+    VEHICLE: &quot;vehicle&quot;,
+}
+
+/**
+ * Constants for Firebase errors.
+ */
+export const FB_ERRORS &#x3D; {
+    NO_DOCUMENT: &quot;No such document&quot;,
+    ERROR_DB_OPERATION: &quot;Error in database operation&quot;
+}
+
+/**
+ * Constants for log content.
+ */
+export const LOG_CONTENT &#x3D; {
+    // REGISTER
+    REGISTER_USER_SUCCESSFULLY: &quot;Register user successfully&quot;,
+    REGISTER_USER_ERROR: &quot;Error in register user&quot;,
+    // LOGIN-LOGOUT
+    LOGIN_SUCCESFULLY: &quot;Login successfully&quot;,
+    LOGIN_ERROR: &quot;Login error&quot;,
+    LOGOUT_SUCCESFULLY: &quot;Logout successfully&quot;,
+    LOGOUT_ERROR: &quot;Logout error&quot;,
+    // VEHICLE
+    VEHICLE_CREATION_SUCCESSFULLY: &quot;Creation of vehicle successfully&quot;,
+    VEHICLE_CREATION_ERROR: &quot;Error in vehicle creation&quot;,
+    VEHICLE_EDITION_SUCCESSFULLY: &quot;Edition of vehicle successfully&quot;,
+    VEHICLE_EDITION_ERROR: &quot;Error in vehicle edition&quot;,
+    VEHICLE_DELETION_SUCCESSFULLY: &quot;Deletion of vehicle successfully&quot;,
+    VEHICLE_DELETION_ERROR: &quot;Error in vehicle deletion&quot;,
+    // PROVIDER
+    PROVIDER_CREATION_SUCCESSFULLY: &quot;Creation of provider successfully&quot;,
+    PROVIDER_CREATION_ERROR: &quot;Error in provider creation&quot;,
+    PROVIDER_EDITION_SUCCESSFULLY: &quot;Edition of provider successfully&quot;,
+    PROVIDER_EDITION_ERROR: &quot;Error in provider edition&quot;,
+    PROVIDER_DELETION_SUCCESSFULLY: &quot;Deletion of provider successfully&quot;,
+    PROVIDER_DELETION_ERROR: &quot;Error in vehicle provider&quot;,
+    // SPENT
+    SPENT_CREATION_SUCCESSFULLY: &quot;Creation of spent successfully&quot;,
+    SPENT_CREATION_ERROR: &quot;Error in spent creation&quot;,
+    SPENT_EDITION_SUCCESSFULLY: &quot;Edition of spent successfully&quot;,
+    SPENT_EDITION_ERROR: &quot;Error in spent edition&quot;,
+    SPENT_DELETION_SUCCESSFULLY: &quot;Deletion of spent successfully&quot;,
+    SPENT_DELETION_ERROR: &quot;Error in spent deletion&quot;,
+}</code></pre>
     </div>
 </div>
 
@@ -333,6 +438,19 @@ export const CATEGORIES &#x3D; [
             var COMPODOC_CURRENT_PAGE_URL = 'MyToast.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

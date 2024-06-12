@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -122,10 +115,25 @@
                             <a href="#CATEGORIES" title="src/app/core/services/const.service.ts" ><b>CATEGORIES</b>&nbsp;&nbsp;&nbsp;(src/.../const.service.ts)</a>
                         </li>
                         <li>
+                            <a href="#categoriesArray" title="src/app/core/services/api/category-repository.ts" ><b>categoriesArray</b>&nbsp;&nbsp;&nbsp;(src/.../category-repository.ts)</a>
+                        </li>
+                        <li>
                             <a href="#environment" title="src/environments/environment.prod.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.prod.ts)</a>
                         </li>
                         <li>
                             <a href="#environment" title="src/environments/environment.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#FB_COLLECTIONS" title="src/app/core/services/const.service.ts" ><b>FB_COLLECTIONS</b>&nbsp;&nbsp;&nbsp;(src/.../const.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#FB_ERRORS" title="src/app/core/services/const.service.ts" ><b>FB_ERRORS</b>&nbsp;&nbsp;&nbsp;(src/.../const.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LOG" title="src/app/core/services/const.service.ts" ><b>LOG</b>&nbsp;&nbsp;&nbsp;(src/.../const.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LOG_CONTENT" title="src/app/core/services/const.service.ts" ><b>LOG_CONTENT</b>&nbsp;&nbsp;&nbsp;(src/.../const.service.ts)</a>
                         </li>
                         <li>
                             <a href="#PROVIDER" title="src/app/core/services/const.service.ts" ><b>PROVIDER</b>&nbsp;&nbsp;&nbsp;(src/.../const.service.ts)</a>
@@ -178,6 +186,182 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Array containing categories for providers.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FB_COLLECTIONS"></a>
+                    <span class="name">
+                        <span ><b>FB_COLLECTIONS</b></span>
+                        <a href="#FB_COLLECTIONS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    LOG: &quot;log&quot;,
+    PROVIDER: &quot;provider&quot;,
+    USER: &quot;user&quot;,
+    VEHICLE: &quot;vehicle&quot;,
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constants for Firebase collections.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FB_ERRORS"></a>
+                    <span class="name">
+                        <span ><b>FB_ERRORS</b></span>
+                        <a href="#FB_ERRORS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    NO_DOCUMENT: &quot;No such document&quot;,
+    ERROR_DB_OPERATION: &quot;Error in database operation&quot;
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constants for Firebase errors.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LOG"></a>
+                    <span class="name">
+                        <span ><b>LOG</b></span>
+                        <a href="#LOG"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    COLLECTION: &quot;log&quot;,
+    DOCUMENT: &quot;generalLog&quot;,
+    FIELD: &quot;logs&quot;
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constants related to logging.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LOG_CONTENT"></a>
+                    <span class="name">
+                        <span ><b>LOG_CONTENT</b></span>
+                        <a href="#LOG_CONTENT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    // REGISTER
+    REGISTER_USER_SUCCESSFULLY: &quot;Register user successfully&quot;,
+    REGISTER_USER_ERROR: &quot;Error in register user&quot;,
+    // LOGIN-LOGOUT
+    LOGIN_SUCCESFULLY: &quot;Login successfully&quot;,
+    LOGIN_ERROR: &quot;Login error&quot;,
+    LOGOUT_SUCCESFULLY: &quot;Logout successfully&quot;,
+    LOGOUT_ERROR: &quot;Logout error&quot;,
+    // VEHICLE
+    VEHICLE_CREATION_SUCCESSFULLY: &quot;Creation of vehicle successfully&quot;,
+    VEHICLE_CREATION_ERROR: &quot;Error in vehicle creation&quot;,
+    VEHICLE_EDITION_SUCCESSFULLY: &quot;Edition of vehicle successfully&quot;,
+    VEHICLE_EDITION_ERROR: &quot;Error in vehicle edition&quot;,
+    VEHICLE_DELETION_SUCCESSFULLY: &quot;Deletion of vehicle successfully&quot;,
+    VEHICLE_DELETION_ERROR: &quot;Error in vehicle deletion&quot;,
+    // PROVIDER
+    PROVIDER_CREATION_SUCCESSFULLY: &quot;Creation of provider successfully&quot;,
+    PROVIDER_CREATION_ERROR: &quot;Error in provider creation&quot;,
+    PROVIDER_EDITION_SUCCESSFULLY: &quot;Edition of provider successfully&quot;,
+    PROVIDER_EDITION_ERROR: &quot;Error in provider edition&quot;,
+    PROVIDER_DELETION_SUCCESSFULLY: &quot;Deletion of provider successfully&quot;,
+    PROVIDER_DELETION_ERROR: &quot;Error in vehicle provider&quot;,
+    // SPENT
+    SPENT_CREATION_SUCCESSFULLY: &quot;Creation of spent successfully&quot;,
+    SPENT_CREATION_ERROR: &quot;Error in spent creation&quot;,
+    SPENT_EDITION_SUCCESSFULLY: &quot;Edition of spent successfully&quot;,
+    SPENT_EDITION_ERROR: &quot;Error in spent edition&quot;,
+    SPENT_DELETION_SUCCESSFULLY: &quot;Deletion of spent successfully&quot;,
+    SPENT_DELETION_ERROR: &quot;Error in spent deletion&quot;,
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constants for log content.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -204,6 +388,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constants for provider-related entities.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -230,6 +420,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constants for user-related entities.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -256,6 +452,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constant for user role.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -282,6 +484,47 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constants for vehicle-related entities.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/core/services/api/category-repository.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoriesArray"></a>
+                    <span class="name">
+                        <span ><b>categoriesArray</b></span>
+                        <a href="#categoriesArray"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Object.values(Categories)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Array containing all vehicle categories.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -323,6 +566,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Environment configuration object.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -364,6 +613,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Environment configuration object.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -400,6 +655,19 @@
             var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -226,7 +219,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/spent.service.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/core/services/spent.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -339,8 +332,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="142"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:142</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:145</a></div>
                         </td>
                     </tr>
 
@@ -436,8 +429,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="167"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:167</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="170"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:170</a></div>
                         </td>
                     </tr>
 
@@ -512,8 +505,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="153"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:153</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:156</a></div>
                         </td>
                     </tr>
 
@@ -590,8 +583,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="46"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:46</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -686,8 +679,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="77"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:77</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:78</a></div>
                         </td>
                     </tr>
 
@@ -780,8 +773,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="131"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:131</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:134</a></div>
                         </td>
                     </tr>
 
@@ -859,8 +852,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="176"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:176</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:179</a></div>
                         </td>
                     </tr>
 
@@ -935,8 +928,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="184"
-                                    class="link-to-prism">src/app/core/services/spent.service.ts:184</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/app/core/services/spent.service.ts:187</a></div>
                         </td>
                     </tr>
 
@@ -1016,7 +1009,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/core/services/spent.service.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/spent.service.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -1042,7 +1035,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/core/services/spent.service.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/spent.service.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -1074,7 +1067,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/spent.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/core/services/spent.service.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -1106,7 +1099,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/spent.service.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/core/services/spent.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -1122,14 +1115,15 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { DocumentData } from &#x27;firebase/firestore&#x27;;
 import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
+
 import { Spent } from &#x27;../interfaces/Spent&#x27;;
 import { Vehicle } from &#x27;../interfaces/Vehicle&#x27;;
-import { FirebaseService } from &#x27;./api/firebase/FirebaseService&#x27;;
 import { FirebaseMappingService } from &#x27;./api/firebase/firebase-mapping.service&#x27;;
+import { FirebaseService } from &#x27;./api/firebase/FirebaseService&#x27;;
 import { LocalDataService } from &#x27;./api/local-data.service&#x27;;
 import { MyToast, VEHICLE } from &#x27;./const.service&#x27;;
 import { CustomTranslateService } from &#x27;./custom-translate.service&#x27;;
-import { UtilsService } from &#x27;./utils.service&#x27;;
+import { convertDateToLongIsoFormatDate, UtilsService } from &#x27;./utils.service&#x27;;
 
 /**
  * Service for managing spent-related data.
@@ -1197,6 +1191,8 @@ export class SpentService {
      */
     async editSpent(info: any, vehicle: Vehicle) {
         var spent &#x3D; info.data;
+        spent.created &#x3D; convertDateToLongIsoFormatDate(spent.created)
+        spent.date &#x3D; convertDateToLongIsoFormatDate(spent.date)
         var spentsList &#x3D; this.localDataSvc.getVehicle().value?.spents;
         switch (info.role) {
             case &#x27;ok&#x27;: {
@@ -1353,6 +1349,19 @@ export class SpentService {
             var COMPODOC_CURRENT_PAGE_URL = 'SpentService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

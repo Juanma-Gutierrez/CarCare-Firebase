@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -133,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Represents a document in Firebase Firestore.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -241,25 +241,61 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
-import { FirebaseApp, initializeApp, getApp } from &#x27;firebase/app&#x27;
-import { Inject, Injectable } from &#x27;@angular/core&#x27;;
-import { LocalDataService } from &#x27;../local-data.service&#x27;;
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth } from &quot;firebase/auth&quot;;
-import { getDoc, doc, getFirestore, DocumentData, Firestore, setDoc, collection, addDoc, updateDoc, DocumentReference, Unsubscribe, onSnapshot, deleteDoc } from &quot;firebase/firestore&quot;;
-import { UtilsService } from &#x27;../../utils.service&#x27;;
-import { MyToast, USER } from &#x27;../../const.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable } from &#x27;@angular/core&#x27;;
+import { FirebaseApp, getApp, initializeApp } from &#x27;firebase/app&#x27;;
+import {
+    Auth,
+    createUserWithEmailAndPassword,
+    indexedDBLocalPersistence,
+    initializeAuth,
+    signInWithEmailAndPassword,
+    UserCredential,
+} from &#x27;firebase/auth&#x27;;
+import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    DocumentData,
+    DocumentReference,
+    Firestore,
+    getDoc,
+    getFirestore,
+    onSnapshot,
+    setDoc,
+    Unsubscribe,
+    updateDoc,
+} from &#x27;firebase/firestore&#x27;;
+import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
 
+import { MyToast, USER } from &#x27;../../const.service&#x27;;
+import { UtilsService } from &#x27;../../utils.service&#x27;;
+import { LocalDataService } from &#x27;../local-data.service&#x27;;
+
+/**
+ * Represents a file in Firebase Storage.
+ * @param path The path of the file in Firebase Storage.
+ * @param file The name of the file.
+ */
 export interface FirebaseStorageFile {
     path: string,
     file: string
 };
 
+/**
+ * Represents a document in Firebase Firestore.
+ * @param id The unique identifier of the document.
+ * @param data The data contained in the document.
+ */
 export interface FirebaseDocument {
     id: string;
     data: DocumentData;
 }
 
+/**
+ * Represents a user credential in Firebase Authentication.
+ * @param user The user credential object.
+ */
 export interface FirebaseUserCredential {
     user: UserCredential
 }
@@ -267,6 +303,9 @@ export interface FirebaseUserCredential {
 @Injectable({
     providedIn: &#x27;root&#x27;
 })
+/**
+ * Service for interacting with Firebase functionalities such as authentication and Firestore database operations.
+ */
 export class FirebaseService {
     private _app!: FirebaseApp;
     private _db!: Firestore;
@@ -274,6 +313,12 @@ export class FirebaseService {
     private _isLogged: BehaviorSubject&lt;boolean&gt; &#x3D; new BehaviorSubject&lt;boolean&gt;(false);
     public isLogged$: Observable&lt;boolean&gt; &#x3D; this._isLogged.asObservable();
 
+    /**
+     * Initializes the Firebase service with the given configuration.
+     * @param config The Firebase configuration object.
+     * @param utilSvc Utility service for showing toast messages.
+     * @param localDataSvc Local data service for managing user data.
+     */
     constructor(
         @Inject(&#x27;firebase-config&#x27;) config: any,
         private utilSvc: UtilsService,
@@ -281,6 +326,11 @@ export class FirebaseService {
     ) {
         this.init(config);
     }
+
+    /**
+     * Initializes the Firebase app, Firestore, and authentication with the given configuration.
+     * @param firebaseConfig The Firebase configuration object.
+     */
     public async init(firebaseConfig: any) {
         this._app &#x3D; initializeApp(firebaseConfig);
         this._db &#x3D; getFirestore(this._app);
@@ -296,6 +346,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Authenticates a user with email and password.
+     * @param email The user&#x27;s email address.
+     * @param password The user&#x27;s password.
+     * @returns A promise that resolves to a FirebaseUserCredential object or null.
+     */
     public async connectUserWithEmailAndPassword(email: string, password: string): Promise&lt;FirebaseUserCredential | null&gt; {
         return new Promise&lt;FirebaseUserCredential | null&gt;(async (resolve, reject) &#x3D;&gt; {
             if (!this._auth)
@@ -314,6 +370,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Creates a new user with email and password.
+     * @param email The user&#x27;s email address.
+     * @param password The user&#x27;s password.
+     * @returns A promise that resolves to a FirebaseUserCredential object or null.
+     */
     public async createUserWithEmailAndPassword(email: string, password: string): Promise&lt;FirebaseUserCredential | null&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._auth)
@@ -343,7 +405,12 @@ export class FirebaseService {
             }
         });
     }
-
+    /**
+     * Creates a document in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param data The data to be added to the document.
+     * @returns A promise that resolves to a DocumentReference object.
+     */
     public createDocument(collectionName: string, data: any): Promise&lt;DocumentReference&gt; {
         return new Promise((resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -356,6 +423,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Creates a document with a specified ID in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param data The data to be added to the document.
+     * @param docId The ID of the document.
+     * @returns A promise that resolves to a DocumentReference object.
+     */
     public createDocumentWithId(
         collectionName: string,
         data: any,
@@ -374,6 +448,12 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Retrieves a document from the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param document The ID of the document to be retrieved.
+     * @returns A promise that resolves to a FirebaseDocument object.
+     */
     public getDocument(collectionName: string, document: string): Promise&lt;FirebaseDocument&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -390,6 +470,11 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Retrieves a document by its reference.
+     * @param docRef The reference of the document to be retrieved.
+     * @returns A promise that resolves to a FirebaseDocument object.
+     */
     public getDocumentByRef(docRef: DocumentReference): Promise&lt;FirebaseDocument&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             const docSnap &#x3D; await getDoc(docRef);
@@ -401,6 +486,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Updates a document in the specified Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param document The ID of the document to be updated.
+     * @param data The data to be updated in the document.
+     * @returns A promise that resolves when the document is updated.
+     */
     public updateDocument(collectionName: string, document: string, data: any): Promise&lt;void&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -413,6 +505,11 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Signs out the current user.
+     * @param signInAnon Whether to sign in anonymously after signing out (default is false).
+     * @returns A promise that resolves when the user is signed out.
+     */
     public async signOut(signInAnon: boolean &#x3D; false): Promise&lt;void&gt; {
         new Promise&lt;void&gt;(async (resolve, reject) &#x3D;&gt; {
             if (this._auth)
@@ -425,6 +522,14 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Subscribes to changes in a specific document in Firestore.
+     * @param collectionName The name of the Firestore collection.
+     * @param documentId The ID of the document to subscribe to.
+     * @param subject The subject to emit the document data.
+     * @param mapFunction Optional function to map the document data before emitting.
+     * @returns A function to unsubscribe from the subscription or null if database is not connected.
+     */
     public subscribeToDocument(collectionName: string, documentId: string, subject: BehaviorSubject&lt;any&gt;, mapFunction: (el: DocumentData) &#x3D;&gt; any &#x3D; res &#x3D;&gt; res): Unsubscribe | null {
         if (!this._db)
             return null;
@@ -437,6 +542,12 @@ export class FirebaseService {
         }, error &#x3D;&gt; { throw new Error(error.message) });
     }
 
+    /**
+     * Deletes a document from a Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param docId The ID of the document to delete.
+     * @returns A promise that resolves when the document is deleted.
+     */
     public deleteDocument(collectionName: string, docId: string): Promise&lt;void&gt; {
         return new Promise(async (resolve, reject) &#x3D;&gt; {
             if (!this._db)
@@ -447,6 +558,13 @@ export class FirebaseService {
         });
     }
 
+    /**
+     * Subscribes to changes in a specific Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param subject The subject to emit the collection data.
+     * @param mapFunction Function to map each document data before emitting.
+     * @returns A function to unsubscribe from the subscription or null if database is not connected.
+     */
     public subscribeToCollection(collectionName: string, subject: BehaviorSubject&lt;any[]&gt;, mapFunction: (el: DocumentData) &#x3D;&gt; any): Unsubscribe | null {
         if (!this._db)
             return null;
@@ -495,6 +613,19 @@ export class FirebaseService {
             var COMPODOC_CURRENT_PAGE_URL = 'FirebaseDocument.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

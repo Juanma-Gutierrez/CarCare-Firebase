@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -249,12 +242,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(authSvc: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+<code>constructor(authSvc: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, localDataSvc: <a href="../injectables/LocalDataService.html" target="_self">LocalDataService</a>, firebaseSvc: <a href="../injectables/FirebaseService.html" target="_self">FirebaseService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/pages/register/register.page.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/register/register.page.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -290,6 +283,34 @@
 <li>The authentication service.</li>
 </ul>
 
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>localDataSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LocalDataService.html" target="_self" >LocalDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>firebaseSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirebaseService.html" target="_self" >FirebaseService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
                                                         </td>
                                                 </tr>
                                         </tbody>
@@ -330,8 +351,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/app/pages/register/register.page.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/pages/register/register.page.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -369,8 +390,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/pages/register/register.page.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">src/app/pages/register/register.page.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -408,8 +429,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/pages/register/register.page.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">src/app/pages/register/register.page.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -495,7 +516,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/pages/register/register.page.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/register/register.page.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -510,7 +531,12 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { Subscription } from &#x27;rxjs&#x27;;
+import { LogType, OperationLog } from &#x27;src/app/core/interfaces/ItemLog&#x27;;
 import { AuthService } from &#x27;src/app/core/services/api/auth.service&#x27;;
+import { FirebaseService } from &#x27;src/app/core/services/api/firebase/FirebaseService&#x27;;
+import { Mapping } from &#x27;src/app/core/services/api/firebase/mapping&#x27;;
+import { LocalDataService } from &#x27;src/app/core/services/api/local-data.service&#x27;;
+import { LOG_CONTENT } from &#x27;src/app/core/services/const.service&#x27;;
 import { saveLocalStorageUser } from &#x27;src/app/core/services/utils.service&#x27;;
 
 /**
@@ -530,6 +556,8 @@ export class RegisterPage implements OnInit {
      */
     constructor(
         private authSvc: AuthService,
+        private localDataSvc: LocalDataService,
+        private firebaseSvc: FirebaseService,
     ) { }
 
     /**
@@ -548,7 +576,25 @@ export class RegisterPage implements OnInit {
         saveLocalStorageUser(data.email);
         this.subscriptions.push(this.authSvc.register(_data).subscribe({
             next: (data) &#x3D;&gt; {
-                console.info(&quot;Data en registro: &quot;, data);
+                console.info(&quot;Data on register: &quot;, data);
+                try {
+                    var itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                        LOG_CONTENT.REGISTER_USER_SUCCESSFULLY,
+                        OperationLog.CREATE_USER,
+                        LogType.INFO
+                    );
+                    itemLog.currentUser &#x3D; data.email;
+                    itemLog.uid &#x3D; data.userId;
+                    this.firebaseSvc.fbSaveLog(itemLog);
+                } catch (e: any) {
+                    console.log(&quot;Error: &quot;, e.message)
+                    const itemLog &#x3D; new Mapping(this.localDataSvc).generateItemLog(
+                        LOG_CONTENT.REGISTER_USER_ERROR,
+                        OperationLog.CREATE_USER,
+                        LogType.ERROR
+                    )
+                    this.firebaseSvc.fbSaveLog(itemLog);
+                }
             },
             error: (err) &#x3D;&gt; {
                 console.error(&quot;Error on register&quot;, err);
@@ -697,6 +743,19 @@ ion-card {
             var COMPODOC_CURRENT_PAGE_URL = 'RegisterPage.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

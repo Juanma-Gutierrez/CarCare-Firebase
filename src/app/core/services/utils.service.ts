@@ -3,7 +3,8 @@ import { Dialog } from '@capacitor/dialog';
 import { Preferences } from '@capacitor/preferences';
 import { Share } from '@capacitor/share';
 import { ToastController, ToastOptions } from '@ionic/angular';
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
+
 import { VehiclePreview } from '../interfaces/User';
 import { Position } from './const.service';
 import { CustomTranslateService } from './custom-translate.service';
@@ -29,6 +30,11 @@ export function saveLocalStorageUser(user: string) {
     });
 }
 
+/**
+ * Converts a date to long ISO format.
+ * @param {any} date - The date to be converted.
+ * @returns {string} - The date in long ISO format.
+ */
 export function convertDateToLongIsoFormatDate(date: any): string {
     let stringDate = date.toString()
     let formattedDate = stringDate.substring(0, 19) + ".000Z"
@@ -66,7 +72,6 @@ export function capitalizeFirstLetter(word: string): string {
     providedIn: 'root'
 })
 export class UtilsService {
-
 
     /**
      * Constructs a new UtilsService.
@@ -131,6 +136,13 @@ export class UtilsService {
         });
     }
 
+    /**
+     * Retrieves the URL of the image associated with a vehicle.
+     * If the image URL exists, it fetches the URL from the storage.
+     * If the image URL doesn't exist or there is an error fetching the URL, it returns a placeholder URL.
+     * @param vehicle The vehicle for which the image URL is to be retrieved.
+     * @returns A promise that resolves to the URL of the vehicle image or a placeholder URL.
+     */
     async getURLFromVehicle(vehicle: VehiclePreview): Promise<string> {
         const storage = getStorage();
         if (vehicle.imageURL) {
@@ -145,6 +157,11 @@ export class UtilsService {
         }
     }
 
+    /**
+     * Retrieves a placeholder image URL based on the category of the vehicle.
+     * @param vehicle The vehicle for which the placeholder image URL is to be retrieved.
+     * @returns A string representing the URL of the placeholder image corresponding to the vehicle category.
+     */
     getPlaceholderCategory(vehicle: VehiclePreview): string {
         switch (vehicle.category) {
             case "car": return "assets/placeholder/placeholder_car.png";

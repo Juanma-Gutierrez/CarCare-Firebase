@@ -16,6 +16,11 @@ import { AuthService } from 'src/app/core/services/api/auth.service';
 export class LoginPage implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = []
 
+    /**
+     * Constructs a new LoginPage component.
+     * @param {AuthService} auth The authentication service used for logging in users.
+     * @param {Router} router The router service for navigating to different pages.
+     */
     constructor(
         private auth: AuthService,
         private router: Router,

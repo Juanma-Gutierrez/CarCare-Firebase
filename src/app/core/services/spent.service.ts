@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { DocumentData } from 'firebase/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { Spent } from '../interfaces/Spent';
 import { Vehicle } from '../interfaces/Vehicle';
-import { FirebaseService } from './api/firebase/FirebaseService';
 import { FirebaseMappingService } from './api/firebase/firebase-mapping.service';
+import { FirebaseService } from './api/firebase/FirebaseService';
 import { LocalDataService } from './api/local-data.service';
 import { MyToast, VEHICLE } from './const.service';
 import { CustomTranslateService } from './custom-translate.service';
-import { UtilsService, convertDateToLongIsoFormatDate } from './utils.service';
+import { convertDateToLongIsoFormatDate, UtilsService } from './utils.service';
 
 /**
  * Service for managing spent-related data.

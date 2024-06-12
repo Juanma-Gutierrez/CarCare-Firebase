@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -259,7 +252,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -300,8 +293,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="141"
-                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:141</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:146</a></div>
                         </td>
                     </tr>
 
@@ -384,7 +377,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:91</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:96</a></code>
 </div>
                         </td>
                     </tr>
@@ -468,7 +461,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:111</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:116</a></code>
 </div>
                         </td>
                     </tr>
@@ -552,7 +545,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:61</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:66</a></code>
 </div>
                         </td>
                     </tr>
@@ -636,7 +629,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:41</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:46</a></code>
 </div>
                         </td>
                     </tr>
@@ -719,7 +712,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:183</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:189</a></code>
 </div>
                         </td>
                     </tr>
@@ -802,7 +795,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:198</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:204</a></code>
 </div>
                         </td>
                     </tr>
@@ -872,15 +865,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>mapSpentWithProvider(s: <a href="../interfaces/Spent.html" target="_self">Spent</a>, provider: <a href="../interfaces/Provider.html" target="_self">Provider</a>, info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    <code>mapSpentWithProvider(spent: <a href="../interfaces/Spent.html" target="_self">Spent</a>, provider: <a href="../interfaces/Provider.html" target="_self">Provider</a>, info: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="258"
-                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:258</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="265"
+                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:265</a></div>
                         </td>
                     </tr>
 
@@ -904,7 +897,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>s</td>
+                                                <td>spent</td>
                                             <td>
                                                             <code><a href="../interfaces/Spent.html" target="_self" >Spent</a></code>
                                             </td>
@@ -915,8 +908,6 @@
 
 
                                             <td>
-                                                    <p>The spent transaction data.</p>
-
                                             </td>
                                         </tr>
                                         <tr>
@@ -988,8 +979,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="122"
-                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:122</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:127</a></div>
                         </td>
                     </tr>
 
@@ -1106,8 +1097,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="216"
-                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:216</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:222</a></div>
                         </td>
                     </tr>
 
@@ -1205,7 +1196,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:162</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:167</a></code>
 </div>
                         </td>
                     </tr>
@@ -1349,7 +1340,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:71</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:76</a></code>
 </div>
                         </td>
                     </tr>
@@ -1426,8 +1417,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="236"
-                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:236</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="242"
+                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:242</a></div>
                         </td>
                     </tr>
 
@@ -1519,8 +1510,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="275"
-                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:275</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="282"
+                                    class="link-to-prism">src/app/core/services/api/firebase/firebase-mapping.service.ts:282</a></div>
                         </td>
                     </tr>
 
@@ -1603,7 +1594,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:31</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:36</a></code>
 </div>
                         </td>
                     </tr>
@@ -1655,7 +1646,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:81</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:86</a></code>
 </div>
                         </td>
                     </tr>
@@ -1739,7 +1730,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:101</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:106</a></code>
 </div>
                         </td>
                     </tr>
@@ -1823,7 +1814,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:51</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/MappingService.html#source" target="_self" >MappingService:56</a></code>
 </div>
                         </td>
                     </tr>
@@ -1892,6 +1883,11 @@ import { Vehicle } from &quot;../../../interfaces/Vehicle&quot;;
 import { USER } from &quot;../../const.service&quot;;
 import { MappingService } from &quot;../mapping.service&quot;;
 import { FirebaseDocument } from &quot;./firebase.service&quot;;
+import { convertDateToLongIsoFormatDate } from &quot;../../utils.service&quot;;
+
+/**
+ * Injectable service for mapping data with Firebase.
+ */
 
 /**
  * Injectable service for mapping data with Firebase.
@@ -2007,7 +2003,7 @@ export class FirebaseMappingService extends MappingService {
      */
     public mapUser(_user: any, role: string &#x3D; USER, userId: string &#x3D; _user.credentials): User {
         var user: User &#x3D; {
-            created: _user.created,
+            created: convertDateToLongIsoFormatDate(_user.created),
             email: _user.email,
             name: _user.name,
             nickname: _user.username,
@@ -2026,7 +2022,7 @@ export class FirebaseMappingService extends MappingService {
      */
     public convertToUser(data: FirebaseDocument): User {
         return {
-            created: data.data[&#x27;created&#x27;],
+            created: convertDateToLongIsoFormatDate(data.data[&#x27;created&#x27;]),
             email: data.data[&#x27;email&#x27;],
             userId: data.id,
             name: data.data[&#x27;name&#x27;],
@@ -2049,14 +2045,15 @@ export class FirebaseMappingService extends MappingService {
         let vehicle &#x3D; {
             available: data.available,
             brand: data.brand,
-            created: data.created,
             category: data.category,
+            created: convertDateToLongIsoFormatDate(data.created),
+            imageURL: data.imageURL,
             model: data.model,
             plate: data.plate,
-            registrationDate: data.registrationDate,
+            registrationDate: convertDateToLongIsoFormatDate(data.registrationDate),
             spents: spents,
-            vehicleId: vehicleId,
             userId: userId,
+            vehicleId: vehicleId,
         }
         return vehicle;
     }
@@ -2069,7 +2066,7 @@ export class FirebaseMappingService extends MappingService {
     public mapProvider(data: any): Provider {
         return {
             providerId: data.providerId,
-            created: data.created,
+            created: convertDateToLongIsoFormatDate(data.created),
             category: data.category,
             name: data.name,
             phone: data.phone,
@@ -2084,8 +2081,8 @@ export class FirebaseMappingService extends MappingService {
     public mapSpent(data: any): Spent {
         return {
             amount: data.amount,
-            created: data.created,
-            date: data.date,
+            created: convertDateToLongIsoFormatDate(data.created),
+            date: convertDateToLongIsoFormatDate(data.date),
             observations: data.observations,
             providerId: data.providerId,
             providerName: data.providerName,
@@ -2101,7 +2098,7 @@ export class FirebaseMappingService extends MappingService {
      */
     public mapUserWithVehicles(user: User, vehicles: VehiclePreview[]): User {
         var data &#x3D; {
-            created: user.created,
+            created: convertDateToLongIsoFormatDate(user.created),
             email: user.email,
             userId: user.userId,
             name: user.name,
@@ -2123,11 +2120,12 @@ export class FirebaseMappingService extends MappingService {
         return {
             available: vehicle.available,
             brand: vehicle.brand,
-            created: vehicle.created,
             category: vehicle.category,
+            created: convertDateToLongIsoFormatDate(vehicle.created),
+            imageURL: vehicle.imageURL,
             model: vehicle.model,
             plate: vehicle.plate,
-            registrationDate: vehicle.registrationDate,
+            registrationDate: convertDateToLongIsoFormatDate(vehicle.registrationDate),
             spents: spentsUpdated,
             userId: vehicle.userId,
             vehicleId: vehicle.vehicleId,
@@ -2141,15 +2139,15 @@ export class FirebaseMappingService extends MappingService {
      * @param info Additional information.
      * @return A Spent object with the mapped data.
      */
-    public mapSpentWithProvider(s: Spent, provider: Provider, info: any): Spent {
+    public mapSpentWithProvider(spent: Spent, provider: Provider, info: any): Spent {
         return {
-            amount: s.amount,
-            created: s.created,
-            date: s.date,
-            observations: s.observations,
-            providerId: s.providerId,
+            amount: spent.amount,
+            created: convertDateToLongIsoFormatDate(spent.created),
+            date: convertDateToLongIsoFormatDate(spent.date),
+            observations: spent.observations,
+            providerId: spent.providerId,
             providerName: info.data.name,
-            spentId: s.spentId,
+            spentId: spent.spentId,
         }
     }
 
@@ -2209,6 +2207,19 @@ export class FirebaseMappingService extends MappingService {
             var COMPODOC_CURRENT_PAGE_URL = 'FirebaseMappingService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

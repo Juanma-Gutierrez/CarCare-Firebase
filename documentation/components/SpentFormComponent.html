@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -60,20 +60,13 @@
                     darkModeState = darkModeStateLocal === 'true';
                }
                toggleDarkMode(darkModeState);
-
-               if ($darkModeToggles.length > 0) {
-                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
-                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
-                              darkModeState = !darkModeState;
-                              toggleDarkMode(darkModeState);
-                         });
-                    }
-               }
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">CarCare documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">CarCare documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -82,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -1218,7 +1211,7 @@ export class SpentFormComponent implements OnInit {
             &lt;ion-row&gt;
                 &lt;ion-col&gt;
                     &lt;app-provider-selectable [providers]&#x3D;&quot;providers&quot; [selectedProvider]&#x3D;&quot;selectedProvider&quot;
-                        (ionChange)&#x3D;&quot;onSelection($event)&quot;/&gt;
+                        (ionChange)&#x3D;&quot;onSelection($event)&quot; /&gt;
                     &lt;ion-input formControlName&#x3D;&quot;providerId&quot; class&#x3D;&quot;hidden&quot;&gt;&lt;/ion-input&gt;
                 &lt;/ion-col&gt;
                 &lt;ion-col size&#x3D;&quot;3&quot;&gt;
@@ -1227,13 +1220,13 @@ export class SpentFormComponent implements OnInit {
                     &lt;/ion-input&gt;
                 &lt;/ion-col&gt;
             &lt;/ion-row&gt;
-            &lt;ion-input label&#x3D;&quot;{{&#x27;home.spentForm.observations&#x27; | translate}}&quot; labelPlacement&#x3D;&quot;floating&quot; fill&#x3D;&quot;outline&quot;
-                formControlName&#x3D;&quot;observations&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;input&quot;&gt;
-            &lt;/ion-input&gt;
-            &lt;div class&#x3D;&quot;centered vertical&quot;&gt;
-                {{&#x27;home.spentForm.spentDate&#x27; | translate}}
-                &lt;ion-datetime presentation&#x3D;&quot;date&quot; [firstDayOfWeek]&#x3D;&quot;1&quot; [value]&#x3D;&quot;(mode &#x3D;&#x3D;&#x3D; &#x27;New&#x27;) ? today : spent?.date&quot;
-                    formControlName&#x3D;&quot;date&quot;&gt;&lt;/ion-datetime&gt;
+            &lt;div class&#x3D;&quot;date-block&quot;&gt;
+                &lt;div&gt;
+                    {{&#x27;home.spentForm.spentDate&#x27; | translate}}
+                    &lt;ion-datetime presentation&#x3D;&quot;date&quot; [preferWheel]&#x3D;&quot;true&quot; [firstDayOfWeek]&#x3D;&quot;1&quot;
+                        [value]&#x3D;&quot;(mode &#x3D;&#x3D;&#x3D; &#x27;New&#x27;) ? today : spent?.date&quot; formControlName&#x3D;&quot;date&quot;&gt;
+                    &lt;/ion-datetime&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
         &lt;/ion-list&gt;
     &lt;/form&gt;
@@ -1266,6 +1259,13 @@ export class SpentFormComponent implements OnInit {
 
 .hidden {
     display: none;
+}
+
+.date-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }</code></pre>
     </div>
 
@@ -1294,7 +1294,7 @@ export class SpentFormComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>    <ion-toolbar>        <ion-buttons slot="start">            <ion-button color="primary" fill="clear" (click)="onCancel()">                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>            </ion-button>        </ion-buttons>        <ion-title *ngIf="mode===\'New\'">            {{\'home.spentForm.newSpent\' | translate}}        </ion-title>        <ion-title *ngIf="mode===\'Edit\'">            {{\'home.spentForm.editSpent\' | translate}}        </ion-title>        <ion-buttons slot="end">            <ion-button *ngIf="mode===\'Edit\'" color="primary" fill="clear" (click)="onDelete()">                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>            </ion-button>        </ion-buttons>    </ion-toolbar></ion-header><ion-content class="ion-padding" size="small">    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">        <ion-list>            <ion-row>                <ion-col>                    <app-provider-selectable [providers]="providers" [selectedProvider]="selectedProvider"                        (ionChange)="onSelection($event)"/>                    <ion-input formControlName="providerId" class="hidden"></ion-input>                </ion-col>                <ion-col size="3">                    <ion-input label="{{\'home.spentForm.amount\' | translate}}" labelPlacement="floating" fill="outline"                        formControlName="amount" type="number" class="input">                    </ion-input>                </ion-col>            </ion-row>            <ion-input label="{{\'home.spentForm.observations\' | translate}}" labelPlacement="floating" fill="outline"                formControlName="observations" type="text" class="input">            </ion-input>            <div class="centered vertical">                {{\'home.spentForm.spentDate\' | translate}}                <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="(mode === \'New\') ? today : spent?.date"                    formControlName="date"></ion-datetime>            </div>        </ion-list>    </form></ion-content><ion-footer>    <ion-button *ngIf="mode===\'New\'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"        class="ion-padding" expand="full" (click)="onSubmit()">{{\'ui.create\' | translate}}</ion-button>    <ion-button *ngIf="mode===\'Edit\'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"        class="ion-padding" expand="full" (click)="onSubmit()">{{\'ui.save\' | translate}}</ion-button></ion-footer></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-header>    <ion-toolbar>        <ion-buttons slot="start">            <ion-button color="primary" fill="clear" (click)="onCancel()">                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>            </ion-button>        </ion-buttons>        <ion-title *ngIf="mode===\'New\'">            {{\'home.spentForm.newSpent\' | translate}}        </ion-title>        <ion-title *ngIf="mode===\'Edit\'">            {{\'home.spentForm.editSpent\' | translate}}        </ion-title>        <ion-buttons slot="end">            <ion-button *ngIf="mode===\'Edit\'" color="primary" fill="clear" (click)="onDelete()">                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>            </ion-button>        </ion-buttons>    </ion-toolbar></ion-header><ion-content class="ion-padding" size="small">    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">        <ion-list>            <ion-row>                <ion-col>                    <app-provider-selectable [providers]="providers" [selectedProvider]="selectedProvider"                        (ionChange)="onSelection($event)" />                    <ion-input formControlName="providerId" class="hidden"></ion-input>                </ion-col>                <ion-col size="3">                    <ion-input label="{{\'home.spentForm.amount\' | translate}}" labelPlacement="floating" fill="outline"                        formControlName="amount" type="number" class="input">                    </ion-input>                </ion-col>            </ion-row>            <div class="date-block">                <div>                    {{\'home.spentForm.spentDate\' | translate}}                    <ion-datetime presentation="date" [preferWheel]="true" [firstDayOfWeek]="1"                        [value]="(mode === \'New\') ? today : spent?.date" formControlName="date">                    </ion-datetime>                </div>            </div>        </ion-list>    </form></ion-content><ion-footer>    <ion-button *ngIf="mode===\'New\'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"        class="ion-padding" expand="full" (click)="onSubmit()">{{\'ui.create\' | translate}}</ion-button>    <ion-button *ngIf="mode===\'Edit\'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"        class="ion-padding" expand="full" (click)="onSubmit()">{{\'ui.save\' | translate}}</ion-button></ion-footer></div>'
     var COMPONENTS = [{'name': 'AboutMePage', 'selector': 'app-about-me'},{'name': 'AdminPage', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CardAboutComponent', 'selector': 'app-card-about'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'ProviderItemComponent', 'selector': 'app-provider-item'},{'name': 'ProviderItemSelectableComponent', 'selector': 'app-provider-item-selectable'},{'name': 'ProviderSelectableComponent', 'selector': 'app-provider-selectable'},{'name': 'ProvidersFormComponent', 'selector': 'app-providers-form'},{'name': 'ProvidersPage', 'selector': 'app-providers'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'SpentFormComponent', 'selector': 'app-spent-form'},{'name': 'SpentItemComponent', 'selector': 'app-spent-item'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'UserItemComponent', 'selector': 'app-user-item'},{'name': 'UserListItemComponent', 'selector': 'app-user-list-item'},{'name': 'VehicleFormComponent', 'selector': 'app-vehicle-form'},{'name': 'VehicleItemComponent', 'selector': 'app-vehicle'},{'name': 'VehicleItemListComponent', 'selector': 'app-vehicle-item-list'},{'name': 'VehiclesPage', 'selector': 'app-vehicles'},{'name': 'WelcomePage', 'selector': 'app-welcome'}];
     var DIRECTIVES = [{'name': 'ButtonDirective', 'selector': '[buttonDirective]'},{'name': 'ItemDirective', 'selector': '[itemDirective]'},{'name': 'SelectedCardDirective', 'selector': '[appSelectableCard]'}];
     var ACTUAL_COMPONENT = {'name': 'SpentFormComponent'};
@@ -1346,6 +1346,19 @@ export class SpentFormComponent implements OnInit {
             var COMPODOC_CURRENT_PAGE_URL = 'SpentFormComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+
 import { User } from './core/interfaces/User';
 import { LocalDataService } from './core/services/api/local-data.service';
 import { CustomTranslateService } from './core/services/custom-translate.service';
@@ -21,7 +22,13 @@ export class AppComponent {
     public user$ = this._user.asObservable();
     lang: string = "es";
 
-
+    /**
+     * Constructs an instance of AppComponent.
+     *
+     * @param {LocalDataService} localDataSvc The service for managing local data.
+     * @param {Router} router The Angular router service.
+     * @param {CustomTranslateService} translate The translation service.
+     */
     constructor(
         private localDataSvc: LocalDataService,
         private router: Router,
