@@ -141,68 +141,83 @@ En la carpeta documentation del repositorio está disponible la documentación d
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0f162392-c52b-426e-a78f-09e80c653d11)
 
 
-# Proyecto en marcha
+## Detalle de la aplicación
 
-Link al video demostrativo del funcionamiento de la aplicación.
+### Login
 
-https://www.youtube.com/watch?v=BkaSsS3durw
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/b4a54d53-8d24-4b26-b520-220cc50703ab)
 
-La aplicación inicia con un control de acceso, ya que comprueba si el usuario está autenticado en Firebase. Si lo está, lo redirige a la página principal de la aplicación. En caso contrario, lo lleva a la página de login y registro.
+-   La aplicación cuenta con una pantalla de login para iniciar la sesión.
+-   El login se realiza con correo electrónico y contraseña.
+-   El correo electrónico queda almacenado en localstorage del navegador.
+-   Si se introducen mal los datos, se muestra un aviso de error.
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/a254ca66-93ac-4b10-81e4-62673d829dc7)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/f976bd47-5821-4c52-b4b5-e5422696b6af)
+### Pantalla de Registro
 
-Una vez dentro de la aplicación, el usuario podrá dar de alta vehículos, proveedores y cuando ya tenga tanto proveedores como vehículos, podrá crear gastos asignados al vehículo que indique.
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/2605ff10-c111-463a-abf0-e2be81995e88)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/1cce58a7-71bc-4362-9863-8a1f4bad6186)
+-   La aplicación cuenta con una pantalla para registrar usuarios.
+-   Se controla que se introduzcan correctamente todos los datos.
+-   Hay control especial sobre la contraseña, solicita que tenga al menos una mayúscula, una minúscula, un número y 8 dígitos.
+-   Durante el proceso de inserción de la contraseña se va indicando si se cumplen los requisitos. Si cumple correctamente se muestra en pantalla.
 
-Pantalla inicial con el menú desplegado.
+    <img src="https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/b1171d61-9009-451f-b00b-1e20607c828f" width="300"/>
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/1bea72e2-c608-481f-b165-c6edfc6a3a23)
+### Barra de `Menú principal`
 
-Ventana modal de creación, edición y eliminación de vehículos.
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/24c4f4ee-fe54-4e65-b92d-d84bef90e9b1)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/26c34911-9032-41de-b9dd-5ba63fc5baea)
+-   Se muestra en toda la aplicación.
+-   Incluye botón para traducir la aplicación entre español e inglés.
+-   Si el usuario está logueado con el rol de Administrador, se mostrará la opción `Administración`.
+-   Permite el cierre de sesión del usuario.
 
-Ventana modal de creación, edición y eliminación de gastos.
+### Pantalla `Inicio`
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/be5691fb-02fb-43b1-818e-c71cf5775920)
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/571dad78-27e6-485e-8dd1-5e4114c7d349)
 
-Pantalla de vehículos.
+-   En la parte izquierda de la pantalla hay un listado con los vehículos registrados a nombre del usuario. Este listado se puede filtrar entre los vehículos disponibles o todos los registrados, incluyendo los no disponibles.
+-   Las imágenes de los vehículos se encuentran cargadas en Firebase Storage. Si no existe imagen asociada al vehículo, se muestra una imagen placeholder de la categoría del vehículo.
+-   Cuando se hace click en un vehículo, en la parte derecha se muestran su marca y modelo, así como el total gastado y el número de gastos. Debajo de la cabecera de los gastos se muestra el listado de gastos asociados.
+-   En esta pantalla hay acceso al formulario de alta, edición y borrado de vehículos y de gastos.
+    ![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/cd223b78-06fc-438f-8aef-7d3292840747)
+    ![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/3e232a1f-e581-4463-8c6b-d1df26bd6114)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ce881b9f-b0bf-4444-b786-66849d915683)
+### Pantalla `Vehículos`
 
-Pantalla de proveedores.
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/3f552e74-a7f2-4e45-aca9-8ad0009c3c7f)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/37d565aa-89fa-463d-a2e8-82f4660834d5)
+-   Se muestra un listado con todos los vehículos disponibles, así como información detallada de los mismos.
+-   Las categorías se muestran tanto con un campo de texto como con un icono representativo.
+-   Los vehículos no disponibles se mostrarán con un texto indicativo y un efecto en la tarjeta para mostrar dicho estado.
+-   Existe un botón de compartir mediante el cual se puede enviar el listado de vehículos a cualquier aplicación admitida en el dispositivo.
 
-Pantalla de creación, edición y eliminación de proveedores.
+### Pantalla `Proveedores`
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/5dfccd53-e6d2-4665-b72b-73f04ecdd5df)
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/4b30f543-9774-4629-9f62-354c19517c37)
 
-Página 'Sobre mí'.
+-   Muestra un listado de los proveedores, así como la categoría a la que pertenece y su teléfono de contacto.
+-   En esta pantalla se puede dar de alta, editar y eliminar cualquier proveedor mediante el formulario dinámico correspondiente.
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ada08c92-4f36-48ac-87db-2865865b40d2)
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/0897b762-f93a-4b48-b0db-30bf7e94c03b)
 
-Página de administración.
+### Pantalla `Sobre mí`
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/e685c3f0-9128-413e-a252-94d6f6254afc)
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/9332c34f-d498-4992-81f8-e311f0e4372b)
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/8c73ada8-2455-4a2d-abf8-1916551b9be1)
+-   Pantalla con información del autor de la aplicación.
+-   Incluye enlace a GitHub y a Linkedin del autor.
 
-Página inicial con el servicio de traducción en inglés.
+### Pantalla `Administración`
 
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/84e52342-6b7a-40d6-87fe-80729a72626c)
+![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/9ad14a85-f07b-42a3-a430-66a447701de3)
 
-Modo responsive en móvil.
-
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/c79fb927-c44b-4c36-bbeb-4d910cc49693)
-
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/5cacf14f-2d98-43e6-8426-11bd470bad54)
-
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ce6a72d1-5829-4930-826a-b3b724afa3fa)
-
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/ad3b3b90-d93b-4e1e-8c58-a907d0256777)
-
-Captura del SplashScreen con el que se inicia la aplicación.
-
-![image](https://github.com/Juanma-Gutierrez/CarCare-Firebase/assets/101201349/a46dfe0f-d6bc-4121-acc1-94eaea2e1cc3)
+-   Pantalla de administración a la que se puede acceder únicamente si el usuario logueado tiene el rol de Administrador.
+-   Hay un botón de exportación de datos, que exporta un archivo en formato `.CSV` con el registro de la aplicación.
+-   El formato de exportación sería el siguiente:
+    ![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/65afcd31-041e-44f0-bdb8-00c65f3bf8f6)
+-   Se incluyen tres gráficas, con las marcars de los vehículos más utilizados, número de vehículos por categoría y porcentaje de vehículos por categoría.
+-   Se muestra una tabla con el listado de usuarios, así como los vehículos que tiene registrados cada uno de ellos.
+-   En el caso del administrador, se muestra con un icono indicativo junto al nombre.
+    ![image](https://github.com/Juanma-Gutierrez/TFC-2DAM-CarCare/assets/101201349/4339aba8-0833-4cfc-bbf4-bc3c2e9af8ec)
