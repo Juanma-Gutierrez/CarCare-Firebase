@@ -6,6 +6,18 @@ La aplicación está realizada en Angular e Ionic, utiliza una base de datos de 
 
 Link en producción: [https://carcare-firebase.netlify.app](https://carcare-firebase.netlify.app/)
 
+# Repositorios
+
+-   Repositorio de la aplicación en versión web:
+    -   https://github.com/Juanma-Gutierrez/CarCare-Firebase
+-   Repositorio de la aplicación en versión móvil:
+    -   https://github.com/Juanma-Gutierrez/CarCare-Kotlin
+
+# Videos del proyecto final en funcionamiento
+
+-   Enlace al video del proyecto final. [Proyecto TFC 2º DAM CarCare](https://youtu.be/PisM8MGJCOs)
+-   Enlace a video para el checkpoint. [Checkpoint Proyecto TFC 2º DAM CarCare](https://youtu.be/zupeu_2-FIM)
+
 ## Tecnologías Utilizadas
 
 Ionic:
@@ -36,6 +48,8 @@ System:
    OS     : Windows 10
 
 # **Requisitos del proyecto**
+
+Toda la información sobre requisitos del proyecto se encuentra en este [repositorio](https://github.com/CPIFPAlanTuring/2dam-tfc-2324).
 
 ## Tecnologías a usar
 
